@@ -11,10 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import queue
 from collections import OrderedDict
 from dataclasses import dataclass
 from math import ceil, log2
-from typing import Any
+from typing import Any, TypeVar
 
 import torch
 import torch.distributed as dist
@@ -208,6 +209,19 @@ def create_warmup_future_states(
     return future_states
 
 
+def drain_queue(request_queue: queue.Queue) -> list[RequestState]:
+    """Drains a queue and returns a list of RequestStates."""
+    new_states: list[RequestState] = []
+    while not request_queue.empty():
+        try:
+            state = request_queue.get_nowait()
+            if state is not None:
+                new_states.append(state)
+        except queue.Empty:
+            break
+    return new_states
+
+
 class DistributedHelper:
     """A helper class to handle distributed-related operations. Notably, it does not crash when distributed is off."""
 
@@ -229,9 +243,18 @@ class DistributedHelper:
         if self.dist_on and device_mesh is not None:
             self.tp_size = device_mesh.size()
             self.tp_group = device_mesh.get_group()
+            # The src for any TP-scoped collective must be the global rank of TP-rank 0 of THIS rank's TP group.
+            # In DP x TP, that is not necessarily global rank 0.
+            self.tp_root_global_rank = dist.get_global_rank(self.tp_group, 0)
+            self.tp_local_rank = device_mesh.get_local_rank()
         else:
             self.tp_size = 1
             self.tp_group = None
+            self.tp_root_global_rank = 0
+            self.tp_local_rank = 0
+
+        # The TP-driver is the rank that owns the request queue and the scheduler decisions inside its TP group.
+        self.is_tp_driver = self.tp_local_rank == 0
 
         # Get DP attributes
         self.dp_rank = self.global_rank // self.tp_size
@@ -240,5 +263,17 @@ class DistributedHelper:
     def tp_broadcast_from_rank_0(self, value: torch.Tensor) -> torch.Tensor:
         """Inside each TP group, broadcasts the given value from rank 0 to all other ranks."""
         if self.tp_size > 1:
-            dist.broadcast(value, src=0, async_op=False, group=self.tp_group)
+            dist.broadcast(value, src=self.tp_root_global_rank, async_op=False, group=self.tp_group)
         return value
+
+    def tp_broadcast_object(self, obj):
+        """Inside each TP group, broadcasts an arbitrary picklable Python object from TP-rank 0 to all other ranks.
+        Used to keep request ingress and cancellations consistent across TP workers without requiring all ranks to
+        receive the same external request stream."""
+        if self.tp_size <= 1:
+            return obj
+        holder = [obj] if self.is_tp_driver else [None]
+        # TODO: this is not optimized for intra-node transfer: we go through the CPU even though we don't need to. In
+        # the future, it might be better to use CPU-only comms.
+        dist.broadcast_object_list(holder, src=self.tp_root_global_rank, group=self.tp_group)
+        return holder[0]
