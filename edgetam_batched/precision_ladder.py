@@ -12,13 +12,7 @@ from .report_utils import markdown_table, write_json, write_markdown
 def precision_mode_status(mode: str) -> dict[str, Any]:
     if mode not in PRECISION_MODES:
         raise ValueError(f"unsupported precision mode: {mode}")
-    if mode in {"all_bf16", "all_fp32"}:
-        return {"mode": mode, "implemented": True, "reason": None}
-    return {
-        "mode": mode,
-        "implemented": False,
-        "reason": "selective component fp32 requires runtime-level dtype hooks; current probe records this as a pending patch",
-    }
+    return {"mode": mode, "implemented": True, "reason": None}
 
 
 def render_precision_ladder(payload: dict[str, Any]) -> str:

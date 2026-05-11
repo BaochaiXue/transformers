@@ -22,6 +22,8 @@ from .config import (
     BACKENDS,
     COMPILE_NONE,
 )
+from .precision_policy import policy_torch_dtype, resolve_precision_policy
+from .precision_wrappers import cast_nested_floating, detach_clone_to_dtype
 from .reference_runtime import RuntimeOutputs, autocast_context, summarize_timing_rows
 
 
@@ -41,6 +43,7 @@ class BatchedEdgeTamMultiSessionRuntime:
         ring_size: int = 8,
         strict_full_batched: bool = False,
         disallow_partial_backend_success: bool = False,
+        precision_mode: str = "all_bf16",
     ):
         if backend not in BACKENDS:
             raise ValueError(f"unsupported backend: {backend}")
@@ -56,6 +59,8 @@ class BatchedEdgeTamMultiSessionRuntime:
         self.ring_size = int(ring_size)
         self.strict_full_batched = bool(strict_full_batched)
         self.disallow_partial_backend_success = bool(disallow_partial_backend_success)
+        self.precision_policy = resolve_precision_policy(precision_mode)
+        self.precision_mode = self.precision_policy.name
         self.sessions: list[Any] = []
         self.adapter = EdgeTamComponentAdapter(hf_model)
         patch_edgetam_spatial_perceiver_batch_view(hf_model)
@@ -65,6 +70,7 @@ class BatchedEdgeTamMultiSessionRuntime:
         self.contract: BackendContractResult | None = None
         self.torch = None
         self._compiled_get_image_features = None
+        self.component_dtype_table: dict[str, str | None] = {}
 
         if backend in {
             BACKEND_BATCHED_MEMORY_ATTENTION_SEQ_DECODER,
@@ -119,6 +125,7 @@ class BatchedEdgeTamMultiSessionRuntime:
 
     def prepare_compile(self, torch_module) -> None:
         self.torch = torch_module
+        self._apply_precision_policy_modules()
         if self.compile_mode == COMPILE_NONE:
             return
         if self.compile_mode == "reduce-overhead" and self.graph_output_policy != "ring_buffer":
@@ -227,7 +234,7 @@ class BatchedEdgeTamMultiSessionRuntime:
     def _step_full_batched_single_object(self, frame_images: list[Any], frame_idx: int) -> dict[str, Any]:
         started = time.perf_counter()
         inputs = self.processor(images=frame_images, device=self.device, return_tensors="pt")
-        pixel_values_batch = inputs.pixel_values.to(device=self.device, dtype=self.dtype)
+        pixel_values_batch = inputs.pixel_values.to(device=self.device, dtype=self._policy_torch_dtype("vision_dtype"))
         preprocess_ms = (time.perf_counter() - started) * 1000.0
 
         frame_indices = []
@@ -238,12 +245,13 @@ class BatchedEdgeTamMultiSessionRuntime:
         frame_idx_current = frame_indices[0]
         state_stack_ms = (time.perf_counter() - state_started) * 1000.0
 
-        with self.torch.inference_mode(), autocast_context(self.torch, self.device, self.dtype):
+        with self.torch.inference_mode():
             vision_started = time.perf_counter()
-            if self._compiled_get_image_features is not None:
-                image_outputs = self._compiled_get_image_features(pixel_values_batch)
-            else:
-                image_outputs = self.model.get_image_features(pixel_values_batch, return_dict=True)
+            with self._policy_autocast("vision_dtype", disable=False):
+                if self._compiled_get_image_features is not None:
+                    image_outputs = self._compiled_get_image_features(pixel_values_batch)
+                else:
+                    image_outputs = self.model.get_image_features(pixel_values_batch, return_dict=True)
             if str(self.device).startswith("cuda"):
                 self.torch.cuda.synchronize()
             vision_ms = (time.perf_counter() - vision_started) * 1000.0
@@ -273,7 +281,18 @@ class BatchedEdgeTamMultiSessionRuntime:
                     self.model.hidden_dim,
                     *self.model.backbone_feature_sizes[-1],
                 )
-                sam_outputs = self.model._use_mask_as_output(pix_feat, high_res_features, mask_inputs_b3)
+                decoder_dtype = self._policy_torch_dtype("mask_decoder_dtype")
+                pix_feat = pix_feat.to(dtype=decoder_dtype)
+                high_res_features_for_decoder = cast_nested_floating(high_res_features, decoder_dtype)
+                with self._policy_autocast(
+                    "mask_decoder_dtype",
+                    disable=self.precision_policy.disable_autocast_for_mask_decoder,
+                ):
+                    sam_outputs = self.model._use_mask_as_output(
+                        pix_feat,
+                        high_res_features_for_decoder,
+                        mask_inputs_b3,
+                    )
                 is_mask_from_pts = True
             else:
                 mem_started = time.perf_counter()
@@ -286,14 +305,20 @@ class BatchedEdgeTamMultiSessionRuntime:
                 if str(self.device).startswith("cuda"):
                     self.torch.cuda.synchronize()
                 memory_attention_ms = (time.perf_counter() - mem_started) * 1000.0
-                sam_outputs = self.model._single_frame_forward(
-                    pixel_values=None,
-                    input_points=None,
-                    input_labels=None,
-                    input_masks=None,
-                    image_embeddings=high_res_features + [conditioned_features],
-                    multimask_output=self.model._use_multimask(False, None),
-                )
+                decoder_dtype = self._policy_torch_dtype("mask_decoder_dtype")
+                decoder_embeddings = cast_nested_floating(high_res_features + [conditioned_features], decoder_dtype)
+                with self._policy_autocast(
+                    "mask_decoder_dtype",
+                    disable=self.precision_policy.disable_autocast_for_mask_decoder,
+                ):
+                    sam_outputs = self.model._single_frame_forward(
+                        pixel_values=None,
+                        input_points=None,
+                        input_labels=None,
+                        input_masks=None,
+                        image_embeddings=decoder_embeddings,
+                        multimask_output=self.model._use_multimask(False, None),
+                    )
                 is_mask_from_pts = False
             _normalize_single_object_batch_outputs(sam_outputs, len(self.sessions), self.torch)
             if str(self.device).startswith("cuda"):
@@ -318,15 +343,32 @@ class BatchedEdgeTamMultiSessionRuntime:
             for cam_idx, session in enumerate(self.sessions):
                 ctx = object_contexts[cam_idx]
                 current_out = {
-                    "pred_masks": _slice_batch(sam_outputs.pred_masks, cam_idx),
+                    "pred_masks": _slice_batch(
+                        sam_outputs.pred_masks,
+                        cam_idx,
+                        dtype=self._policy_torch_dtype("store_mask_logits_dtype"),
+                    ),
                     "object_pointer": _slice_object_pointer_batch(
                         sam_outputs.object_pointer,
                         cam_idx,
                         batch_size=len(self.sessions),
+                        dtype=self._policy_torch_dtype("store_object_pointer_dtype"),
                     ),
-                    "maskmem_features": _slice_batch(maskmem_features, cam_idx),
-                    "maskmem_pos_enc": _slice_batch(maskmem_pos_enc, cam_idx),
-                    "object_score_logits": _slice_batch(sam_outputs.object_score_logits, cam_idx),
+                    "maskmem_features": _slice_batch(
+                        maskmem_features,
+                        cam_idx,
+                        dtype=self._policy_torch_dtype("store_maskmem_features_dtype"),
+                    ),
+                    "maskmem_pos_enc": _slice_batch(
+                        maskmem_pos_enc,
+                        cam_idx,
+                        dtype=self._policy_torch_dtype("store_maskmem_features_dtype"),
+                    ),
+                    "object_score_logits": _slice_batch(
+                        sam_outputs.object_score_logits,
+                        cam_idx,
+                        dtype=self._policy_torch_dtype("store_mask_logits_dtype"),
+                    ),
                 }
                 session.store_output(
                     0,
@@ -364,6 +406,8 @@ class BatchedEdgeTamMultiSessionRuntime:
             "fallback_backend": None,
             "blockers": [],
             "backend_contract": self.contract.to_json() if self.contract is not None else None,
+            "precision_mode": self.precision_mode,
+            "component_dtype_table": dict(self.component_dtype_table),
         }
 
     def _single_object_context(self, session: Any, frame_idx: int) -> dict[str, Any]:
@@ -427,20 +471,26 @@ class BatchedEdgeTamMultiSessionRuntime:
                     pos_list.append(obj_pos)
                     ptr_count = obj_ptrs.shape[0]
             pointer_counts.append(ptr_count)
-            memories.append(self.torch.cat(mem_list, dim=0))
-            memory_pos.append(self.torch.cat(pos_list, dim=0))
+            memory_dtype = self._policy_torch_dtype("memory_attention_dtype")
+            memories.append(self.torch.cat(mem_list, dim=0).to(dtype=memory_dtype))
+            memory_pos.append(self.torch.cat(pos_list, dim=0).to(dtype=memory_dtype))
         _assert_same(spatial_counts, "num_spatial_memory_tokens")
         _assert_same(pointer_counts, "num_object_pointer_tokens")
         combined_memory = self.torch.cat(memories, dim=1)
         combined_memory_pos = self.torch.cat(memory_pos, dim=1)
-        conditioned_flat = self.model.memory_attention(
-            current_vision_features=current_vision_features,
-            current_vision_position_embeddings=current_vision_positional_embeddings,
-            memory=combined_memory,
-            memory_posision_embeddings=combined_memory_pos,
-            num_object_pointer_tokens=pointer_counts[0],
-            num_spatial_memory_tokens=spatial_counts[0],
-        )
+        memory_dtype = self._policy_torch_dtype("memory_attention_dtype")
+        with self._policy_autocast(
+            "memory_attention_dtype",
+            disable=self.precision_policy.disable_autocast_for_memory_attention,
+        ):
+            conditioned_flat = self.model.memory_attention(
+                current_vision_features=current_vision_features.to(dtype=memory_dtype),
+                current_vision_position_embeddings=current_vision_positional_embeddings.to(dtype=memory_dtype),
+                memory=combined_memory.to(dtype=memory_dtype),
+                memory_posision_embeddings=combined_memory_pos.to(dtype=memory_dtype),
+                num_object_pointer_tokens=pointer_counts[0],
+                num_spatial_memory_tokens=spatial_counts[0],
+            )
         batch_size = len(self.sessions)
         height, width = self.model.backbone_feature_sizes[-1]
         if conditioned_flat.shape[0] == 1 and conditioned_flat.shape[1] == batch_size:
@@ -462,7 +512,10 @@ class BatchedEdgeTamMultiSessionRuntime:
         batch_size = current_vision_feats.size(1)
         channels = self.model.hidden_dim
         height, width = self.model.backbone_feature_sizes[-1]
-        pix_feat = current_vision_feats.permute(1, 2, 0).view(batch_size, channels, height, width)
+        memory_dtype = self._policy_torch_dtype("memory_encoder_dtype")
+        pix_feat = current_vision_feats.permute(1, 2, 0).view(batch_size, channels, height, width).to(dtype=memory_dtype)
+        pred_masks_high_res = pred_masks_high_res.to(dtype=memory_dtype)
+        object_score_logits = object_score_logits.to(dtype=memory_dtype)
         if is_mask_from_pts and not self.model.training:
             mask_for_mem = (pred_masks_high_res > 0).to(pred_masks_high_res.dtype)
         else:
@@ -470,15 +523,56 @@ class BatchedEdgeTamMultiSessionRuntime:
         mask_for_mem = mask_for_mem * self.model.config.sigmoid_scale_for_mem_enc
         mask_for_mem = mask_for_mem + self.model.config.sigmoid_bias_for_mem_enc
 
-        maskmem_features, maskmem_pos_enc = self.model.memory_encoder(pix_feat, mask_for_mem)
-        if self.model.occlusion_spatial_embedding_parameter is not None:
-            is_obj_appearing = (object_score_logits > 0).float()
-            maskmem_features += (1 - is_obj_appearing[..., None]) * self.model.occlusion_spatial_embedding_parameter[
-                ..., None, None
-            ].expand(*maskmem_features.shape)
+        with self._policy_autocast(
+            "memory_encoder_dtype",
+            disable=self.precision_policy.disable_autocast_for_memory_encoder,
+        ):
+            maskmem_features, maskmem_pos_enc = self.model.memory_encoder(pix_feat, mask_for_mem)
+            if self.model.occlusion_spatial_embedding_parameter is not None:
+                is_obj_appearing = (object_score_logits > 0).float()
+                occlusion = self.model.occlusion_spatial_embedding_parameter.to(dtype=maskmem_features.dtype)
+                maskmem_features += (1 - is_obj_appearing[..., None]) * occlusion[
+                    ..., None, None
+                ].expand(*maskmem_features.shape)
 
-        maskmem_features, maskmem_pos_enc = self.model.spatial_perceiver(maskmem_features, maskmem_pos_enc)
-        return maskmem_features.to(pred_masks_high_res.dtype), maskmem_pos_enc.to(pred_masks_high_res.dtype)
+            maskmem_features, maskmem_pos_enc = self.model.spatial_perceiver(maskmem_features, maskmem_pos_enc)
+        store_dtype = self._policy_torch_dtype("store_maskmem_features_dtype")
+        return maskmem_features.to(store_dtype), maskmem_pos_enc.to(store_dtype)
+
+    def _policy_torch_dtype(self, field_name: str):
+        return policy_torch_dtype(self.torch, getattr(self.precision_policy, field_name))
+
+    def _policy_autocast(self, field_name: str, *, disable: bool):
+        if not str(self.device).startswith("cuda"):
+            return _nullcontext()
+        if disable:
+            return self.torch.autocast("cuda", enabled=False)
+        return self.torch.autocast("cuda", dtype=self._policy_torch_dtype(field_name))
+
+    def _apply_precision_policy_modules(self) -> None:
+        if self.torch is None:
+            return
+        policy = self.precision_policy
+        if policy.name == "all_fp32":
+            self.model.to(dtype=self.torch.float32)
+        targets = {
+            "memory_attention": policy.memory_attention_dtype,
+            "memory_encoder": policy.memory_encoder_dtype,
+            "spatial_perceiver": policy.memory_encoder_dtype,
+            "mask_decoder": policy.mask_decoder_dtype,
+            "prompt_encoder": policy.mask_decoder_dtype,
+            "mask_downsample": policy.mask_decoder_dtype,
+            "object_pointer_proj": policy.mask_decoder_dtype,
+            "shared_image_embedding": policy.mask_decoder_dtype,
+        }
+        for attr, dtype_name in targets.items():
+            module = getattr(self.model, attr, None)
+            if module is None:
+                self.component_dtype_table[attr] = None
+                continue
+            dtype = policy_torch_dtype(self.torch, dtype_name)
+            module.to(dtype=dtype)
+            self.component_dtype_table[attr] = str(_first_parameter_dtype(module))
 
 
 def run_candidate(
@@ -492,6 +586,7 @@ def run_candidate(
     profile_frames: int | None = None,
     strict_full_batched: bool = False,
     disallow_partial_backend_success: bool = False,
+    precision_mode: str = "all_bf16",
 ) -> RuntimeOutputs:
     import torch
     from transformers import EdgeTamVideoInferenceSession
@@ -571,6 +666,7 @@ def run_candidate(
         graph_output_policy=graph_output_policy,
         strict_full_batched=strict_full_batched,
         disallow_partial_backend_success=disallow_partial_backend_success,
+        precision_mode=precision_mode,
     )
     runtime.init_from_reference_sessions(sessions)
     runtime.prepare_compile(torch)
@@ -613,11 +709,12 @@ def split_hf_vision_features_for_session(image_outputs: Any, batch_idx: int) -> 
     }
 
 
-def _slice_batch(value: Any, batch_idx: int) -> Any:
-    return value[batch_idx : batch_idx + 1].clone().contiguous()
+def _slice_batch(value: Any, batch_idx: int, *, dtype: Any | None = None) -> Any:
+    sliced = value[batch_idx : batch_idx + 1]
+    return detach_clone_to_dtype(sliced, dtype, contiguous=True) if dtype is not None else sliced.clone().contiguous()
 
 
-def _slice_object_pointer_batch(value: Any, batch_idx: int, *, batch_size: int) -> Any:
+def _slice_object_pointer_batch(value: Any, batch_idx: int, *, batch_size: int, dtype: Any | None = None) -> Any:
     """Slice a per-camera object pointer from a batched EdgeTAM output.
 
     HF EdgeTAM's mask-init path can return an object pointer shaped like
@@ -633,8 +730,9 @@ def _slice_object_pointer_batch(value: Any, batch_idx: int, *, batch_size: int) 
         and value.shape[1] == batch_size
         and batch_size > 1
     ):
-        return value[batch_idx : batch_idx + 1, batch_idx : batch_idx + 1, :].clone().contiguous()
-    return _slice_batch(value, batch_idx)
+        sliced = value[batch_idx : batch_idx + 1, batch_idx : batch_idx + 1, :]
+        return detach_clone_to_dtype(sliced, dtype, contiguous=True) if dtype is not None else sliced.clone().contiguous()
+    return _slice_batch(value, batch_idx, dtype=dtype)
 
 
 def _normalize_single_object_batch_outputs(outputs: Any, batch_size: int, torch_module: Any) -> None:
@@ -675,6 +773,22 @@ def _assert_same(values: list[Any], name: str) -> None:
     first = values[0]
     if any(value != first for value in values):
         raise RuntimeError(f"{name} differs across cameras: {values}")
+
+
+class _nullcontext:
+    def __enter__(self):
+        return None
+
+    def __exit__(self, exc_type, exc, tb):
+        return False
+
+
+def _first_parameter_dtype(module: Any) -> Any:
+    for parameter in module.parameters(recurse=True):
+        return parameter.dtype
+    for buffer in module.buffers(recurse=True):
+        return buffer.dtype
+    return None
 
 
 def patch_edgetam_spatial_perceiver_batch_view(model: Any) -> None:

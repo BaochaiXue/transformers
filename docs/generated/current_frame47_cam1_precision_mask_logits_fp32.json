@@ -172,7 +172,7 @@
   },
   "object_count": 1,
   "object_prompt": "stuffed animal",
-  "precision_mode": "all_bf16",
+  "precision_mode": "mask_logits_fp32",
   "replace": "none",
   "replacement": {
     "posthoc": false,

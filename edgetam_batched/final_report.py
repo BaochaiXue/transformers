@@ -76,10 +76,15 @@ def main() -> int:
         full_contract = full or {}
     full_usable = is_strict_full_closed_loop_pass(full, full_contract)
     full_failure_stage = full_failure_stage_for(full, full_contract)
-    full_bf16_pass = full_strict_pass_for_dtype(full_candidates, {"bfloat16", "bf16", "torch.bfloat16"})
-    full_fp32_pass = full_strict_pass_for_dtype(full_candidates, {"float32", "fp32", "torch.float32"})
+    precision_decision = summarize_full_precision_decision(full_candidates)
+    full_bf16_pass = precision_decision["all_bf16_strict_pass"]
+    full_fp32_pass = precision_decision["all_fp32_strict_pass"]
     full_blocker = full_blocker_for(full, full_contract, first_bad_frame)
-    if full_fp32_pass and not full_bf16_pass:
+    if precision_decision["recommended_precision_mode"] and not full_usable:
+        full_failure_stage = precision_decision["failure_stage"] or full_failure_stage
+        if precision_decision["exact_blocker"]:
+            full_blocker = precision_decision["exact_blocker"]
+    elif full_fp32_pass and not full_bf16_pass:
         full_failure_stage = "precision"
         full_blocker = (
             f"{full_blocker}; bf16 closed-loop strict fails, while diagnostic all-fp32 eager strict passes; "
@@ -141,7 +146,18 @@ def main() -> int:
             "hf_batched_multisession_reason": "contract pass + correctness pass" if full_usable else full_blocker,
             "hf_batched_multisession_blockers": full_blocker,
             "full_batched_bf16_strict_pass": full_bf16_pass,
+            "full_batched_memory_attention_fp32_strict_pass": precision_decision[
+                "memory_attention_fp32_strict_pass"
+            ],
+            "full_batched_decoder_fp32_strict_pass": precision_decision["decoder_fp32_strict_pass"],
+            "full_batched_memory_path_fp32_strict_pass": precision_decision["memory_path_fp32_strict_pass"],
             "full_batched_all_fp32_strict_pass": full_fp32_pass,
+            "recommended_precision_mode": precision_decision["recommended_precision_mode"],
+            "recommended_precision_mode_reason": precision_decision["recommended_precision_mode_reason"],
+            "full_batched_compile_max_autotune_no_cudagraphs_pass": precision_decision[
+                "max_autotune_no_cudagraphs_pass"
+            ],
+            "full_batched_compile_reduce_overhead_pass": precision_decision["reduce_overhead_pass"],
             "full_batched_vs_sam31_not_worse": (
                 (candidate_delta or {})
                 .get("per_object", {})
@@ -222,6 +238,19 @@ def compact_diagnostic_payload(payload: dict[str, Any] | None) -> dict[str, Any]
         return None
     payload.pop("rows", None)
     payload.pop("strategy_results", None)
+    variants = payload.pop("variants", None)
+    if isinstance(variants, list):
+        payload["variants_summary"] = [
+            {
+                "variant": item.get("variant"),
+                "status": item.get("status"),
+                "iou_vs_hf_public": item.get("iou_vs_hf_public"),
+                "raw_iou_vs_hf_public": item.get("raw_iou_vs_hf_public"),
+                "summary_diffs": item.get("summary_diffs"),
+            }
+            for item in variants
+            if isinstance(item, dict)
+        ]
     records = payload.get("records")
     if isinstance(records, list) and len(records) > 20:
         payload["records"] = records[:20]
@@ -333,6 +362,104 @@ def full_strict_pass_for_dtype(candidates: list[dict[str, Any]], dtype_names: se
         ):
             return True
     return False
+
+
+def full_strict_pass_for_precision(
+    candidates: list[dict[str, Any]],
+    precision_modes: set[str],
+    compile_modes: set[str] | None = None,
+) -> bool:
+    normalized_precision = {name.lower() for name in precision_modes}
+    normalized_compile = {name.lower() for name in compile_modes} if compile_modes else None
+    for item in candidates:
+        metrics = item.get("metrics") or {}
+        contract = item.get("backend_contract") or metrics.get("backend_contract") or {}
+        precision = str(item.get("precision_mode") or "all_bf16").lower()
+        compile_mode = str(item.get("compile_mode") or "none").lower()
+        if normalized_compile is not None and compile_mode not in normalized_compile:
+            continue
+        if (
+            item.get("backend") == "hf_batched_multisession"
+            and item.get("reference_source") in {"hf-public", "hf-public-seq"}
+            and contract.get("contract_pass") is True
+            and metrics.get("strict_correctness_pass") is True
+            and precision in normalized_precision
+        ):
+            return True
+    return False
+
+
+def summarize_full_precision_decision(candidates: list[dict[str, Any]]) -> dict[str, Any]:
+    eager = [
+        item
+        for item in candidates
+        if item.get("backend") == "hf_batched_multisession"
+        and item.get("reference_source") in {"hf-public", "hf-public-seq"}
+        and item.get("compile_mode") == "none"
+        and ((item.get("backend_contract") or item.get("metrics", {}).get("backend_contract") or {}).get("contract_pass"))
+        is True
+        and (item.get("metrics") or {}).get("strict_correctness_pass") is True
+    ]
+    non_all_fp32 = [item for item in eager if item.get("precision_mode") != "all_fp32"]
+
+    def rank(item: dict[str, Any]) -> tuple[float, float, int]:
+        metrics = item.get("metrics") or {}
+        iou = metrics.get("global_iou_on_evaluated") or metrics.get("global_mask_iou") or {}
+        priority = {
+            "memory_path_fp32": 4,
+            "memory_attention_fp32": 3,
+            "decoder_fp32": 2,
+            "all_fp32": 1,
+        }.get(item.get("precision_mode"), 0)
+        return (float(iou.get("avg") or 0.0), float(iou.get("p50") or 0.0), priority)
+
+    best = max(non_all_fp32 or eager, key=rank) if eager else None
+    recommended_precision = best.get("precision_mode") if best else None
+    max_compile_pass = (
+        full_strict_pass_for_precision(
+            candidates,
+            {recommended_precision},
+            {"max-autotune-no-cudagraphs"},
+        )
+        if recommended_precision
+        else False
+    )
+    reduce_compile_pass = (
+        full_strict_pass_for_precision(candidates, {recommended_precision}, {"reduce-overhead"})
+        if recommended_precision
+        else False
+    )
+    failure_stage = None
+    exact_blocker = None
+    if recommended_precision and not (max_compile_pass or reduce_compile_pass):
+        failure_stage = "compile_correctness"
+        exact_blocker = (
+            f"{recommended_precision} eager strict correctness passes, but compiled strict correctness "
+            "fails for max-autotune-no-cudagraphs and reduce-overhead; keep ring_buffer and debug "
+            "compiled numeric/state lifetime path before profiling."
+        )
+    elif not recommended_precision and full_strict_pass_for_precision(candidates, {"all_bf16"}, {"none"}) is False:
+        failure_stage = "precision"
+        exact_blocker = "all_bf16 closed-loop strict fails and no selective mixed precision eager strict pass was found."
+    return {
+        "all_bf16_strict_pass": full_strict_pass_for_precision(candidates, {"all_bf16"}, {"none"}),
+        "memory_attention_fp32_strict_pass": full_strict_pass_for_precision(
+            candidates, {"memory_attention_fp32"}, {"none"}
+        ),
+        "decoder_fp32_strict_pass": full_strict_pass_for_precision(candidates, {"decoder_fp32"}, {"none"}),
+        "memory_path_fp32_strict_pass": full_strict_pass_for_precision(candidates, {"memory_path_fp32"}, {"none"}),
+        "all_fp32_strict_pass": full_strict_pass_for_precision(candidates, {"all_fp32"}, {"none"}),
+        "recommended_precision_mode": recommended_precision,
+        "recommended_precision_mode_reason": (
+            f"{recommended_precision} is the best non-all-fp32 eager strict pass by global IoU"
+            if recommended_precision
+            else None
+        ),
+        "max_autotune_no_cudagraphs_pass": max_compile_pass,
+        "reduce_overhead_pass": reduce_compile_pass,
+        "failure_stage": failure_stage,
+        "exact_blocker": exact_blocker,
+    }
 
 
 def render(payload: dict[str, Any]) -> str:

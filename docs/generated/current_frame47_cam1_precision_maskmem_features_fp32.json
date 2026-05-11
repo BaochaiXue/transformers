@@ -29,9 +29,9 @@
           512,
           64
         ],
-        "max_abs_diff": 5.46875,
-        "mean_abs_diff": 0.27154093980789185,
-        "p95_abs_diff": 1.062158226966858,
+        "max_abs_diff": 5.4737372398376465,
+        "mean_abs_diff": 0.27157217264175415,
+        "p95_abs_diff": 1.0617024898529053,
         "present_in_candidate": true,
         "present_in_reference": true,
         "reference_shape": [
@@ -156,8 +156,8 @@
     ],
     "status": "ok",
     "summary_diffs": {
-      "maskmem_features_max_abs_diff": 5.46875,
-      "maskmem_features_p95_abs_diff": 1.062158226966858,
+      "maskmem_features_max_abs_diff": 5.4737372398376465,
+      "maskmem_features_p95_abs_diff": 1.0617024898529053,
       "maskmem_pos_enc_max_abs_diff": 0.0,
       "maskmem_pos_enc_p95_abs_diff": 0.0,
       "object_pointer_max_abs_diff": 1.79296875,
@@ -172,7 +172,7 @@
   },
   "object_count": 1,
   "object_prompt": "stuffed animal",
-  "precision_mode": "all_bf16",
+  "precision_mode": "maskmem_features_fp32",
   "replace": "none",
   "replacement": {
     "posthoc": false,
@@ -203,9 +203,9 @@
             512,
             64
           ],
-          "max_abs_diff": 5.46875,
-          "mean_abs_diff": 0.27154093980789185,
-          "p95_abs_diff": 1.062158226966858,
+          "max_abs_diff": 5.4737372398376465,
+          "mean_abs_diff": 0.27157217264175415,
+          "p95_abs_diff": 1.0617024898529053,
           "present_in_candidate": true,
           "present_in_reference": true,
           "reference_shape": [
@@ -330,8 +330,8 @@
       ],
       "status": "ok",
       "summary_diffs": {
-        "maskmem_features_max_abs_diff": 5.46875,
-        "maskmem_features_p95_abs_diff": 1.062158226966858,
+        "maskmem_features_max_abs_diff": 5.4737372398376465,
+        "maskmem_features_p95_abs_diff": 1.0617024898529053,
         "maskmem_pos_enc_max_abs_diff": 0.0,
         "maskmem_pos_enc_p95_abs_diff": 0.0,
         "object_pointer_max_abs_diff": 1.79296875,
@@ -366,9 +366,9 @@
             512,
             64
           ],
-          "max_abs_diff": 5.46875,
-          "mean_abs_diff": 0.27154093980789185,
-          "p95_abs_diff": 1.062158226966858,
+          "max_abs_diff": 5.4737372398376465,
+          "mean_abs_diff": 0.27157217264175415,
+          "p95_abs_diff": 1.0617024898529053,
           "present_in_candidate": true,
           "present_in_reference": true,
           "reference_shape": [
@@ -493,8 +493,8 @@
       ],
       "status": "ok",
       "summary_diffs": {
-        "maskmem_features_max_abs_diff": 5.46875,
-        "maskmem_features_p95_abs_diff": 1.062158226966858,
+        "maskmem_features_max_abs_diff": 5.4737372398376465,
+        "maskmem_features_p95_abs_diff": 1.0617024898529053,
         "maskmem_pos_enc_max_abs_diff": 0.0,
         "maskmem_pos_enc_p95_abs_diff": 0.0,
         "object_pointer_max_abs_diff": 1.79296875,
@@ -529,9 +529,9 @@
             512,
             64
           ],
-          "max_abs_diff": 5.46875,
-          "mean_abs_diff": 0.27154093980789185,
-          "p95_abs_diff": 1.062158226966858,
+          "max_abs_diff": 5.4737372398376465,
+          "mean_abs_diff": 0.27157217264175415,
+          "p95_abs_diff": 1.0617024898529053,
           "present_in_candidate": true,
           "present_in_reference": true,
           "reference_shape": [
@@ -656,8 +656,8 @@
       ],
       "status": "ok",
       "summary_diffs": {
-        "maskmem_features_max_abs_diff": 5.46875,
-        "maskmem_features_p95_abs_diff": 1.062158226966858,
+        "maskmem_features_max_abs_diff": 5.4737372398376465,
+        "maskmem_features_p95_abs_diff": 1.0617024898529053,
         "maskmem_pos_enc_max_abs_diff": 0.0,
         "maskmem_pos_enc_p95_abs_diff": 0.0,
         "object_pointer_max_abs_diff": 1.79296875,
@@ -692,9 +692,9 @@
             512,
             64
           ],
-          "max_abs_diff": 5.46875,
-          "mean_abs_diff": 0.27154093980789185,
-          "p95_abs_diff": 1.062158226966858,
+          "max_abs_diff": 5.4737372398376465,
+          "mean_abs_diff": 0.27157217264175415,
+          "p95_abs_diff": 1.0617024898529053,
           "present_in_candidate": true,
           "present_in_reference": true,
           "reference_shape": [
@@ -819,8 +819,8 @@
       ],
       "status": "ok",
       "summary_diffs": {
-        "maskmem_features_max_abs_diff": 5.46875,
-        "maskmem_features_p95_abs_diff": 1.062158226966858,
+        "maskmem_features_max_abs_diff": 5.4737372398376465,
+        "maskmem_features_p95_abs_diff": 1.0617024898529053,
         "maskmem_pos_enc_max_abs_diff": 0.0,
         "maskmem_pos_enc_p95_abs_diff": 0.0,
         "object_pointer_max_abs_diff": 1.79296875,
@@ -855,9 +855,9 @@
             512,
             64
           ],
-          "max_abs_diff": 3.109375,
-          "mean_abs_diff": 0.032534219324588776,
-          "p95_abs_diff": 0.12890625,
+          "max_abs_diff": 3.106618881225586,
+          "mean_abs_diff": 0.03298265114426613,
+          "p95_abs_diff": 0.12895512580871582,
           "present_in_candidate": true,
           "present_in_reference": true,
           "reference_shape": [
@@ -978,8 +978,8 @@
       ],
       "status": "ok",
       "summary_diffs": {
-        "maskmem_features_max_abs_diff": 3.109375,
-        "maskmem_features_p95_abs_diff": 0.12890625,
+        "maskmem_features_max_abs_diff": 3.106618881225586,
+        "maskmem_features_p95_abs_diff": 0.12895512580871582,
         "maskmem_pos_enc_max_abs_diff": 0.0,
         "maskmem_pos_enc_p95_abs_diff": 0.0,
         "object_pointer_max_abs_diff": 0.015625,

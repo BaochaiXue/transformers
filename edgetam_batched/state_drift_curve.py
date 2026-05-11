@@ -12,6 +12,7 @@ from .batched_multisession_runtime import BatchedEdgeTamMultiSessionRuntime
 from .camera_order import mask_iou
 from .compare_multisession import _resize_mask_like
 from .find_first_bad_frame import _clone_output_fields, _compare_output_fields, _session_output
+from .precision_policy import PRECISION_POLICY_NAMES, reference_dtype_for_precision_mode
 from .reference_runtime import HfEdgeTamReferenceRuntime, ReferenceRuntimeConfig
 from .report_utils import markdown_table, write_json, write_markdown
 from .rgb_replay import load_replay_frames
@@ -31,12 +32,14 @@ def run_state_drift_curve(
     frames: int,
     dtype: str,
     device: str,
+    precision_mode: str = "all_bf16",
     compile_mode: str = "none",
     graph_output_policy: str = "ring_buffer",
 ) -> dict[str, Any]:
+    reference_dtype = reference_dtype_for_precision_mode(dtype, precision_mode)
     replay_frames = load_replay_frames(rgb_replay, frames)
     config = ReferenceRuntimeConfig(
-        dtype=dtype,
+        dtype=reference_dtype,
         device=device,
         object_prompt=object_prompt,
         controller_prompt=controller_prompt,
@@ -68,6 +71,7 @@ def run_state_drift_curve(
         graph_output_policy=graph_output_policy,
         strict_full_batched=True,
         disallow_partial_backend_success=True,
+        precision_mode=precision_mode,
     )
     runtime.init_from_reference_sessions(reference_runtime.sessions)
     runtime.prepare_compile(reference_runtime.torch)
@@ -103,6 +107,8 @@ def run_state_drift_curve(
     return {
         "backend": backend,
         "dtype": dtype,
+        "effective_reference_dtype": reference_dtype,
+        "precision_mode": precision_mode,
         "compile_mode": compile_mode,
         "rgb_replay": str(rgb_replay),
         "object_count": object_count,
@@ -233,6 +239,7 @@ def main() -> int:
     parser.add_argument("--controller-prompt", default="hand")
     parser.add_argument("--frames", type=int, default=100)
     parser.add_argument("--dtype", default="bfloat16")
+    parser.add_argument("--precision-mode", choices=PRECISION_POLICY_NAMES, default="all_bf16")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--compile-mode", default="none")
     parser.add_argument("--graph-output-policy", default="ring_buffer")
@@ -250,6 +257,7 @@ def main() -> int:
         controller_prompt=args.controller_prompt,
         frames=args.frames,
         dtype=args.dtype,
+        precision_mode=args.precision_mode,
         device=args.device,
         compile_mode=args.compile_mode,
         graph_output_policy=args.graph_output_policy,

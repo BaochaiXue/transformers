@@ -13,6 +13,7 @@ from .backend_contract import FullBatchedContractError, contract_for_current_run
 from .camera_order import diagonal_best, iou_matrix, mask_iou
 from .config import BACKENDS
 from .leakage_test import compare_cam0_stability
+from .precision_policy import PRECISION_POLICY_NAMES, reference_dtype_for_precision_mode
 from .reference_runtime import HfEdgeTamReferenceRuntime, ReferenceRuntimeConfig
 from .report_utils import markdown_table, write_json, write_markdown
 from .rgb_replay import load_replay_frames
@@ -584,6 +585,7 @@ def main() -> int:
     parser.add_argument("--object-prompt", default="stuffed animal")
     parser.add_argument("--controller-prompt", default="towel")
     parser.add_argument("--dtype", default="bfloat16")
+    parser.add_argument("--precision-mode", choices=PRECISION_POLICY_NAMES, default="all_bf16")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--model-id", default="yonigozlan/EdgeTAM-hf")
     parser.add_argument("--compile-mode", default="none")
@@ -649,9 +651,10 @@ def main() -> int:
     args = parser.parse_args()
 
     frames = load_replay_frames(args.rgb_replay, args.frames)
+    reference_dtype = reference_dtype_for_precision_mode(args.dtype, args.precision_mode)
     config = ReferenceRuntimeConfig(
         model_id=args.model_id,
-        dtype=args.dtype,
+        dtype=reference_dtype,
         device=args.device,
         object_prompt=args.object_prompt,
         controller_prompt=args.controller_prompt,
@@ -776,6 +779,7 @@ def main() -> int:
             graph_output_policy=args.graph_output_policy,
             strict_full_batched=args.strict_full_batched,
             disallow_partial_backend_success=args.disallow_partial_backend_success,
+            precision_mode=args.precision_mode,
         )
     except FullBatchedContractError as exc:
         contract = contract_for_current_runtime(
@@ -791,6 +795,8 @@ def main() -> int:
             "compile_mode": args.compile_mode,
             "graph_output_policy": args.graph_output_policy,
             "dtype": args.dtype,
+            "effective_reference_dtype": reference_dtype,
+            "precision_mode": args.precision_mode,
             "rgb_replay": str(args.rgb_replay),
             "object_count": args.object_count,
             "object_prompt": args.object_prompt,
@@ -852,6 +858,8 @@ def main() -> int:
         "compile_mode": args.compile_mode,
         "graph_output_policy": args.graph_output_policy,
         "dtype": args.dtype,
+        "effective_reference_dtype": reference_dtype,
+        "precision_mode": args.precision_mode,
         "rgb_replay": str(args.rgb_replay),
         "object_count": args.object_count,
         "object_prompt": args.object_prompt,

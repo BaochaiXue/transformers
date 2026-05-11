@@ -20,6 +20,7 @@ from .batched_multisession_runtime import BatchedEdgeTamMultiSessionRuntime
 from .camera_order import mask_iou
 from .compare_multisession import _resize_mask_like
 from .find_first_bad_frame import _clone_output_fields, _compare_output_fields, _session_output
+from .precision_policy import PRECISION_POLICY_NAMES, reference_dtype_for_precision_mode, resolve_precision_policy
 from .reference_runtime import HfEdgeTamReferenceRuntime, ReferenceRuntimeConfig
 from .report_utils import markdown_table, write_json, write_markdown
 from .rgb_replay import load_replay_frames
@@ -43,17 +44,7 @@ REPLACEMENT_MODES = {
     "postprocess_output_with_reference",
 }
 
-PRECISION_MODES = {
-    "all_bf16",
-    "vision_fp32",
-    "memory_attention_fp32",
-    "mask_decoder_fp32",
-    "memory_encoder_fp32",
-    "object_pointer_fp32",
-    "maskmem_features_fp32",
-    "memory_path_fp32",
-    "all_fp32",
-}
+PRECISION_MODES = set(PRECISION_POLICY_NAMES)
 
 
 @dataclass(frozen=True)
@@ -76,9 +67,7 @@ def parse_camera_index(camera: str) -> int:
 
 
 def dtype_for_precision(dtype: str, precision_mode: str) -> str:
-    if precision_mode == "all_fp32":
-        return "float32"
-    return dtype
+    return reference_dtype_for_precision_mode(dtype, precision_mode)
 
 
 def replacement_status(replace: str) -> dict[str, Any]:
@@ -153,8 +142,8 @@ def run_current_frame_isolation(
 ) -> dict[str, Any]:
     if replace not in REPLACEMENT_MODES:
         raise ValueError(f"unsupported replacement mode: {replace}")
-    if precision_mode not in PRECISION_MODES:
-        raise ValueError(f"unsupported precision mode: {precision_mode}")
+    precision_policy = resolve_precision_policy(precision_mode)
+    precision_mode = precision_policy.name
     effective_dtype = dtype_for_precision(dtype, precision_mode)
     target_camera_idx = parse_camera_index(camera)
     replay_frames = load_replay_frames(rgb_replay, frame_idx + 1)
@@ -205,6 +194,7 @@ def run_current_frame_isolation(
             ref_bucket=ref_bucket,
             replace=replace,
             replacement=replacement,
+            precision_mode=precision_mode,
         )
         rows.append(row)
 
@@ -248,6 +238,7 @@ def run_variant(
     ref_bucket: str | None,
     replace: str,
     replacement: dict[str, Any],
+    precision_mode: str,
 ) -> dict[str, Any]:
     from PIL import Image
 
@@ -275,6 +266,7 @@ def run_variant(
         graph_output_policy=graph_output_policy,
         strict_full_batched=True,
         disallow_partial_backend_success=True,
+        precision_mode=precision_mode,
     )
     runtime.init_from_reference_sessions(sessions)
     runtime.prepare_compile(reference_runtime.torch)

@@ -5,7 +5,7 @@
 | frame_idx | 47 |
 | camera | cam1 |
 | replace | none |
-| precision_mode | all_bf16 |
+| precision_mode | mask_logits_fp32 |
 | effective_dtype | bfloat16 |
 | force_reference_state_before_frame | True |
 | inferred_issue | batch3_dimension_handling_or_diagonal_slicing_suspect |

@@ -7,6 +7,7 @@ import time
 
 from .backend_contract import FullBatchedContractError, contract_for_current_runtime
 from .config import BACKENDS
+from .precision_policy import PRECISION_POLICY_NAMES, reference_dtype_for_precision_mode
 from .report_utils import write_json, write_markdown
 from .stats import summarize
 
@@ -153,6 +154,7 @@ def main() -> int:
     parser.add_argument("--object-prompt", default="stuffed animal")
     parser.add_argument("--controller-prompt", default="towel")
     parser.add_argument("--dtype", default="bfloat16")
+    parser.add_argument("--precision-mode", choices=PRECISION_POLICY_NAMES, default="all_bf16")
     parser.add_argument("--compile-mode", default="none")
     parser.add_argument("--graph-output-policy", default="ring_buffer")
     parser.add_argument(
@@ -238,6 +240,7 @@ def main() -> int:
         "warmup": args.warmup,
         "compile_mode": args.compile_mode,
         "graph_output_policy": args.graph_output_policy,
+        "precision_mode": args.precision_mode,
         "profile": profile,
         "correctness_report_used": None,
         "correctness_pass": False,
@@ -281,7 +284,7 @@ def run_replay_profile(args: argparse.Namespace) -> dict:
     replay_frames = load_replay_frames(args.rgb_replay)
     config = ReferenceRuntimeConfig(
         model_id=args.model_id,
-        dtype=args.dtype,
+        dtype=reference_dtype_for_precision_mode(args.dtype, args.precision_mode),
         device=args.device,
         object_count=args.object_count,
         object_prompt=args.object_prompt,
@@ -335,6 +338,7 @@ def run_replay_profile(args: argparse.Namespace) -> dict:
         profile_frames=args.frames,
         strict_full_batched=args.strict_full_batched,
         disallow_partial_backend_success=args.disallow_partial_backend_success,
+        precision_mode=args.precision_mode,
     )
     stage = result.timings_ms.get("stage_wall_ms", {})
     p50 = stage.get("p50")
