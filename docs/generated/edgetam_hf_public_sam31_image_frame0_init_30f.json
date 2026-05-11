@@ -1,0 +1,635 @@
+{
+  "backend": "hf_batch_vision_seq_session",
+  "compile_mode": "none",
+  "graph_output_policy": "ring_buffer",
+  "init_source": "sam31-image-frame0",
+  "metrics": {
+    "blockers": [],
+    "camera_count": 3,
+    "camera_order_check": "pass",
+    "camera_order_matrix": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.07137954701441318
+      ],
+      [
+        0.0,
+        0.07137954701441318,
+        1.0
+      ]
+    ],
+    "candidate_partial": false,
+    "correctness_pass": true,
+    "empty_mismatch_count": 0,
+    "fallback_backend": null,
+    "frame_count": 30,
+    "global_mask_iou": {
+      "avg": 1.0,
+      "count": 42,
+      "max": 1.0,
+      "min": 1.0,
+      "p50": 1.0,
+      "p90": 1.0,
+      "p95": 1.0,
+      "p99": 1.0
+    },
+    "mask_correctness_pass": true,
+    "object_count": 2,
+    "per_camera_object": {
+      "cam0_obj0": {
+        "candidate_nonempty_count": 30,
+        "logit_abs_diff": {
+          "avg": 0.0,
+          "count": 30,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "mask_iou": {
+          "avg": 1.0,
+          "count": 30,
+          "max": 1.0,
+          "min": 1.0,
+          "p50": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "object_score_abs_diff": {
+          "avg": 0.0,
+          "count": 30,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "reference_nonempty_count": 30
+      },
+      "cam0_obj1": {
+        "candidate_nonempty_count": 30,
+        "logit_abs_diff": {
+          "avg": 0.0,
+          "count": 30,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "mask_iou": {
+          "avg": 1.0,
+          "count": 30,
+          "max": 1.0,
+          "min": 1.0,
+          "p50": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "object_score_abs_diff": {
+          "avg": 0.0,
+          "count": 30,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "reference_nonempty_count": 30
+      },
+      "cam1_obj0": {
+        "candidate_nonempty_count": 30,
+        "logit_abs_diff": {
+          "avg": 0.0,
+          "count": 30,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "mask_iou": {
+          "avg": 1.0,
+          "count": 30,
+          "max": 1.0,
+          "min": 1.0,
+          "p50": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "object_score_abs_diff": {
+          "avg": 0.0,
+          "count": 30,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "reference_nonempty_count": 30
+      },
+      "cam1_obj1": {
+        "candidate_nonempty_count": 30,
+        "logit_abs_diff": {
+          "avg": 0.0,
+          "count": 30,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "mask_iou": {
+          "avg": 1.0,
+          "count": 30,
+          "max": 1.0,
+          "min": 1.0,
+          "p50": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "object_score_abs_diff": {
+          "avg": 0.0,
+          "count": 30,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "reference_nonempty_count": 30
+      },
+      "cam2_obj0": {
+        "candidate_nonempty_count": 30,
+        "logit_abs_diff": {
+          "avg": 0.0,
+          "count": 30,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "mask_iou": {
+          "avg": 1.0,
+          "count": 30,
+          "max": 1.0,
+          "min": 1.0,
+          "p50": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "object_score_abs_diff": {
+          "avg": 0.0,
+          "count": 30,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "reference_nonempty_count": 30
+      },
+      "cam2_obj1": {
+        "candidate_nonempty_count": 30,
+        "logit_abs_diff": {
+          "avg": 0.0,
+          "count": 30,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "mask_iou": {
+          "avg": 1.0,
+          "count": 30,
+          "max": 1.0,
+          "min": 1.0,
+          "p50": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "object_score_abs_diff": {
+          "avg": 0.0,
+          "count": 30,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "reference_nonempty_count": 30
+      }
+    },
+    "state_leakage": {
+      "note": "no cross-camera tensor state is shared in implemented batch-vision fallback",
+      "pass": true
+    },
+    "state_leakage_check": "pass"
+  },
+  "prompt_source": "sam31_image_frame0_masks",
+  "reference_source": "hf-public",
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal",
+  "sam31_frame0_init_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/sam31_image_frame0_init_masks_green_towel",
+  "sam31_frame0_init_summary": {
+    "camera_summaries": [
+      {
+        "camera_idx": 0,
+        "controller_area": 37825,
+        "controller_candidate_count": 2,
+        "controller_prompt": "green towel on wooden table",
+        "controller_selected_indices": [
+          0,
+          1
+        ],
+        "controller_selected_stats": [
+          {
+            "area": 19975,
+            "bbox": [
+              76,
+              105,
+              227,
+              322
+            ],
+            "centroid": [
+              165.03794743429287,
+              214.5718648310388
+            ],
+            "green_delta": 47.15949249267578,
+            "green_fraction": 0.9915894868585732,
+            "mean_rgb": [
+              94.33686828613281,
+              123.36084747314453,
+              58.065834045410156
+            ],
+            "overlap_iou": 0.0,
+            "score": 910.1971502604388
+          },
+          {
+            "area": 17850,
+            "bbox": [
+              345,
+              0,
+              610,
+              93
+            ],
+            "centroid": [
+              490.9560224089636,
+              38.03417366946779
+            ],
+            "green_delta": 26.74559783935547,
+            "green_fraction": 0.972156862745098,
+            "mean_rgb": [
+              79.90145874023438,
+              121.33865356445312,
+              109.28465270996094
+            ],
+            "overlap_iou": 0.0,
+            "score": 764.8057788111278
+          }
+        ],
+        "controller_timing_ms": {
+          "cache_hit": false,
+          "configure_ms": 0.1341800088994205,
+          "import_ms": 5.357054993510246,
+          "model_load_ms": 6767.330101982225,
+          "processor_init_ms": 0.28742296854034066,
+          "prompt_ms_by_label": {
+            "green towel on wooden table": 258.4802340134047
+          },
+          "prompt_total_ms": 258.4802340134047,
+          "resolve_paths_ms": 0.12920302106067538,
+          "runtime_deps_ms": 0.002196000423282385,
+          "set_image_ms": 154.41391296917573,
+          "total_ms": 7186.167282983661
+        },
+        "object_area": 50526,
+        "object_candidate_count": 1,
+        "object_prompt": "stuffed animal",
+        "object_selected_indices": [
+          0
+        ],
+        "object_selected_stats": [
+          {
+            "area": 50526,
+            "bbox": [
+              221,
+              0,
+              556,
+              352
+            ],
+            "centroid": [
+              355.8274749633852,
+              149.24221193049124
+            ],
+            "green_delta": 11.290740966796875,
+            "green_fraction": 0.023769940228793095,
+            "mean_rgb": [
+              106.36788940429688,
+              105.40507507324219,
+              81.86078643798828
+            ],
+            "overlap_iou": 0.0,
+            "score": 50526.0
+          }
+        ],
+        "object_timing_ms": {
+          "cache_hit": true,
+          "configure_ms": 0.0316179939545691,
+          "import_ms": 0.0028400099836289883,
+          "model_load_ms": 0.0,
+          "processor_init_ms": 0.0,
+          "prompt_ms_by_label": {
+            "stuffed animal": 94.30281695676968
+          },
+          "prompt_total_ms": 94.30281695676968,
+          "resolve_paths_ms": 0.19327399786561728,
+          "runtime_deps_ms": 0.0007189810276031494,
+          "set_image_ms": 12.578825000673532,
+          "total_ms": 107.13969299104065
+        }
+      },
+      {
+        "camera_idx": 1,
+        "controller_area": 18817,
+        "controller_candidate_count": 2,
+        "controller_prompt": "green towel on wooden table",
+        "controller_selected_indices": [
+          0,
+          1
+        ],
+        "controller_selected_stats": [
+          {
+            "area": 11484,
+            "bbox": [
+              418,
+              396,
+              607,
+              480
+            ],
+            "centroid": [
+              502.1682340647858,
+              446.5128004179728
+            ],
+            "green_delta": 67.38218688964844,
+            "green_fraction": 0.9948624172762104,
+            "mean_rgb": [
+              144.38192749023438,
+              189.649169921875,
+              100.15203857421875
+            ],
+            "overlap_iou": 0.0,
+            "score": 759.268202817415
+          },
+          {
+            "area": 7333,
+            "bbox": [
+              288,
+              267,
+              422,
+              368
+            ],
+            "centroid": [
+              353.9386335742534,
+              314.7256238919951
+            ],
+            "green_delta": 24.99420166015625,
+            "green_fraction": 0.398199918178099,
+            "mean_rgb": [
+              135.48806762695312,
+              184.64352416992188,
+              183.81057739257812
+            ],
+            "overlap_iou": 0.0,
+            "score": 288.91426851586044
+          }
+        ],
+        "controller_timing_ms": {
+          "cache_hit": true,
+          "configure_ms": 0.02989597851410508,
+          "import_ms": 0.0024510081857442856,
+          "model_load_ms": 0.0,
+          "processor_init_ms": 0.0,
+          "prompt_ms_by_label": {
+            "green towel on wooden table": 94.55403999891132
+          },
+          "prompt_total_ms": 94.55403999891132,
+          "resolve_paths_ms": 0.1380789908580482,
+          "runtime_deps_ms": 0.0006069894880056381,
+          "set_image_ms": 11.917484982404858,
+          "total_ms": 106.66908900020644
+        },
+        "object_area": 14972,
+        "object_candidate_count": 1,
+        "object_prompt": "stuffed animal",
+        "object_selected_indices": [
+          0
+        ],
+        "object_selected_stats": [
+          {
+            "area": 14972,
+            "bbox": [
+              344,
+              269,
+              563,
+              413
+            ],
+            "centroid": [
+              442.26476088698905,
+              347.2608201977024
+            ],
+            "green_delta": 10.682601928710938,
+            "green_fraction": 0.011421319796954314,
+            "mean_rgb": [
+              154.6478729248047,
+              150.21994018554688,
+              124.42679595947266
+            ],
+            "overlap_iou": 0.0,
+            "score": 14972.0
+          }
+        ],
+        "object_timing_ms": {
+          "cache_hit": true,
+          "configure_ms": 0.022221996914595366,
+          "import_ms": 0.0018829596228897572,
+          "model_load_ms": 0.0,
+          "processor_init_ms": 0.0,
+          "prompt_ms_by_label": {
+            "stuffed animal": 95.920595980715
+          },
+          "prompt_total_ms": 95.920595980715,
+          "resolve_paths_ms": 0.15637901378795505,
+          "runtime_deps_ms": 0.0006909831427037716,
+          "set_image_ms": 11.896198964677751,
+          "total_ms": 108.0233869724907
+        }
+      },
+      {
+        "camera_idx": 2,
+        "controller_area": 20081,
+        "controller_candidate_count": 2,
+        "controller_prompt": "green towel on wooden table",
+        "controller_selected_indices": [
+          0,
+          1
+        ],
+        "controller_selected_stats": [
+          {
+            "area": 4491,
+            "bbox": [
+              466,
+              220,
+              549,
+              302
+            ],
+            "centroid": [
+              505.436205744823,
+              256.7241148964596
+            ],
+            "green_delta": 74.63671875,
+            "green_fraction": 0.9895346248051659,
+            "mean_rgb": [
+              163.78245544433594,
+              212.66265869140625,
+              112.26942443847656
+            ],
+            "overlap_iou": 0.0,
+            "score": 488.57471118278283
+          },
+          {
+            "area": 15590,
+            "bbox": [
+              302,
+              324,
+              471,
+              457
+            ],
+            "centroid": [
+              385.86645285439386,
+              391.9926876202694
+            ],
+            "green_delta": 36.4306640625,
+            "green_fraction": 0.2757536882617062,
+            "mean_rgb": [
+              155.49563598632812,
+              227.105712890625,
+              225.85446166992188
+            ],
+            "overlap_iou": 0.0,
+            "score": 404.7300649877838
+          }
+        ],
+        "controller_timing_ms": {
+          "cache_hit": true,
+          "configure_ms": 0.03866199404001236,
+          "import_ms": 0.003453053068369627,
+          "model_load_ms": 0.0,
+          "processor_init_ms": 0.0,
+          "prompt_ms_by_label": {
+            "green towel on wooden table": 95.16382298897952
+          },
+          "prompt_total_ms": 95.16382298897952,
+          "resolve_paths_ms": 0.13572396710515022,
+          "runtime_deps_ms": 0.0007029739208519459,
+          "set_image_ms": 11.57675898866728,
+          "total_ms": 106.95149097591639
+        },
+        "object_area": 11317,
+        "object_candidate_count": 1,
+        "object_prompt": "stuffed animal",
+        "object_selected_indices": [
+          0
+        ],
+        "object_selected_stats": [
+          {
+            "area": 11317,
+            "bbox": [
+              316,
+              227,
+              499,
+              362
+            ],
+            "centroid": [
+              421.01882124237875,
+              298.28452770168775
+            ],
+            "green_delta": 12.511611938476562,
+            "green_fraction": 0.02094194574533887,
+            "mean_rgb": [
+              183.43792724609375,
+              180.8321075439453,
+              153.20306396484375
+            ],
+            "overlap_iou": 0.0,
+            "score": 11317.0
+          }
+        ],
+        "object_timing_ms": {
+          "cache_hit": true,
+          "configure_ms": 0.023874046746641397,
+          "import_ms": 0.0022869789972901344,
+          "model_load_ms": 0.0,
+          "processor_init_ms": 0.0,
+          "prompt_ms_by_label": {
+            "stuffed animal": 95.15031997580081
+          },
+          "prompt_total_ms": 95.15031997580081,
+          "resolve_paths_ms": 0.15517399879172444,
+          "runtime_deps_ms": 0.0006549526005983353,
+          "set_image_ms": 11.978062975686044,
+          "total_ms": 107.34965396113694
+        }
+      }
+    ],
+    "confidence_threshold": 0.25,
+    "controller_label": "towel",
+    "controller_max_instances": 3,
+    "controller_prompt": "green towel on wooden table",
+    "controller_selection_mode": "green-score",
+    "errors": [],
+    "frame0_init_pass": true,
+    "generation_wall_ms": 12744.761727983132,
+    "inference_mode": "sam31-image-frame0-init",
+    "mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/sam31_image_frame0_init_masks_green_towel",
+    "min_area": 64,
+    "object_label": "stuffed animal",
+    "object_max_instances": 1,
+    "object_prompt": "stuffed animal",
+    "object_selection_mode": "largest",
+    "output_dir": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/sam31_image_frame0_init_masks_green_towel",
+    "reused_existing": true,
+    "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal",
+    "role_order": [
+      "towel",
+      "stuffed animal"
+    ]
+  },
+  "sam31_mask_root": null
+}

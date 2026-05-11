@@ -1,8 +1,14 @@
 # EdgeTAM Component Batch Equivalence
 
-- trace: `docs/generated/hf_edgetam_component_trace_single_object_30f.json`
-- all_components_pass: `False`
+- trace: `None`
+- fixtures_dir: `docs/generated/fixtures/single_object`
+- stack_strategy: `batch_dim0`
+- all_components_pass: `True`
+- groups: `30`
+- groups_passed: `30`
+- max_abs_diff: `0.1171875`
+- p95_abs_diff: `0.00390625`
 
 | component | trace_records | pass | blockers |
 | --- | --- | --- | --- |
-| memory_encoder | 90 | False | EdgeTamVideoModel._batch_encode_memories is NotImplemented; full state update cannot be batched yet |
+| memory_encoder | 90 | True |  |

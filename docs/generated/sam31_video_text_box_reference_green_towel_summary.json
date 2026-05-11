@@ -1,0 +1,173 @@
+{
+  "camera_ids": [
+    0,
+    1,
+    2
+  ],
+  "camera_summaries": [
+    {
+      "camera_idx": 0,
+      "frame_count": 100,
+      "output_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/sam31_video_text_box_reference_masks_green_towel/mask/0",
+      "role_summaries": [
+        {
+          "add_prompt_area": 37541,
+          "box_xywh_norm": [
+            0.08962264150943396,
+            0.0,
+            0.6297169811320755,
+            0.6708333333333333
+          ],
+          "frame0_area": 37541,
+          "label": "towel",
+          "mean_area": 375.41,
+          "nonempty_frame_count": 1,
+          "prompt": "green towel on wooden table",
+          "role_idx": 0,
+          "saved_frame_count": 100,
+          "selected_source_ids": [
+            0
+          ]
+        },
+        {
+          "add_prompt_area": 50453,
+          "box_xywh_norm": [
+            0.2606132075471698,
+            0.0,
+            0.39504716981132076,
+            0.7333333333333333
+          ],
+          "frame0_area": 50431,
+          "label": "stuffed animal",
+          "mean_area": 50364.29,
+          "nonempty_frame_count": 100,
+          "prompt": "stuffed animal",
+          "role_idx": 1,
+          "saved_frame_count": 100,
+          "selected_source_ids": [
+            0
+          ]
+        }
+      ],
+      "tracked_object_count": 2,
+      "tracked_object_labels": {
+        "0": "towel",
+        "1": "stuffed animal"
+      }
+    },
+    {
+      "camera_idx": 1,
+      "frame_count": 100,
+      "output_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/sam31_video_text_box_reference_masks_green_towel/mask/1",
+      "role_summaries": [
+        {
+          "add_prompt_area": 33280,
+          "box_xywh_norm": [
+            0.33962264150943394,
+            0.55625,
+            0.3761792452830189,
+            0.44375
+          ],
+          "frame0_area": 33280,
+          "label": "towel",
+          "mean_area": 332.8,
+          "nonempty_frame_count": 1,
+          "prompt": "green towel on wooden table",
+          "role_idx": 0,
+          "saved_frame_count": 100,
+          "selected_source_ids": [
+            0
+          ]
+        },
+        {
+          "add_prompt_area": 15023,
+          "box_xywh_norm": [
+            0.4056603773584906,
+            0.5604166666666667,
+            0.25825471698113206,
+            0.3
+          ],
+          "frame0_area": 15026,
+          "label": "stuffed animal",
+          "mean_area": 15130.02,
+          "nonempty_frame_count": 100,
+          "prompt": "stuffed animal",
+          "role_idx": 1,
+          "saved_frame_count": 100,
+          "selected_source_ids": [
+            0
+          ]
+        }
+      ],
+      "tracked_object_count": 2,
+      "tracked_object_labels": {
+        "0": "towel",
+        "1": "stuffed animal"
+      }
+    },
+    {
+      "camera_idx": 2,
+      "frame_count": 100,
+      "output_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/sam31_video_text_box_reference_masks_green_towel/mask/2",
+      "role_summaries": [
+        {
+          "add_prompt_area": 31079,
+          "box_xywh_norm": [
+            0.3561320754716981,
+            0.4583333333333333,
+            0.29127358490566035,
+            0.49375
+          ],
+          "frame0_area": 31079,
+          "label": "towel",
+          "mean_area": 1250.59,
+          "nonempty_frame_count": 4,
+          "prompt": "green towel on wooden table",
+          "role_idx": 0,
+          "saved_frame_count": 100,
+          "selected_source_ids": [
+            0
+          ]
+        },
+        {
+          "add_prompt_area": 11301,
+          "box_xywh_norm": [
+            0.37264150943396224,
+            0.47291666666666665,
+            0.21580188679245282,
+            0.28125
+          ],
+          "frame0_area": 11307,
+          "label": "stuffed animal",
+          "mean_area": 11381.59,
+          "nonempty_frame_count": 100,
+          "prompt": "stuffed animal",
+          "role_idx": 1,
+          "saved_frame_count": 100,
+          "selected_source_ids": [
+            0
+          ]
+        }
+      ],
+      "tracked_object_count": 2,
+      "tracked_object_labels": {
+        "0": "towel",
+        "1": "stuffed animal"
+      }
+    }
+  ],
+  "case_root": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/_sam31_case",
+  "checkpoint_path": "/home/zhangxinjie/.cache/huggingface/qqtt_sam31/sam3.1_multiplex.pt",
+  "controller_prompt": "green towel on wooden table",
+  "frame0_init_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/sam31_image_frame0_init_masks_green_towel",
+  "generation_wall_ms": 421681.914064975,
+  "inference_mode": "sam31-video-text-box-separate-sessions",
+  "object_prompt": "stuffed animal",
+  "output_dir": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/sam31_video_text_box_reference_masks_green_towel",
+  "reused_existing": false,
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal",
+  "sam31_reference_role_order": [
+    "towel",
+    "stuffed animal"
+  ]
+}

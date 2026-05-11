@@ -1,0 +1,542 @@
+{
+  "backend": "hf_ref_seq_public",
+  "compile_mode": "none",
+  "correctness_pass": false,
+  "correctness_report_used": null,
+  "disallow_partial_backend_success": false,
+  "frames": 100,
+  "graph_output_policy": "ring_buffer",
+  "profile": {
+    "backend": "hf_ref_seq_public",
+    "backend_contract": {
+      "backend": "hf_ref_seq_public",
+      "batch_mask_decoder": false,
+      "batch_memory_attention": false,
+      "batch_memory_encoder": false,
+      "batch_vision": false,
+      "batched_state_scatter": false,
+      "blockers": [],
+      "contract_pass": false,
+      "missing_requirements": [
+        "backend is not hf_batched_multisession",
+        "batch_vision",
+        "batch_memory_attention",
+        "batch_mask_decoder",
+        "batch_memory_encoder",
+        "batched_state_scatter",
+        "used_public_session_step_in_hot_path"
+      ],
+      "partial_fallback_used": false,
+      "used_public_session_step_in_hot_path": true
+    },
+    "blockers": [],
+    "compiled_module_count": 0,
+    "complete_group_fps_from_p50": 10.827404074564623,
+    "correctness_pass": false,
+    "cuda_graph_enabled": false,
+    "fallback_backend": null,
+    "init_source": "sam31-image-frame0",
+    "note": "profile-only run; use compare_multisession correctness JSON for acceptance",
+    "partial": false,
+    "ring_buffer_size": 8,
+    "sam31_frame0_init_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal/sam31_image_frame0_init_masks",
+    "sam31_frame0_init_summary": {
+      "camera_summaries": [
+        {
+          "camera_idx": 0,
+          "controller_area": 15811,
+          "controller_candidate_count": 8,
+          "controller_prompt": "hand",
+          "controller_selected_indices": [
+            7,
+            3,
+            0
+          ],
+          "controller_selected_stats": [
+            {
+              "area": 7944,
+              "bbox": [
+                445,
+                22,
+                598,
+                198
+              ],
+              "centroid": [
+                519.6913393756294,
+                105.69070996978851
+              ],
+              "green_delta": 2.9120712280273438,
+              "green_fraction": 0.0011329305135951663,
+              "mean_rgb": [
+                104.15345001220703,
+                87.68932342529297,
+                65.40105438232422
+              ],
+              "overlap_iou": 0.0,
+              "score": 97.6439765126404
+            },
+            {
+              "area": 4966,
+              "bbox": [
+                286,
+                114,
+                365,
+                206
+              ],
+              "centroid": [
+                325.3578332662102,
+                155.98872331856626
+              ],
+              "green_delta": 0.459320068359375,
+              "green_fraction": 0.0002013693113169553,
+              "mean_rgb": [
+                134.11981201171875,
+                109.39166259765625,
+                83.74486541748047
+              ],
+              "overlap_iou": 0.0,
+              "score": 71.53812035634037
+            },
+            {
+              "area": 2901,
+              "bbox": [
+                304,
+                190,
+                379,
+                245
+              ],
+              "centroid": [
+                340.3002412961048,
+                217.88900379179594
+              ],
+              "green_delta": 9.416580200195312,
+              "green_fraction": 0.0003447087211306446,
+              "mean_rgb": [
+                123.69320678710938,
+                119.43260955810547,
+                96.33885192871094
+              ],
+              "overlap_iou": 0.0,
+              "score": 69.78475318851643
+            }
+          ],
+          "controller_timing_ms": {
+            "cache_hit": false,
+            "configure_ms": 0.08661800529807806,
+            "import_ms": 0.38712500827386975,
+            "model_load_ms": 7320.297297032084,
+            "processor_init_ms": 0.23103202693164349,
+            "prompt_ms_by_label": {
+              "hand": 274.7395660262555
+            },
+            "prompt_total_ms": 274.7395660262555,
+            "resolve_paths_ms": 0.14047801960259676,
+            "runtime_deps_ms": 0.0032869866117835045,
+            "set_image_ms": 181.40028603374958,
+            "total_ms": 7777.324624999892
+          },
+          "object_area": 21828,
+          "object_candidate_count": 1,
+          "object_prompt": "stuffed animal",
+          "object_selected_indices": [
+            0
+          ],
+          "object_selected_stats": [
+            {
+              "area": 21828,
+              "bbox": [
+                304,
+                154,
+                598,
+                342
+              ],
+              "centroid": [
+                451.08599047095475,
+                237.1082554517134
+              ],
+              "green_delta": 10.512367248535156,
+              "green_fraction": 0.0034817665383910573,
+              "mean_rgb": [
+                115.31267547607422,
+                111.12969207763672,
+                85.92198181152344
+              ],
+              "overlap_iou": 0.07950210801043966,
+              "score": 20960.313993174062
+            }
+          ],
+          "object_timing_ms": {
+            "cache_hit": true,
+            "configure_ms": 0.04552199970930815,
+            "import_ms": 0.0021750456653535366,
+            "model_load_ms": 0.0,
+            "processor_init_ms": 0.0,
+            "prompt_ms_by_label": {
+              "stuffed animal": 99.51835399260744
+            },
+            "prompt_total_ms": 99.51835399260744,
+            "resolve_paths_ms": 0.1821619807742536,
+            "runtime_deps_ms": 0.0007839989848434925,
+            "set_image_ms": 12.89676403393969,
+            "total_ms": 112.6866260310635
+          }
+        },
+        {
+          "camera_idx": 1,
+          "controller_area": 17772,
+          "controller_candidate_count": 3,
+          "controller_prompt": "hand",
+          "controller_selected_indices": [
+            2,
+            0,
+            1
+          ],
+          "controller_selected_stats": [
+            {
+              "area": 10214,
+              "bbox": [
+                36,
+                187,
+                181,
+                298
+              ],
+              "centroid": [
+                109.53925983943607,
+                238.21911102408458
+              ],
+              "green_delta": 0.6339797973632812,
+              "green_fraction": 0.0,
+              "mean_rgb": [
+                147.4413604736328,
+                125.50656127929688,
+                102.30380249023438
+              ],
+              "overlap_iou": 0.0,
+              "score": 103.06660929570154
+            },
+            {
+              "area": 5669,
+              "bbox": [
+                572,
+                191,
+                671,
+                281
+              ],
+              "centroid": [
+                613.6958899276768,
+                233.2829423178691
+              ],
+              "green_delta": 3.3031387329101562,
+              "green_fraction": 0.0001763979537837361,
+              "mean_rgb": [
+                135.8495330810547,
+                117.37837219238281,
+                92.30093383789062
+              ],
+              "overlap_iou": 0.0,
+              "score": 83.1178390884997
+            },
+            {
+              "area": 1889,
+              "bbox": [
+                163,
+                223,
+                222,
+                269
+              ],
+              "centroid": [
+                192.8263631551085,
+                244.39015352038115
+              ],
+              "green_delta": 9.06219482421875,
+              "green_fraction": 0.03493912122816305,
+              "mean_rgb": [
+                115.48703002929688,
+                112.2154541015625,
+                90.8194808959961
+              ],
+              "overlap_iou": 0.0,
+              "score": 61.845149157995685
+            }
+          ],
+          "controller_timing_ms": {
+            "cache_hit": true,
+            "configure_ms": 0.060951977502554655,
+            "import_ms": 0.002630986273288727,
+            "model_load_ms": 0.0,
+            "processor_init_ms": 0.0,
+            "prompt_ms_by_label": {
+              "hand": 99.02898396831006
+            },
+            "prompt_total_ms": 99.02898396831006,
+            "resolve_paths_ms": 0.17138198018074036,
+            "runtime_deps_ms": 0.00080897007137537,
+            "set_image_ms": 14.165285043418407,
+            "total_ms": 113.47790196305141
+          },
+          "object_area": 39592,
+          "object_candidate_count": 1,
+          "object_prompt": "stuffed animal",
+          "object_selected_indices": [
+            0
+          ],
+          "object_selected_stats": [
+            {
+              "area": 39592,
+              "bbox": [
+                165,
+                173,
+                598,
+                442
+              ],
+              "centroid": [
+                378.2143867447969,
+                288.4992170135381
+              ],
+              "green_delta": 10.113609313964844,
+              "green_fraction": 0.02705091937765205,
+              "mean_rgb": [
+                126.15864562988281,
+                122.45883178710938,
+                98.53179931640625
+              ],
+              "overlap_iou": 0.03217216064488268,
+              "score": 38955.1199078739
+            }
+          ],
+          "object_timing_ms": {
+            "cache_hit": true,
+            "configure_ms": 0.02976000541821122,
+            "import_ms": 0.002115964889526367,
+            "model_load_ms": 0.0,
+            "processor_init_ms": 0.0,
+            "prompt_ms_by_label": {
+              "stuffed animal": 99.95748294750229
+            },
+            "prompt_total_ms": 99.95748294750229,
+            "resolve_paths_ms": 0.16814999980852008,
+            "runtime_deps_ms": 0.0006560003384947777,
+            "set_image_ms": 12.42624199949205,
+            "total_ms": 112.61965002631769
+          }
+        },
+        {
+          "camera_idx": 2,
+          "controller_area": 36978,
+          "controller_candidate_count": 7,
+          "controller_prompt": "hand",
+          "controller_selected_indices": [
+            4,
+            1,
+            5
+          ],
+          "controller_selected_stats": [
+            {
+              "area": 16272,
+              "bbox": [
+                533,
+                246,
+                713,
+                439
+              ],
+              "centroid": [
+                601.4462881022615,
+                345.898168633235
+              ],
+              "green_delta": 11.196441650390625,
+              "green_fraction": 0.060594886922320554,
+              "mean_rgb": [
+                146.41224670410156,
+                145.69561767578125,
+                122.58609771728516
+              ],
+              "overlap_iou": 0.0,
+              "score": 203.1125367081421
+            },
+            {
+              "area": 20632,
+              "bbox": [
+                643,
+                247,
+                848,
+                381
+              ],
+              "centroid": [
+                754.1066789453276,
+                313.84213842574644
+              ],
+              "green_delta": -2.0733261108398438,
+              "green_fraction": 0.0,
+              "mean_rgb": [
+                116.83404541015625,
+                95.74156951904297,
+                78.7957534790039
+              ],
+              "overlap_iou": 0.0,
+              "score": 143.6384349678038
+            },
+            {
+              "area": 2691,
+              "bbox": [
+                607,
+                358,
+                714,
+                426
+              ],
+              "centroid": [
+                661.5845410628019,
+                389.60163507989597
+              ],
+              "green_delta": 9.792449951171875,
+              "green_fraction": 0.2690449646971386,
+              "mean_rgb": [
+                146.42921447753906,
+                149.62765502929688,
+                133.24118041992188
+              ],
+              "overlap_iou": 0.0,
+              "score": 123.57595082302349
+            }
+          ],
+          "controller_timing_ms": {
+            "cache_hit": true,
+            "configure_ms": 0.05734199658036232,
+            "import_ms": 0.002168002538383007,
+            "model_load_ms": 0.0,
+            "processor_init_ms": 0.0,
+            "prompt_ms_by_label": {
+              "hand": 106.36830900330096
+            },
+            "prompt_total_ms": 106.36830900330096,
+            "resolve_paths_ms": 0.1418850151821971,
+            "runtime_deps_ms": 0.0006750342436134815,
+            "set_image_ms": 12.077578983735293,
+            "total_ms": 118.69273404590786
+          },
+          "object_area": 29184,
+          "object_candidate_count": 1,
+          "object_prompt": "stuffed animal",
+          "object_selected_indices": [
+            0
+          ],
+          "object_selected_stats": [
+            {
+              "area": 29184,
+              "bbox": [
+                473,
+                146,
+                713,
+                441
+              ],
+              "centroid": [
+                572.1756099232456,
+                297.6822574013158
+              ],
+              "green_delta": 10.6822509765625,
+              "green_fraction": 0.038171600877192985,
+              "mean_rgb": [
+                142.16009521484375,
+                139.85043334960938,
+                116.17626190185547
+              ],
+              "overlap_iou": 0.3235841318742873,
+              "score": 24462.2603476904
+            }
+          ],
+          "object_timing_ms": {
+            "cache_hit": true,
+            "configure_ms": 0.03333104541525245,
+            "import_ms": 0.003263005055487156,
+            "model_load_ms": 0.0,
+            "processor_init_ms": 0.0,
+            "prompt_ms_by_label": {
+              "stuffed animal": 97.06967603415251
+            },
+            "prompt_total_ms": 97.06967603415251,
+            "resolve_paths_ms": 0.17566297901794314,
+            "runtime_deps_ms": 0.0006490154191851616,
+            "set_image_ms": 14.258039009291679,
+            "total_ms": 111.57770903082564
+          }
+        }
+      ],
+      "confidence_threshold": 0.25,
+      "controller_label": "hand",
+      "controller_max_instances": 3,
+      "controller_prompt": "hand",
+      "controller_selection_mode": "green-score",
+      "errors": [],
+      "frame0_init_pass": true,
+      "generation_wall_ms": 9040.747135994025,
+      "inference_mode": "sam31-image-frame0-init",
+      "mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal/sam31_image_frame0_init_masks",
+      "min_area": 64,
+      "object_label": "stuffed animal",
+      "object_max_instances": 1,
+      "object_prompt": "stuffed animal",
+      "object_selection_mode": "largest",
+      "output_dir": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal/sam31_image_frame0_init_masks",
+      "reused_existing": false,
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+      "role_order": [
+        "hand",
+        "stuffed animal"
+      ]
+    },
+    "timings_ms": {
+      "cam0_ms": {
+        "avg": 31.14821693568956,
+        "count": 100,
+        "max": 50.82772899186239,
+        "min": 0.12464897008612752,
+        "p50": 30.60724097304046,
+        "p90": 38.264223566511646,
+        "p95": 41.33279018569737,
+        "p99": 45.57059436163402
+      },
+      "cam1_ms": {
+        "avg": 30.256596283288673,
+        "count": 100,
+        "max": 45.57085398118943,
+        "min": 0.12043805327266455,
+        "p50": 29.817790491506457,
+        "p90": 37.11925341631286,
+        "p95": 37.617097137263045,
+        "p99": 41.97793014813217
+      },
+      "cam2_ms": {
+        "avg": 30.486559791024774,
+        "count": 100,
+        "max": 50.076037005055696,
+        "min": 0.11882797116413713,
+        "p50": 30.309721507364884,
+        "p90": 36.7301378864795,
+        "p95": 38.31934228364844,
+        "p99": 39.98214851424569
+      },
+      "preprocess_ms": {
+        "avg": 3.802831241628155,
+        "count": 100,
+        "max": 37.02267102198675,
+        "min": 2.2190239978954196,
+        "p50": 3.370063001057133,
+        "p90": 4.319858993403614,
+        "p95": 4.588845366379246,
+        "p99": 6.717701820889644
+      },
+      "stage_wall_ms": {
+        "avg": 93.24693496280815,
+        "count": 100,
+        "max": 133.57633299892768,
+        "min": 1.456236990634352,
+        "p50": 92.35824146890081,
+        "p90": 108.51287908153608,
+        "p95": 118.00616690015886,
+        "p99": 124.64170276711233
+      }
+    }
+  },
+  "status": "replay_profile",
+  "strict_full_batched": false,
+  "warmup": 20
+}

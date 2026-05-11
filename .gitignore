@@ -183,3 +183,17 @@ test-results/
 # AI agent local setup artifacts
 /.agents/skills
 /.claude/skills
+
+# EdgeTAM batched experiment local artifacts
+docs/generated/fixtures/
+docs/generated/**/*_low_iou_frames/
+docs/generated/**/*.pt
+docs/generated/**/*.pth
+docs/generated/**/*.npz
+docs/generated/**/*.png
+docs/generated/**/*.jpg
+docs/generated/**/*.jpeg
+docs/generated/**/*.qdrep
+docs/generated/**/*.nsys-rep
+docs/generated/**/*.sqlite
+docs/generated/nsys_*/

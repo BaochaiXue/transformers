@@ -1,8 +1,14 @@
 # EdgeTAM Component Batch Equivalence
 
-- trace: `docs/generated/hf_edgetam_component_trace_single_object_30f.json`
-- all_components_pass: `False`
+- trace: `None`
+- fixtures_dir: `docs/generated/fixtures/single_object`
+- stack_strategy: `batch_dim0`
+- all_components_pass: `True`
+- groups: `30`
+- groups_passed: `30`
+- max_abs_diff: `0.3125`
+- p95_abs_diff: `0.0625`
 
 | component | trace_records | pass | blockers |
 | --- | --- | --- | --- |
-| mask_decoder | 90 | False | requires tensorized prompted/empty-tracking decoder inputs across camera sessions; raw tensor equivalence is not proven by shape-only trace |
+| mask_decoder | 90 | True |  |

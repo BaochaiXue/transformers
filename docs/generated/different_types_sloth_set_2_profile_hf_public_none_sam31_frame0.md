@@ -1,7 +1,7 @@
 # EdgeTAM Batched Profile
 
-- backend: `hf_batch_vision_seq_session`
-- status: `scaffold_only`
+- backend: `hf_ref_seq_public`
+- status: `replay_profile`
 - strict_full_batched: `False`
 - this profile is not a validated batched multi-session runtime measurement
 

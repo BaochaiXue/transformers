@@ -3,21 +3,23 @@
   "compile_mode": "none",
   "correctness_pass": false,
   "correctness_report_used": null,
+  "disallow_partial_backend_success": false,
   "frames": 100,
   "graph_output_policy": "ring_buffer",
   "profile": {
     "note": "scaffold-only timing; does not measure EdgeTAM model inference",
     "stage_wall_ms": {
-      "avg": 4.626810550689697e-05,
+      "avg": 4.689907655119896e-05,
       "count": 100,
-      "max": 0.00123301288112998,
-      "min": 2.9976945370435715e-05,
-      "p50": 3.198510967195034e-05,
-      "p90": 4.117609933018686e-05,
-      "p95": 5.614710971713065e-05,
-      "p99": 0.00010343617759645568
+      "max": 0.0014129909686744213,
+      "min": 2.898741513490677e-05,
+      "p50": 3.102468326687813e-05,
+      "p90": 3.597233444452286e-05,
+      "p95": 4.305911716073751e-05,
+      "p99": 0.00011313066352159456
     }
   },
   "status": "scaffold_only",
+  "strict_full_batched": false,
   "warmup": 20
 }

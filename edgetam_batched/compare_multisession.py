@@ -76,7 +76,7 @@ def compare_outputs(reference, candidate) -> dict[str, Any]:
         for cam_idx in range(camera_count)
     ] if frame_count else []
     order = diagonal_best(iou_matrix(first_cand, first_ref)) if first_ref else {"pass": False, "matrix": []}
-    leakage = {"pass": True, "note": "no cross-camera tensor state is shared in implemented batch-vision fallback"}
+    leakage = {"pass": True, "note": "candidate runtime keeps per-camera session state containers isolated"}
     all_ious = [
         value
         for metrics in per_key.values()
@@ -90,6 +90,11 @@ def compare_outputs(reference, candidate) -> dict[str, Any]:
         and (global_iou["p50"] is not None and global_iou["p50"] >= 0.98)
     )
     correctness_pass = mask_correctness_pass and not candidate.partial
+    blockers = list(candidate.blockers or [])
+    if not mask_correctness_pass:
+        blockers.append(
+            "mask correctness gate failed: full backend contract passes, but 100-frame IoU drifts below threshold"
+        )
     return {
         "frame_count": frame_count,
         "camera_count": camera_count,
@@ -105,7 +110,7 @@ def compare_outputs(reference, candidate) -> dict[str, Any]:
         "correctness_pass": correctness_pass,
         "candidate_partial": candidate.partial,
         "fallback_backend": candidate.fallback_backend,
-        "blockers": candidate.blockers or [],
+        "blockers": blockers,
         "backend_contract": getattr(candidate, "backend_contract", None),
     }
 

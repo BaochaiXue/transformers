@@ -1,0 +1,177 @@
+{
+  "backend": "hf_batched_multisession",
+  "compile_mode": "none",
+  "disallow_partial_backend_success": true,
+  "graph_output_policy": "ring_buffer",
+  "init_source": "deterministic",
+  "metrics": {
+    "backend_contract": {
+      "backend": "hf_batched_multisession",
+      "batch_mask_decoder": true,
+      "batch_memory_attention": true,
+      "batch_memory_encoder": true,
+      "batch_vision": true,
+      "batched_state_scatter": true,
+      "blockers": [],
+      "contract_pass": true,
+      "missing_requirements": [],
+      "partial_fallback_used": false,
+      "used_public_session_step_in_hot_path": false
+    },
+    "blockers": [
+      "mask correctness gate failed: full backend contract passes, but 100-frame IoU drifts below threshold"
+    ],
+    "camera_count": 3,
+    "camera_order_check": "pass",
+    "camera_order_matrix": [
+      [
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0
+      ]
+    ],
+    "candidate_partial": false,
+    "correctness_pass": false,
+    "empty_mismatch_count": 0,
+    "fallback_backend": null,
+    "frame_count": 93,
+    "global_mask_iou": {
+      "avg": 0.9612491228924862,
+      "count": 21,
+      "max": 1.0,
+      "min": 0.674901185770751,
+      "p50": 0.9964646099970831,
+      "p90": 1.0,
+      "p95": 1.0,
+      "p99": 1.0
+    },
+    "mask_correctness_pass": false,
+    "object_count": 1,
+    "per_camera_object": {
+      "cam0_obj0": {
+        "candidate_nonempty_count": 93,
+        "logit_abs_diff": {
+          "avg": 0.4332231340669496,
+          "count": 93,
+          "max": 1.0980390310287476,
+          "min": 0.0,
+          "p50": 0.32562458515167236,
+          "p90": 0.8836717844009399,
+          "p95": 0.9547868847846984,
+          "p99": 1.057305221557617
+        },
+        "mask_iou": {
+          "avg": 0.9799253844552651,
+          "count": 93,
+          "max": 1.0,
+          "min": 0.9297407912687585,
+          "p50": 0.9788418708240535,
+          "p90": 0.9964646099970831,
+          "p95": 0.9970113730299135,
+          "p99": 0.9984764608469363
+        },
+        "object_score_abs_diff": {
+          "avg": 0.8713037634408602,
+          "count": 93,
+          "max": 2.21875,
+          "min": 0.0,
+          "p50": 0.59375,
+          "p90": 1.875,
+          "p95": 1.9812499999999997,
+          "p99": 2.16125
+        },
+        "reference_nonempty_count": 93
+      },
+      "cam1_obj0": {
+        "candidate_nonempty_count": 93,
+        "logit_abs_diff": {
+          "avg": 0.7915485443206884,
+          "count": 93,
+          "max": 5.587845325469971,
+          "min": 0.0,
+          "p50": 0.2432825267314911,
+          "p90": 2.4440368413925144,
+          "p95": 4.986059284210205,
+          "p99": 5.213965473175048
+        },
+        "mask_iou": {
+          "avg": 0.9599975483281635,
+          "count": 93,
+          "max": 1.0,
+          "min": 0.674901185770751,
+          "p50": 0.985007072135785,
+          "p90": 0.9952661985334974,
+          "p95": 0.9972589880541622,
+          "p99": 0.9983098591549295
+        },
+        "object_score_abs_diff": {
+          "avg": 0.3185483870967742,
+          "count": 93,
+          "max": 1.65625,
+          "min": 0.0,
+          "p50": 0.25,
+          "p90": 0.6812499999999999,
+          "p95": 1.1562499999999987,
+          "p99": 1.5699999999999998
+        },
+        "reference_nonempty_count": 93
+      },
+      "cam2_obj0": {
+        "candidate_nonempty_count": 93,
+        "logit_abs_diff": {
+          "avg": 0.27784248805975403,
+          "count": 93,
+          "max": 1.5028598308563232,
+          "min": 0.0,
+          "p50": 0.18192227184772491,
+          "p90": 0.5451485872268677,
+          "p95": 0.8053031325340253,
+          "p99": 1.2083614063262933
+        },
+        "mask_iou": {
+          "avg": 0.974707358767951,
+          "count": 93,
+          "max": 1.0,
+          "min": 0.7350816582914573,
+          "p50": 0.9906890130353817,
+          "p90": 0.9973990224626565,
+          "p95": 0.9978661430080304,
+          "p99": 0.9992870427774333
+        },
+        "object_score_abs_diff": {
+          "avg": 0.10215053763440861,
+          "count": 93,
+          "max": 0.625,
+          "min": 0.0,
+          "p50": 0.0625,
+          "p90": 0.1875,
+          "p95": 0.27499999999999947,
+          "p99": 0.5674999999999999
+        },
+        "reference_nonempty_count": 93
+      }
+    },
+    "state_leakage": {
+      "note": "candidate runtime keeps per-camera session state containers isolated",
+      "pass": true
+    },
+    "state_leakage_check": "pass"
+  },
+  "prompt_source": "deterministic_replay_boxes",
+  "reference_source": "hf-public",
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+  "sam31_frame0_init_mask_root": null,
+  "sam31_frame0_init_summary": null,
+  "sam31_mask_root": null,
+  "strict_full_batched": true
+}
