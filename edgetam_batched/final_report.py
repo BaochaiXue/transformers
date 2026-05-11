@@ -33,6 +33,11 @@ def main() -> int:
     parser.add_argument("--different-types-summary", default=None)
     parser.add_argument("--candidate-delta", default=None)
     parser.add_argument("--first-bad-frame", default=None)
+    parser.add_argument("--teacher-force-json", nargs="*", default=[])
+    parser.add_argument("--state-drift-json", default=None)
+    parser.add_argument("--state-commit-json", nargs="*", default=[])
+    parser.add_argument("--memory-slot-audit-json", default=None)
+    parser.add_argument("--component-equivalence-json", nargs="*", default=[])
     parser.add_argument("--output-md", required=True)
     parser.add_argument("--output-json", required=True)
     args = parser.parse_args()
@@ -43,6 +48,11 @@ def main() -> int:
     different_types_summary = load_optional_json(args.different_types_summary)
     candidate_delta = load_optional_json(args.candidate_delta)
     first_bad_frame = load_optional_json(args.first_bad_frame)
+    teacher_force = [compact_diagnostic_payload(item) for item in load_jsons(args.teacher_force_json)]
+    state_drift = compact_diagnostic_payload(load_optional_json(args.state_drift_json))
+    state_commit = [compact_diagnostic_payload(item) for item in load_jsons(args.state_commit_json)]
+    memory_slot_audit = compact_diagnostic_payload(load_optional_json(args.memory_slot_audit_json))
+    component_equivalence = [compact_diagnostic_payload(item) for item in load_jsons(args.component_equivalence_json)]
     repo = {
         "branch": _git("branch", "--show-current"),
         "commit": _git("rev-parse", "HEAD"),
@@ -54,11 +64,7 @@ def main() -> int:
     full_contract = (full or {}).get("backend_contract") or (full or {}).get("metrics", {}).get("backend_contract") or {}
     if not full_contract and "contract_pass" in (full or {}):
         full_contract = full or {}
-    full_usable = bool(
-        full
-        and full.get("metrics", {}).get("correctness_pass") is True
-        and full_contract.get("contract_pass") is True
-    )
+    full_usable = is_strict_full_closed_loop_pass(full, full_contract)
     full_failure_stage = full_failure_stage_for(full, full_contract)
     full_blocker = full_blocker_for(full, full_contract, first_bad_frame)
     payload = {
@@ -75,6 +81,11 @@ def main() -> int:
         "different_types_summary": different_types_summary,
         "candidate_delta": candidate_delta,
         "first_bad_frame": first_bad_frame,
+        "teacher_force": teacher_force,
+        "state_drift": state_drift,
+        "state_commit": state_commit,
+        "memory_slot_audit": memory_slot_audit,
+        "component_equivalence": component_equivalence,
         "best_profile": best_profile,
         "decision": {
             "hf_batch_vision_seq_session_usable": bool(sam31_best),
@@ -106,6 +117,24 @@ def main() -> int:
             "hf_batched_multisession_failure_stage": None if full_usable else full_failure_stage,
             "hf_batched_multisession_reason": "contract pass + correctness pass" if full_usable else full_blocker,
             "hf_batched_multisession_blockers": full_blocker,
+            "full_batched_vs_sam31_not_worse": (
+                (candidate_delta or {})
+                .get("per_object", {})
+                .get("stuffed animal", {})
+                .get("not_worse")
+            ),
+            "full_batched_vs_sam31_delta": (
+                (candidate_delta or {})
+                .get("per_object", {})
+                .get("stuffed animal", {})
+                .get("delta")
+            ),
+            "recurrent_memory_slot_order_pass": (
+                None if memory_slot_audit is None else bool(memory_slot_audit.get("pass"))
+            ),
+            "recurrent_drift_first_tensor": (
+                ((state_drift or {}).get("summary") or {}).get("first_tensor_drift")
+            ),
             "faster_than_77_92_ms_baseline": bool(
                 best_profile and (best_profile.get("stage_wall_p50_ms") or 1e9) < 77.92
             ),
@@ -154,6 +183,21 @@ def compact_correctness_payload(payload: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(metrics, dict):
         return payload
     metrics.pop("sample_statuses", None)
+    for item in (metrics.get("per_camera_object") or {}).values():
+        if isinstance(item, dict):
+            item.pop("iou_values_on_evaluated", None)
+    return payload
+
+
+def compact_diagnostic_payload(payload: dict[str, Any] | None) -> dict[str, Any] | None:
+    if payload is None:
+        return None
+    payload.pop("rows", None)
+    payload.pop("strategy_results", None)
+    records = payload.get("records")
+    if isinstance(records, list) and len(records) > 20:
+        payload["records"] = records[:20]
+        payload["records_truncated"] = True
     return payload
 
 
@@ -211,16 +255,38 @@ def choose_full_batched_report(candidates: list[dict[str, Any]]) -> dict[str, An
     if not candidates:
         return None
 
-    def score(item: dict[str, Any]) -> tuple[int, int, int, str]:
+    def score(item: dict[str, Any]) -> tuple[int, int, int, int, int, str]:
         metrics = item.get("metrics") or {}
         contract = item.get("backend_contract") or metrics.get("backend_contract") or {}
         strict = bool(item.get("strict_full_batched"))
+        closed_loop_reference = item.get("reference_source") in {"hf-public", "hf-public-seq"}
         contract_pass = bool(contract.get("contract_pass"))
+        strict_pass = bool(metrics.get("strict_correctness_pass"))
         correctness_pass = bool(metrics.get("correctness_pass"))
         path = str(item.get("_path") or "")
-        return (int(strict), int(contract_pass), int(correctness_pass), path)
+        return (
+            int(closed_loop_reference),
+            int(strict),
+            int(contract_pass),
+            int(strict_pass),
+            int(correctness_pass),
+            path,
+        )
 
     return max(candidates, key=score)
+
+
+def is_strict_full_closed_loop_pass(full: dict[str, Any] | None, contract: dict[str, Any]) -> bool:
+    if not full:
+        return False
+    metrics = full.get("metrics") or {}
+    return bool(
+        full.get("backend") == "hf_batched_multisession"
+        and full.get("strict_full_batched") is True
+        and full.get("reference_source") in {"hf-public", "hf-public-seq"}
+        and contract.get("contract_pass") is True
+        and metrics.get("strict_correctness_pass") is True
+    )
 
 
 def render(payload: dict[str, Any]) -> str:
@@ -365,6 +431,10 @@ def render(payload: dict[str, Any]) -> str:
                 else ["No first-bad-frame report provided."]
             ),
             "",
+            "## Full batched recurrent drift localization",
+            "",
+            *render_recurrent_drift_section(payload),
+            "",
             "## Decision",
             "",
             markdown_table(["field", "value"], payload["decision"].items()),
@@ -378,7 +448,9 @@ def full_failure_stage_for(full: dict[str, Any] | None, contract: dict[str, Any]
     if contract.get("contract_pass") is not True:
         return "backend_contract"
     metrics = full.get("metrics") or {}
-    if metrics.get("correctness_pass") is not True:
+    if full.get("reference_source") not in {"hf-public", "hf-public-seq"}:
+        return "closed_loop_reference_missing"
+    if metrics.get("strict_correctness_pass") is not True:
         return "correctness"
     return full.get("failure_stage") or "unknown"
 
@@ -539,6 +611,143 @@ def render_first_bad_frame_section(summary: dict[str, Any]) -> list[str]:
             ],
         ),
     ]
+
+
+def render_recurrent_drift_section(payload: dict[str, Any]) -> list[str]:
+    lines: list[str] = []
+    component_rows = []
+    for item in payload.get("component_equivalence") or []:
+        component_rows.append(
+            [
+                item.get("component"),
+                item.get("groups"),
+                item.get("groups_passed"),
+                item.get("all_components_pass"),
+                _round(item.get("max_abs_diff")),
+                _round(item.get("p95_abs_diff")),
+                item.get("_path"),
+            ]
+        )
+    if component_rows:
+        lines.extend(
+            [
+                "### Component equivalence fixtures",
+                "",
+                markdown_table(
+                    ["component", "groups", "passed", "pass", "max_abs_diff", "p95_abs_diff", "path"],
+                    component_rows,
+                ),
+                "",
+            ]
+        )
+
+    teacher_rows = []
+    for item in payload.get("teacher_force") or []:
+        bad = item.get("first_bad_frame") or {}
+        teacher_rows.append(
+            [
+                item.get("teacher_force_mode"),
+                item.get("status"),
+                bad.get("frame_idx"),
+                bad.get("camera"),
+                _round(bad.get("iou")),
+                _round(item.get("global_iou_avg")),
+                _round(item.get("global_iou_p50")),
+                item.get("drift_source_hypothesis"),
+            ]
+        )
+    if teacher_rows:
+        lines.extend(
+            [
+                "### Teacher forcing",
+                "",
+                markdown_table(
+                    ["mode", "status", "first_bad_frame", "camera", "iou", "avg", "p50", "hypothesis"],
+                    teacher_rows,
+                ),
+                "",
+            ]
+        )
+
+    drift = payload.get("state_drift") or {}
+    summary = drift.get("summary") or {}
+    if summary:
+        lines.extend(
+            [
+                "### State drift curve",
+                "",
+                markdown_table(
+                    ["field", "value"],
+                    [
+                        ["mask_iou_avg", _round((summary.get("mask_iou") or {}).get("avg"))],
+                        ["mask_iou_min", _round((summary.get("mask_iou") or {}).get("min"))],
+                        ["first_iou_lt_0_90", summary.get("first_iou_lt_0_90")],
+                        ["first_iou_lt_0_98", summary.get("first_iou_lt_0_98")],
+                        ["first_tensor_drift", summary.get("first_tensor_drift")],
+                        [
+                            "maskmem_features_first_p95_gt_1",
+                            (summary.get("maskmem_features") or {}).get("first_frame_p95_gt_1"),
+                        ],
+                        [
+                            "object_pointer_first_p95_gt_1e_1",
+                            (summary.get("object_pointer") or {}).get("first_frame_p95_gt_1e_1"),
+                        ],
+                        [
+                            "maskmem_pos_enc_p95",
+                            _round(((summary.get("maskmem_pos_enc") or {}).get("p95_abs_diff") or {}).get("p95")),
+                        ],
+                    ],
+                ),
+                "",
+            ]
+        )
+
+    commit_rows = []
+    for item in payload.get("state_commit") or []:
+        bad = item.get("first_bad_frame") or {}
+        commit_rows.append(
+            [
+                item.get("state_commit_mode"),
+                bad.get("frame_idx"),
+                bad.get("camera"),
+                _round(bad.get("iou")),
+                _round(item.get("global_iou_avg")),
+                _round(item.get("global_iou_p50")),
+                item.get("interpretation"),
+            ]
+        )
+    if commit_rows:
+        lines.extend(
+            [
+                "### State commit ablation",
+                "",
+                markdown_table(
+                    ["mode", "first_bad_frame", "camera", "iou", "avg", "p50", "interpretation"],
+                    commit_rows,
+                ),
+                "",
+            ]
+        )
+
+    audit = payload.get("memory_slot_audit")
+    if audit:
+        lines.extend(
+            [
+                "### Memory slot audit",
+                "",
+                markdown_table(
+                    ["field", "value"],
+                    [
+                        ["pass", audit.get("pass")],
+                        ["first_mismatch", audit.get("first_mismatch")],
+                        ["path", audit.get("_path")],
+                    ],
+                ),
+            ]
+        )
+    if not lines:
+        return ["No recurrent drift localization reports provided."]
+    return lines
 
 
 def first_empty_reference_policy(correctness: list[dict[str, Any]]) -> str | None:

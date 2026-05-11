@@ -1,0 +1,185 @@
+{
+  "all_components_pass": true,
+  "batch_size": 3,
+  "blockers": [],
+  "component": "mask_decoder",
+  "components": [
+    {
+      "blockers": [],
+      "component": "mask_decoder",
+      "equivalence_pass": true,
+      "records": 180,
+      "requirement": "requires tensorized prompted/empty-tracking decoder inputs across camera sessions"
+    }
+  ],
+  "dtype": "bfloat16",
+  "fixtures_dir": "docs/generated/fixtures/single_object_60f",
+  "groups": 60,
+  "groups_passed": 60,
+  "max_abs_diff": 0.375,
+  "mean_abs_diff": 0.02191659010325869,
+  "p95_abs_diff": 0.0625,
+  "stack_strategy": "batch_dim0",
+  "strategy_results": [
+    {
+      "frame_idx": 0,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.025212332606315613,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 1,
+      "max_abs_diff": 0.3125,
+      "mean_abs_diff": 0.02303929626941681,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 2,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.021080680191516876,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 3,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.024261076003313065,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 4,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.024294273927807808,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 5,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.0259842686355114,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 6,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.02325095795094967,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 7,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.020189858973026276,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 8,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.021875781938433647,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 9,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.020578591153025627,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 10,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.02328244037926197,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 11,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.017020748928189278,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 12,
+      "max_abs_diff": 0.3125,
+      "mean_abs_diff": 0.019572338089346886,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 13,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.022055216133594513,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 14,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.01999766193330288,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 15,
+      "max_abs_diff": 0.3125,
+      "mean_abs_diff": 0.0219113789498806,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 16,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.021787790581583977,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 17,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.01777130365371704,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 18,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.019132373854517937,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    },
+    {
+      "frame_idx": 19,
+      "max_abs_diff": 0.25,
+      "mean_abs_diff": 0.022817950695753098,
+      "p95_abs_diff": 0.0625,
+      "pass": true,
+      "strategy": "batch_dim0"
+    }
+  ]
+}

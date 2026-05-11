@@ -1,0 +1,1429 @@
+{
+  "backend": "hf_batched_multisession",
+  "backend_contract": {
+    "backend": "hf_batched_multisession",
+    "batch_mask_decoder": true,
+    "batch_memory_attention": true,
+    "batch_memory_encoder": true,
+    "batch_vision": true,
+    "batched_state_scatter": true,
+    "blockers": [],
+    "contract_pass": true,
+    "missing_requirements": [],
+    "partial_fallback_used": false,
+    "used_public_session_step_in_hot_path": false
+  },
+  "component_replaced": "decoder_and_memory_outputs",
+  "drift_source_hypothesis": "drift_not_eliminated_by_after_mask_decoder",
+  "dtype": "bfloat16",
+  "first_bad_frame": {
+    "camera": "cam1",
+    "frame_idx": 47,
+    "iou": 0.7329700272479565
+  },
+  "global_iou_avg": 0.9980210603568154,
+  "global_iou_p50": 0.999126383226558,
+  "min_iou": 0.7329700272479565,
+  "object_count": 1,
+  "object_prompt": "stuffed animal",
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+  "rows": [
+    {
+      "camera": "cam0",
+      "frame_idx": 0,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 0,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 0,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 1,
+      "iou": 0.9981744421906694
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 1,
+      "iou": 0.9983567646521818
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 1,
+      "iou": 0.999845009299442
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 2,
+      "iou": 0.9974069272087424
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 2,
+      "iou": 0.9978911851539435
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 2,
+      "iou": 0.999377819256494
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 3,
+      "iou": 0.9970494779845664
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 3,
+      "iou": 0.9988193624557261
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 3,
+      "iou": 0.9992216687422167
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 4,
+      "iou": 0.9965277777777778
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 4,
+      "iou": 0.9985168705969596
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 4,
+      "iou": 0.9992206982543641
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 5,
+      "iou": 0.9970880854161611
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 5,
+      "iou": 0.9992555369439792
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 5,
+      "iou": 0.9987569919204475
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 6,
+      "iou": 0.9994958406856567
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 6,
+      "iou": 0.999815668202765
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 6,
+      "iou": 0.9998456790123457
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 7,
+      "iou": 0.9989623865110246
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 7,
+      "iou": 0.9994331065759637
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 7,
+      "iou": 0.9995381773399015
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 8,
+      "iou": 0.9986928104575163
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 8,
+      "iou": 0.9972416329532916
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 8,
+      "iou": 0.9996902106567535
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 9,
+      "iou": 0.9992067689053411
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 9,
+      "iou": 0.9990718396138852
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 9,
+      "iou": 0.9993841416474211
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 10,
+      "iou": 0.998143728453991
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 10,
+      "iou": 0.9988736624741881
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 10,
+      "iou": 0.9996931574102486
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 11,
+      "iou": 0.9981328354227794
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 11,
+      "iou": 0.9988818486768543
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 11,
+      "iou": 0.9993881921076782
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 12,
+      "iou": 0.9986342529363562
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 12,
+      "iou": 0.9988634211024815
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 12,
+      "iou": 0.9995386035066134
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 13,
+      "iou": 0.9983726606997559
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 13,
+      "iou": 0.9996164908916587
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 13,
+      "iou": 0.9995425434583715
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 14,
+      "iou": 0.9994288977727013
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 14,
+      "iou": 0.9990351215746816
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 14,
+      "iou": 0.9993927432822226
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 15,
+      "iou": 0.9988558352402745
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 15,
+      "iou": 0.997583081570997
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 15,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 16,
+      "iou": 0.9994226327944573
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 16,
+      "iou": 0.9985699693564862
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 16,
+      "iou": 0.9996953077391835
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 17,
+      "iou": 0.999126383226558
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 17,
+      "iou": 0.9972725018596579
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 17,
+      "iou": 0.9993870671161508
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 18,
+      "iou": 0.9990076903994046
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 18,
+      "iou": 0.9982643193652369
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 18,
+      "iou": 0.9992352401345977
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 19,
+      "iou": 0.9989863152559554
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 19,
+      "iou": 0.998121813791253
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 19,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 20,
+      "iou": 0.9994891443167305
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 20,
+      "iou": 0.9979185251263752
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 20,
+      "iou": 0.9990552668871044
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 21,
+      "iou": 0.9997463860005072
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 21,
+      "iou": 0.9970640046975925
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 21,
+      "iou": 0.9992099857797441
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 22,
+      "iou": 0.999261811023622
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 22,
+      "iou": 0.9993954050785974
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 22,
+      "iou": 0.9998412950325345
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 23,
+      "iou": 0.9995102840352595
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 23,
+      "iou": 0.998468606431853
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 23,
+      "iou": 0.9998395893487327
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 24,
+      "iou": 0.9997613365155131
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 24,
+      "iou": 0.9969815876848778
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 24,
+      "iou": 0.9970559371933267
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 25,
+      "iou": 0.9990550437042287
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 25,
+      "iou": 0.9993848046754845
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 25,
+      "iou": 0.9993453355155483
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 26,
+      "iou": 0.9997650927883486
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 26,
+      "iou": 0.9984704802691955
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 26,
+      "iou": 0.9986925968295474
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 27,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 27,
+      "iou": 0.998769987699877
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 27,
+      "iou": 0.999024548853845
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 28,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 28,
+      "iou": 0.9993944898577051
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 28,
+      "iou": 0.9993447993447994
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 29,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 29,
+      "iou": 0.9984718826405868
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 29,
+      "iou": 0.9990139687756779
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 30,
+      "iou": 0.9995219885277247
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 30,
+      "iou": 0.9996933455995094
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 30,
+      "iou": 0.9995054401582592
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 31,
+      "iou": 0.999758337361044
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 31,
+      "iou": 0.9996892479801118
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 31,
+      "iou": 0.9996686547382373
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 32,
+      "iou": 0.999514091350826
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 32,
+      "iou": 0.9990648379052369
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 32,
+      "iou": 0.9996702934388394
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 33,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 33,
+      "iou": 0.9973388527498521
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 33,
+      "iou": 0.9993342210386151
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 34,
+      "iou": 0.9995127892813642
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 34,
+      "iou": 0.9993968636911942
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 34,
+      "iou": 0.9995070653959908
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 35,
+      "iou": 0.9995105237395986
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 35,
+      "iou": 0.9990498812351544
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 35,
+      "iou": 0.999504377994383
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 36,
+      "iou": 0.9992720213540403
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 36,
+      "iou": 0.9988300672711319
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 36,
+      "iou": 0.99933299983325
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 37,
+      "iou": 0.9995171414775471
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 37,
+      "iou": 0.999140154772141
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 37,
+      "iou": 0.9993429697766097
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 38,
+      "iou": 0.997837578087458
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 38,
+      "iou": 0.9988600740951838
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 38,
+      "iou": 0.9989991659716431
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 39,
+      "iou": 0.9995159728944821
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 39,
+      "iou": 0.9991598991879026
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 39,
+      "iou": 0.9993270524899058
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 40,
+      "iou": 0.9995181883883402
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 40,
+      "iou": 0.9986045213508233
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 40,
+      "iou": 0.9994910941475827
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 41,
+      "iou": 0.9997607655502392
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 41,
+      "iou": 0.9997095556200988
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 41,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 42,
+      "iou": 0.999284862932062
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 42,
+      "iou": 0.9962231260894828
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 42,
+      "iou": 0.998805868304333
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 43,
+      "iou": 0.9990373044524669
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 43,
+      "iou": 0.9990592662276576
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 43,
+      "iou": 0.9993224932249323
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 44,
+      "iou": 0.9992753623188406
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 44,
+      "iou": 0.9981132075471698
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 44,
+      "iou": 0.9987964236588721
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 45,
+      "iou": 0.9990217657128883
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 45,
+      "iou": 0.9972183588317107
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 45,
+      "iou": 0.9993050729673384
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 46,
+      "iou": 0.9992625368731564
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 46,
+      "iou": 0.9965940054495913
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 46,
+      "iou": 0.9987868284228769
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 47,
+      "iou": 0.998295177788602
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 47,
+      "iou": 0.7329700272479565
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 47,
+      "iou": 0.9992979992979993
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 48,
+      "iou": 0.9995180722891567
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 48,
+      "iou": 0.9995423340961098
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 48,
+      "iou": 0.9932564330079858
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 49,
+      "iou": 0.9990227217200097
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 49,
+      "iou": 0.9990855052583447
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 49,
+      "iou": 0.9983882521489972
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 50,
+      "iou": 0.9992706053975201
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 50,
+      "iou": 0.9995395948434622
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 50,
+      "iou": 0.9994005994005994
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 51,
+      "iou": 0.9995113608600049
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 51,
+      "iou": 0.9990921470721743
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 51,
+      "iou": 0.999199038846616
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 52,
+      "iou": 0.998814604077762
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 52,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 52,
+      "iou": 0.9989967897271268
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 53,
+      "iou": 0.9986219568213137
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 53,
+      "iou": 0.9980449657869013
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 53,
+      "iou": 0.9992679355783309
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 54,
+      "iou": 0.9988534739738592
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 54,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 54,
+      "iou": 0.998714180749449
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 55,
+      "iou": 0.9993061979648473
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 55,
+      "iou": 0.998679432155827
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 55,
+      "iou": 0.9983452840595698
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 56,
+      "iou": 0.9984209339048049
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 56,
+      "iou": 0.9996672212978369
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 56,
+      "iou": 0.9992565055762082
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 57,
+      "iou": 0.9988841776389199
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 57,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 57,
+      "iou": 0.9989013001281817
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 58,
+      "iou": 0.9984591679506933
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 58,
+      "iou": 0.9984020453819111
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 58,
+      "iou": 0.9975899147200593
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 59,
+      "iou": 0.9995670995670995
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 59,
+      "iou": 0.9990473166084471
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 59,
+      "iou": 0.9983722192078134
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 60,
+      "iou": 0.998466929478756
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 60,
+      "iou": 0.9984
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 60,
+      "iou": 0.9991220368744512
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 61,
+      "iou": 0.9993328885923949
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 61,
+      "iou": 0.9987212276214834
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 61,
+      "iou": 0.9993101069334254
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 62,
+      "iou": 0.9993224932249323
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 62,
+      "iou": 0.9993587688361655
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 62,
+      "iou": 0.9987279376689457
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 63,
+      "iou": 0.9993206521739131
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 63,
+      "iou": 0.9993567063364426
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 63,
+      "iou": 0.9988243197850185
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 64,
+      "iou": 0.9995522722184912
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 64,
+      "iou": 0.9987460815047022
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 64,
+      "iou": 0.999377819256494
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 65,
+      "iou": 0.9991051454138703
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 65,
+      "iou": 0.9990783410138249
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 65,
+      "iou": 0.9986876640419947
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 66,
+      "iou": 0.9995497523638001
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 66,
+      "iou": 0.9988059701492538
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 66,
+      "iou": 0.9986761542280325
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 67,
+      "iou": 0.9997702733746842
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 67,
+      "iou": 0.9994082840236687
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 67,
+      "iou": 0.9982478496336413
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 68,
+      "iou": 0.9988633780404638
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 68,
+      "iou": 0.9997061416397296
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 68,
+      "iou": 0.9991796554552912
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 69,
+      "iou": 0.9988495167970548
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 69,
+      "iou": 0.9994107248084856
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 69,
+      "iou": 0.9987010878389349
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 70,
+      "iou": 0.99953509995351
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 70,
+      "iou": 0.9985354422964264
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 70,
+      "iou": 0.9996725605762934
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 71,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 71,
+      "iou": 0.9988684582743989
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 71,
+      "iou": 0.9987006659087218
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 72,
+      "iou": 0.9995219885277247
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 72,
+      "iou": 0.9985795454545454
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 72,
+      "iou": 0.9993549427511692
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 73,
+      "iou": 0.9997596731554914
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 73,
+      "iou": 0.9988754568456565
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 73,
+      "iou": 0.9990328820116054
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 74,
+      "iou": 0.9988207547169812
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 74,
+      "iou": 0.9988995873452545
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 74,
+      "iou": 0.999677575366758
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 75,
+      "iou": 0.9997613365155131
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 75,
+      "iou": 0.9989192110240476
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 75,
+      "iou": 0.9996790757381258
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 76,
+      "iou": 0.9995184204189742
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 76,
+      "iou": 0.9978779840848806
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 76,
+      "iou": 0.9992043284532145
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 77,
+      "iou": 0.998767258382643
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 77,
+      "iou": 0.9992092778070638
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 77,
+      "iou": 0.9990477701952071
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 78,
+      "iou": 1.0
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 78,
+      "iou": 0.9989725147701002
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 78,
+      "iou": 0.9996896819239721
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 79,
+      "iou": 0.9987599206349206
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 79,
+      "iou": 0.9992329327537715
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 79,
+      "iou": 0.9996910719802286
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 80,
+      "iou": 0.9995077528919517
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 80,
+      "iou": 0.9982129180495277
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 80,
+      "iou": 0.9981737939430833
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 81,
+      "iou": 0.9987733071638861
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 81,
+      "iou": 0.99948625738505
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 81,
+      "iou": 0.9984688409125708
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 82,
+      "iou": 0.9985185185185185
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 82,
+      "iou": 0.9988012467034284
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 82,
+      "iou": 0.9989355231143552
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 83,
+      "iou": 0.9989664082687338
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 83,
+      "iou": 0.99812734082397
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 83,
+      "iou": 0.999395039322444
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 84,
+      "iou": 0.9980014988758431
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 84,
+      "iou": 0.9972979611888971
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 84,
+      "iou": 0.9995460735360872
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 85,
+      "iou": 0.9992561368708158
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 85,
+      "iou": 0.9981024667931688
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 85,
+      "iou": 0.999241964827168
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 86,
+      "iou": 0.999247554552295
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 86,
+      "iou": 0.9980852082336046
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 86,
+      "iou": 0.9998486224644263
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 87,
+      "iou": 0.9990069513406157
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 87,
+      "iou": 0.9981105337742088
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 87,
+      "iou": 0.999395222255821
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 88,
+      "iou": 0.9987605354486861
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 88,
+      "iou": 0.9981464318813716
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 88,
+      "iou": 0.9993916349809886
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 89,
+      "iou": 0.9987748100955648
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 89,
+      "iou": 0.9983443708609272
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 89,
+      "iou": 0.999231950844854
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 90,
+      "iou": 0.9997569275644141
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 90,
+      "iou": 0.9979300827966882
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 90,
+      "iou": 0.9986061638531826
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 91,
+      "iou": 0.9988201982067013
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 91,
+      "iou": 0.9977472403694526
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 91,
+      "iou": 0.999218872051242
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 92,
+      "iou": 0.997886331611085
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 92,
+      "iou": 0.9974683544303797
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 92,
+      "iou": 0.999684691786221
+    }
+  ],
+  "status": "ok",
+  "teacher_force_mode": "after_mask_decoder"
+}

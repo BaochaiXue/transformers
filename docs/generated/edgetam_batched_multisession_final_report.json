@@ -2,125 +2,70 @@
   "best_profile": {
     "backend": "hf_batch_vision_seq_session",
     "compile_mode": "reduce-overhead",
-    "path": "docs/generated/different_types_sloth_set_2_edgetam_stuffed_animal_single_batchvision_profile_reduce_overhead.json",
-    "stage_wall_p50_ms": 31.305484008044004,
-    "stage_wall_p90_ms": 32.98849139828235
+    "path": "docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_reduce_overhead.json",
+    "stage_wall_p50_ms": 58.43767599435523,
+    "stage_wall_p90_ms": 65.8067935204599
   },
   "candidate_delta": {
-    "_path": "docs/generated/different_types_sam31ref_original_vs_batchvision_delta_ignore_ref_empty.json",
+    "_path": "docs/generated/different_types_sam31ref_original_vs_full_batched_delta_ignore_ref_empty.json",
     "baseline_backend": "hf_ref_seq_public",
-    "baseline_path": "docs/generated/different_types_sam31ref_original_hf_seq_hand_stuffed_animal_ignore_ref_empty.json",
-    "candidate_backend": "hf_batch_vision_seq_session",
-    "candidate_compile_mode": "reduce-overhead",
-    "candidate_path": "docs/generated/different_types_sam31ref_batchvision_reduce_hand_stuffed_animal_ignore_ref_empty_speed_first.json",
+    "baseline_path": "docs/generated/different_types_sam31ref_original_hf_seq_single_stuffed_animal_ignore_ref_empty.json",
+    "candidate_backend": "hf_batched_multisession",
+    "candidate_compile_mode": "none",
+    "candidate_path": "docs/generated/different_types_sam31ref_full_batched_single_stuffed_animal_ignore_ref_empty.json",
     "empty_reference_policy": "ignore-candidate",
     "evaluated_subset_mismatch": false,
     "not_worse_tolerance": 0.01,
     "per_key": {
       "cam0_obj0": {
         "baseline_candidate_nonempty_when_reference_empty_count": 0,
-        "baseline_evaluated_sample_count": 0,
-        "baseline_ignored_reference_empty_count": 93,
-        "baseline_iou_avg_on_evaluated": null,
-        "candidate_evaluated_sample_count": 0,
-        "candidate_ignored_reference_empty_count": 93,
-        "candidate_iou_avg_on_evaluated": null,
-        "candidate_nonempty_when_reference_empty_count": 0,
-        "delta": null,
-        "key": "cam0_obj0",
-        "not_worse": null,
-        "reference_uncertain": true
-      },
-      "cam0_obj1": {
-        "baseline_candidate_nonempty_when_reference_empty_count": 0,
         "baseline_evaluated_sample_count": 93,
         "baseline_ignored_reference_empty_count": 0,
         "baseline_iou_avg_on_evaluated": 0.9575342005157147,
         "candidate_evaluated_sample_count": 93,
         "candidate_ignored_reference_empty_count": 0,
-        "candidate_iou_avg_on_evaluated": 0.9576243485466404,
+        "candidate_iou_avg_on_evaluated": 0.9575285807284996,
         "candidate_nonempty_when_reference_empty_count": 0,
-        "delta": 9.014803092566304e-05,
-        "key": "cam0_obj1",
+        "delta": -5.619787215138672e-06,
+        "key": "cam0_obj0",
         "not_worse": true,
         "reference_uncertain": false
       },
       "cam1_obj0": {
-        "baseline_candidate_nonempty_when_reference_empty_count": 2,
-        "baseline_evaluated_sample_count": 0,
-        "baseline_ignored_reference_empty_count": 93,
-        "baseline_iou_avg_on_evaluated": null,
-        "candidate_evaluated_sample_count": 0,
-        "candidate_ignored_reference_empty_count": 93,
-        "candidate_iou_avg_on_evaluated": null,
-        "candidate_nonempty_when_reference_empty_count": 2,
-        "delta": null,
-        "key": "cam1_obj0",
-        "not_worse": null,
-        "reference_uncertain": true
-      },
-      "cam1_obj1": {
         "baseline_candidate_nonempty_when_reference_empty_count": 0,
         "baseline_evaluated_sample_count": 93,
         "baseline_ignored_reference_empty_count": 0,
         "baseline_iou_avg_on_evaluated": 0.9667510728516525,
         "candidate_evaluated_sample_count": 93,
         "candidate_ignored_reference_empty_count": 0,
-        "candidate_iou_avg_on_evaluated": 0.9669110699737559,
+        "candidate_iou_avg_on_evaluated": 0.9667954359316553,
         "candidate_nonempty_when_reference_empty_count": 0,
-        "delta": 0.00015999712210335026,
-        "key": "cam1_obj1",
+        "delta": 4.436308000277389e-05,
+        "key": "cam1_obj0",
         "not_worse": true,
         "reference_uncertain": false
       },
       "cam2_obj0": {
-        "baseline_candidate_nonempty_when_reference_empty_count": 1,
-        "baseline_evaluated_sample_count": 0,
-        "baseline_ignored_reference_empty_count": 93,
-        "baseline_iou_avg_on_evaluated": null,
-        "candidate_evaluated_sample_count": 0,
-        "candidate_ignored_reference_empty_count": 93,
-        "candidate_iou_avg_on_evaluated": null,
-        "candidate_nonempty_when_reference_empty_count": 1,
-        "delta": null,
-        "key": "cam2_obj0",
-        "not_worse": null,
-        "reference_uncertain": true
-      },
-      "cam2_obj1": {
         "baseline_candidate_nonempty_when_reference_empty_count": 0,
         "baseline_evaluated_sample_count": 93,
         "baseline_ignored_reference_empty_count": 0,
         "baseline_iou_avg_on_evaluated": 0.9660371199068802,
         "candidate_evaluated_sample_count": 93,
         "candidate_ignored_reference_empty_count": 0,
-        "candidate_iou_avg_on_evaluated": 0.9659111130993341,
+        "candidate_iou_avg_on_evaluated": 0.9659439160952052,
         "candidate_nonempty_when_reference_empty_count": 0,
-        "delta": -0.0001260068075461529,
-        "key": "cam2_obj1",
+        "delta": -9.320381167499114e-05,
+        "key": "cam2_obj0",
         "not_worse": true,
         "reference_uncertain": false
       }
     },
     "per_object": {
-      "hand": {
-        "baseline_iou_avg_on_evaluated": null,
-        "candidate_iou_avg_on_evaluated": null,
-        "candidate_nonempty_when_reference_empty_count": 3,
-        "delta": null,
-        "delta_valid": false,
-        "evaluated_sample_count": 0,
-        "ignored_reference_empty_count": 279,
-        "not_worse": null,
-        "reason": "no evaluated SAM3.1 reference samples",
-        "reference_uncertain": true,
-        "strict_validated": false
-      },
       "stuffed animal": {
         "baseline_iou_avg_on_evaluated": 0.9634407977580824,
-        "candidate_iou_avg_on_evaluated": 0.9634821772065768,
+        "candidate_iou_avg_on_evaluated": 0.9634226442517867,
         "candidate_nonempty_when_reference_empty_count": 0,
-        "delta": 4.1379448494360815e-05,
+        "delta": -1.81535062957483e-05,
         "delta_valid": true,
         "evaluated_sample_count": 279,
         "ignored_reference_empty_count": 0,
@@ -131,2969 +76,81 @@
       }
     }
   },
+  "component_equivalence": [
+    {
+      "_path": "docs/generated/component_equivalence_memory_attention_single_object_60f.json",
+      "all_components_pass": true,
+      "batch_size": 3,
+      "blockers": [],
+      "component": "memory_attention",
+      "components": [
+        {
+          "blockers": [],
+          "component": "memory_attention",
+          "equivalence_pass": true,
+          "records": 177,
+          "requirement": "requires tensorized memory/object-pointer inputs across camera sessions"
+        }
+      ],
+      "dtype": "bfloat16",
+      "fixtures_dir": "docs/generated/fixtures/single_object_60f",
+      "groups": 59,
+      "groups_passed": 59,
+      "max_abs_diff": 0.0625,
+      "mean_abs_diff": 0.0015853175467227475,
+      "p95_abs_diff": 0.0078125,
+      "stack_strategy": "seq_first_dim1"
+    },
+    {
+      "_path": "docs/generated/component_equivalence_mask_decoder_single_object_60f.json",
+      "all_components_pass": true,
+      "batch_size": 3,
+      "blockers": [],
+      "component": "mask_decoder",
+      "components": [
+        {
+          "blockers": [],
+          "component": "mask_decoder",
+          "equivalence_pass": true,
+          "records": 180,
+          "requirement": "requires tensorized prompted/empty-tracking decoder inputs across camera sessions"
+        }
+      ],
+      "dtype": "bfloat16",
+      "fixtures_dir": "docs/generated/fixtures/single_object_60f",
+      "groups": 60,
+      "groups_passed": 60,
+      "max_abs_diff": 0.375,
+      "mean_abs_diff": 0.02191659010325869,
+      "p95_abs_diff": 0.0625,
+      "stack_strategy": "batch_dim0"
+    },
+    {
+      "_path": "docs/generated/component_equivalence_memory_encoder_single_object_60f.json",
+      "all_components_pass": true,
+      "batch_size": 3,
+      "blockers": [],
+      "component": "memory_encoder",
+      "components": [
+        {
+          "blockers": [],
+          "component": "memory_encoder",
+          "equivalence_pass": true,
+          "records": 180,
+          "requirement": "EdgeTamVideoModel._batch_encode_memories is NotImplemented in modular source"
+        }
+      ],
+      "dtype": "bfloat16",
+      "fixtures_dir": "docs/generated/fixtures/single_object_60f",
+      "groups": 60,
+      "groups_passed": 60,
+      "max_abs_diff": 0.140625,
+      "mean_abs_diff": 0.0007007941632764414,
+      "p95_abs_diff": 0.00390625,
+      "stack_strategy": "batch_dim0"
+    }
+  ],
   "correctness": [
-    {
-      "_path": "docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session.json",
-      "backend": "hf_batch_vision_seq_session",
-      "compile_mode": "none",
-      "graph_output_policy": "ring_buffer",
-      "metrics": {
-        "blockers": [],
-        "camera_count": 3,
-        "camera_order_check": "pass",
-        "camera_order_matrix": [
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ]
-        ],
-        "candidate_partial": false,
-        "correctness_pass": true,
-        "empty_mismatch_count": 0,
-        "fallback_backend": null,
-        "frame_count": 100,
-        "global_mask_iou": {
-          "avg": 1.0,
-          "count": 42,
-          "max": 1.0,
-          "min": 1.0,
-          "p50": 1.0,
-          "p90": 1.0,
-          "p95": 1.0,
-          "p99": 1.0
-        },
-        "mask_correctness_pass": true,
-        "object_count": 2,
-        "per_camera_object": {
-          "cam0_obj0": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "mask_iou": {
-              "avg": 1.0,
-              "count": 100,
-              "max": 1.0,
-              "min": 1.0,
-              "p50": 1.0,
-              "p90": 1.0,
-              "p95": 1.0,
-              "p99": 1.0
-            },
-            "object_score_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam0_obj1": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "mask_iou": {
-              "avg": 1.0,
-              "count": 100,
-              "max": 1.0,
-              "min": 1.0,
-              "p50": 1.0,
-              "p90": 1.0,
-              "p95": 1.0,
-              "p99": 1.0
-            },
-            "object_score_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam1_obj0": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "mask_iou": {
-              "avg": 1.0,
-              "count": 100,
-              "max": 1.0,
-              "min": 1.0,
-              "p50": 1.0,
-              "p90": 1.0,
-              "p95": 1.0,
-              "p99": 1.0
-            },
-            "object_score_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam1_obj1": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "mask_iou": {
-              "avg": 1.0,
-              "count": 100,
-              "max": 1.0,
-              "min": 1.0,
-              "p50": 1.0,
-              "p90": 1.0,
-              "p95": 1.0,
-              "p99": 1.0
-            },
-            "object_score_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam2_obj0": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "mask_iou": {
-              "avg": 1.0,
-              "count": 100,
-              "max": 1.0,
-              "min": 1.0,
-              "p50": 1.0,
-              "p90": 1.0,
-              "p95": 1.0,
-              "p99": 1.0
-            },
-            "object_score_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam2_obj1": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "mask_iou": {
-              "avg": 1.0,
-              "count": 100,
-              "max": 1.0,
-              "min": 1.0,
-              "p50": 1.0,
-              "p90": 1.0,
-              "p95": 1.0,
-              "p99": 1.0
-            },
-            "object_score_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "reference_nonempty_count": 100
-          }
-        },
-        "state_leakage": {
-          "note": "no cross-camera tensor state is shared in implemented batch-vision fallback",
-          "pass": true
-        },
-        "state_leakage_check": "pass"
-      },
-      "prompt_source": "deterministic_replay_boxes",
-      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_stuffed_animal"
-    },
-    {
-      "_path": "docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json",
-      "backend": "hf_batch_vision_seq_session",
-      "compile_mode": "max-autotune-no-cudagraphs",
-      "graph_output_policy": "ring_buffer",
-      "metrics": {
-        "blockers": [],
-        "camera_count": 3,
-        "camera_order_check": "pass",
-        "camera_order_matrix": [
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ]
-        ],
-        "candidate_partial": false,
-        "correctness_pass": false,
-        "empty_mismatch_count": 0,
-        "fallback_backend": null,
-        "frame_count": 100,
-        "global_mask_iou": {
-          "avg": 0.929697276983558,
-          "count": 42,
-          "max": 1.0,
-          "min": 0.1549553208773355,
-          "p50": 0.9765794791748557,
-          "p90": 1.0,
-          "p95": 1.0,
-          "p99": 1.0
-        },
-        "mask_correctness_pass": false,
-        "object_count": 2,
-        "per_camera_object": {
-          "cam0_obj0": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 1.6394370619952678,
-              "count": 100,
-              "max": 6.717403411865234,
-              "min": 0.0,
-              "p50": 0.9762816429138184,
-              "p90": 3.870986294746399,
-              "p95": 4.306668138504028,
-              "p99": 6.297762584686282
-            },
-            "mask_iou": {
-              "avg": 0.7044512399706053,
-              "count": 100,
-              "max": 1.0,
-              "min": 0.1549553208773355,
-              "p50": 0.8903178829030252,
-              "p90": 0.9649808608811524,
-              "p95": 0.9724054504886008,
-              "p99": 0.9777480916030535
-            },
-            "object_score_abs_diff": {
-              "avg": 0.263125,
-              "count": 100,
-              "max": 0.75,
-              "min": 0.0,
-              "p50": 0.234375,
-              "p90": 0.5062500000000005,
-              "p95": 0.65625,
-              "p99": 0.7190625000000002
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam0_obj1": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.35758243381977084,
-              "count": 100,
-              "max": 1.8970091342926025,
-              "min": 0.0,
-              "p50": 0.17513809353113174,
-              "p90": 0.860424339771271,
-              "p95": 1.1922542214393612,
-              "p99": 1.3904965567588834
-            },
-            "mask_iou": {
-              "avg": 0.9511634320412559,
-              "count": 100,
-              "max": 1.0,
-              "min": 0.6999554168524298,
-              "p50": 0.9770590366434339,
-              "p90": 0.9871086399232998,
-              "p95": 0.98829800348091,
-              "p99": 0.9912259970457904
-            },
-            "object_score_abs_diff": {
-              "avg": 0.16109375,
-              "count": 100,
-              "max": 0.90625,
-              "min": 0.0,
-              "p50": 0.109375,
-              "p90": 0.34375,
-              "p95": 0.5359374999999997,
-              "p99": 0.8134375000000005
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam1_obj0": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.4516919954121113,
-              "count": 100,
-              "max": 1.3130040168762207,
-              "min": 0.0,
-              "p50": 0.4225383698940277,
-              "p90": 0.7014225840568543,
-              "p95": 0.7548429012298582,
-              "p99": 1.3055599641799926
-            },
-            "mask_iou": {
-              "avg": 0.9565806231060868,
-              "count": 100,
-              "max": 1.0,
-              "min": 0.9127218934911243,
-              "p50": 0.9563710116070467,
-              "p90": 0.9689889626841766,
-              "p95": 0.9739433534076746,
-              "p99": 0.97742671009772
-            },
-            "object_score_abs_diff": {
-              "avg": 0.1421875,
-              "count": 100,
-              "max": 0.71875,
-              "min": 0.0,
-              "p50": 0.125,
-              "p90": 0.3125,
-              "p95": 0.34375,
-              "p99": 0.37843750000000176
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam1_obj1": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.32926463276147844,
-              "count": 100,
-              "max": 2.119431257247925,
-              "min": 0.0,
-              "p50": 0.2875758111476898,
-              "p90": 0.4499824374914172,
-              "p95": 0.5507005184888839,
-              "p99": 0.6330847990512924
-            },
-            "mask_iou": {
-              "avg": 0.9730193909563201,
-              "count": 100,
-              "max": 1.0,
-              "min": 0.835529693650522,
-              "p50": 0.9748648117746637,
-              "p90": 0.9835381043839723,
-              "p95": 0.9852726224405467,
-              "p99": 0.9872268238292451
-            },
-            "object_score_abs_diff": {
-              "avg": 0.1578125,
-              "count": 100,
-              "max": 0.625,
-              "min": 0.0,
-              "p50": 0.09375,
-              "p90": 0.37812500000000027,
-              "p95": 0.4703124999999999,
-              "p99": 0.5940625000000002
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam2_obj0": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.3788165181875229,
-              "count": 100,
-              "max": 0.9580604434013367,
-              "min": 0.0,
-              "p50": 0.3101884722709656,
-              "p90": 0.6897702515125278,
-              "p95": 0.7717001914978027,
-              "p99": 0.8763334757089619
-            },
-            "mask_iou": {
-              "avg": 0.9216048121735908,
-              "count": 100,
-              "max": 1.0,
-              "min": 0.7600502512562815,
-              "p50": 0.9349777014411176,
-              "p90": 0.9673176835344923,
-              "p95": 0.9760999217062776,
-              "p99": 0.9908727719729564
-            },
-            "object_score_abs_diff": {
-              "avg": 0.308125,
-              "count": 100,
-              "max": 0.78125,
-              "min": 0.0,
-              "p50": 0.28125,
-              "p90": 0.5656250000000003,
-              "p95": 0.625,
-              "p99": 0.6884375000000005
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam2_obj1": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.43796207904815676,
-              "count": 100,
-              "max": 3.7243146896362305,
-              "min": 0.0,
-              "p50": 0.3614982068538666,
-              "p90": 0.5482273101806641,
-              "p95": 0.6530738651752471,
-              "p99": 2.296638002395637
-            },
-            "mask_iou": {
-              "avg": 0.977231214620709,
-              "count": 100,
-              "max": 1.0,
-              "min": 0.8332593578931795,
-              "p50": 0.9821293393941053,
-              "p90": 0.9848474527617961,
-              "p95": 0.9854855246569313,
-              "p99": 0.9882562277580073
-            },
-            "object_score_abs_diff": {
-              "avg": 0.4303125,
-              "count": 100,
-              "max": 1.75,
-              "min": 0.0,
-              "p50": 0.4375,
-              "p90": 0.8187500000000005,
-              "p95": 0.8781249999999998,
-              "p99": 1.4406250000000016
-            },
-            "reference_nonempty_count": 100
-          }
-        },
-        "state_leakage": {
-          "note": "no cross-camera tensor state is shared in implemented batch-vision fallback",
-          "pass": true
-        },
-        "state_leakage_check": "pass"
-      },
-      "prompt_source": "deterministic_replay_boxes",
-      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_stuffed_animal"
-    },
-    {
-      "_path": "docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session_reduce_overhead.json",
-      "backend": "hf_batch_vision_seq_session",
-      "compile_mode": "reduce-overhead",
-      "graph_output_policy": "ring_buffer",
-      "metrics": {
-        "blockers": [],
-        "camera_count": 3,
-        "camera_order_check": "pass",
-        "camera_order_matrix": [
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ]
-        ],
-        "candidate_partial": false,
-        "correctness_pass": false,
-        "empty_mismatch_count": 0,
-        "fallback_backend": null,
-        "frame_count": 100,
-        "global_mask_iou": {
-          "avg": 0.9161622205881291,
-          "count": 42,
-          "max": 1.0,
-          "min": 0.14622720428308517,
-          "p50": 0.9767956146597401,
-          "p90": 1.0,
-          "p95": 1.0,
-          "p99": 1.0
-        },
-        "mask_correctness_pass": false,
-        "object_count": 2,
-        "per_camera_object": {
-          "cam0_obj0": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 1.6811601841449737,
-              "count": 100,
-              "max": 6.660536766052246,
-              "min": 0.0,
-              "p50": 1.2020916938781738,
-              "p90": 3.5818418502807616,
-              "p95": 3.6476481556892395,
-              "p99": 4.664608221054087
-            },
-            "mask_iou": {
-              "avg": 0.6213235304951561,
-              "count": 100,
-              "max": 1.0,
-              "min": 0.14622720428308517,
-              "p50": 0.6918678538954522,
-              "p90": 0.9674619113515746,
-              "p95": 0.9709573676966791,
-              "p99": 0.975750798722045
-            },
-            "object_score_abs_diff": {
-              "avg": 0.3340625,
-              "count": 100,
-              "max": 0.8125,
-              "min": 0.0,
-              "p50": 0.3125,
-              "p90": 0.59375,
-              "p95": 0.65625,
-              "p99": 0.6887500000000006
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam0_obj1": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.9001407600194216,
-              "count": 100,
-              "max": 3.315122127532959,
-              "min": 0.0,
-              "p50": 0.40942296385765076,
-              "p90": 2.244821500778199,
-              "p95": 3.030762469768524,
-              "p99": 3.2630850410461427
-            },
-            "mask_iou": {
-              "avg": 0.8480335089675325,
-              "count": 100,
-              "max": 1.0,
-              "min": 0.4762826718296225,
-              "p50": 0.9362974265997133,
-              "p90": 0.9848802801559369,
-              "p95": 0.9863786455302432,
-              "p99": 0.9897712177121772
-            },
-            "object_score_abs_diff": {
-              "avg": 0.48265625,
-              "count": 100,
-              "max": 1.71875,
-              "min": 0.0,
-              "p50": 0.234375,
-              "p90": 1.21875,
-              "p95": 1.4078125,
-              "p99": 1.6878125000000002
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam1_obj0": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.37061639554798603,
-              "count": 100,
-              "max": 2.9177913665771484,
-              "min": 0.0,
-              "p50": 0.3270621597766876,
-              "p90": 0.5162030398845674,
-              "p95": 0.5594127655029296,
-              "p99": 0.6800806957483407
-            },
-            "mask_iou": {
-              "avg": 0.9762894429143499,
-              "count": 100,
-              "max": 1.0,
-              "min": 0.882587064676617,
-              "p50": 0.9796241903727965,
-              "p90": 0.9883564390001549,
-              "p95": 0.9894163854448894,
-              "p99": 0.992471482889734
-            },
-            "object_score_abs_diff": {
-              "avg": 0.2490625,
-              "count": 100,
-              "max": 0.71875,
-              "min": 0.0,
-              "p50": 0.234375,
-              "p90": 0.5031250000000003,
-              "p95": 0.5328124999999999,
-              "p99": 0.6259375000000005
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam1_obj1": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.34472022250294687,
-              "count": 100,
-              "max": 2.3101561069488525,
-              "min": 0.0,
-              "p50": 0.3154519647359848,
-              "p90": 0.43908840119838716,
-              "p95": 0.44839504957199094,
-              "p99": 0.5796472930908293
-            },
-            "mask_iou": {
-              "avg": 0.9664198286651594,
-              "count": 100,
-              "max": 1.0,
-              "min": 0.823599931495119,
-              "p50": 0.9689816738600197,
-              "p90": 0.9833951041492068,
-              "p95": 0.9848113286980129,
-              "p99": 0.987996171027441
-            },
-            "object_score_abs_diff": {
-              "avg": 0.2703125,
-              "count": 100,
-              "max": 0.5625,
-              "min": 0.0,
-              "p50": 0.28125,
-              "p90": 0.46875,
-              "p95": 0.5,
-              "p99": 0.5315625000000002
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam2_obj0": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.3462720550596714,
-              "count": 100,
-              "max": 1.1400353908538818,
-              "min": 0.0,
-              "p50": 0.2778341770172119,
-              "p90": 0.6572494745254519,
-              "p95": 0.7876934170722961,
-              "p99": 0.9419336718320857
-            },
-            "mask_iou": {
-              "avg": 0.9351395332889267,
-              "count": 100,
-              "max": 1.0,
-              "min": 0.8064729194187582,
-              "p50": 0.9502452950755468,
-              "p90": 0.9713344373747058,
-              "p95": 0.976535155690949,
-              "p99": 0.9829834254143648
-            },
-            "object_score_abs_diff": {
-              "avg": 0.19625,
-              "count": 100,
-              "max": 0.625,
-              "min": 0.0,
-              "p50": 0.15625,
-              "p90": 0.44062500000000027,
-              "p95": 0.5640624999999999,
-              "p99": 0.5940625000000002
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam2_obj1": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.6210706397891045,
-              "count": 100,
-              "max": 3.9715726375579834,
-              "min": 0.0,
-              "p50": 0.5646406412124634,
-              "p90": 0.7324374854564667,
-              "p95": 0.8032480657100676,
-              "p99": 2.4944052028656083
-            },
-            "mask_iou": {
-              "avg": 0.9722986107935496,
-              "count": 100,
-              "max": 1.0,
-              "min": 0.8266152934202726,
-              "p50": 0.9770560736285311,
-              "p90": 0.9848498356772056,
-              "p95": 0.9857187108246916,
-              "p99": 0.9903825136612022
-            },
-            "object_score_abs_diff": {
-              "avg": 0.44,
-              "count": 100,
-              "max": 2.8125,
-              "min": 0.0,
-              "p50": 0.375,
-              "p90": 0.8125,
-              "p95": 0.875,
-              "p99": 2.070000000000004
-            },
-            "reference_nonempty_count": 100
-          }
-        },
-        "state_leakage": {
-          "note": "no cross-camera tensor state is shared in implemented batch-vision fallback",
-          "pass": true
-        },
-        "state_leakage_check": "pass"
-      },
-      "prompt_source": "deterministic_replay_boxes",
-      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_stuffed_animal"
-    },
-    {
-      "_path": "docs/generated/edgetam_batched_correctness_hf_batched_multisession.json",
-      "backend": "hf_batched_multisession",
-      "compile_mode": "none",
-      "graph_output_policy": "ring_buffer",
-      "metrics": {
-        "blockers": [
-          "hf_batched_multisession requires explicit HF session memory/object-pointer tensorization; current implementation falls back to batch vision + sequential session decode"
-        ],
-        "camera_count": 3,
-        "camera_order_check": "pass",
-        "camera_order_matrix": [
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ]
-        ],
-        "candidate_partial": true,
-        "correctness_pass": false,
-        "empty_mismatch_count": 0,
-        "fallback_backend": "hf_batch_vision_seq_session",
-        "frame_count": 100,
-        "global_mask_iou": {
-          "avg": 1.0,
-          "count": 42,
-          "max": 1.0,
-          "min": 1.0,
-          "p50": 1.0,
-          "p90": 1.0,
-          "p95": 1.0,
-          "p99": 1.0
-        },
-        "mask_correctness_pass": true,
-        "object_count": 2,
-        "per_camera_object": {
-          "cam0_obj0": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "mask_iou": {
-              "avg": 1.0,
-              "count": 100,
-              "max": 1.0,
-              "min": 1.0,
-              "p50": 1.0,
-              "p90": 1.0,
-              "p95": 1.0,
-              "p99": 1.0
-            },
-            "object_score_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam0_obj1": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "mask_iou": {
-              "avg": 1.0,
-              "count": 100,
-              "max": 1.0,
-              "min": 1.0,
-              "p50": 1.0,
-              "p90": 1.0,
-              "p95": 1.0,
-              "p99": 1.0
-            },
-            "object_score_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam1_obj0": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "mask_iou": {
-              "avg": 1.0,
-              "count": 100,
-              "max": 1.0,
-              "min": 1.0,
-              "p50": 1.0,
-              "p90": 1.0,
-              "p95": 1.0,
-              "p99": 1.0
-            },
-            "object_score_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam1_obj1": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "mask_iou": {
-              "avg": 1.0,
-              "count": 100,
-              "max": 1.0,
-              "min": 1.0,
-              "p50": 1.0,
-              "p90": 1.0,
-              "p95": 1.0,
-              "p99": 1.0
-            },
-            "object_score_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam2_obj0": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "mask_iou": {
-              "avg": 1.0,
-              "count": 100,
-              "max": 1.0,
-              "min": 1.0,
-              "p50": 1.0,
-              "p90": 1.0,
-              "p95": 1.0,
-              "p99": 1.0
-            },
-            "object_score_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "reference_nonempty_count": 100
-          },
-          "cam2_obj1": {
-            "candidate_nonempty_count": 100,
-            "logit_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "mask_iou": {
-              "avg": 1.0,
-              "count": 100,
-              "max": 1.0,
-              "min": 1.0,
-              "p50": 1.0,
-              "p90": 1.0,
-              "p95": 1.0,
-              "p99": 1.0
-            },
-            "object_score_abs_diff": {
-              "avg": 0.0,
-              "count": 100,
-              "max": 0.0,
-              "min": 0.0,
-              "p50": 0.0,
-              "p90": 0.0,
-              "p95": 0.0,
-              "p99": 0.0
-            },
-            "reference_nonempty_count": 100
-          }
-        },
-        "state_leakage": {
-          "note": "no cross-camera tensor state is shared in implemented batch-vision fallback",
-          "pass": true
-        },
-        "state_leakage_check": "pass"
-      },
-      "prompt_source": "deterministic_replay_boxes",
-      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_stuffed_animal"
-    },
-    {
-      "_path": "docs/generated/different_types_sam31ref_batchvision_none_hand_stuffed_animal_ignore_ref_empty.json",
-      "backend": "hf_batch_vision_seq_session",
-      "compile_mode": "none",
-      "controller_prompt": "hand",
-      "disallow_partial_backend_success": false,
-      "empty_reference_policy": "ignore-candidate",
-      "graph_output_policy": "ring_buffer",
-      "init_source": "sam31-video-reference",
-      "metrics": {
-        "active_gate_acceptance_pass": false,
-        "all_cameras_validated": true,
-        "all_objects_validated": false,
-        "backend_contract": {
-          "backend": "hf_batch_vision_seq_session",
-          "batch_mask_decoder": false,
-          "batch_memory_attention": false,
-          "batch_memory_encoder": false,
-          "batch_vision": true,
-          "batched_state_scatter": false,
-          "blockers": [],
-          "contract_pass": false,
-          "missing_requirements": [
-            "backend is not hf_batched_multisession",
-            "batch_memory_attention",
-            "batch_mask_decoder",
-            "batch_memory_encoder",
-            "batched_state_scatter",
-            "used_public_session_step_in_hot_path"
-          ],
-          "partial_fallback_used": false,
-          "used_public_session_step_in_hot_path": true
-        },
-        "blockers": [
-          "mask correctness gate failed: gate=strict, evaluated=279/1, empty_mismatch=0/0, global_iou_avg=0.963467973777417/0.98, global_iou_p50=0.9644944427553124/0.98"
-        ],
-        "camera_count": 3,
-        "camera_order_check": "pass",
-        "camera_order_matrix": [
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ]
-        ],
-        "camera_summaries": {
-          "cam0": {
-            "camera_validated": true,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": 0.9573824132256801,
-            "iou_min_on_evaluated": 0.949313408723748,
-            "iou_p50_on_evaluated": 0.9575645931000767,
-            "reference_nonempty_count": 93,
-            "reference_uncertain": true
-          },
-          "cam1": {
-            "camera_validated": true,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 2,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": 0.9669124943100326,
-            "iou_min_on_evaluated": 0.9582173469668991,
-            "iou_p50_on_evaluated": 0.9671923228141588,
-            "reference_nonempty_count": 93,
-            "reference_uncertain": true
-          },
-          "cam2": {
-            "camera_validated": true,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 1,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": 0.9658842637422365,
-            "iou_min_on_evaluated": 0.9539005812064546,
-            "iou_p50_on_evaluated": 0.9663564369900004,
-            "reference_nonempty_count": 93,
-            "reference_uncertain": true
-          }
-        },
-        "candidate_nonempty_count_on_evaluated": 279,
-        "candidate_nonempty_when_reference_empty_count": 3,
-        "candidate_partial": false,
-        "correctness_gate": {
-          "max_empty_mismatch_count": 0,
-          "min_global_iou_avg": 0.98,
-          "min_global_iou_p50": 0.98,
-          "name": "strict",
-          "speed_first": false
-        },
-        "correctness_pass": false,
-        "correctness_pass_by_gate": {
-          "speed_first": true,
-          "strict": false
-        },
-        "empty_mismatch_count": 0,
-        "empty_reference_policy": "ignore-candidate",
-        "evaluated_sample_count": 279,
-        "fallback_backend": null,
-        "frame_count": 93,
-        "global_iou_on_evaluated": {
-          "avg": 0.963467973777417,
-          "count": 279,
-          "max": 0.9769235997824904,
-          "min": 0.949313408723748,
-          "p50": 0.9644944427553124,
-          "p90": 0.9696928996192431,
-          "p95": 0.9703462638383044,
-          "p99": 0.9718043168225622
-        },
-        "global_mask_iou": {
-          "avg": 0.963467973777417,
-          "count": 279,
-          "max": 0.9769235997824904,
-          "min": 0.949313408723748,
-          "p50": 0.9644944427553124,
-          "p90": 0.9696928996192431,
-          "p95": 0.9703462638383044,
-          "p99": 0.9718043168225622
-        },
-        "ignored_reference_empty_count": 279,
-        "mask_correctness_pass": false,
-        "min_evaluated_samples": 1,
-        "min_evaluated_samples_per_camera": 1,
-        "min_evaluated_samples_per_object": 1,
-        "object_count": 2,
-        "object_summaries": {
-          "obj0": {
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 3,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 279,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "object_reference_absent": true,
-            "object_validated": false,
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "obj1": {
-            "candidate_nonempty_count_on_evaluated": 279,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 279,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9633930570926497,
-            "iou_min_on_evaluated": 0.949313408723748,
-            "iou_p50_on_evaluated": 0.9655455072857028,
-            "object_reference_absent": false,
-            "object_validated": true,
-            "reference_nonempty_count": 279,
-            "reference_uncertain": false
-          }
-        },
-        "per_camera_object": {
-          "cam0_obj0": {
-            "candidate_nonempty_count": 0,
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "logit_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "mask_iou": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "object_score_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "cam0_obj1": {
-            "candidate_nonempty_count": 93,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9575342005157147,
-            "iou_min_on_evaluated": 0.949313408723748,
-            "iou_p50_on_evaluated": 0.9575949856844386,
-            "logit_abs_diff": {
-              "avg": 13.166384553396574,
-              "count": 93,
-              "max": 14.721602439880371,
-              "min": 9.882301330566406,
-              "p50": 13.175773620605469,
-              "p90": 14.211445808410645,
-              "p95": 14.479830741882324,
-              "p99": 14.696775207519531
-            },
-            "mask_iou": {
-              "avg": 0.9575342005157147,
-              "count": 93,
-              "max": 0.9650870579788189,
-              "min": 0.949313408723748,
-              "p50": 0.9575949856844386,
-              "p90": 0.960795460198191,
-              "p95": 0.9616466912413472,
-              "p99": 0.9639381920612553
-            },
-            "object_score_abs_diff": {
-              "avg": 7.915658602150538,
-              "count": 93,
-              "max": 9.0,
-              "min": 6.09375,
-              "p50": 8.0,
-              "p90": 8.3,
-              "p95": 8.375,
-              "p99": 8.424999999999999
-            },
-            "reference_nonempty_count": 93,
-            "reference_uncertain": false
-          },
-          "cam1_obj0": {
-            "candidate_nonempty_count": 2,
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 2,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "logit_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "mask_iou": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "object_score_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "cam1_obj1": {
-            "candidate_nonempty_count": 93,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9668657642239493,
-            "iou_min_on_evaluated": 0.9582173469668991,
-            "iou_p50_on_evaluated": 0.9675188814043683,
-            "logit_abs_diff": {
-              "avg": 12.932368924540858,
-              "count": 93,
-              "max": 16.398273468017578,
-              "min": 9.205010414123535,
-              "p50": 12.677600860595703,
-              "p90": 16.023533630371094,
-              "p95": 16.098029708862306,
-              "p99": 16.308910522460938
-            },
-            "mask_iou": {
-              "avg": 0.9668657642239493,
-              "count": 93,
-              "max": 0.9750479846449136,
-              "min": 0.9582173469668991,
-              "p50": 0.9675188814043683,
-              "p90": 0.9702287879173601,
-              "p95": 0.9704190205148838,
-              "p99": 0.971921364544789
-            },
-            "object_score_abs_diff": {
-              "avg": 8.820564516129032,
-              "count": 93,
-              "max": 9.75,
-              "min": 7.75,
-              "p50": 8.8125,
-              "p90": 9.3625,
-              "p95": 9.487499999999999,
-              "p99": 9.635
-            },
-            "reference_nonempty_count": 93,
-            "reference_uncertain": false
-          },
-          "cam2_obj0": {
-            "candidate_nonempty_count": 1,
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 1,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "logit_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "mask_iou": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "object_score_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "cam2_obj1": {
-            "candidate_nonempty_count": 93,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9660039565925866,
-            "iou_min_on_evaluated": 0.9539005812064546,
-            "iou_p50_on_evaluated": 0.9667089173874143,
-            "logit_abs_diff": {
-              "avg": 12.84402879079183,
-              "count": 93,
-              "max": 16.688079833984375,
-              "min": 8.550426483154297,
-              "p50": 13.441905975341797,
-              "p90": 15.567098617553711,
-              "p95": 15.810018348693845,
-              "p99": 16.664823989868164
-            },
-            "mask_iou": {
-              "avg": 0.9660039565925866,
-              "count": 93,
-              "max": 0.9769235997824904,
-              "min": 0.9539005812064546,
-              "p50": 0.9667089173874143,
-              "p90": 0.9700970048598324,
-              "p95": 0.9706394969471749,
-              "p99": 0.9727188942265288
-            },
-            "object_score_abs_diff": {
-              "avg": 8.564516129032258,
-              "count": 93,
-              "max": 9.875,
-              "min": 7.5625,
-              "p50": 8.4375,
-              "p90": 9.3125,
-              "p95": 9.462499999999999,
-              "p99": 9.76
-            },
-            "reference_nonempty_count": 93,
-            "reference_uncertain": false
-          }
-        },
-        "reference_nonempty_count": 279,
-        "speed_first_acceptance_pass": true,
-        "state_leakage": {
-          "note": "candidate runtime keeps per-camera session state containers isolated",
-          "pass": true
-        },
-        "state_leakage_check": "pass",
-        "strict_correctness_pass": false
-      },
-      "object_count": 2,
-      "object_prompt": "stuffed animal",
-      "prompt_source": "sam31_frame0_video_reference_masks",
-      "reference_source": "sam31-replay",
-      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
-      "sam31_frame0_init_mask_root": null,
-      "sam31_frame0_init_summary": null,
-      "sam31_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal/sam31_video_reference_masks",
-      "strict_full_batched": false
-    },
-    {
-      "_path": "docs/generated/different_types_sam31ref_batchvision_reduce_hand_stuffed_animal_ignore_ref_empty_speed_first.json",
-      "backend": "hf_batch_vision_seq_session",
-      "compile_mode": "reduce-overhead",
-      "controller_prompt": "hand",
-      "disallow_partial_backend_success": false,
-      "empty_reference_policy": "ignore-candidate",
-      "graph_output_policy": "ring_buffer",
-      "init_source": "sam31-video-reference",
-      "metrics": {
-        "active_gate_acceptance_pass": true,
-        "all_cameras_validated": true,
-        "all_objects_validated": false,
-        "backend_contract": {
-          "backend": "hf_batch_vision_seq_session",
-          "batch_mask_decoder": false,
-          "batch_memory_attention": false,
-          "batch_memory_encoder": false,
-          "batch_vision": true,
-          "batched_state_scatter": false,
-          "blockers": [],
-          "contract_pass": false,
-          "missing_requirements": [
-            "backend is not hf_batched_multisession",
-            "batch_memory_attention",
-            "batch_mask_decoder",
-            "batch_memory_encoder",
-            "batched_state_scatter",
-            "used_public_session_step_in_hot_path"
-          ],
-          "partial_fallback_used": false,
-          "used_public_session_step_in_hot_path": true
-        },
-        "blockers": [],
-        "camera_count": 3,
-        "camera_order_check": "pass",
-        "camera_order_matrix": [
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ]
-        ],
-        "camera_summaries": {
-          "cam0": {
-            "camera_validated": true,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": 0.9574229786470747,
-            "iou_min_on_evaluated": 0.9493757827966547,
-            "iou_p50_on_evaluated": 0.9576145369064126,
-            "reference_nonempty_count": 93,
-            "reference_uncertain": true
-          },
-          "cam1": {
-            "camera_validated": true,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 2,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": 0.9672467656688608,
-            "iou_min_on_evaluated": 0.9596998700851075,
-            "iou_p50_on_evaluated": 0.9671196039727112,
-            "reference_nonempty_count": 93,
-            "reference_uncertain": true
-          },
-          "cam2": {
-            "camera_validated": true,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 1,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": 0.9657060627521074,
-            "iou_min_on_evaluated": 0.9538039555363073,
-            "iou_p50_on_evaluated": 0.9660483478448159,
-            "reference_nonempty_count": 93,
-            "reference_uncertain": true
-          }
-        },
-        "candidate_nonempty_count_on_evaluated": 279,
-        "candidate_nonempty_when_reference_empty_count": 3,
-        "candidate_partial": false,
-        "correctness_gate": {
-          "max_empty_mismatch_count": 3,
-          "min_global_iou_avg": 0.93,
-          "min_global_iou_p50": 0.95,
-          "name": "speed-first",
-          "speed_first": true
-        },
-        "correctness_pass": true,
-        "correctness_pass_by_gate": {
-          "speed_first": true,
-          "strict": false
-        },
-        "empty_mismatch_count": 0,
-        "empty_reference_policy": "ignore-candidate",
-        "evaluated_sample_count": 279,
-        "fallback_backend": null,
-        "frame_count": 93,
-        "global_iou_on_evaluated": {
-          "avg": 0.9634821772065767,
-          "count": 279,
-          "max": 0.9769235997824904,
-          "min": 0.9493757827966547,
-          "p50": 0.9648039518369868,
-          "p90": 0.9695287204293455,
-          "p95": 0.9702107495817506,
-          "p99": 0.9722472273959588
-        },
-        "global_mask_iou": {
-          "avg": 0.9634821772065767,
-          "count": 279,
-          "max": 0.9769235997824904,
-          "min": 0.9493757827966547,
-          "p50": 0.9648039518369868,
-          "p90": 0.9695287204293455,
-          "p95": 0.9702107495817506,
-          "p99": 0.9722472273959588
-        },
-        "ignored_reference_empty_count": 279,
-        "mask_correctness_pass": true,
-        "min_evaluated_samples": 1,
-        "min_evaluated_samples_per_camera": 1,
-        "min_evaluated_samples_per_object": 1,
-        "object_count": 2,
-        "object_summaries": {
-          "obj0": {
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 3,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 279,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "object_reference_absent": true,
-            "object_validated": false,
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "obj1": {
-            "candidate_nonempty_count_on_evaluated": 279,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 279,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9634586023560142,
-            "iou_min_on_evaluated": 0.9493757827966547,
-            "iou_p50_on_evaluated": 0.9654990855390765,
-            "object_reference_absent": false,
-            "object_validated": true,
-            "reference_nonempty_count": 279,
-            "reference_uncertain": false
-          }
-        },
-        "per_camera_object": {
-          "cam0_obj0": {
-            "candidate_nonempty_count": 0,
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "logit_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "mask_iou": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "object_score_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "cam0_obj1": {
-            "candidate_nonempty_count": 93,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9576243485466404,
-            "iou_min_on_evaluated": 0.9493757827966547,
-            "iou_p50_on_evaluated": 0.9576047252661848,
-            "logit_abs_diff": {
-              "avg": 13.241350778969386,
-              "count": 93,
-              "max": 14.807331085205078,
-              "min": 9.882301330566406,
-              "p50": 13.220305442810059,
-              "p90": 14.200669097900391,
-              "p95": 14.546749877929688,
-              "p99": 14.675492401123046
-            },
-            "mask_iou": {
-              "avg": 0.9576243485466404,
-              "count": 93,
-              "max": 0.9650870579788189,
-              "min": 0.9493757827966547,
-              "p50": 0.9576047252661848,
-              "p90": 0.9607094287676003,
-              "p95": 0.961731775553874,
-              "p99": 0.964054448310991
-            },
-            "object_score_abs_diff": {
-              "avg": 7.891129032258065,
-              "count": 93,
-              "max": 9.0,
-              "min": 6.125,
-              "p50": 8.0,
-              "p90": 8.3,
-              "p95": 8.337499999999999,
-              "p99": 8.424999999999999
-            },
-            "reference_nonempty_count": 93,
-            "reference_uncertain": false
-          },
-          "cam1_obj0": {
-            "candidate_nonempty_count": 2,
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 2,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "logit_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "mask_iou": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "object_score_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "cam1_obj1": {
-            "candidate_nonempty_count": 93,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9669110699737559,
-            "iou_min_on_evaluated": 0.9596998700851075,
-            "iou_p50_on_evaluated": 0.9673281379716665,
-            "logit_abs_diff": {
-              "avg": 12.318258741850494,
-              "count": 93,
-              "max": 16.158754348754883,
-              "min": 7.085031986236572,
-              "p50": 12.533052444458008,
-              "p90": 15.548423767089844,
-              "p95": 15.769529151916501,
-              "p99": 16.07956024169922
-            },
-            "mask_iou": {
-              "avg": 0.9669110699737559,
-              "count": 93,
-              "max": 0.9750479846449136,
-              "min": 0.9596998700851075,
-              "p50": 0.9673281379716665,
-              "p90": 0.9699625785101728,
-              "p95": 0.9707392956005414,
-              "p99": 0.9723447584642105
-            },
-            "object_score_abs_diff": {
-              "avg": 8.85013440860215,
-              "count": 93,
-              "max": 9.875,
-              "min": 7.75,
-              "p50": 8.875,
-              "p90": 9.375,
-              "p95": 9.649999999999999,
-              "p99": 9.8175
-            },
-            "reference_nonempty_count": 93,
-            "reference_uncertain": false
-          },
-          "cam2_obj0": {
-            "candidate_nonempty_count": 1,
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 1,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "logit_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "mask_iou": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "object_score_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "cam2_obj1": {
-            "candidate_nonempty_count": 93,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9659111130993341,
-            "iou_min_on_evaluated": 0.9538039555363073,
-            "iou_p50_on_evaluated": 0.9661855825902977,
-            "logit_abs_diff": {
-              "avg": 13.13512380148775,
-              "count": 93,
-              "max": 16.57293128967285,
-              "min": 7.861619472503662,
-              "p50": 13.66131591796875,
-              "p90": 15.623475265502929,
-              "p95": 15.883494567871093,
-              "p99": 16.572269744873047
-            },
-            "mask_iou": {
-              "avg": 0.9659111130993341,
-              "count": 93,
-              "max": 0.9769235997824904,
-              "min": 0.9538039555363073,
-              "p50": 0.9661855825902977,
-              "p90": 0.9701227999139818,
-              "p95": 0.9707863643512158,
-              "p99": 0.9730699418191471
-            },
-            "object_score_abs_diff": {
-              "avg": 8.566532258064516,
-              "count": 93,
-              "max": 9.8125,
-              "min": 7.625,
-              "p50": 8.4375,
-              "p90": 9.25,
-              "p95": 9.337499999999999,
-              "p99": 9.524999999999999
-            },
-            "reference_nonempty_count": 93,
-            "reference_uncertain": false
-          }
-        },
-        "reference_nonempty_count": 279,
-        "speed_first_acceptance_pass": true,
-        "state_leakage": {
-          "note": "candidate runtime keeps per-camera session state containers isolated",
-          "pass": true
-        },
-        "state_leakage_check": "pass",
-        "strict_correctness_pass": false
-      },
-      "object_count": 2,
-      "object_prompt": "stuffed animal",
-      "prompt_source": "sam31_frame0_video_reference_masks",
-      "reference_source": "sam31-replay",
-      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
-      "sam31_frame0_init_mask_root": null,
-      "sam31_frame0_init_summary": null,
-      "sam31_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal/sam31_video_reference_masks",
-      "strict_full_batched": false
-    },
-    {
-      "_path": "docs/generated/different_types_sam31ref_batchvision_reduce_hand_stuffed_animal_ignore_ref_empty_strict.json",
-      "backend": "hf_batch_vision_seq_session",
-      "compile_mode": "reduce-overhead",
-      "controller_prompt": "hand",
-      "disallow_partial_backend_success": false,
-      "empty_reference_policy": "ignore-candidate",
-      "graph_output_policy": "ring_buffer",
-      "init_source": "sam31-video-reference",
-      "metrics": {
-        "active_gate_acceptance_pass": false,
-        "all_cameras_validated": true,
-        "all_objects_validated": false,
-        "backend_contract": {
-          "backend": "hf_batch_vision_seq_session",
-          "batch_mask_decoder": false,
-          "batch_memory_attention": false,
-          "batch_memory_encoder": false,
-          "batch_vision": true,
-          "batched_state_scatter": false,
-          "blockers": [],
-          "contract_pass": false,
-          "missing_requirements": [
-            "backend is not hf_batched_multisession",
-            "batch_memory_attention",
-            "batch_mask_decoder",
-            "batch_memory_encoder",
-            "batched_state_scatter",
-            "used_public_session_step_in_hot_path"
-          ],
-          "partial_fallback_used": false,
-          "used_public_session_step_in_hot_path": true
-        },
-        "blockers": [
-          "mask correctness gate failed: gate=strict, evaluated=279/1, empty_mismatch=0/0, global_iou_avg=0.9634821772065767/0.98, global_iou_p50=0.9648039518369868/0.98"
-        ],
-        "camera_count": 3,
-        "camera_order_check": "pass",
-        "camera_order_matrix": [
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ]
-        ],
-        "camera_summaries": {
-          "cam0": {
-            "camera_validated": true,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": 0.9574229786470747,
-            "iou_min_on_evaluated": 0.9493757827966547,
-            "iou_p50_on_evaluated": 0.9576145369064126,
-            "reference_nonempty_count": 93,
-            "reference_uncertain": true
-          },
-          "cam1": {
-            "camera_validated": true,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 2,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": 0.9672467656688608,
-            "iou_min_on_evaluated": 0.9596998700851075,
-            "iou_p50_on_evaluated": 0.9671196039727112,
-            "reference_nonempty_count": 93,
-            "reference_uncertain": true
-          },
-          "cam2": {
-            "camera_validated": true,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 1,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": 0.9657060627521074,
-            "iou_min_on_evaluated": 0.9538039555363073,
-            "iou_p50_on_evaluated": 0.9660483478448159,
-            "reference_nonempty_count": 93,
-            "reference_uncertain": true
-          }
-        },
-        "candidate_nonempty_count_on_evaluated": 279,
-        "candidate_nonempty_when_reference_empty_count": 3,
-        "candidate_partial": false,
-        "correctness_gate": {
-          "max_empty_mismatch_count": 0,
-          "min_global_iou_avg": 0.98,
-          "min_global_iou_p50": 0.98,
-          "name": "strict",
-          "speed_first": false
-        },
-        "correctness_pass": false,
-        "correctness_pass_by_gate": {
-          "speed_first": true,
-          "strict": false
-        },
-        "empty_mismatch_count": 0,
-        "empty_reference_policy": "ignore-candidate",
-        "evaluated_sample_count": 279,
-        "fallback_backend": null,
-        "frame_count": 93,
-        "global_iou_on_evaluated": {
-          "avg": 0.9634821772065767,
-          "count": 279,
-          "max": 0.9769235997824904,
-          "min": 0.9493757827966547,
-          "p50": 0.9648039518369868,
-          "p90": 0.9695287204293455,
-          "p95": 0.9702107495817506,
-          "p99": 0.9722472273959588
-        },
-        "global_mask_iou": {
-          "avg": 0.9634821772065767,
-          "count": 279,
-          "max": 0.9769235997824904,
-          "min": 0.9493757827966547,
-          "p50": 0.9648039518369868,
-          "p90": 0.9695287204293455,
-          "p95": 0.9702107495817506,
-          "p99": 0.9722472273959588
-        },
-        "ignored_reference_empty_count": 279,
-        "mask_correctness_pass": false,
-        "min_evaluated_samples": 1,
-        "min_evaluated_samples_per_camera": 1,
-        "min_evaluated_samples_per_object": 1,
-        "object_count": 2,
-        "object_summaries": {
-          "obj0": {
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 3,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 279,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "object_reference_absent": true,
-            "object_validated": false,
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "obj1": {
-            "candidate_nonempty_count_on_evaluated": 279,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 279,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9634586023560142,
-            "iou_min_on_evaluated": 0.9493757827966547,
-            "iou_p50_on_evaluated": 0.9654990855390765,
-            "object_reference_absent": false,
-            "object_validated": true,
-            "reference_nonempty_count": 279,
-            "reference_uncertain": false
-          }
-        },
-        "per_camera_object": {
-          "cam0_obj0": {
-            "candidate_nonempty_count": 0,
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "logit_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "mask_iou": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "object_score_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "cam0_obj1": {
-            "candidate_nonempty_count": 93,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9576243485466404,
-            "iou_min_on_evaluated": 0.9493757827966547,
-            "iou_p50_on_evaluated": 0.9576047252661848,
-            "logit_abs_diff": {
-              "avg": 13.241350778969386,
-              "count": 93,
-              "max": 14.807331085205078,
-              "min": 9.882301330566406,
-              "p50": 13.220305442810059,
-              "p90": 14.200669097900391,
-              "p95": 14.546749877929688,
-              "p99": 14.675492401123046
-            },
-            "mask_iou": {
-              "avg": 0.9576243485466404,
-              "count": 93,
-              "max": 0.9650870579788189,
-              "min": 0.9493757827966547,
-              "p50": 0.9576047252661848,
-              "p90": 0.9607094287676003,
-              "p95": 0.961731775553874,
-              "p99": 0.964054448310991
-            },
-            "object_score_abs_diff": {
-              "avg": 7.891129032258065,
-              "count": 93,
-              "max": 9.0,
-              "min": 6.125,
-              "p50": 8.0,
-              "p90": 8.3,
-              "p95": 8.337499999999999,
-              "p99": 8.424999999999999
-            },
-            "reference_nonempty_count": 93,
-            "reference_uncertain": false
-          },
-          "cam1_obj0": {
-            "candidate_nonempty_count": 2,
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 2,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "logit_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "mask_iou": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "object_score_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "cam1_obj1": {
-            "candidate_nonempty_count": 93,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9669110699737559,
-            "iou_min_on_evaluated": 0.9596998700851075,
-            "iou_p50_on_evaluated": 0.9673281379716665,
-            "logit_abs_diff": {
-              "avg": 12.318258741850494,
-              "count": 93,
-              "max": 16.158754348754883,
-              "min": 7.085031986236572,
-              "p50": 12.533052444458008,
-              "p90": 15.548423767089844,
-              "p95": 15.769529151916501,
-              "p99": 16.07956024169922
-            },
-            "mask_iou": {
-              "avg": 0.9669110699737559,
-              "count": 93,
-              "max": 0.9750479846449136,
-              "min": 0.9596998700851075,
-              "p50": 0.9673281379716665,
-              "p90": 0.9699625785101728,
-              "p95": 0.9707392956005414,
-              "p99": 0.9723447584642105
-            },
-            "object_score_abs_diff": {
-              "avg": 8.85013440860215,
-              "count": 93,
-              "max": 9.875,
-              "min": 7.75,
-              "p50": 8.875,
-              "p90": 9.375,
-              "p95": 9.649999999999999,
-              "p99": 9.8175
-            },
-            "reference_nonempty_count": 93,
-            "reference_uncertain": false
-          },
-          "cam2_obj0": {
-            "candidate_nonempty_count": 1,
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 1,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "logit_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "mask_iou": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "object_score_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "cam2_obj1": {
-            "candidate_nonempty_count": 93,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9659111130993341,
-            "iou_min_on_evaluated": 0.9538039555363073,
-            "iou_p50_on_evaluated": 0.9661855825902977,
-            "logit_abs_diff": {
-              "avg": 13.13512380148775,
-              "count": 93,
-              "max": 16.57293128967285,
-              "min": 7.861619472503662,
-              "p50": 13.66131591796875,
-              "p90": 15.623475265502929,
-              "p95": 15.883494567871093,
-              "p99": 16.572269744873047
-            },
-            "mask_iou": {
-              "avg": 0.9659111130993341,
-              "count": 93,
-              "max": 0.9769235997824904,
-              "min": 0.9538039555363073,
-              "p50": 0.9661855825902977,
-              "p90": 0.9701227999139818,
-              "p95": 0.9707863643512158,
-              "p99": 0.9730699418191471
-            },
-            "object_score_abs_diff": {
-              "avg": 8.566532258064516,
-              "count": 93,
-              "max": 9.8125,
-              "min": 7.625,
-              "p50": 8.4375,
-              "p90": 9.25,
-              "p95": 9.337499999999999,
-              "p99": 9.524999999999999
-            },
-            "reference_nonempty_count": 93,
-            "reference_uncertain": false
-          }
-        },
-        "reference_nonempty_count": 279,
-        "speed_first_acceptance_pass": true,
-        "state_leakage": {
-          "note": "candidate runtime keeps per-camera session state containers isolated",
-          "pass": true
-        },
-        "state_leakage_check": "pass",
-        "strict_correctness_pass": false
-      },
-      "object_count": 2,
-      "object_prompt": "stuffed animal",
-      "prompt_source": "sam31_frame0_video_reference_masks",
-      "reference_source": "sam31-replay",
-      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
-      "sam31_frame0_init_mask_root": null,
-      "sam31_frame0_init_summary": null,
-      "sam31_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal/sam31_video_reference_masks",
-      "strict_full_batched": false
-    },
-    {
-      "_path": "docs/generated/different_types_sam31ref_original_hf_seq_hand_stuffed_animal_ignore_ref_empty.json",
-      "backend": "hf_ref_seq_public",
-      "compile_mode": "none",
-      "controller_prompt": "hand",
-      "disallow_partial_backend_success": false,
-      "empty_reference_policy": "ignore-candidate",
-      "graph_output_policy": "ring_buffer",
-      "init_source": "sam31-video-reference",
-      "metrics": {
-        "active_gate_acceptance_pass": false,
-        "all_cameras_validated": true,
-        "all_objects_validated": false,
-        "backend_contract": {
-          "backend": "hf_ref_seq_public",
-          "batch_mask_decoder": false,
-          "batch_memory_attention": false,
-          "batch_memory_encoder": false,
-          "batch_vision": false,
-          "batched_state_scatter": false,
-          "blockers": [],
-          "contract_pass": false,
-          "missing_requirements": [
-            "backend is not hf_batched_multisession",
-            "batch_vision",
-            "batch_memory_attention",
-            "batch_mask_decoder",
-            "batch_memory_encoder",
-            "batched_state_scatter",
-            "used_public_session_step_in_hot_path"
-          ],
-          "partial_fallback_used": false,
-          "used_public_session_step_in_hot_path": true
-        },
-        "blockers": [
-          "mask correctness gate failed: gate=strict, evaluated=279/1, empty_mismatch=0/0, global_iou_avg=0.9634407977580824/0.98, global_iou_p50=0.9644620274565496/0.98"
-        ],
-        "camera_count": 3,
-        "camera_order_check": "pass",
-        "camera_order_matrix": [
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ],
-          [
-            1.0,
-            1.0,
-            1.0
-          ]
-        ],
-        "camera_summaries": {
-          "cam0": {
-            "camera_validated": true,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": 0.9573824132256801,
-            "iou_min_on_evaluated": 0.949313408723748,
-            "iou_p50_on_evaluated": 0.9575645931000767,
-            "reference_nonempty_count": 93,
-            "reference_uncertain": true
-          },
-          "cam1": {
-            "camera_validated": true,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 2,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": 0.9669450253246803,
-            "iou_min_on_evaluated": 0.9584172066731008,
-            "iou_p50_on_evaluated": 0.9671574549903534,
-            "reference_nonempty_count": 93,
-            "reference_uncertain": true
-          },
-          "cam2": {
-            "camera_validated": true,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 1,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": 0.9658938374431154,
-            "iou_min_on_evaluated": 0.9540648792985241,
-            "iou_p50_on_evaluated": 0.9662934353457237,
-            "reference_nonempty_count": 93,
-            "reference_uncertain": true
-          }
-        },
-        "candidate_nonempty_count_on_evaluated": 279,
-        "candidate_nonempty_when_reference_empty_count": 3,
-        "candidate_partial": false,
-        "correctness_gate": {
-          "max_empty_mismatch_count": 0,
-          "min_global_iou_avg": 0.98,
-          "min_global_iou_p50": 0.98,
-          "name": "strict",
-          "speed_first": false
-        },
-        "correctness_pass": false,
-        "correctness_pass_by_gate": {
-          "speed_first": true,
-          "strict": false
-        },
-        "empty_mismatch_count": 0,
-        "empty_reference_policy": "ignore-candidate",
-        "evaluated_sample_count": 279,
-        "fallback_backend": null,
-        "frame_count": 93,
-        "global_iou_on_evaluated": {
-          "avg": 0.9634407977580824,
-          "count": 279,
-          "max": 0.9769235997824904,
-          "min": 0.949313408723748,
-          "p50": 0.9644620274565496,
-          "p90": 0.9699170985262859,
-          "p95": 0.9703323615838383,
-          "p99": 0.9718201232579524
-        },
-        "global_mask_iou": {
-          "avg": 0.9634407977580824,
-          "count": 279,
-          "max": 0.9769235997824904,
-          "min": 0.949313408723748,
-          "p50": 0.9644620274565496,
-          "p90": 0.9699170985262859,
-          "p95": 0.9703323615838383,
-          "p99": 0.9718201232579524
-        },
-        "ignored_reference_empty_count": 279,
-        "mask_correctness_pass": false,
-        "min_evaluated_samples": 1,
-        "min_evaluated_samples_per_camera": 1,
-        "min_evaluated_samples_per_object": 1,
-        "object_count": 2,
-        "object_summaries": {
-          "obj0": {
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 3,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 279,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "object_reference_absent": true,
-            "object_validated": false,
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "obj1": {
-            "candidate_nonempty_count_on_evaluated": 279,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 279,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9634070919978254,
-            "iou_min_on_evaluated": 0.949313408723748,
-            "iou_p50_on_evaluated": 0.9655620889428496,
-            "object_reference_absent": false,
-            "object_validated": true,
-            "reference_nonempty_count": 279,
-            "reference_uncertain": false
-          }
-        },
-        "per_camera_object": {
-          "cam0_obj0": {
-            "candidate_nonempty_count": 0,
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "logit_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "mask_iou": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "object_score_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "cam0_obj1": {
-            "candidate_nonempty_count": 93,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9575342005157147,
-            "iou_min_on_evaluated": 0.949313408723748,
-            "iou_p50_on_evaluated": 0.9575949856844386,
-            "logit_abs_diff": {
-              "avg": 13.166384553396574,
-              "count": 93,
-              "max": 14.721602439880371,
-              "min": 9.882301330566406,
-              "p50": 13.175773620605469,
-              "p90": 14.211445808410645,
-              "p95": 14.479830741882324,
-              "p99": 14.696775207519531
-            },
-            "mask_iou": {
-              "avg": 0.9575342005157147,
-              "count": 93,
-              "max": 0.9650870579788189,
-              "min": 0.949313408723748,
-              "p50": 0.9575949856844386,
-              "p90": 0.960795460198191,
-              "p95": 0.9616466912413472,
-              "p99": 0.9639381920612553
-            },
-            "object_score_abs_diff": {
-              "avg": 7.915658602150538,
-              "count": 93,
-              "max": 9.0,
-              "min": 6.09375,
-              "p50": 8.0,
-              "p90": 8.3,
-              "p95": 8.375,
-              "p99": 8.424999999999999
-            },
-            "reference_nonempty_count": 93,
-            "reference_uncertain": false
-          },
-          "cam1_obj0": {
-            "candidate_nonempty_count": 2,
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 2,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "logit_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "mask_iou": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "object_score_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "cam1_obj1": {
-            "candidate_nonempty_count": 93,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9667510728516525,
-            "iou_min_on_evaluated": 0.9584172066731008,
-            "iou_p50_on_evaluated": 0.9675638371290545,
-            "logit_abs_diff": {
-              "avg": 12.860851749297112,
-              "count": 93,
-              "max": 16.49431037902832,
-              "min": 8.061101913452148,
-              "p50": 12.702454566955566,
-              "p90": 15.800000762939455,
-              "p95": 16.051511001586913,
-              "p99": 16.42925437927246
-            },
-            "mask_iou": {
-              "avg": 0.9667510728516525,
-              "count": 93,
-              "max": 0.9750479846449136,
-              "min": 0.9584172066731008,
-              "p50": 0.9675638371290545,
-              "p90": 0.9702158569770878,
-              "p95": 0.9707392861091053,
-              "p99": 0.9719375203523335
-            },
-            "object_score_abs_diff": {
-              "avg": 8.82728494623656,
-              "count": 93,
-              "max": 9.75,
-              "min": 7.75,
-              "p50": 8.8125,
-              "p90": 9.3625,
-              "p95": 9.5625,
-              "p99": 9.635
-            },
-            "reference_nonempty_count": 93,
-            "reference_uncertain": false
-          },
-          "cam2_obj0": {
-            "candidate_nonempty_count": 1,
-            "candidate_nonempty_count_on_evaluated": 0,
-            "candidate_nonempty_when_reference_empty_count": 1,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 0,
-            "ignored_reference_empty_count": 93,
-            "iou_avg_on_evaluated": null,
-            "iou_min_on_evaluated": null,
-            "iou_p50_on_evaluated": null,
-            "logit_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "mask_iou": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "object_score_abs_diff": {
-              "avg": null,
-              "count": 0,
-              "max": null,
-              "min": null,
-              "p50": null,
-              "p90": null,
-              "p95": null,
-              "p99": null
-            },
-            "reference_nonempty_count": 0,
-            "reference_uncertain": true
-          },
-          "cam2_obj1": {
-            "candidate_nonempty_count": 93,
-            "candidate_nonempty_count_on_evaluated": 93,
-            "candidate_nonempty_when_reference_empty_count": 0,
-            "empty_mismatch_count": 0,
-            "evaluated_sample_count": 93,
-            "ignored_reference_empty_count": 0,
-            "iou_avg_on_evaluated": 0.9660371199068802,
-            "iou_min_on_evaluated": 0.9540648792985241,
-            "iou_p50_on_evaluated": 0.9665497507845671,
-            "logit_abs_diff": {
-              "avg": 12.84387219336725,
-              "count": 93,
-              "max": 16.678348541259766,
-              "min": 8.46888256072998,
-              "p50": 13.442838668823242,
-              "p90": 15.580220413208007,
-              "p95": 15.89126968383789,
-              "p99": 16.648122787475586
-            },
-            "mask_iou": {
-              "avg": 0.9660371199068802,
-              "count": 93,
-              "max": 0.9769235997824904,
-              "min": 0.9540648792985241,
-              "p50": 0.9665497507845671,
-              "p90": 0.97020781706131,
-              "p95": 0.9705266723717696,
-              "p99": 0.9727277141841388
-            },
-            "object_score_abs_diff": {
-              "avg": 8.577956989247312,
-              "count": 93,
-              "max": 9.9375,
-              "min": 7.5625,
-              "p50": 8.4375,
-              "p90": 9.3125,
-              "p95": 9.462499999999999,
-              "p99": 9.765
-            },
-            "reference_nonempty_count": 93,
-            "reference_uncertain": false
-          }
-        },
-        "reference_nonempty_count": 279,
-        "speed_first_acceptance_pass": true,
-        "state_leakage": {
-          "note": "candidate runtime keeps per-camera session state containers isolated",
-          "pass": true
-        },
-        "state_leakage_check": "pass",
-        "strict_correctness_pass": false
-      },
-      "object_count": 2,
-      "object_prompt": "stuffed animal",
-      "prompt_source": "sam31_frame0_video_reference_masks",
-      "reference_source": "sam31-replay",
-      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
-      "sam31_frame0_init_mask_root": null,
-      "sam31_frame0_init_summary": null,
-      "sam31_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal/sam31_video_reference_masks",
-      "strict_full_batched": false
-    },
-    {
-      "_path": "docs/generated/different_types_sam31ref_original_vs_batchvision_delta_ignore_ref_empty.json",
-      "baseline_backend": "hf_ref_seq_public",
-      "baseline_path": "docs/generated/different_types_sam31ref_original_hf_seq_hand_stuffed_animal_ignore_ref_empty.json",
-      "candidate_backend": "hf_batch_vision_seq_session",
-      "candidate_compile_mode": "reduce-overhead",
-      "candidate_path": "docs/generated/different_types_sam31ref_batchvision_reduce_hand_stuffed_animal_ignore_ref_empty_speed_first.json",
-      "empty_reference_policy": "ignore-candidate",
-      "evaluated_subset_mismatch": false,
-      "not_worse_tolerance": 0.01,
-      "per_key": {
-        "cam0_obj0": {
-          "baseline_candidate_nonempty_when_reference_empty_count": 0,
-          "baseline_evaluated_sample_count": 0,
-          "baseline_ignored_reference_empty_count": 93,
-          "baseline_iou_avg_on_evaluated": null,
-          "candidate_evaluated_sample_count": 0,
-          "candidate_ignored_reference_empty_count": 93,
-          "candidate_iou_avg_on_evaluated": null,
-          "candidate_nonempty_when_reference_empty_count": 0,
-          "delta": null,
-          "key": "cam0_obj0",
-          "not_worse": null,
-          "reference_uncertain": true
-        },
-        "cam0_obj1": {
-          "baseline_candidate_nonempty_when_reference_empty_count": 0,
-          "baseline_evaluated_sample_count": 93,
-          "baseline_ignored_reference_empty_count": 0,
-          "baseline_iou_avg_on_evaluated": 0.9575342005157147,
-          "candidate_evaluated_sample_count": 93,
-          "candidate_ignored_reference_empty_count": 0,
-          "candidate_iou_avg_on_evaluated": 0.9576243485466404,
-          "candidate_nonempty_when_reference_empty_count": 0,
-          "delta": 9.014803092566304e-05,
-          "key": "cam0_obj1",
-          "not_worse": true,
-          "reference_uncertain": false
-        },
-        "cam1_obj0": {
-          "baseline_candidate_nonempty_when_reference_empty_count": 2,
-          "baseline_evaluated_sample_count": 0,
-          "baseline_ignored_reference_empty_count": 93,
-          "baseline_iou_avg_on_evaluated": null,
-          "candidate_evaluated_sample_count": 0,
-          "candidate_ignored_reference_empty_count": 93,
-          "candidate_iou_avg_on_evaluated": null,
-          "candidate_nonempty_when_reference_empty_count": 2,
-          "delta": null,
-          "key": "cam1_obj0",
-          "not_worse": null,
-          "reference_uncertain": true
-        },
-        "cam1_obj1": {
-          "baseline_candidate_nonempty_when_reference_empty_count": 0,
-          "baseline_evaluated_sample_count": 93,
-          "baseline_ignored_reference_empty_count": 0,
-          "baseline_iou_avg_on_evaluated": 0.9667510728516525,
-          "candidate_evaluated_sample_count": 93,
-          "candidate_ignored_reference_empty_count": 0,
-          "candidate_iou_avg_on_evaluated": 0.9669110699737559,
-          "candidate_nonempty_when_reference_empty_count": 0,
-          "delta": 0.00015999712210335026,
-          "key": "cam1_obj1",
-          "not_worse": true,
-          "reference_uncertain": false
-        },
-        "cam2_obj0": {
-          "baseline_candidate_nonempty_when_reference_empty_count": 1,
-          "baseline_evaluated_sample_count": 0,
-          "baseline_ignored_reference_empty_count": 93,
-          "baseline_iou_avg_on_evaluated": null,
-          "candidate_evaluated_sample_count": 0,
-          "candidate_ignored_reference_empty_count": 93,
-          "candidate_iou_avg_on_evaluated": null,
-          "candidate_nonempty_when_reference_empty_count": 1,
-          "delta": null,
-          "key": "cam2_obj0",
-          "not_worse": null,
-          "reference_uncertain": true
-        },
-        "cam2_obj1": {
-          "baseline_candidate_nonempty_when_reference_empty_count": 0,
-          "baseline_evaluated_sample_count": 93,
-          "baseline_ignored_reference_empty_count": 0,
-          "baseline_iou_avg_on_evaluated": 0.9660371199068802,
-          "candidate_evaluated_sample_count": 93,
-          "candidate_ignored_reference_empty_count": 0,
-          "candidate_iou_avg_on_evaluated": 0.9659111130993341,
-          "candidate_nonempty_when_reference_empty_count": 0,
-          "delta": -0.0001260068075461529,
-          "key": "cam2_obj1",
-          "not_worse": true,
-          "reference_uncertain": false
-        }
-      },
-      "per_object": {
-        "hand": {
-          "baseline_iou_avg_on_evaluated": null,
-          "candidate_iou_avg_on_evaluated": null,
-          "candidate_nonempty_when_reference_empty_count": 3,
-          "delta": null,
-          "delta_valid": false,
-          "evaluated_sample_count": 0,
-          "ignored_reference_empty_count": 279,
-          "not_worse": null,
-          "reason": "no evaluated SAM3.1 reference samples",
-          "reference_uncertain": true,
-          "strict_validated": false
-        },
-        "stuffed animal": {
-          "baseline_iou_avg_on_evaluated": 0.9634407977580824,
-          "candidate_iou_avg_on_evaluated": 0.9634821772065768,
-          "candidate_nonempty_when_reference_empty_count": 0,
-          "delta": 4.1379448494360815e-05,
-          "delta_valid": true,
-          "evaluated_sample_count": 279,
-          "ignored_reference_empty_count": 0,
-          "not_worse": true,
-          "reason": null,
-          "reference_uncertain": false,
-          "strict_validated": true
-        }
-      }
-    },
     {
       "_path": "docs/generated/full_batched_multisession_single_stuffed_animal_none.json",
       "backend": "hf_batched_multisession",
@@ -3256,101 +313,6 @@
             "iou_avg_on_evaluated": 0.9852886468432457,
             "iou_min_on_evaluated": 0.9659897235135796,
             "iou_p50_on_evaluated": 0.9847890088321885,
-            "iou_values_on_evaluated": [
-              1.0,
-              0.9975674032029191,
-              0.9891364389615173,
-              0.9811320754716981,
-              0.9826007326007326,
-              0.9757200666507975,
-              0.9659897235135796,
-              0.9761360751459761,
-              0.9865284974093265,
-              0.9847968545216251,
-              0.9860268916424993,
-              0.9893673577884105,
-              0.9904761904761905,
-              0.9937770562770563,
-              0.9951580746226146,
-              0.9908831908831909,
-              0.9951065054691998,
-              0.9939042089985486,
-              0.9950482792770488,
-              0.9944416371905003,
-              0.9964276601173769,
-              0.997211660329531,
-              0.9963090551181102,
-              0.9955957915341326,
-              0.9968973747016706,
-              0.998345544788466,
-              0.9985905567300916,
-              0.9985812248758572,
-              0.9978662873399715,
-              0.9990458015267175,
-              0.9990442054958184,
-              0.998550374486591,
-              0.9978139421909157,
-              0.9978000488878025,
-              0.9961089494163424,
-              0.9953590620420127,
-              0.9936939121998545,
-              0.9922984356197353,
-              0.9889873114675605,
-              0.9903637677668031,
-              0.9920692141312184,
-              0.9857516029446687,
-              0.987422876127195,
-              0.9863668978713227,
-              0.9782400765184123,
-              0.9761273209549072,
-              0.9763056092843327,
-              0.9755571531272466,
-              0.9717808868864122,
-              0.9744947064485082,
-              0.9764309764309764,
-              0.9747414000481116,
-              0.9770760233918129,
-              0.9722916193504428,
-              0.9779093600546572,
-              0.9755092698558022,
-              0.9775105767089735,
-              0.9724669603524229,
-              0.9766935308211718,
-              0.9795170332039672,
-              0.9778741865509761,
-              0.9819064430714917,
-              0.9847191011235955,
-              0.986449864498645,
-              0.9828698553948833,
-              0.9804052549543532,
-              0.9807477053951198,
-              0.9738100660441813,
-              0.9692724807953005,
-              0.968649885583524,
-              0.9705069124423963,
-              0.9858690532265661,
-              0.9795578797242691,
-              0.9820874134224982,
-              0.9803462798315395,
-              0.9826685660018993,
-              0.9837281646326872,
-              0.9847890088321885,
-              0.9822002472187886,
-              0.9807597434632461,
-              0.9838274932614556,
-              0.981178196040088,
-              0.9838274932614556,
-              0.9727822580645161,
-              0.987546699875467,
-              0.9834894036471168,
-              0.986093866401788,
-              0.9879429133858267,
-              0.986977886977887,
-              0.9890537582096813,
-              0.9843599615014437,
-              0.9770760233918129,
-              0.9755187689438097
-            ],
             "logit_abs_diff": {
               "avg": 0.29547142101231444,
               "count": 93,
@@ -3394,101 +356,6 @@
             "iou_avg_on_evaluated": 0.9629598516525126,
             "iou_min_on_evaluated": 0.5920526014865638,
             "iou_p50_on_evaluated": 0.9840588595953402,
-            "iou_values_on_evaluated": [
-              1.0,
-              0.994896099161502,
-              0.9945147679324895,
-              0.996066089693155,
-              0.9951816160118606,
-              0.9946196660482375,
-              0.994119808893789,
-              0.9964171223835565,
-              0.9946818265175132,
-              0.9948080845540516,
-              0.9960629921259843,
-              0.9979508196721312,
-              0.9969714177550634,
-              0.9948384630089849,
-              0.9948026948989412,
-              0.9904057565460723,
-              0.9930753564154786,
-              0.9811735941320293,
-              0.945831370701837,
-              0.9745005257623555,
-              0.9846833578792342,
-              0.9920844327176781,
-              0.9951676230745998,
-              0.9972426470588235,
-              0.9963768115942029,
-              0.9972333230863818,
-              0.998162890385793,
-              0.9840588595953402,
-              0.984251968503937,
-              0.9838069049801406,
-              0.9883507050889025,
-              0.9931634555624611,
-              0.9940773067331671,
-              0.988502358490566,
-              0.9892247829991021,
-              0.9924026590693258,
-              0.9904041872637395,
-              0.9827878103837472,
-              0.9503901895206243,
-              0.958011049723757,
-              0.9878385848535103,
-              0.9736394557823129,
-              0.9691043083900227,
-              0.5920526014865638,
-              0.6847571189279732,
-              0.8132427843803056,
-              0.9052453468697124,
-              0.7646017699115044,
-              0.7602739726027398,
-              0.7458840372226199,
-              0.7929973066564063,
-              0.9721973094170404,
-              0.9753566796368353,
-              0.983149708360337,
-              0.9819529487592652,
-              0.9786184210526315,
-              0.9662809917355372,
-              0.9814015277316506,
-              0.9805174065793676,
-              0.9812698412698413,
-              0.9856046065259118,
-              0.9878942338324307,
-              0.989769820971867,
-              0.9916613213598461,
-              0.9912527335207748,
-              0.9911097486204782,
-              0.9864346800353878,
-              0.9891048292108363,
-              0.9935446009389671,
-              0.9932333039129155,
-              0.9929742388758782,
-              0.9834548513740886,
-              0.987609124190369,
-              0.9888392857142857,
-              0.9817934782608696,
-              0.9828739630719828,
-              0.9805774278215224,
-              0.973643006263048,
-              0.9733163913595934,
-              0.9714070729872084,
-              0.9642137096774194,
-              0.9489693313222725,
-              0.9511501067109319,
-              0.9643601018282805,
-              0.9622417478033721,
-              0.9734079776067179,
-              0.9775816837586454,
-              0.9705813132501765,
-              0.956581352833638,
-              0.9402212285243586,
-              0.946793997271487,
-              0.9586499776486366,
-              0.9727314390467461
-            ],
             "logit_abs_diff": {
               "avg": 0.7471496173611252,
               "count": 93,
@@ -3532,101 +399,6 @@
             "iou_avg_on_evaluated": 0.9912703180118617,
             "iou_min_on_evaluated": 0.8583494633116312,
             "iou_p50_on_evaluated": 0.9934404722859954,
-            "iou_values_on_evaluated": [
-              1.0,
-              0.9986055159590951,
-              0.9987564122493393,
-              0.9984438219732338,
-              0.9973520249221184,
-              0.9987566055331054,
-              0.9990746452806909,
-              0.9969273313873099,
-              0.9965991652496522,
-              0.9972311952007383,
-              0.9980067463968108,
-              0.9977081741787625,
-              0.9976954985404825,
-              0.995276550358068,
-              0.9981790591805766,
-              0.9972669298511995,
-              0.997110705596107,
-              0.996482642605903,
-              0.9980131438178206,
-              0.9967355821545157,
-              0.9921371284793207,
-              0.994328922495274,
-              0.9938183547313362,
-              0.9959929475877545,
-              0.9941099476439791,
-              0.9921645445641528,
-              0.9954285714285714,
-              0.9940012970168612,
-              0.9957537154989384,
-              0.9945972495088409,
-              0.9960558751027115,
-              0.9940623453735774,
-              0.9934404722859954,
-              0.9935258964143426,
-              0.9950722733245729,
-              0.9962039940584255,
-              0.9963388250956898,
-              0.9970462750246144,
-              0.9965,
-              0.9936337745015915,
-              0.9930836707152496,
-              0.9944162436548223,
-              0.9955789831661283,
-              0.9937615916371607,
-              0.9899300221880867,
-              0.9922293213607322,
-              0.990710476518149,
-              0.9861135219579934,
-              0.983856816985436,
-              0.8583494633116312,
-              0.9904799682665609,
-              0.9908512330946698,
-              0.9914291409208691,
-              0.9873394827274371,
-              0.9883403169976316,
-              0.9854624750136289,
-              0.9907715023994094,
-              0.9912536443148688,
-              0.9813118358373031,
-              0.9783342212750844,
-              0.9914335664335664,
-              0.9876923076923076,
-              0.9773118447817243,
-              0.9698657058630855,
-              0.9813112745098039,
-              0.991342698464554,
-              0.9920974646032269,
-              0.9928594097112028,
-              0.9918473830099462,
-              0.9936872774360634,
-              0.9947780678851175,
-              0.9933549432739059,
-              0.9942177963379377,
-              0.9927780452575831,
-              0.9926163723916533,
-              0.991382061921481,
-              0.9917617237008872,
-              0.9933544303797468,
-              0.9947343967786898,
-              0.992305324715297,
-              0.9931569343065694,
-              0.9922173050511216,
-              0.9931735436893204,
-              0.9944201477906801,
-              0.99142728229809,
-              0.9930597465298733,
-              0.9935211692029532,
-              0.9927808693036547,
-              0.9915382290722272,
-              0.9893357708714199,
-              0.9886450820929876,
-              0.9873319944384366,
-              0.9847613123930959
-            ],
             "logit_abs_diff": {
               "avg": 0.15792362992801973,
               "count": 93,
@@ -3679,6 +451,612 @@
       "sam31_frame0_init_summary": null,
       "sam31_mask_root": null,
       "strict_full_batched": true
+    },
+    {
+      "_path": "docs/generated/different_types_sam31ref_full_batched_single_stuffed_animal_ignore_ref_empty.json",
+      "backend": "hf_batched_multisession",
+      "compile_mode": "none",
+      "controller_prompt": "towel",
+      "disallow_partial_backend_success": true,
+      "empty_reference_policy": "ignore-candidate",
+      "graph_output_policy": "ring_buffer",
+      "init_source": "sam31-video-reference",
+      "metrics": {
+        "active_gate_acceptance_pass": true,
+        "all_cameras_validated": true,
+        "all_objects_validated": true,
+        "backend_contract": {
+          "backend": "hf_batched_multisession",
+          "batch_mask_decoder": true,
+          "batch_memory_attention": true,
+          "batch_memory_encoder": true,
+          "batch_vision": true,
+          "batched_state_scatter": true,
+          "blockers": [],
+          "contract_pass": true,
+          "missing_requirements": [],
+          "partial_fallback_used": false,
+          "used_public_session_step_in_hot_path": false
+        },
+        "blockers": [],
+        "camera_count": 3,
+        "camera_order_check": "pass",
+        "camera_order_matrix": [
+          [
+            0.9650870579788189,
+            0.18681149074913664,
+            0.11275419934033769
+          ],
+          [
+            0.189368449549445,
+            0.9750479846449136,
+            0.05528487773388869
+          ],
+          [
+            0.11269602390455626,
+            0.05519909127191232,
+            0.9769235997824904
+          ]
+        ],
+        "camera_summaries": {
+          "cam0": {
+            "camera_validated": true,
+            "candidate_nonempty_count_on_evaluated": 93,
+            "candidate_nonempty_when_reference_empty_count": 0,
+            "empty_mismatch_count": 0,
+            "evaluated_sample_count": 93,
+            "ignored_reference_empty_count": 0,
+            "iou_avg_on_evaluated": 0.9575285807284996,
+            "iou_min_on_evaluated": 0.9491011916784488,
+            "iou_p50_on_evaluated": 0.9575291068734769,
+            "reference_nonempty_count": 93,
+            "reference_uncertain": false
+          },
+          "cam1": {
+            "camera_validated": true,
+            "candidate_nonempty_count_on_evaluated": 93,
+            "candidate_nonempty_when_reference_empty_count": 0,
+            "empty_mismatch_count": 0,
+            "evaluated_sample_count": 93,
+            "ignored_reference_empty_count": 0,
+            "iou_avg_on_evaluated": 0.9667954359316553,
+            "iou_min_on_evaluated": 0.9580165289256198,
+            "iou_p50_on_evaluated": 0.9675809090656979,
+            "reference_nonempty_count": 93,
+            "reference_uncertain": false
+          },
+          "cam2": {
+            "camera_validated": true,
+            "candidate_nonempty_count_on_evaluated": 93,
+            "candidate_nonempty_when_reference_empty_count": 0,
+            "empty_mismatch_count": 0,
+            "evaluated_sample_count": 93,
+            "ignored_reference_empty_count": 0,
+            "iou_avg_on_evaluated": 0.9659439160952052,
+            "iou_min_on_evaluated": 0.9535597012232526,
+            "iou_p50_on_evaluated": 0.9667734485584445,
+            "reference_nonempty_count": 93,
+            "reference_uncertain": false
+          }
+        },
+        "candidate_nonempty_count_on_evaluated": 279,
+        "candidate_nonempty_when_reference_empty_count": 0,
+        "candidate_partial": false,
+        "correctness_gate": {
+          "max_empty_mismatch_count": 3,
+          "min_global_iou_avg": 0.93,
+          "min_global_iou_p50": 0.95,
+          "name": "speed-first",
+          "speed_first": true
+        },
+        "correctness_pass": true,
+        "correctness_pass_by_gate": {
+          "speed_first": true,
+          "strict": false
+        },
+        "empty_mismatch_count": 0,
+        "empty_reference_policy": "ignore-candidate",
+        "evaluated_sample_count": 279,
+        "fallback_backend": null,
+        "frame_count": 93,
+        "global_iou_on_evaluated": {
+          "avg": 0.9634226442517866,
+          "count": 279,
+          "max": 0.9769235997824904,
+          "min": 0.9491011916784488,
+          "p50": 0.9644718862290602,
+          "p90": 0.9695286932474344,
+          "p95": 0.9703239913906985,
+          "p99": 0.9715689527478403
+        },
+        "global_mask_iou": {
+          "avg": 0.9634226442517866,
+          "count": 279,
+          "max": 0.9769235997824904,
+          "min": 0.9491011916784488,
+          "p50": 0.9644718862290602,
+          "p90": 0.9695286932474344,
+          "p95": 0.9703239913906985,
+          "p99": 0.9715689527478403
+        },
+        "ignored_reference_empty_count": 0,
+        "mask_correctness_pass": true,
+        "min_evaluated_samples": 1,
+        "min_evaluated_samples_per_camera": 1,
+        "min_evaluated_samples_per_object": 1,
+        "object_count": 1,
+        "object_summaries": {
+          "obj0": {
+            "candidate_nonempty_count_on_evaluated": 279,
+            "candidate_nonempty_when_reference_empty_count": 0,
+            "empty_mismatch_count": 0,
+            "evaluated_sample_count": 279,
+            "ignored_reference_empty_count": 0,
+            "iou_avg_on_evaluated": 0.9634226442517866,
+            "iou_min_on_evaluated": 0.9491011916784488,
+            "iou_p50_on_evaluated": 0.9644718862290602,
+            "object_reference_absent": false,
+            "object_validated": true,
+            "reference_nonempty_count": 279,
+            "reference_uncertain": false
+          }
+        },
+        "per_camera_object": {
+          "cam0_obj0": {
+            "candidate_nonempty_count": 93,
+            "candidate_nonempty_count_on_evaluated": 93,
+            "candidate_nonempty_when_reference_empty_count": 0,
+            "empty_mismatch_count": 0,
+            "evaluated_sample_count": 93,
+            "ignored_reference_empty_count": 0,
+            "iou_avg_on_evaluated": 0.9575285807284996,
+            "iou_min_on_evaluated": 0.9491011916784488,
+            "iou_p50_on_evaluated": 0.9575291068734769,
+            "logit_abs_diff": {
+              "avg": 13.225502783252347,
+              "count": 93,
+              "max": 14.784350395202637,
+              "min": 9.882301330566406,
+              "p50": 13.2034912109375,
+              "p90": 14.395185279846192,
+              "p95": 14.533321380615234,
+              "p99": 14.780611877441405
+            },
+            "mask_iou": {
+              "avg": 0.9575285807284996,
+              "count": 93,
+              "max": 0.9650870579788189,
+              "min": 0.9491011916784488,
+              "p50": 0.9575291068734769,
+              "p90": 0.9608748677712508,
+              "p95": 0.9615047655505427,
+              "p99": 0.9637601332329022
+            },
+            "object_score_abs_diff": {
+              "avg": 7.917002688172043,
+              "count": 93,
+              "max": 9.0,
+              "min": 6.09375,
+              "p50": 8.0,
+              "p90": 8.3125,
+              "p95": 8.375,
+              "p99": 8.482499999999998
+            },
+            "reference_nonempty_count": 93,
+            "reference_uncertain": false
+          },
+          "cam1_obj0": {
+            "candidate_nonempty_count": 93,
+            "candidate_nonempty_count_on_evaluated": 93,
+            "candidate_nonempty_when_reference_empty_count": 0,
+            "empty_mismatch_count": 0,
+            "evaluated_sample_count": 93,
+            "ignored_reference_empty_count": 0,
+            "iou_avg_on_evaluated": 0.9667954359316553,
+            "iou_min_on_evaluated": 0.9580165289256198,
+            "iou_p50_on_evaluated": 0.9675809090656979,
+            "logit_abs_diff": {
+              "avg": 12.96546115670153,
+              "count": 93,
+              "max": 16.576934814453125,
+              "min": 8.598213195800781,
+              "p50": 12.87034797668457,
+              "p90": 15.941140747070312,
+              "p95": 16.164048767089845,
+              "p99": 16.39589614868164
+            },
+            "mask_iou": {
+              "avg": 0.9667954359316553,
+              "count": 93,
+              "max": 0.9750479846449136,
+              "min": 0.9580165289256198,
+              "p50": 0.9675809090656979,
+              "p90": 0.9698343031009581,
+              "p95": 0.970351727708868,
+              "p99": 0.9715912305080691
+            },
+            "object_score_abs_diff": {
+              "avg": 8.814516129032258,
+              "count": 93,
+              "max": 9.8125,
+              "min": 7.75,
+              "p50": 8.8125,
+              "p90": 9.375,
+              "p95": 9.524999999999999,
+              "p99": 9.697499999999998
+            },
+            "reference_nonempty_count": 93,
+            "reference_uncertain": false
+          },
+          "cam2_obj0": {
+            "candidate_nonempty_count": 93,
+            "candidate_nonempty_count_on_evaluated": 93,
+            "candidate_nonempty_when_reference_empty_count": 0,
+            "empty_mismatch_count": 0,
+            "evaluated_sample_count": 93,
+            "ignored_reference_empty_count": 0,
+            "iou_avg_on_evaluated": 0.9659439160952052,
+            "iou_min_on_evaluated": 0.9535597012232526,
+            "iou_p50_on_evaluated": 0.9667734485584445,
+            "logit_abs_diff": {
+              "avg": 12.927017006822812,
+              "count": 93,
+              "max": 16.713350296020508,
+              "min": 8.532159805297852,
+              "p50": 13.444808959960938,
+              "p90": 15.6879487991333,
+              "p95": 15.972443389892577,
+              "p99": 16.693951416015626
+            },
+            "mask_iou": {
+              "avg": 0.9659439160952052,
+              "count": 93,
+              "max": 0.9769235997824904,
+              "min": 0.9535597012232526,
+              "p50": 0.9667734485584445,
+              "p90": 0.9701028609264608,
+              "p95": 0.9704969569021281,
+              "p99": 0.9729051196806077
+            },
+            "object_score_abs_diff": {
+              "avg": 8.573252688172044,
+              "count": 93,
+              "max": 10.0,
+              "min": 7.5625,
+              "p50": 8.4375,
+              "p90": 9.3125,
+              "p95": 9.4375,
+              "p99": 9.77
+            },
+            "reference_nonempty_count": 93,
+            "reference_uncertain": false
+          }
+        },
+        "reference_nonempty_count": 279,
+        "speed_first_acceptance_pass": true,
+        "state_leakage": {
+          "note": "candidate runtime keeps per-camera session state containers isolated",
+          "pass": true
+        },
+        "state_leakage_check": "pass",
+        "strict_correctness_pass": false
+      },
+      "object_count": 1,
+      "object_prompt": "stuffed animal",
+      "prompt_source": "sam31_frame0_video_reference_masks",
+      "reference_source": "sam31-replay",
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+      "sam31_frame0_init_mask_root": null,
+      "sam31_frame0_init_summary": null,
+      "sam31_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal/sam31_video_reference_masks",
+      "strict_full_batched": true
+    },
+    {
+      "_path": "docs/generated/different_types_sam31ref_original_hf_seq_single_stuffed_animal_ignore_ref_empty.json",
+      "backend": "hf_ref_seq_public",
+      "compile_mode": "none",
+      "controller_prompt": "towel",
+      "disallow_partial_backend_success": false,
+      "empty_reference_policy": "ignore-candidate",
+      "graph_output_policy": "ring_buffer",
+      "init_source": "sam31-video-reference",
+      "metrics": {
+        "active_gate_acceptance_pass": true,
+        "all_cameras_validated": true,
+        "all_objects_validated": true,
+        "backend_contract": {
+          "backend": "hf_ref_seq_public",
+          "batch_mask_decoder": false,
+          "batch_memory_attention": false,
+          "batch_memory_encoder": false,
+          "batch_vision": false,
+          "batched_state_scatter": false,
+          "blockers": [],
+          "contract_pass": false,
+          "missing_requirements": [
+            "backend is not hf_batched_multisession",
+            "batch_vision",
+            "batch_memory_attention",
+            "batch_mask_decoder",
+            "batch_memory_encoder",
+            "batched_state_scatter",
+            "used_public_session_step_in_hot_path"
+          ],
+          "partial_fallback_used": false,
+          "used_public_session_step_in_hot_path": true
+        },
+        "blockers": [],
+        "camera_count": 3,
+        "camera_order_check": "pass",
+        "camera_order_matrix": [
+          [
+            0.9650870579788189,
+            0.18681149074913664,
+            0.11275419934033769
+          ],
+          [
+            0.189368449549445,
+            0.9750479846449136,
+            0.05528487773388869
+          ],
+          [
+            0.11269602390455626,
+            0.05519909127191232,
+            0.9769235997824904
+          ]
+        ],
+        "camera_summaries": {
+          "cam0": {
+            "camera_validated": true,
+            "candidate_nonempty_count_on_evaluated": 93,
+            "candidate_nonempty_when_reference_empty_count": 0,
+            "empty_mismatch_count": 0,
+            "evaluated_sample_count": 93,
+            "ignored_reference_empty_count": 0,
+            "iou_avg_on_evaluated": 0.9575342005157147,
+            "iou_min_on_evaluated": 0.949313408723748,
+            "iou_p50_on_evaluated": 0.9575949856844386,
+            "reference_nonempty_count": 93,
+            "reference_uncertain": false
+          },
+          "cam1": {
+            "camera_validated": true,
+            "candidate_nonempty_count_on_evaluated": 93,
+            "candidate_nonempty_when_reference_empty_count": 0,
+            "empty_mismatch_count": 0,
+            "evaluated_sample_count": 93,
+            "ignored_reference_empty_count": 0,
+            "iou_avg_on_evaluated": 0.9667510728516525,
+            "iou_min_on_evaluated": 0.9584172066731008,
+            "iou_p50_on_evaluated": 0.9675638371290545,
+            "reference_nonempty_count": 93,
+            "reference_uncertain": false
+          },
+          "cam2": {
+            "camera_validated": true,
+            "candidate_nonempty_count_on_evaluated": 93,
+            "candidate_nonempty_when_reference_empty_count": 0,
+            "empty_mismatch_count": 0,
+            "evaluated_sample_count": 93,
+            "ignored_reference_empty_count": 0,
+            "iou_avg_on_evaluated": 0.9660371199068802,
+            "iou_min_on_evaluated": 0.9540648792985241,
+            "iou_p50_on_evaluated": 0.9665497507845671,
+            "reference_nonempty_count": 93,
+            "reference_uncertain": false
+          }
+        },
+        "candidate_nonempty_count_on_evaluated": 279,
+        "candidate_nonempty_when_reference_empty_count": 0,
+        "candidate_partial": false,
+        "correctness_gate": {
+          "max_empty_mismatch_count": 3,
+          "min_global_iou_avg": 0.93,
+          "min_global_iou_p50": 0.95,
+          "name": "speed-first",
+          "speed_first": true
+        },
+        "correctness_pass": true,
+        "correctness_pass_by_gate": {
+          "speed_first": true,
+          "strict": false
+        },
+        "empty_mismatch_count": 0,
+        "empty_reference_policy": "ignore-candidate",
+        "evaluated_sample_count": 279,
+        "fallback_backend": null,
+        "frame_count": 93,
+        "global_iou_on_evaluated": {
+          "avg": 0.9634407977580824,
+          "count": 279,
+          "max": 0.9769235997824904,
+          "min": 0.949313408723748,
+          "p50": 0.9644620274565496,
+          "p90": 0.9699170985262859,
+          "p95": 0.9703323615838383,
+          "p99": 0.9718201232579524
+        },
+        "global_mask_iou": {
+          "avg": 0.9634407977580824,
+          "count": 279,
+          "max": 0.9769235997824904,
+          "min": 0.949313408723748,
+          "p50": 0.9644620274565496,
+          "p90": 0.9699170985262859,
+          "p95": 0.9703323615838383,
+          "p99": 0.9718201232579524
+        },
+        "ignored_reference_empty_count": 0,
+        "mask_correctness_pass": true,
+        "min_evaluated_samples": 1,
+        "min_evaluated_samples_per_camera": 1,
+        "min_evaluated_samples_per_object": 1,
+        "object_count": 1,
+        "object_summaries": {
+          "obj0": {
+            "candidate_nonempty_count_on_evaluated": 279,
+            "candidate_nonempty_when_reference_empty_count": 0,
+            "empty_mismatch_count": 0,
+            "evaluated_sample_count": 279,
+            "ignored_reference_empty_count": 0,
+            "iou_avg_on_evaluated": 0.9634407977580824,
+            "iou_min_on_evaluated": 0.949313408723748,
+            "iou_p50_on_evaluated": 0.9644620274565496,
+            "object_reference_absent": false,
+            "object_validated": true,
+            "reference_nonempty_count": 279,
+            "reference_uncertain": false
+          }
+        },
+        "per_camera_object": {
+          "cam0_obj0": {
+            "candidate_nonempty_count": 93,
+            "candidate_nonempty_count_on_evaluated": 93,
+            "candidate_nonempty_when_reference_empty_count": 0,
+            "empty_mismatch_count": 0,
+            "evaluated_sample_count": 93,
+            "ignored_reference_empty_count": 0,
+            "iou_avg_on_evaluated": 0.9575342005157147,
+            "iou_min_on_evaluated": 0.949313408723748,
+            "iou_p50_on_evaluated": 0.9575949856844386,
+            "logit_abs_diff": {
+              "avg": 13.166384553396574,
+              "count": 93,
+              "max": 14.721602439880371,
+              "min": 9.882301330566406,
+              "p50": 13.175773620605469,
+              "p90": 14.211445808410645,
+              "p95": 14.479830741882324,
+              "p99": 14.696775207519531
+            },
+            "mask_iou": {
+              "avg": 0.9575342005157147,
+              "count": 93,
+              "max": 0.9650870579788189,
+              "min": 0.949313408723748,
+              "p50": 0.9575949856844386,
+              "p90": 0.960795460198191,
+              "p95": 0.9616466912413472,
+              "p99": 0.9639381920612553
+            },
+            "object_score_abs_diff": {
+              "avg": 7.915658602150538,
+              "count": 93,
+              "max": 9.0,
+              "min": 6.09375,
+              "p50": 8.0,
+              "p90": 8.3,
+              "p95": 8.375,
+              "p99": 8.424999999999999
+            },
+            "reference_nonempty_count": 93,
+            "reference_uncertain": false
+          },
+          "cam1_obj0": {
+            "candidate_nonempty_count": 93,
+            "candidate_nonempty_count_on_evaluated": 93,
+            "candidate_nonempty_when_reference_empty_count": 0,
+            "empty_mismatch_count": 0,
+            "evaluated_sample_count": 93,
+            "ignored_reference_empty_count": 0,
+            "iou_avg_on_evaluated": 0.9667510728516525,
+            "iou_min_on_evaluated": 0.9584172066731008,
+            "iou_p50_on_evaluated": 0.9675638371290545,
+            "logit_abs_diff": {
+              "avg": 12.860851749297112,
+              "count": 93,
+              "max": 16.49431037902832,
+              "min": 8.061101913452148,
+              "p50": 12.702454566955566,
+              "p90": 15.800000762939455,
+              "p95": 16.051511001586913,
+              "p99": 16.42925437927246
+            },
+            "mask_iou": {
+              "avg": 0.9667510728516525,
+              "count": 93,
+              "max": 0.9750479846449136,
+              "min": 0.9584172066731008,
+              "p50": 0.9675638371290545,
+              "p90": 0.9702158569770878,
+              "p95": 0.9707392861091053,
+              "p99": 0.9719375203523335
+            },
+            "object_score_abs_diff": {
+              "avg": 8.82728494623656,
+              "count": 93,
+              "max": 9.75,
+              "min": 7.75,
+              "p50": 8.8125,
+              "p90": 9.3625,
+              "p95": 9.5625,
+              "p99": 9.635
+            },
+            "reference_nonempty_count": 93,
+            "reference_uncertain": false
+          },
+          "cam2_obj0": {
+            "candidate_nonempty_count": 93,
+            "candidate_nonempty_count_on_evaluated": 93,
+            "candidate_nonempty_when_reference_empty_count": 0,
+            "empty_mismatch_count": 0,
+            "evaluated_sample_count": 93,
+            "ignored_reference_empty_count": 0,
+            "iou_avg_on_evaluated": 0.9660371199068802,
+            "iou_min_on_evaluated": 0.9540648792985241,
+            "iou_p50_on_evaluated": 0.9665497507845671,
+            "logit_abs_diff": {
+              "avg": 12.84387219336725,
+              "count": 93,
+              "max": 16.678348541259766,
+              "min": 8.46888256072998,
+              "p50": 13.442838668823242,
+              "p90": 15.580220413208007,
+              "p95": 15.89126968383789,
+              "p99": 16.648122787475586
+            },
+            "mask_iou": {
+              "avg": 0.9660371199068802,
+              "count": 93,
+              "max": 0.9769235997824904,
+              "min": 0.9540648792985241,
+              "p50": 0.9665497507845671,
+              "p90": 0.97020781706131,
+              "p95": 0.9705266723717696,
+              "p99": 0.9727277141841388
+            },
+            "object_score_abs_diff": {
+              "avg": 8.577956989247312,
+              "count": 93,
+              "max": 9.9375,
+              "min": 7.5625,
+              "p50": 8.4375,
+              "p90": 9.3125,
+              "p95": 9.462499999999999,
+              "p99": 9.765
+            },
+            "reference_nonempty_count": 93,
+            "reference_uncertain": false
+          }
+        },
+        "reference_nonempty_count": 279,
+        "speed_first_acceptance_pass": true,
+        "state_leakage": {
+          "note": "candidate runtime keeps per-camera session state containers isolated",
+          "pass": true
+        },
+        "state_leakage_check": "pass",
+        "strict_correctness_pass": false
+      },
+      "object_count": 1,
+      "object_prompt": "stuffed animal",
+      "prompt_source": "sam31_frame0_video_reference_masks",
+      "reference_source": "sam31-replay",
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+      "sam31_frame0_init_mask_root": null,
+      "sam31_frame0_init_summary": null,
+      "sam31_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal/sam31_video_reference_masks",
+      "strict_full_batched": false
     }
   ],
   "decision": {
@@ -3688,9 +1066,11 @@
     "controller_towel_validated": false,
     "demo22_final_fps_pending": true,
     "demo22_final_fps_source": "pending full Demo 2.2 profile; replay/component FPS is not final FPS",
-    "empty_reference_policy": "ignore-candidate",
+    "empty_reference_policy": "strict-empty-mismatch",
     "fallback_backend": "hf_batch_vision_seq_session",
     "faster_than_77_92_ms_baseline": true,
+    "full_batched_vs_sam31_delta": -1.81535062957483e-05,
+    "full_batched_vs_sam31_not_worse": true,
     "hf_batch_vision_seq_session_usable": true,
     "hf_batched_multisession_blockers": "first bad frame 43 cam1 IoU=0.59205, component=mask_decoder_or_accumulated_state; mask correctness gate failed: gate=strict, evaluated=279/1, empty_mismatch=0/0, global_iou_avg=0.97983960550254/0.98, global_iou_p50=0.9899300221880867/0.98",
     "hf_batched_multisession_failure_stage": "correctness",
@@ -3698,9 +1078,15 @@
     "hf_batched_multisession_usable": false,
     "recommended_backend": "hf_batch_vision_seq_session",
     "recommended_compile_mode": "reduce-overhead",
-    "reference_uncertain_objects": [
-      "hand"
-    ],
+    "recurrent_drift_first_tensor": {
+      "camera": "cam0",
+      "field": "maskmem_features",
+      "frame_idx": 0,
+      "p95_abs_diff": 0.015625,
+      "threshold": 0.001
+    },
+    "recurrent_memory_slot_order_pass": true,
+    "reference_uncertain_objects": [],
     "single_object_30fps_p50_gate": true,
     "single_object_30fps_p90_gate": true,
     "single_object_30fps_p95_gate": "borderline/fail",
@@ -6298,6 +3684,29 @@
     "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal"
   },
   "goal": "original weights + custom batch=3 multi-session runtime",
+  "memory_slot_audit": {
+    "_path": "docs/generated/full_batched_memory_slot_audit.json",
+    "backend": "hf_batched_multisession",
+    "backend_contract": {
+      "backend": "hf_batched_multisession",
+      "batch_mask_decoder": true,
+      "batch_memory_attention": true,
+      "batch_memory_encoder": true,
+      "batch_vision": true,
+      "batched_state_scatter": true,
+      "blockers": [],
+      "contract_pass": true,
+      "missing_requirements": [],
+      "partial_fallback_used": false,
+      "used_public_session_step_in_hot_path": false
+    },
+    "dtype": "bfloat16",
+    "first_mismatch": null,
+    "object_count": 1,
+    "object_prompt": "stuffed animal",
+    "pass": true,
+    "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal"
+  },
   "profiles": [
     {
       "_path": "docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json",
@@ -7011,652 +4420,6 @@
       },
       "status": "synthetic_hf_public",
       "warmup": 3
-    },
-    {
-      "_path": "docs/generated/different_types_sloth_set_2_edgetam_stuffed_animal_single_batchvision_profile_reduce_overhead.json",
-      "backend": "hf_batch_vision_seq_session",
-      "compile_mode": "reduce-overhead",
-      "correctness_pass": false,
-      "correctness_report_used": null,
-      "frames": 93,
-      "graph_output_policy": "ring_buffer",
-      "profile": {
-        "backend": "hf_batch_vision_seq_session",
-        "blockers": [],
-        "compiled_module_count": 1,
-        "complete_group_fps_from_p50": 31.943285072450823,
-        "correctness_pass": false,
-        "cuda_graph_enabled": true,
-        "fallback_backend": null,
-        "init_source": "sam31-image-frame0",
-        "note": "profile-only run; use compare_multisession correctness JSON for acceptance",
-        "partial": false,
-        "ring_buffer_size": 8,
-        "sam31_frame0_init_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal/sam31_image_frame0_init_masks_hand",
-        "sam31_frame0_init_summary": {
-          "camera_summaries": [
-            {
-              "camera_idx": 0,
-              "controller_area": 7883,
-              "controller_candidate_count": 8,
-              "controller_prompt": "hand",
-              "controller_selected_indices": [
-                0,
-                1,
-                2,
-                3
-              ],
-              "controller_selected_stats": [
-                {
-                  "area": 2901,
-                  "bbox": [
-                    304,
-                    190,
-                    379,
-                    245
-                  ],
-                  "centroid": [
-                    340.3002412961048,
-                    217.88900379179594
-                  ],
-                  "green_delta": 9.416580200195312,
-                  "green_fraction": 0.0003447087211306446,
-                  "mean_rgb": [
-                    123.69320678710938,
-                    119.43260955810547,
-                    96.33885192871094
-                  ],
-                  "overlap_iou": 0.0,
-                  "score": 1.0
-                },
-                {
-                  "area": 1896,
-                  "bbox": [
-                    303,
-                    189,
-                    367,
-                    244
-                  ],
-                  "centroid": [
-                    329.46571729957805,
-                    217.1334388185654
-                  ],
-                  "green_delta": 9.295356750488281,
-                  "green_fraction": 0.0005274261603375527,
-                  "mean_rgb": [
-                    127.27584075927734,
-                    123.81170654296875,
-                    101.7568588256836
-                  ],
-                  "overlap_iou": 0.0,
-                  "score": 1.0
-                },
-                {
-                  "area": 853,
-                  "bbox": [
-                    303,
-                    191,
-                    340,
-                    240
-                  ],
-                  "centroid": [
-                    318.6822977725674,
-                    213.97186400937866
-                  ],
-                  "green_delta": 9.868698120117188,
-                  "green_fraction": 0.0011723329425556857,
-                  "mean_rgb": [
-                    138.9249725341797,
-                    138.57327270507812,
-                    118.48417663574219
-                  ],
-                  "overlap_iou": 0.0,
-                  "score": 1.0
-                },
-                {
-                  "area": 4966,
-                  "bbox": [
-                    286,
-                    114,
-                    365,
-                    206
-                  ],
-                  "centroid": [
-                    325.3578332662102,
-                    155.98872331856626
-                  ],
-                  "green_delta": 0.459320068359375,
-                  "green_fraction": 0.0002013693113169553,
-                  "mean_rgb": [
-                    134.11981201171875,
-                    109.39166259765625,
-                    83.74486541748047
-                  ],
-                  "overlap_iou": 0.0,
-                  "score": 1.0
-                }
-              ],
-              "controller_timing_ms": {
-                "cache_hit": false,
-                "configure_ms": 0.11333602014929056,
-                "import_ms": 6.055801990441978,
-                "model_load_ms": 6716.552794969175,
-                "processor_init_ms": 0.24370203027501702,
-                "prompt_ms_by_label": {
-                  "hand": 263.32594495033845
-                },
-                "prompt_total_ms": 263.32594495033845,
-                "resolve_paths_ms": 0.13266701716929674,
-                "runtime_deps_ms": 0.0024140463210642338,
-                "set_image_ms": 161.21252300217748,
-                "total_ms": 7147.679582994897
-              },
-              "object_area": 21828,
-              "object_candidate_count": 1,
-              "object_prompt": "stuffed animal",
-              "object_selected_indices": [
-                0
-              ],
-              "object_selected_stats": [
-                {
-                  "area": 21828,
-                  "bbox": [
-                    304,
-                    154,
-                    598,
-                    342
-                  ],
-                  "centroid": [
-                    451.08599047095475,
-                    237.1082554517134
-                  ],
-                  "green_delta": 10.512367248535156,
-                  "green_fraction": 0.0034817665383910573,
-                  "mean_rgb": [
-                    115.31267547607422,
-                    111.12969207763672,
-                    85.92198181152344
-                  ],
-                  "overlap_iou": 0.10289914250714577,
-                  "score": 20704.95875867701
-                }
-              ],
-              "object_timing_ms": {
-                "cache_hit": true,
-                "configure_ms": 0.044019019696861506,
-                "import_ms": 0.0031619565561413765,
-                "model_load_ms": 0.0,
-                "processor_init_ms": 0.0,
-                "prompt_ms_by_label": {
-                  "stuffed animal": 96.74859402002767
-                },
-                "prompt_total_ms": 96.74859402002767,
-                "resolve_paths_ms": 0.16450101975351572,
-                "runtime_deps_ms": 0.0007490161806344986,
-                "set_image_ms": 12.490824970882386,
-                "total_ms": 109.48862897930667
-              }
-            },
-            {
-              "camera_idx": 1,
-              "controller_area": 17772,
-              "controller_candidate_count": 3,
-              "controller_prompt": "hand",
-              "controller_selected_indices": [
-                0,
-                1,
-                2
-              ],
-              "controller_selected_stats": [
-                {
-                  "area": 5669,
-                  "bbox": [
-                    572,
-                    191,
-                    671,
-                    281
-                  ],
-                  "centroid": [
-                    613.6958899276768,
-                    233.2829423178691
-                  ],
-                  "green_delta": 3.3031387329101562,
-                  "green_fraction": 0.0001763979537837361,
-                  "mean_rgb": [
-                    135.8495330810547,
-                    117.37837219238281,
-                    92.30093383789062
-                  ],
-                  "overlap_iou": 0.0,
-                  "score": 1.0
-                },
-                {
-                  "area": 1889,
-                  "bbox": [
-                    163,
-                    223,
-                    222,
-                    269
-                  ],
-                  "centroid": [
-                    192.8263631551085,
-                    244.39015352038115
-                  ],
-                  "green_delta": 9.06219482421875,
-                  "green_fraction": 0.03493912122816305,
-                  "mean_rgb": [
-                    115.48703002929688,
-                    112.2154541015625,
-                    90.8194808959961
-                  ],
-                  "overlap_iou": 0.0,
-                  "score": 1.0
-                },
-                {
-                  "area": 10214,
-                  "bbox": [
-                    36,
-                    187,
-                    181,
-                    298
-                  ],
-                  "centroid": [
-                    109.53925983943607,
-                    238.21911102408458
-                  ],
-                  "green_delta": 0.6339797973632812,
-                  "green_fraction": 0.0,
-                  "mean_rgb": [
-                    147.4413604736328,
-                    125.50656127929688,
-                    102.30380249023438
-                  ],
-                  "overlap_iou": 0.0,
-                  "score": 1.0
-                }
-              ],
-              "controller_timing_ms": {
-                "cache_hit": true,
-                "configure_ms": 0.03826298052445054,
-                "import_ms": 0.0023720203898847103,
-                "model_load_ms": 0.0,
-                "processor_init_ms": 0.0,
-                "prompt_ms_by_label": {
-                  "hand": 96.93482198053971
-                },
-                "prompt_total_ms": 96.93482198053971,
-                "resolve_paths_ms": 0.13225205475464463,
-                "runtime_deps_ms": 0.0006239861249923706,
-                "set_image_ms": 12.478679011110216,
-                "total_ms": 109.6224730135873
-              },
-              "object_area": 39592,
-              "object_candidate_count": 1,
-              "object_prompt": "stuffed animal",
-              "object_selected_indices": [
-                0
-              ],
-              "object_selected_stats": [
-                {
-                  "area": 39592,
-                  "bbox": [
-                    165,
-                    173,
-                    598,
-                    442
-                  ],
-                  "centroid": [
-                    378.2143867447969,
-                    288.4992170135381
-                  ],
-                  "green_delta": 10.113609313964844,
-                  "green_fraction": 0.02705091937765205,
-                  "mean_rgb": [
-                    126.15864562988281,
-                    122.45883178710938,
-                    98.53179931640625
-                  ],
-                  "overlap_iou": 0.03217216064488268,
-                  "score": 38955.1199078739
-                }
-              ],
-              "object_timing_ms": {
-                "cache_hit": true,
-                "configure_ms": 0.03210699651390314,
-                "import_ms": 0.0024720211513340473,
-                "model_load_ms": 0.0,
-                "processor_init_ms": 0.0,
-                "prompt_ms_by_label": {
-                  "stuffed animal": 97.69024100387469
-                },
-                "prompt_total_ms": 97.69024100387469,
-                "resolve_paths_ms": 0.1659600529819727,
-                "runtime_deps_ms": 0.0006280024535953999,
-                "set_image_ms": 12.034140003379434,
-                "total_ms": 109.95594301493838
-              }
-            },
-            {
-              "camera_idx": 2,
-              "controller_area": 39483,
-              "controller_candidate_count": 7,
-              "controller_prompt": "hand",
-              "controller_selected_indices": [
-                0,
-                1,
-                2,
-                3
-              ],
-              "controller_selected_stats": [
-                {
-                  "area": 1315,
-                  "bbox": [
-                    522,
-                    310,
-                    559,
-                    364
-                  ],
-                  "centroid": [
-                    540.5536121673003,
-                    335.1475285171103
-                  ],
-                  "green_delta": 7.5494384765625,
-                  "green_fraction": 0.0,
-                  "mean_rgb": [
-                    159.6038055419922,
-                    149.02053833007812,
-                    123.3384017944336
-                  ],
-                  "overlap_iou": 0.0,
-                  "score": 1.0
-                },
-                {
-                  "area": 20632,
-                  "bbox": [
-                    643,
-                    247,
-                    848,
-                    381
-                  ],
-                  "centroid": [
-                    754.1066789453276,
-                    313.84213842574644
-                  ],
-                  "green_delta": -2.0733261108398438,
-                  "green_fraction": 0.0,
-                  "mean_rgb": [
-                    116.83404541015625,
-                    95.74156951904297,
-                    78.7957534790039
-                  ],
-                  "overlap_iou": 0.0,
-                  "score": 1.0
-                },
-                {
-                  "area": 4645,
-                  "bbox": [
-                    539,
-                    314,
-                    610,
-                    441
-                  ],
-                  "centroid": [
-                    569.7308934337998,
-                    388.3530678148547
-                  ],
-                  "green_delta": 9.132080078125,
-                  "green_fraction": 0.0,
-                  "mean_rgb": [
-                    153.06781005859375,
-                    144.64047241210938,
-                    117.948974609375
-                  ],
-                  "overlap_iou": 0.0,
-                  "score": 1.0
-                },
-                {
-                  "area": 12912,
-                  "bbox": [
-                    477,
-                    0,
-                    765,
-                    154
-                  ],
-                  "centroid": [
-                    612.2331939281289,
-                    62.68478934324659
-                  ],
-                  "green_delta": 0.5753555297851562,
-                  "green_fraction": 7.744733581164808e-05,
-                  "mean_rgb": [
-                    122.45918273925781,
-                    100.82404327392578,
-                    78.0381851196289
-                  ],
-                  "overlap_iou": 0.0,
-                  "score": 1.0
-                }
-              ],
-              "controller_timing_ms": {
-                "cache_hit": true,
-                "configure_ms": 0.045988999772816896,
-                "import_ms": 0.0036279670894145966,
-                "model_load_ms": 0.0,
-                "processor_init_ms": 0.0,
-                "prompt_ms_by_label": {
-                  "hand": 101.08972899615765
-                },
-                "prompt_total_ms": 101.08972899615765,
-                "resolve_paths_ms": 0.13511499855667353,
-                "runtime_deps_ms": 0.0006370246410369873,
-                "set_image_ms": 12.296105036512017,
-                "total_ms": 113.61923202639446
-              },
-              "object_area": 29184,
-              "object_candidate_count": 1,
-              "object_prompt": "stuffed animal",
-              "object_selected_indices": [
-                0
-              ],
-              "object_selected_stats": [
-                {
-                  "area": 29184,
-                  "bbox": [
-                    473,
-                    146,
-                    713,
-                    441
-                  ],
-                  "centroid": [
-                    572.1756099232456,
-                    297.6822574013158
-                  ],
-                  "green_delta": 10.6822509765625,
-                  "green_fraction": 0.038171600877192985,
-                  "mean_rgb": [
-                    142.16009521484375,
-                    139.85043334960938,
-                    116.17626190185547
-                  ],
-                  "overlap_iou": 0.09244940817105765,
-                  "score": 27834.978235967927
-                }
-              ],
-              "object_timing_ms": {
-                "cache_hit": true,
-                "configure_ms": 0.02969801425933838,
-                "import_ms": 0.0028319773264229298,
-                "model_load_ms": 0.0,
-                "processor_init_ms": 0.0,
-                "prompt_ms_by_label": {
-                  "stuffed animal": 99.23080104636028
-                },
-                "prompt_total_ms": 99.23080104636028,
-                "resolve_paths_ms": 0.17056800425052643,
-                "runtime_deps_ms": 0.0006750342436134815,
-                "set_image_ms": 13.91727797454223,
-                "total_ms": 113.38278703624383
-              }
-            }
-          ],
-          "confidence_threshold": 0.25,
-          "controller_label": "hand",
-          "controller_max_instances": 4,
-          "controller_prompt": "hand",
-          "controller_selection_mode": "all",
-          "errors": [],
-          "frame0_init_pass": true,
-          "generation_wall_ms": 12546.319347980898,
-          "inference_mode": "sam31-image-frame0-init",
-          "mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal/sam31_image_frame0_init_masks_hand",
-          "min_area": 64,
-          "object_label": "stuffed animal",
-          "object_max_instances": 1,
-          "object_prompt": "stuffed animal",
-          "object_selection_mode": "largest",
-          "output_dir": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal/sam31_image_frame0_init_masks_hand",
-          "reused_existing": true,
-          "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
-          "role_order": [
-            "hand",
-            "stuffed animal"
-          ]
-        },
-        "timings_ms": {
-          "cam0_decode_ms": {
-            "avg": 7.727926310342085,
-            "count": 93,
-            "max": 10.393539036158472,
-            "min": 7.188234012573957,
-            "p50": 7.58838199544698,
-            "p90": 8.191872015595436,
-            "p95": 8.58200560323894,
-            "p99": 9.872542067896573
-          },
-          "cam1_decode_ms": {
-            "avg": 7.385527207491098,
-            "count": 93,
-            "max": 8.708075969479978,
-            "min": 6.925357971340418,
-            "p50": 7.2226509801112115,
-            "p90": 7.863507000729442,
-            "p95": 8.222075179219246,
-            "p99": 8.66565941600129
-          },
-          "cam2_decode_ms": {
-            "avg": 7.34470975184713,
-            "count": 93,
-            "max": 8.955080003943294,
-            "min": 6.853690021671355,
-            "p50": 7.182481000199914,
-            "p90": 7.890255993697792,
-            "p95": 8.261960616800934,
-            "p99": 8.653826012741774
-          },
-          "feature_split_ms": {
-            "avg": 0.14474238168888837,
-            "count": 93,
-            "max": 0.23824599338695407,
-            "min": 0.12384803267195821,
-            "p50": 0.13982399832457304,
-            "p90": 0.16675143269822001,
-            "p95": 0.18457819242030377,
-            "p99": 0.20191241055726997
-          },
-          "mask_decoder_ms": {
-            "avg": 23.307463657411358,
-            "count": 93,
-            "max": 26.89686301164329,
-            "min": 22.077703033573925,
-            "p50": 23.1171150226146,
-            "p90": 24.506770819425583,
-            "p95": 25.03819203702733,
-            "p99": 25.822413391433653
-          },
-          "mask_postprocess_ms": {
-            "avg": 0.0,
-            "count": 93,
-            "max": 0.0,
-            "min": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "p95": 0.0,
-            "p99": 0.0
-          },
-          "memory_attention_ms": {
-            "avg": 0.0,
-            "count": 93,
-            "max": 0.0,
-            "min": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "p95": 0.0,
-            "p99": 0.0
-          },
-          "memory_encoder_ms": {
-            "avg": 0.0,
-            "count": 93,
-            "max": 0.0,
-            "min": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "p95": 0.0,
-            "p99": 0.0
-          },
-          "preprocess_ms": {
-            "avg": 2.5312089241079745,
-            "count": 93,
-            "max": 3.8100180099718273,
-            "min": 1.5775510109961033,
-            "p50": 2.548706019297242,
-            "p90": 3.297173813916743,
-            "p95": 3.35089520085603,
-            "p99": 3.6958643654361363
-          },
-          "stage_wall_ms": {
-            "avg": 31.534022169052474,
-            "count": 93,
-            "max": 36.621160979848355,
-            "min": 29.371190001256764,
-            "p50": 31.305484008044004,
-            "p90": 32.98849139828235,
-            "p95": 33.75403301324695,
-            "p99": 34.682919727638364
-          },
-          "state_scatter_ms": {
-            "avg": 0.0,
-            "count": 93,
-            "max": 0.0,
-            "min": 0.0,
-            "p50": 0.0,
-            "p90": 0.0,
-            "p95": 0.0,
-            "p99": 0.0
-          },
-          "state_stack_ms": {
-            "avg": 0.008980418750715832,
-            "count": 93,
-            "max": 0.011932977940887213,
-            "min": 0.007494993042200804,
-            "p50": 0.00868999632075429,
-            "p90": 0.010381778702139854,
-            "p95": 0.01091938465833664,
-            "p99": 0.01133411657065153
-          },
-          "vision_encoder_ms": {
-            "avg": 5.4952703993417,
-            "count": 93,
-            "max": 5.6580170057713985,
-            "min": 5.282728001475334,
-            "p50": 5.511816998478025,
-            "p90": 5.604322603903711,
-            "p95": 5.633723002392799,
-            "p99": 5.653449208475649
-          }
-        }
-      },
-      "status": "replay_profile",
-      "warmup": 20
     }
   ],
   "sam31_replay_iou": {
@@ -7864,9 +4627,525 @@
   },
   "source": {
     "branch": "feat/edgetam-batched-multisession-runtime",
-    "commit": "d83184ff7809c53b127e00d3558c029453d555ac",
+    "commit": "90bb25a043b31fc9867f65ccfe9e0c4a871626f4",
     "fork_path": "/home/zhangxinjie/EdgeTAM-HF-batched",
     "github_repo": "https://github.com/BaochaiXue/transformers/tree/feat/edgetam-batched-multisession-runtime",
     "modeling_edgetam_video_touched": false
-  }
+  },
+  "state_commit": [
+    {
+      "_path": "docs/generated/full_batched_state_commit_batched_scatter.json",
+      "backend": "hf_batched_multisession",
+      "backend_contract": {
+        "backend": "hf_batched_multisession",
+        "batch_mask_decoder": true,
+        "batch_memory_attention": true,
+        "batch_memory_encoder": true,
+        "batch_vision": true,
+        "batched_state_scatter": true,
+        "blockers": [],
+        "contract_pass": true,
+        "missing_requirements": [],
+        "partial_fallback_used": false,
+        "used_public_session_step_in_hot_path": false
+      },
+      "component_replaced": null,
+      "drift_source_hypothesis": "baseline_full_batched_closed_loop_drift",
+      "dtype": "bfloat16",
+      "first_bad_frame": {
+        "camera": "cam1",
+        "frame_idx": 43,
+        "iou": 0.5920526014865638
+      },
+      "global_iou_avg": 0.97983960550254,
+      "global_iou_p50": 0.9899300221880867,
+      "interpretation": "current full-batched state commit path",
+      "min_iou": 0.5920526014865638,
+      "object_count": 1,
+      "object_prompt": "stuffed animal",
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+      "state_commit_mode": "batched_scatter",
+      "status": "ok",
+      "teacher_force_mode": "none"
+    },
+    {
+      "_path": "docs/generated/full_batched_state_commit_hybrid_reference_dict_batched_tensors.json",
+      "backend": "hf_batched_multisession",
+      "backend_contract": {
+        "backend": "hf_batched_multisession",
+        "batch_mask_decoder": true,
+        "batch_memory_attention": true,
+        "batch_memory_encoder": true,
+        "batch_vision": true,
+        "batched_state_scatter": true,
+        "blockers": [],
+        "contract_pass": true,
+        "missing_requirements": [],
+        "partial_fallback_used": false,
+        "used_public_session_step_in_hot_path": false
+      },
+      "component_replaced": "memory_encoder_outputs",
+      "drift_source_hypothesis": "drift_not_eliminated_by_after_memory_encoder",
+      "dtype": "bfloat16",
+      "first_bad_frame": {
+        "camera": "cam1",
+        "frame_idx": 47,
+        "iou": 0.7351535836177474
+      },
+      "global_iou_avg": 0.995299918865833,
+      "global_iou_p50": 0.9977257220832386,
+      "interpretation": "drift remains after forcing memory outputs; decoder/object pointer remains suspect",
+      "min_iou": 0.7351535836177474,
+      "object_count": 1,
+      "object_prompt": "stuffed animal",
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+      "state_commit_mode": "hybrid_reference_dict_batched_tensors",
+      "status": "ok",
+      "teacher_force_mode": "after_memory_encoder"
+    },
+    {
+      "_path": "docs/generated/full_batched_state_commit_reference_store_output.json",
+      "backend": "hf_batched_multisession",
+      "backend_contract": {
+        "backend": "hf_batched_multisession",
+        "batch_mask_decoder": true,
+        "batch_memory_attention": true,
+        "batch_memory_encoder": true,
+        "batch_vision": true,
+        "batched_state_scatter": true,
+        "blockers": [],
+        "contract_pass": true,
+        "missing_requirements": [],
+        "partial_fallback_used": false,
+        "used_public_session_step_in_hot_path": false
+      },
+      "component_replaced": "decoder_and_memory_outputs",
+      "drift_source_hypothesis": "drift_not_eliminated_by_after_mask_decoder",
+      "dtype": "bfloat16",
+      "first_bad_frame": {
+        "camera": "cam1",
+        "frame_idx": 47,
+        "iou": 0.7329700272479565
+      },
+      "global_iou_avg": 0.9980210603568154,
+      "global_iou_p50": 0.999126383226558,
+      "interpretation": "drift remains even when current outputs are forced to reference after decoder",
+      "min_iou": 0.7329700272479565,
+      "object_count": 1,
+      "object_prompt": "stuffed animal",
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+      "state_commit_mode": "reference_store_output",
+      "status": "ok",
+      "teacher_force_mode": "after_mask_decoder"
+    }
+  ],
+  "state_drift": {
+    "_path": "docs/generated/full_batched_state_drift_curve_bf16.json",
+    "backend": "hf_batched_multisession",
+    "backend_contract": {
+      "backend": "hf_batched_multisession",
+      "batch_mask_decoder": true,
+      "batch_memory_attention": true,
+      "batch_memory_encoder": true,
+      "batch_vision": true,
+      "batched_state_scatter": true,
+      "blockers": [],
+      "contract_pass": true,
+      "missing_requirements": [],
+      "partial_fallback_used": false,
+      "used_public_session_step_in_hot_path": false
+    },
+    "compile_mode": "none",
+    "dtype": "bfloat16",
+    "elapsed_ms": 3947.744461998809,
+    "frame_count": 93,
+    "object_count": 1,
+    "object_prompt": "stuffed animal",
+    "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+    "summary": {
+      "first_iou_lt_0_90": {
+        "camera": "cam1",
+        "frame_idx": 43,
+        "threshold": 0.9,
+        "value": 0.5920526014865638
+      },
+      "first_iou_lt_0_98": {
+        "camera": "cam0",
+        "frame_idx": 5,
+        "threshold": 0.98,
+        "value": 0.9757200666507975
+      },
+      "first_tensor_drift": {
+        "camera": "cam0",
+        "field": "maskmem_features",
+        "frame_idx": 0,
+        "p95_abs_diff": 0.015625,
+        "threshold": 0.001
+      },
+      "mask_iou": {
+        "avg": 0.97983960550254,
+        "count": 279,
+        "max": 1.0,
+        "min": 0.5920526014865638,
+        "p50": 0.9899300221880867,
+        "p90": 0.9972351878808702,
+        "p95": 0.9981957077413655,
+        "p99": 0.9992782233189389
+      },
+      "maskmem_features": {
+        "first_frame_p95_gt_1": {
+          "camera": "cam1",
+          "frame_idx": 38,
+          "threshold": 1.0,
+          "value": 1.107421875
+        },
+        "first_frame_p95_gt_1e_1": {
+          "camera": "cam0",
+          "frame_idx": 1,
+          "threshold": 0.1,
+          "value": 0.18626709282398224
+        },
+        "first_frame_p95_gt_1e_3": {
+          "camera": "cam0",
+          "frame_idx": 0,
+          "threshold": 0.001,
+          "value": 0.015625
+        },
+        "max_abs_diff": {
+          "avg": 4.3685438641510554,
+          "count": 279,
+          "max": 6.84375,
+          "min": 0.1015625,
+          "p50": 4.4921875,
+          "p90": 5.46953125,
+          "p95": 5.893749999999994,
+          "p99": 6.775937499999999
+        },
+        "p95_abs_diff": {
+          "avg": 0.4977258710344205,
+          "count": 279,
+          "max": 1.365234375,
+          "min": 0.015625,
+          "p50": 0.4140625,
+          "p90": 0.905849599838257,
+          "p95": 0.9921875,
+          "p99": 1.2229724597930893
+        }
+      },
+      "maskmem_pos_enc": {
+        "first_frame_p95_gt_1": null,
+        "first_frame_p95_gt_1e_1": null,
+        "first_frame_p95_gt_1e_3": null,
+        "max_abs_diff": {
+          "avg": 0.0,
+          "count": 279,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "p95_abs_diff": {
+          "avg": 0.0,
+          "count": 279,
+          "max": 0.0,
+          "min": 0.0,
+          "p50": 0.0,
+          "p90": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        }
+      },
+      "object_pointer": {
+        "first_frame_p95_gt_1": null,
+        "first_frame_p95_gt_1e_1": {
+          "camera": "cam0",
+          "frame_idx": 9,
+          "threshold": 0.1,
+          "value": 0.10595703125
+        },
+        "first_frame_p95_gt_1e_3": {
+          "camera": "cam0",
+          "frame_idx": 0,
+          "threshold": 0.001,
+          "value": 0.0068359375
+        },
+        "max_abs_diff": {
+          "avg": 0.33837174172897067,
+          "count": 279,
+          "max": 1.90625,
+          "min": 0.0078125,
+          "p50": 0.2158203125,
+          "p90": 0.7429687500000001,
+          "p95": 0.9890624999999997,
+          "p99": 1.7790624999999998
+        },
+        "p95_abs_diff": {
+          "avg": 0.1901197969699846,
+          "count": 279,
+          "max": 0.8818511962890625,
+          "min": 0.00390625,
+          "p50": 0.1192626953125,
+          "p90": 0.4295166015625003,
+          "p95": 0.5969970703124993,
+          "p99": 0.8287329101562493
+        }
+      },
+      "object_score_logits": {
+        "first_frame_p95_gt_1": {
+          "camera": "cam0",
+          "frame_idx": 60,
+          "threshold": 1.0,
+          "value": 1.03125
+        },
+        "first_frame_p95_gt_1e_1": {
+          "camera": "cam2",
+          "frame_idx": 7,
+          "threshold": 0.1,
+          "value": 0.125
+        },
+        "first_frame_p95_gt_1e_3": {
+          "camera": "cam0",
+          "frame_idx": 1,
+          "threshold": 0.001,
+          "value": 0.0625
+        },
+        "max_abs_diff": {
+          "avg": 0.3034274193548387,
+          "count": 279,
+          "max": 1.65625,
+          "min": 0.0,
+          "p50": 0.125,
+          "p90": 1.09375,
+          "p95": 1.3125,
+          "p99": 1.600624999999999
+        },
+        "p95_abs_diff": {
+          "avg": 0.3034274193548387,
+          "count": 279,
+          "max": 1.65625,
+          "min": 0.0,
+          "p50": 0.125,
+          "p90": 1.09375,
+          "p95": 1.3125,
+          "p99": 1.600624999999999
+        }
+      },
+      "pred_masks": {
+        "first_frame_p95_gt_1": {
+          "camera": "cam1",
+          "frame_idx": 33,
+          "threshold": 1.0,
+          "value": 1.25
+        },
+        "first_frame_p95_gt_1e_1": {
+          "camera": "cam0",
+          "frame_idx": 2,
+          "threshold": 0.1,
+          "value": 0.125
+        },
+        "first_frame_p95_gt_1e_3": {
+          "camera": "cam0",
+          "frame_idx": 1,
+          "threshold": 0.001,
+          "value": 0.0625
+        },
+        "max_abs_diff": {
+          "avg": 2.9080631160394264,
+          "count": 279,
+          "max": 10.90625,
+          "min": 0.0,
+          "p50": 2.625,
+          "p90": 5.368750000000002,
+          "p95": 6.031249999999989,
+          "p99": 9.501562499999999
+        },
+        "p95_abs_diff": {
+          "avg": 0.815648451500896,
+          "count": 279,
+          "max": 7.76953125,
+          "min": 0.0,
+          "p50": 0.4375,
+          "p90": 1.3812500000000005,
+          "p95": 1.9343749999999797,
+          "p99": 7.020624999999997
+        }
+      }
+    }
+  },
+  "teacher_force": [
+    {
+      "_path": "docs/generated/full_batched_teacher_force_after_mask_decoder_bf16.json",
+      "backend": "hf_batched_multisession",
+      "backend_contract": {
+        "backend": "hf_batched_multisession",
+        "batch_mask_decoder": true,
+        "batch_memory_attention": true,
+        "batch_memory_encoder": true,
+        "batch_vision": true,
+        "batched_state_scatter": true,
+        "blockers": [],
+        "contract_pass": true,
+        "missing_requirements": [],
+        "partial_fallback_used": false,
+        "used_public_session_step_in_hot_path": false
+      },
+      "component_replaced": "decoder_and_memory_outputs",
+      "drift_source_hypothesis": "drift_not_eliminated_by_after_mask_decoder",
+      "dtype": "bfloat16",
+      "first_bad_frame": {
+        "camera": "cam1",
+        "frame_idx": 47,
+        "iou": 0.7329700272479565
+      },
+      "global_iou_avg": 0.9980210603568154,
+      "global_iou_p50": 0.999126383226558,
+      "min_iou": 0.7329700272479565,
+      "object_count": 1,
+      "object_prompt": "stuffed animal",
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+      "status": "ok",
+      "teacher_force_mode": "after_mask_decoder"
+    },
+    {
+      "_path": "docs/generated/full_batched_teacher_force_after_memory_attention_bf16.json",
+      "drift_source_hypothesis": "not_evaluated",
+      "reason": "reference memory-attention output is not stored by HF public session; use component fixtures for isolated memory_attention equivalence",
+      "status": "unsupported",
+      "teacher_force_mode": "after_memory_attention"
+    },
+    {
+      "_path": "docs/generated/full_batched_teacher_force_after_memory_encoder_bf16.json",
+      "backend": "hf_batched_multisession",
+      "backend_contract": {
+        "backend": "hf_batched_multisession",
+        "batch_mask_decoder": true,
+        "batch_memory_attention": true,
+        "batch_memory_encoder": true,
+        "batch_vision": true,
+        "batched_state_scatter": true,
+        "blockers": [],
+        "contract_pass": true,
+        "missing_requirements": [],
+        "partial_fallback_used": false,
+        "used_public_session_step_in_hot_path": false
+      },
+      "component_replaced": "memory_encoder_outputs",
+      "drift_source_hypothesis": "drift_not_eliminated_by_after_memory_encoder",
+      "dtype": "bfloat16",
+      "first_bad_frame": {
+        "camera": "cam1",
+        "frame_idx": 47,
+        "iou": 0.7351535836177474
+      },
+      "global_iou_avg": 0.995299918865833,
+      "global_iou_p50": 0.9977257220832386,
+      "min_iou": 0.7351535836177474,
+      "object_count": 1,
+      "object_prompt": "stuffed animal",
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+      "status": "ok",
+      "teacher_force_mode": "after_memory_encoder"
+    },
+    {
+      "_path": "docs/generated/full_batched_teacher_force_after_state_scatter_bf16.json",
+      "backend": "hf_batched_multisession",
+      "backend_contract": {
+        "backend": "hf_batched_multisession",
+        "batch_mask_decoder": true,
+        "batch_memory_attention": true,
+        "batch_memory_encoder": true,
+        "batch_vision": true,
+        "batched_state_scatter": true,
+        "blockers": [],
+        "contract_pass": true,
+        "missing_requirements": [],
+        "partial_fallback_used": false,
+        "used_public_session_step_in_hot_path": false
+      },
+      "component_replaced": "whole_session_after_scatter",
+      "drift_source_hypothesis": "drift_not_eliminated_by_after_state_scatter",
+      "dtype": "bfloat16",
+      "first_bad_frame": {
+        "camera": "cam1",
+        "frame_idx": 47,
+        "iou": 0.7329700272479565
+      },
+      "global_iou_avg": 0.9980210603568154,
+      "global_iou_p50": 0.999126383226558,
+      "min_iou": 0.7329700272479565,
+      "object_count": 1,
+      "object_prompt": "stuffed animal",
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+      "status": "ok",
+      "teacher_force_mode": "after_state_scatter"
+    },
+    {
+      "_path": "docs/generated/full_batched_teacher_force_before_step_state_bf16.json",
+      "backend": "hf_batched_multisession",
+      "backend_contract": {
+        "backend": "hf_batched_multisession",
+        "batch_mask_decoder": true,
+        "batch_memory_attention": true,
+        "batch_memory_encoder": true,
+        "batch_vision": true,
+        "batched_state_scatter": true,
+        "blockers": [],
+        "contract_pass": true,
+        "missing_requirements": [],
+        "partial_fallback_used": false,
+        "used_public_session_step_in_hot_path": false
+      },
+      "component_replaced": "session_state_before_step",
+      "drift_source_hypothesis": "drift_not_eliminated_by_before_step_state",
+      "dtype": "bfloat16",
+      "first_bad_frame": {
+        "camera": "cam1",
+        "frame_idx": 47,
+        "iou": 0.7329700272479565
+      },
+      "global_iou_avg": 0.9980210603568154,
+      "global_iou_p50": 0.999126383226558,
+      "min_iou": 0.7329700272479565,
+      "object_count": 1,
+      "object_prompt": "stuffed animal",
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+      "status": "ok",
+      "teacher_force_mode": "before_step_state"
+    },
+    {
+      "_path": "docs/generated/full_batched_teacher_force_none_bf16.json",
+      "backend": "hf_batched_multisession",
+      "backend_contract": {
+        "backend": "hf_batched_multisession",
+        "batch_mask_decoder": true,
+        "batch_memory_attention": true,
+        "batch_memory_encoder": true,
+        "batch_vision": true,
+        "batched_state_scatter": true,
+        "blockers": [],
+        "contract_pass": true,
+        "missing_requirements": [],
+        "partial_fallback_used": false,
+        "used_public_session_step_in_hot_path": false
+      },
+      "component_replaced": null,
+      "drift_source_hypothesis": "baseline_full_batched_closed_loop_drift",
+      "dtype": "bfloat16",
+      "first_bad_frame": {
+        "camera": "cam1",
+        "frame_idx": 43,
+        "iou": 0.5920526014865638
+      },
+      "global_iou_avg": 0.97983960550254,
+      "global_iou_p50": 0.9899300221880867,
+      "min_iou": 0.5920526014865638,
+      "object_count": 1,
+      "object_prompt": "stuffed animal",
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+      "status": "ok",
+      "teacher_force_mode": "none"
+    }
+  ]
 }

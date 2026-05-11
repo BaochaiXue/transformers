@@ -1,0 +1,1698 @@
+{
+  "backend": "hf_batched_multisession",
+  "backend_contract": {
+    "backend": "hf_batched_multisession",
+    "batch_mask_decoder": true,
+    "batch_memory_attention": true,
+    "batch_memory_encoder": true,
+    "batch_vision": true,
+    "batched_state_scatter": true,
+    "blockers": [],
+    "contract_pass": true,
+    "missing_requirements": [],
+    "partial_fallback_used": false,
+    "used_public_session_step_in_hot_path": false
+  },
+  "dtype": "bfloat16",
+  "first_mismatch": null,
+  "object_count": 1,
+  "object_prompt": "stuffed animal",
+  "pass": true,
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+  "rows": [
+    {
+      "camera": "cam0",
+      "frame_idx": 0,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 0,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 0,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 1,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 1,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 1,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 2,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 2,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 2,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 3,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 3,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 3,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 4,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 4,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 4,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 5,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 5,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 5,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 6,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 6,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 6,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 7,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 7,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 7,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 8,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 8,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 8,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 9,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 9,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 9,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 10,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 10,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 10,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 11,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 11,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 11,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 12,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 12,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 12,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 13,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 13,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 13,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 14,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 14,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 14,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 15,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 15,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 15,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 16,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 16,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 16,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 17,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 17,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 17,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 18,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 18,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 18,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 19,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 19,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 19,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 20,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 20,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 20,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 21,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 21,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 21,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 22,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 22,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 22,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 23,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 23,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 23,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 24,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 24,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 24,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 25,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 25,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 25,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 26,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 26,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 26,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 27,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 27,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 27,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 28,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 28,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 28,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 29,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 29,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 29,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 30,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 30,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 30,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 31,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 31,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 31,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 32,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 32,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 32,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 33,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 33,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 33,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 34,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 34,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 34,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 35,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 35,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 35,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 36,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 36,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 36,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 37,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 37,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 37,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 38,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 38,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 38,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 39,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 39,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 39,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 40,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 40,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 40,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 41,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 41,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 41,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 42,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 42,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 42,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 43,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 43,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 43,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 44,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 44,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 44,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 45,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 45,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 45,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 46,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 46,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 46,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 47,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 47,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 47,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 48,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 48,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 48,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 49,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 49,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 49,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 50,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 50,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 50,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 51,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 51,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 51,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 52,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 52,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 52,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 53,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 53,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 53,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 54,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 54,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 54,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 55,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 55,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 55,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 56,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 56,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 56,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 57,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 57,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 57,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 58,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 58,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 58,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 59,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 59,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 59,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 60,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 60,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 60,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 61,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 61,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 61,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 62,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 62,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 62,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 63,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 63,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 63,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 64,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 64,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 64,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 65,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 65,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 65,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 66,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 66,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 66,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 67,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 67,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 67,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 68,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 68,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 68,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 69,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 69,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 69,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 70,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 70,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 70,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 71,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 71,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 71,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 72,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 72,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 72,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 73,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 73,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 73,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 74,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 74,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 74,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 75,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 75,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 75,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 76,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 76,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 76,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 77,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 77,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 77,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 78,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 78,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 78,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 79,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 79,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 79,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 80,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 80,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 80,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 81,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 81,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 81,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 82,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 82,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 82,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 83,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 83,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 83,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 84,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 84,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 84,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 85,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 85,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 85,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 86,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 86,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 86,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 87,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 87,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 87,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 88,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 88,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 88,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 89,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 89,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 89,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 90,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 90,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 90,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 91,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 91,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 91,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam0",
+      "frame_idx": 92,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam1",
+      "frame_idx": 92,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "camera": "cam2",
+      "frame_idx": 92,
+      "mismatches": [],
+      "pass": true
+    }
+  ]
+}

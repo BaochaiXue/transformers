@@ -1,0 +1,69 @@
+{
+  "baseline_backend": "hf_ref_seq_public",
+  "baseline_path": "docs/generated/different_types_sam31ref_original_hf_seq_single_stuffed_animal_ignore_ref_empty.json",
+  "candidate_backend": "hf_batched_multisession",
+  "candidate_compile_mode": "none",
+  "candidate_path": "docs/generated/different_types_sam31ref_full_batched_single_stuffed_animal_ignore_ref_empty.json",
+  "empty_reference_policy": "ignore-candidate",
+  "evaluated_subset_mismatch": false,
+  "not_worse_tolerance": 0.01,
+  "per_key": {
+    "cam0_obj0": {
+      "baseline_candidate_nonempty_when_reference_empty_count": 0,
+      "baseline_evaluated_sample_count": 93,
+      "baseline_ignored_reference_empty_count": 0,
+      "baseline_iou_avg_on_evaluated": 0.9575342005157147,
+      "candidate_evaluated_sample_count": 93,
+      "candidate_ignored_reference_empty_count": 0,
+      "candidate_iou_avg_on_evaluated": 0.9575285807284996,
+      "candidate_nonempty_when_reference_empty_count": 0,
+      "delta": -5.619787215138672e-06,
+      "key": "cam0_obj0",
+      "not_worse": true,
+      "reference_uncertain": false
+    },
+    "cam1_obj0": {
+      "baseline_candidate_nonempty_when_reference_empty_count": 0,
+      "baseline_evaluated_sample_count": 93,
+      "baseline_ignored_reference_empty_count": 0,
+      "baseline_iou_avg_on_evaluated": 0.9667510728516525,
+      "candidate_evaluated_sample_count": 93,
+      "candidate_ignored_reference_empty_count": 0,
+      "candidate_iou_avg_on_evaluated": 0.9667954359316553,
+      "candidate_nonempty_when_reference_empty_count": 0,
+      "delta": 4.436308000277389e-05,
+      "key": "cam1_obj0",
+      "not_worse": true,
+      "reference_uncertain": false
+    },
+    "cam2_obj0": {
+      "baseline_candidate_nonempty_when_reference_empty_count": 0,
+      "baseline_evaluated_sample_count": 93,
+      "baseline_ignored_reference_empty_count": 0,
+      "baseline_iou_avg_on_evaluated": 0.9660371199068802,
+      "candidate_evaluated_sample_count": 93,
+      "candidate_ignored_reference_empty_count": 0,
+      "candidate_iou_avg_on_evaluated": 0.9659439160952052,
+      "candidate_nonempty_when_reference_empty_count": 0,
+      "delta": -9.320381167499114e-05,
+      "key": "cam2_obj0",
+      "not_worse": true,
+      "reference_uncertain": false
+    }
+  },
+  "per_object": {
+    "stuffed animal": {
+      "baseline_iou_avg_on_evaluated": 0.9634407977580824,
+      "candidate_iou_avg_on_evaluated": 0.9634226442517867,
+      "candidate_nonempty_when_reference_empty_count": 0,
+      "delta": -1.81535062957483e-05,
+      "delta_valid": true,
+      "evaluated_sample_count": 279,
+      "ignored_reference_empty_count": 0,
+      "not_worse": true,
+      "reason": null,
+      "reference_uncertain": false,
+      "strict_validated": true
+    }
+  }
+}
