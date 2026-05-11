@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import time
 
+from .backend_contract import FullBatchedContractError, contract_for_current_runtime
 from .config import BACKENDS
 from .report_utils import write_json, write_markdown
 from .stats import summarize
@@ -184,6 +185,8 @@ def main() -> int:
     parser.add_argument("--gpu-sampling", action="store_true")
     parser.add_argument("--profile-cuda-events", action="store_true")
     parser.add_argument("--profile-nvtx", action="store_true")
+    parser.add_argument("--strict-full-batched", action="store_true")
+    parser.add_argument("--disallow-partial-backend-success", action="store_true")
     parser.add_argument("--output-json", required=True)
     parser.add_argument("--output-md", required=True)
     parser.add_argument("--debug", action="store_true")
@@ -198,8 +201,34 @@ def main() -> int:
         profile = run_synthetic_hf_public_profile(args)
         status = "synthetic_hf_public"
     elif args.rgb_replay:
-        profile = run_replay_profile(args)
-        status = "replay_profile"
+        try:
+            profile = run_replay_profile(args)
+            status = "replay_profile"
+        except FullBatchedContractError as exc:
+            contract = contract_for_current_runtime(
+                backend=args.backend,
+                batch_vision=True,
+                partial_fallback_used=True,
+                blockers=[],
+            ).to_json()
+            blockers = list(contract.get("blockers") or [])
+            blockers.insert(0, str(exc))
+            profile = {
+                "backend": args.backend,
+                "partial": True,
+                "fallback_backend": None,
+                "blockers": blockers,
+                "backend_contract": contract,
+                "timings_ms": {},
+                "complete_group_fps_from_p50": None,
+                "compiled_module_count": 0,
+                "cuda_graph_enabled": args.compile_mode == "reduce-overhead",
+                "ring_buffer_size": 8 if args.graph_output_policy == "ring_buffer" else 0,
+                "correctness_pass": False,
+                "failure_stage": "backend_contract",
+                "note": "strict full hf_batched_multisession contract failed before profiling",
+            }
+            status = "strict_contract_failed"
     else:
         profile = run_scaffold_profile(args.frames, args.warmup)
         status = "scaffold_only"
@@ -212,6 +241,8 @@ def main() -> int:
         "profile": profile,
         "correctness_report_used": None,
         "correctness_pass": False,
+        "strict_full_batched": args.strict_full_batched,
+        "disallow_partial_backend_success": args.disallow_partial_backend_success,
         "status": status,
     }
     write_json(args.output_json, payload)
@@ -223,6 +254,7 @@ def main() -> int:
                 "",
                 f"- backend: `{args.backend}`",
                 f"- status: `{payload['status']}`",
+                f"- strict_full_batched: `{args.strict_full_batched}`",
                 "- this profile is not a validated batched multi-session runtime measurement",
                 "",
                 "Real performance requires the reference correctness harness and RGB replay.",
@@ -231,6 +263,8 @@ def main() -> int:
     )
     if args.debug:
         print(payload)
+    if status == "strict_contract_failed":
+        return 3
     return 0
 
 
@@ -299,6 +333,8 @@ def run_replay_profile(args: argparse.Namespace) -> dict:
         graph_output_policy=args.graph_output_policy,
         warmup=args.warmup,
         profile_frames=args.frames,
+        strict_full_batched=args.strict_full_batched,
+        disallow_partial_backend_success=args.disallow_partial_backend_success,
     )
     stage = result.timings_ms.get("stage_wall_ms", {})
     p50 = stage.get("p50")
@@ -308,6 +344,7 @@ def run_replay_profile(args: argparse.Namespace) -> dict:
         "partial": result.partial,
         "fallback_backend": result.fallback_backend,
         "blockers": result.blockers or [],
+        "backend_contract": result.backend_contract,
         "timings_ms": result.timings_ms,
         "complete_group_fps_from_p50": fps,
         "compiled_module_count": 1 if args.compile_mode != "none" else 0,

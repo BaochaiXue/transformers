@@ -7,6 +7,11 @@ from typing import Any
 
 import numpy as np
 
+from .backend_contract import (
+    BackendContractResult,
+    FullBatchedContractError,
+    contract_for_current_runtime,
+)
 from .component_adapter import EdgeTamComponentAdapter
 from .config import (
     BACKEND_BATCH_VISION_SEQ_SESSION,
@@ -34,6 +39,8 @@ class BatchedEdgeTamMultiSessionRuntime:
         compile_mode: str = "none",
         graph_output_policy: str = "ring_buffer",
         ring_size: int = 8,
+        strict_full_batched: bool = False,
+        disallow_partial_backend_success: bool = False,
     ):
         if backend not in BACKENDS:
             raise ValueError(f"unsupported backend: {backend}")
@@ -47,11 +54,14 @@ class BatchedEdgeTamMultiSessionRuntime:
         self.compile_mode = compile_mode
         self.graph_output_policy = graph_output_policy
         self.ring_size = int(ring_size)
+        self.strict_full_batched = bool(strict_full_batched)
+        self.disallow_partial_backend_success = bool(disallow_partial_backend_success)
         self.sessions: list[Any] = []
         self.adapter = EdgeTamComponentAdapter(hf_model)
         self.partial = False
         self.fallback_backend: str | None = None
         self.blockers: list[str] = []
+        self.contract: BackendContractResult | None = None
         self.torch = None
         self._compiled_get_image_features = None
 
@@ -66,6 +76,17 @@ class BatchedEdgeTamMultiSessionRuntime:
                 f"{backend} requires explicit HF session memory/object-pointer tensorization; "
                 "current implementation falls back to batch vision + sequential session decode"
             )
+        self.contract = contract_for_current_runtime(
+            backend=backend,
+            batch_vision=backend != BACKEND_HF_REF_SEQ_PUBLIC,
+            partial_fallback_used=self.partial,
+            blockers=self.blockers,
+        )
+        if (
+            self.strict_full_batched
+            or (self.disallow_partial_backend_success and backend == BACKEND_BATCHED_MULTISESSION)
+        ):
+            self.contract.assert_full_batched()
 
     def init_from_reference_sessions(self, sessions: list[Any]) -> None:
         if len(sessions) != self.batch_size:
@@ -174,6 +195,7 @@ class BatchedEdgeTamMultiSessionRuntime:
             "partial": self.partial,
             "fallback_backend": self.fallback_backend,
             "blockers": list(self.blockers),
+            "backend_contract": self.contract.to_json() if self.contract is not None else None,
         }
 
 
@@ -186,6 +208,8 @@ def run_candidate(
     graph_output_policy: str,
     warmup: int = 0,
     profile_frames: int | None = None,
+    strict_full_batched: bool = False,
+    disallow_partial_backend_success: bool = False,
 ) -> RuntimeOutputs:
     import torch
     from transformers import EdgeTamVideoInferenceSession
@@ -232,6 +256,8 @@ def run_candidate(
         device=reference_runtime.config.device,
         compile_mode=compile_mode,
         graph_output_policy=graph_output_policy,
+        strict_full_batched=strict_full_batched,
+        disallow_partial_backend_success=disallow_partial_backend_success,
     )
     runtime.init_from_reference_sessions(sessions)
     runtime.prepare_compile(torch)
@@ -240,10 +266,12 @@ def run_candidate(
     all_logits = []
     all_scores = []
     timing_rows = []
+    backend_contract = runtime.contract.to_json() if runtime.contract is not None else None
     total_steps = (profile_frames or len(rgb_replay_frames)) + int(warmup)
     for step_idx in range(total_steps):
         frame = rgb_replay_frames[step_idx % len(rgb_replay_frames)]
         result = runtime.step(frame.images, step_idx)
+        backend_contract = result.get("backend_contract") or backend_contract
         if step_idx >= warmup:
             all_masks.append(result["masks_b3"])
             all_logits.append(result["logits_b3"])
@@ -258,6 +286,7 @@ def run_candidate(
         partial=runtime.partial,
         fallback_backend=runtime.fallback_backend,
         blockers=list(runtime.blockers),
+        backend_contract=backend_contract,
     )
 
 

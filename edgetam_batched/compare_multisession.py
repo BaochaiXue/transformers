@@ -9,6 +9,7 @@ from typing import Any
 import numpy as np
 
 from .batched_multisession_runtime import run_candidate
+from .backend_contract import FullBatchedContractError, contract_for_current_runtime
 from .camera_order import diagonal_best, iou_matrix, mask_iou
 from .config import BACKENDS
 from .leakage_test import compare_cam0_stability
@@ -105,6 +106,7 @@ def compare_outputs(reference, candidate) -> dict[str, Any]:
         "candidate_partial": candidate.partial,
         "fallback_backend": candidate.fallback_backend,
         "blockers": candidate.blockers or [],
+        "backend_contract": getattr(candidate, "backend_contract", None),
     }
 
 
@@ -151,6 +153,7 @@ def select_object_outputs(outputs, *, object_count: int, object_index: int = -1)
             "partial": getattr(outputs, "partial", False),
             "fallback_backend": getattr(outputs, "fallback_backend", None),
             "blockers": getattr(outputs, "blockers", []),
+            "backend_contract": getattr(outputs, "backend_contract", None),
         },
     )()
 
@@ -229,6 +232,8 @@ def render_compare_report(payload: dict[str, Any]) -> str:
             f"- prompt_source: `{payload.get('prompt_source')}`",
             f"- sam31_mask_root: `{payload.get('sam31_mask_root')}`",
             f"- sam31_frame0_init_mask_root: `{payload.get('sam31_frame0_init_mask_root')}`",
+            f"- strict_full_batched: `{payload.get('strict_full_batched', False)}`",
+            f"- disallow_partial_backend_success: `{payload.get('disallow_partial_backend_success', False)}`",
             "",
             "## Blockers",
             "",
@@ -237,6 +242,37 @@ def render_compare_report(payload: dict[str, Any]) -> str:
             "## Metrics",
             "",
             markdown_table(["key", "iou_avg", "iou_min", "iou_p50", "ref_nonempty", "cand_nonempty"], rows),
+        ]
+    )
+
+
+def render_contract_failure_report(payload: dict[str, Any]) -> str:
+    contract = payload.get("backend_contract") or {}
+    blockers = payload["metrics"].get("blockers") or []
+    return "\n".join(
+        [
+            "# EdgeTAM Strict Full-Batched Contract Failure",
+            "",
+            f"- backend: `{payload['backend']}`",
+            f"- compile_mode: `{payload['compile_mode']}`",
+            f"- strict_full_batched: `{payload.get('strict_full_batched', False)}`",
+            f"- correctness_pass: `{payload['metrics']['correctness_pass']}`",
+            f"- failure_stage: `{payload.get('failure_stage')}`",
+            "",
+            "## Contract",
+            "",
+            f"- contract_pass: `{contract.get('contract_pass', False)}`",
+            f"- batch_vision: `{contract.get('batch_vision')}`",
+            f"- batch_memory_attention: `{contract.get('batch_memory_attention')}`",
+            f"- batch_mask_decoder: `{contract.get('batch_mask_decoder')}`",
+            f"- batch_memory_encoder: `{contract.get('batch_memory_encoder')}`",
+            f"- batched_state_scatter: `{contract.get('batched_state_scatter')}`",
+            f"- used_public_session_step_in_hot_path: `{contract.get('used_public_session_step_in_hot_path')}`",
+            f"- partial_fallback_used: `{contract.get('partial_fallback_used')}`",
+            "",
+            "## Blockers",
+            "",
+            "\n".join(f"- {item}" for item in blockers) or "- none",
         ]
     )
 
@@ -292,6 +328,8 @@ def main() -> int:
     parser.add_argument("--qqtt-root", default="/home/zhangxinjie/proj-QQTT-v2")
     parser.add_argument("--output-md", required=True)
     parser.add_argument("--output-json", required=True)
+    parser.add_argument("--strict-full-batched", action="store_true")
+    parser.add_argument("--disallow-partial-backend-success", action="store_true")
     parser.add_argument("--debug", action="store_true")
     args = parser.parse_args()
 
@@ -410,13 +448,58 @@ def main() -> int:
         # Candidate uses a fresh runtime but the same loaded model/processor.
         reference_runtime.init_sessions(frames[0], initial_masks_by_camera=initial_masks_by_camera)
         reference_runtime.prompt_source = prompt_source
-    candidate = run_candidate(
-        rgb_replay_frames=frames,
-        reference_runtime=reference_runtime,
-        backend=args.backend,
-        compile_mode=args.compile_mode,
-        graph_output_policy=args.graph_output_policy,
-    )
+    try:
+        candidate = run_candidate(
+            rgb_replay_frames=frames,
+            reference_runtime=reference_runtime,
+            backend=args.backend,
+            compile_mode=args.compile_mode,
+            graph_output_policy=args.graph_output_policy,
+            strict_full_batched=args.strict_full_batched,
+            disallow_partial_backend_success=args.disallow_partial_backend_success,
+        )
+    except FullBatchedContractError as exc:
+        contract = contract_for_current_runtime(
+            backend=args.backend,
+            batch_vision=True,
+            partial_fallback_used=True,
+            blockers=[],
+        ).to_json()
+        blockers = list(contract.get("blockers") or [])
+        blockers.insert(0, str(exc))
+        payload = {
+            "backend": args.backend,
+            "compile_mode": args.compile_mode,
+            "graph_output_policy": args.graph_output_policy,
+            "rgb_replay": str(args.rgb_replay),
+            "reference_source": args.reference_source,
+            "init_source": init_source,
+            "strict_full_batched": args.strict_full_batched,
+            "disallow_partial_backend_success": args.disallow_partial_backend_success,
+            "failure_stage": "backend_contract",
+            "backend_contract": contract,
+            "metrics": {
+                "frame_count": 0,
+                "camera_count": 0,
+                "object_count": args.object_count,
+                "per_camera_object": {},
+                "global_mask_iou": {},
+                "empty_mismatch_count": None,
+                "camera_order_check": "not_run",
+                "state_leakage_check": "not_run",
+                "mask_correctness_pass": False,
+                "correctness_pass": False,
+                "candidate_partial": True,
+                "fallback_backend": None,
+                "blockers": blockers,
+                "backend_contract": contract,
+            },
+        }
+        write_json(args.output_json, payload)
+        write_markdown(args.output_md, render_contract_failure_report(payload))
+        if args.debug:
+            print(payload)
+        return 3
     candidate = select_object_outputs(candidate, object_count=args.object_count, object_index=0)
     metrics = compare_outputs(reference, candidate)
     payload = {
@@ -430,6 +513,8 @@ def main() -> int:
         "sam31_frame0_init_mask_root": str(sam31_frame0_init_mask_root) if sam31_frame0_init_mask_root is not None else None,
         "sam31_frame0_init_summary": sam31_frame0_init_summary,
         "prompt_source": getattr(reference_runtime, "prompt_source", "deterministic_replay_boxes"),
+        "strict_full_batched": args.strict_full_batched,
+        "disallow_partial_backend_success": args.disallow_partial_backend_success,
         "metrics": metrics,
     }
     write_json(args.output_json, payload)

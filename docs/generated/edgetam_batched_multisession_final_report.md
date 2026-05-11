@@ -10,24 +10,25 @@ Original weights + custom batch=3 multi-session runtime.
 | --- | --- |
 | fork_path | /home/zhangxinjie/EdgeTAM-HF-batched |
 | branch | feat/edgetam-batched-multisession-runtime |
-| commit | 83110b8dd4820ba22d288993e7a24060f2ddf494 |
+| commit | da5bb483a920cbbd207d86321b6eea303d8d659f |
 | modeling_edgetam_video_touched | False |
 
 ## Correctness
 
-| backend | compile | pass | mask_pass | partial | fallback | path |
-| --- | --- | --- | --- | --- | --- | --- |
-| hf_batch_vision_seq_session | none | True | True | False |  | docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session.json |
-| hf_batch_vision_seq_session | max-autotune-no-cudagraphs | False | False | False |  | docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json |
-| hf_batch_vision_seq_session | reduce-overhead | False | False | False |  | docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session_reduce_overhead.json |
-| hf_batched_multisession | none | False | True | True | hf_batch_vision_seq_session | docs/generated/edgetam_batched_correctness_hf_batched_multisession.json |
+| backend | compile | pass | mask_pass | partial | fallback | contract_pass | path |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| hf_batch_vision_seq_session | none | True | True | False |  |  | docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session.json |
+| hf_batch_vision_seq_session | reduce-overhead | False | False | False |  |  | docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session_reduce_overhead.json |
+| hf_batched_multisession | none | False | True | True | hf_batch_vision_seq_session |  | docs/generated/edgetam_batched_correctness_hf_batched_multisession.json |
+| hf_batch_vision_seq_session | max-autotune-no-cudagraphs | False | False | False |  |  | docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json |
+| hf_batched_multisession |  |  |  |  |  | False | docs/generated/full_batched_multisession_strict_contract_failure.json |
 
 ## Profiles
 
 | backend | compile | p50 | p90 | partial | path |
 | --- | --- | --- | --- | --- | --- |
-| hf_batch_vision_seq_session | max-autotune-no-cudagraphs | 59.9900099914521 | 66.65191479842179 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json |
 | hf_batch_vision_seq_session | none | 63.74551501357928 | 66.34561588289216 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_none.json |
+| hf_batch_vision_seq_session | max-autotune-no-cudagraphs | 59.9900099914521 | 66.65191479842179 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json |
 | hf_batch_vision_seq_session | reduce-overhead | 58.43767599435523 | 65.8067935204599 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_reduce_overhead.json |
 | hf_batched_multisession | none | 63.66823450662196 | 65.51955243339762 | True | docs/generated/edgetam_batched_profile_hf_batched_multisession_none.json |
 
@@ -87,7 +88,9 @@ A new replay with non-empty towel masks is required before claiming controller-o
 | single_object_30fps_p90_gate | True |
 | single_object_30fps_p95_gate | borderline/fail |
 | hf_batched_multisession_usable | False |
+| hf_batched_multisession_failure_stage | state_tensorization |
 | hf_batched_multisession_reason | true batched session/memory/object-pointer tensorization is not complete |
+| hf_batched_multisession_blockers | memory attention is not batched across camera sessions; mask decoder is not batched across camera sessions; memory encoder/state update is not batched across camera sessions; session state scatter is not implemented; current code still calls model(inference_session=..., frame=...) per camera |
 | faster_than_77_92_ms_baseline | True |
 | recommended_backend | hf_batch_vision_seq_session |
 | recommended_compile_mode | reduce-overhead |

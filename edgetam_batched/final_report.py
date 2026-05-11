@@ -45,7 +45,19 @@ def main() -> int:
     }
     best_profile = choose_best_profile(profiles)
     sam31_best = choose_sam31_compile_mode(iou_ref_summary)
-    full = next((c for c in correctness if c.get("backend") == "hf_batched_multisession"), None)
+    full_candidates = [c for c in correctness if c.get("backend") == "hf_batched_multisession"]
+    full = next(
+        (c for c in full_candidates if c.get("backend_contract") or "contract_pass" in c or c.get("failure_stage")),
+        full_candidates[0] if full_candidates else None,
+    )
+    full_contract = (full or {}).get("backend_contract") or (full or {}).get("metrics", {}).get("backend_contract") or {}
+    if not full_contract and "contract_pass" in (full or {}):
+        full_contract = full or {}
+    full_usable = bool(
+        full
+        and full.get("metrics", {}).get("correctness_pass") is True
+        and full_contract.get("contract_pass") is True
+    )
     payload = {
         "goal": "original weights + custom batch=3 multi-session runtime",
         "source": {
@@ -84,11 +96,15 @@ def main() -> int:
             )
             if different_types_summary
             else None,
-            "hf_batched_multisession_usable": bool(
-                full and full.get("metrics", {}).get("correctness_pass") is True
-            ),
-            "hf_batched_multisession_reason": (
+            "hf_batched_multisession_usable": full_usable,
+            "hf_batched_multisession_failure_stage": None if full_usable else (full or {}).get("failure_stage", "state_tensorization"),
+            "hf_batched_multisession_reason": "contract pass + correctness pass" if full_usable else (
                 "true batched session/memory/object-pointer tensorization is not complete"
+            ),
+            "hf_batched_multisession_blockers": "; ".join(
+                (full or {}).get("metrics", {}).get("blockers")
+                or full_contract.get("blockers")
+                or ["no strict full-batched correctness report"]
             ),
             "faster_than_77_92_ms_baseline": bool(
                 best_profile and (best_profile.get("stage_wall_p50_ms") or 1e9) < 77.92
@@ -177,6 +193,9 @@ def render(payload: dict[str, Any]) -> str:
     correctness_rows = []
     for item in payload["correctness"]:
         metrics = item.get("metrics", {})
+        contract = item.get("backend_contract") or metrics.get("backend_contract") or {}
+        if not contract and "contract_pass" in item:
+            contract = item
         correctness_rows.append(
             [
                 item.get("backend"),
@@ -185,6 +204,7 @@ def render(payload: dict[str, Any]) -> str:
                 metrics.get("mask_correctness_pass"),
                 metrics.get("candidate_partial"),
                 metrics.get("fallback_backend"),
+                contract.get("contract_pass"),
                 item.get("_path"),
             ]
         )
@@ -254,7 +274,7 @@ def render(payload: dict[str, Any]) -> str:
             "## Correctness",
             "",
             markdown_table(
-                ["backend", "compile", "pass", "mask_pass", "partial", "fallback", "path"],
+                ["backend", "compile", "pass", "mask_pass", "partial", "fallback", "contract_pass", "path"],
                 correctness_rows,
             ),
             "",

@@ -36,6 +36,7 @@ class RuntimeOutputs:
     fallback_backend: str | None = None
     blockers: list[str] | None = None
     component_timings_ms: dict[str, Any] | None = None
+    backend_contract: dict[str, Any] | None = None
 
 
 class HfEdgeTamReferenceRuntime:
