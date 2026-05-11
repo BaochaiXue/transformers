@@ -11,25 +11,25 @@
     "edgetam_modeling": {
       "exists": true,
       "generated_file": true,
-      "path": "src/transformers/models/edgetam_video/modeling_edgetam_video.py",
+      "path": "/home/zhangxinjie/EdgeTAM-HF-batched/src/transformers/models/edgetam_video/modeling_edgetam_video.py",
       "size_bytes": 146530
     },
     "edgetam_modular": {
       "exists": true,
       "generated_file": false,
-      "path": "src/transformers/models/edgetam_video/modular_edgetam_video.py",
+      "path": "/home/zhangxinjie/EdgeTAM-HF-batched/src/transformers/models/edgetam_video/modular_edgetam_video.py",
       "size_bytes": 66587
     },
     "sam2_video_modeling": {
       "exists": true,
       "generated_file": true,
-      "path": "src/transformers/models/sam2_video/modeling_sam2_video.py",
+      "path": "/home/zhangxinjie/EdgeTAM-HF-batched/src/transformers/models/sam2_video/modeling_sam2_video.py",
       "size_bytes": 133217
     },
     "sam2_video_processing": {
       "exists": true,
       "generated_file": true,
-      "path": "src/transformers/models/sam2_video/processing_sam2_video.py",
+      "path": "/home/zhangxinjie/EdgeTAM-HF-batched/src/transformers/models/sam2_video/processing_sam2_video.py",
       "size_bytes": 37447
     }
   },
@@ -43,8 +43,8 @@
   },
   "repo": {
     "branch": "feat/edgetam-batched-multisession-runtime",
-    "commit": "e9fd66d116c1dc03f85803931a1a3a940057488a",
-    "status_short": "?? docs/generated/\n?? edgetam_batched/\n?? tests/test_camera_order.py\n?? tests/test_compile_config.py\n?? tests/test_leakage_test.py\n?? tests/test_profile_stats.py\n?? tests/test_ring_buffer.py\n?? tests/test_state_map.py"
+    "commit": "e0e8b18acfbaf75dbeed79dea83a2193f895e18c",
+    "status_short": "?? docs/HARNESS_ENGINEERING.md\n?? scripts/harness/"
   },
   "signatures": {
     "EdgeTamVideoInferenceSession": "class EdgeTamVideoInferenceSession(Sam2VideoInferenceSession):",

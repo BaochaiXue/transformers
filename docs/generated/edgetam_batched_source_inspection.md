@@ -5,17 +5,17 @@
 | field | value |
 | --- | --- |
 | branch | feat/edgetam-batched-multisession-runtime |
-| commit | e9fd66d116c1dc03f85803931a1a3a940057488a |
-| status_short | ?? docs/generated/<br>?? edgetam_batched/<br>?? tests/test_camera_order.py<br>?? tests/test_compile_config.py<br>?? tests/test_leakage_test.py<br>?? tests/test_profile_stats.py<br>?? tests/test_ring_buffer.py<br>?? tests/test_state_map.py |
+| commit | e0e8b18acfbaf75dbeed79dea83a2193f895e18c |
+| status_short | ?? docs/HARNESS_ENGINEERING.md<br>?? scripts/harness/ |
 
 ## Files
 
 | name | path | exists | generated | size |
 | --- | --- | --- | --- | --- |
-| edgetam_modular | src/transformers/models/edgetam_video/modular_edgetam_video.py | True | False | 66587 |
-| edgetam_modeling | src/transformers/models/edgetam_video/modeling_edgetam_video.py | True | True | 146530 |
-| sam2_video_modeling | src/transformers/models/sam2_video/modeling_sam2_video.py | True | True | 133217 |
-| sam2_video_processing | src/transformers/models/sam2_video/processing_sam2_video.py | True | True | 37447 |
+| edgetam_modular | /home/zhangxinjie/EdgeTAM-HF-batched/src/transformers/models/edgetam_video/modular_edgetam_video.py | True | False | 66587 |
+| edgetam_modeling | /home/zhangxinjie/EdgeTAM-HF-batched/src/transformers/models/edgetam_video/modeling_edgetam_video.py | True | True | 146530 |
+| sam2_video_modeling | /home/zhangxinjie/EdgeTAM-HF-batched/src/transformers/models/sam2_video/modeling_sam2_video.py | True | True | 133217 |
+| sam2_video_processing | /home/zhangxinjie/EdgeTAM-HF-batched/src/transformers/models/sam2_video/processing_sam2_video.py | True | True | 37447 |
 
 ## Findings
 
