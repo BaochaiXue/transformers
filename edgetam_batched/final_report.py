@@ -29,17 +29,20 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--correctness-json", nargs="*", default=[])
     parser.add_argument("--profile-json", nargs="*", default=[])
+    parser.add_argument("--iou-ref-summary", default=None)
     parser.add_argument("--output-md", required=True)
     parser.add_argument("--output-json", required=True)
     args = parser.parse_args()
 
     correctness = load_jsons(args.correctness_json)
     profiles = load_jsons(args.profile_json)
+    iou_ref_summary = load_optional_json(args.iou_ref_summary)
     repo = {
         "branch": _git("branch", "--show-current"),
         "commit": _git("rev-parse", "HEAD"),
     }
     best_profile = choose_best_profile(profiles)
+    sam31_best = choose_sam31_compile_mode(iou_ref_summary)
     full = next((c for c in correctness if c.get("backend") == "hf_batched_multisession"), None)
     payload = {
         "goal": "original weights + custom batch=3 multi-session runtime",
@@ -50,22 +53,41 @@ def main() -> int:
         },
         "correctness": correctness,
         "profiles": profiles,
+        "sam31_replay_iou": iou_ref_summary,
         "best_profile": best_profile,
         "decision": {
+            "hf_batch_vision_seq_session_usable": bool(sam31_best),
             "hf_batched_multisession_usable": bool(
                 full and full.get("metrics", {}).get("correctness_pass") is True
+            ),
+            "hf_batched_multisession_reason": (
+                "true batched session/memory/object-pointer tensorization is not complete"
             ),
             "faster_than_77_92_ms_baseline": bool(
                 best_profile and (best_profile.get("stage_wall_p50_ms") or 1e9) < 77.92
             ),
-            "recommended_backend": (best_profile or {}).get("backend") or "hf_batch_vision_seq_session",
+            "recommended_backend": "hf_batch_vision_seq_session",
+            "recommended_compile_mode": (sam31_best or {}).get("compile_mode") or (best_profile or {}).get("compile_mode"),
             "fallback_backend": "hf_batch_vision_seq_session",
+            "controller_towel_validated": False,
+            "controller_towel_caveat": (
+                "SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras; "
+                "current quality claim is for stuffed animal only."
+            ),
         },
     }
     write_json(args.output_json, payload)
     write_markdown(args.output_md, render(payload))
     print(args.output_md)
     return 0
+
+
+def load_optional_json(path: str | None) -> dict[str, Any] | None:
+    if not path:
+        return None
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    payload["_path"] = path
+    return payload
 
 
 def choose_best_profile(profiles: list[dict[str, Any]]) -> dict[str, Any] | None:
@@ -90,6 +112,32 @@ def choose_best_profile(profiles: list[dict[str, Any]]) -> dict[str, Any] | None
             }
         )
     return min(candidates, key=lambda item: item["stage_wall_p50_ms"]) if candidates else None
+
+
+def choose_sam31_compile_mode(summary: dict[str, Any] | None) -> dict[str, Any] | None:
+    if not summary:
+        return None
+    results = summary.get("results", {})
+    passing = []
+    for mode, result in results.items():
+        if result.get("correctness_pass") is not True:
+            continue
+        global_iou = result.get("global_mask_iou", {})
+        passing.append(
+            {
+                "compile_mode": mode,
+                "global_iou_avg": global_iou.get("avg"),
+                "global_iou_min": global_iou.get("min"),
+                "global_iou_p50": global_iou.get("p50"),
+            }
+        )
+    if not passing:
+        return None
+    for preferred in ("reduce-overhead", "max-autotune-no-cudagraphs", "none"):
+        for item in passing:
+            if item["compile_mode"] == preferred:
+                return item
+    return passing[0]
 
 
 def render(payload: dict[str, Any]) -> str:
@@ -124,6 +172,39 @@ def render(payload: dict[str, Any]) -> str:
                 item.get("_path"),
             ]
         )
+    sam31_summary = payload.get("sam31_replay_iou")
+    sam31_rows = []
+    stuffed_rows = []
+    controller_empty = False
+    if sam31_summary:
+        for mode, result in sam31_summary.get("results", {}).items():
+            global_iou = result.get("global_mask_iou", {})
+            sam31_rows.append(
+                [
+                    mode,
+                    result.get("correctness_pass"),
+                    _round(global_iou.get("avg")),
+                    _round(global_iou.get("min")),
+                    _round(global_iou.get("p50")),
+                    result.get("empty_mismatch_count"),
+                ]
+            )
+            stuffed = {item["key"]: item for item in result.get("per_camera_object", [])}
+            stuffed_rows.append(
+                [
+                    mode,
+                    _round(stuffed.get("cam0_obj1", {}).get("avg")),
+                    _round(stuffed.get("cam1_obj1", {}).get("avg")),
+                    _round(stuffed.get("cam2_obj1", {}).get("avg")),
+                ]
+            )
+            controller_rows = [
+                stuffed.get("cam0_obj0", {}),
+                stuffed.get("cam1_obj0", {}),
+                stuffed.get("cam2_obj0", {}),
+            ]
+            if controller_rows and all(int(row.get("reference_nonempty_count", -1)) == 0 for row in controller_rows):
+                controller_empty = True
     return "\n".join(
         [
             "# EdgeTAM batch=3 multi-session final report",
@@ -147,11 +228,60 @@ def render(payload: dict[str, Any]) -> str:
             "",
             markdown_table(["backend", "compile", "p50", "p90", "partial", "path"], profile_rows),
             "",
+            "## SAM3.1 replay reference correctness",
+            "",
+            *(render_sam31_section(sam31_summary, sam31_rows) if sam31_summary else ["No SAM3.1 replay IoU summary provided."]),
+            "",
+            "## Non-empty object quality: stuffed animal only",
+            "",
+            *(render_stuffed_section(stuffed_rows) if stuffed_rows else ["No stuffed animal IoU rows available."]),
+            "",
+            "## Controller/towel caveat",
+            "",
+            *(
+                [
+                    "SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras.",
+                    "Therefore obj0 IoU=1.0 is empty-vs-empty and does not validate controller tracking.",
+                    "The current replay validates stuffed animal quality, not successful towel tracking.",
+                    "A new replay with non-empty towel masks is required before claiming controller-object correctness.",
+                ]
+                if controller_empty
+                else ["Controller/towel reference is not empty in all cameras for the provided summary."]
+            ),
+            "",
             "## Decision",
             "",
             markdown_table(["field", "value"], payload["decision"].items()),
         ]
     )
+
+
+def render_sam31_section(summary: dict[str, Any], rows: list[list[Any]]) -> list[str]:
+    return [
+        f"- reference_source: `{summary.get('reference_source')}`",
+        f"- sam31_mask_root: `{summary.get('sam31_mask_root')}`",
+        f"- backend: `{summary.get('backend')}`",
+        "",
+        markdown_table(
+            ["compile_mode", "correctness_pass", "global_iou_avg", "global_iou_min", "global_iou_p50", "empty_mismatch"],
+            rows,
+        ),
+    ]
+
+
+def render_stuffed_section(rows: list[list[Any]]) -> list[str]:
+    return [
+        markdown_table(
+            ["compile_mode", "cam0 stuffed animal IoU", "cam1 stuffed animal IoU", "cam2 stuffed animal IoU"],
+            rows,
+        )
+    ]
+
+
+def _round(value: Any, digits: int = 5) -> Any:
+    if isinstance(value, (int, float)):
+        return round(float(value), digits)
+    return value
 
 
 def _git(*args: str) -> str:

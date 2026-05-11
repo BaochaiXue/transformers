@@ -10,7 +10,7 @@ Original weights + custom batch=3 multi-session runtime.
 | --- | --- |
 | fork_path | /home/zhangxinjie/EdgeTAM-HF-batched |
 | branch | feat/edgetam-batched-multisession-runtime |
-| commit | 80359782959f26fab60a18e28ed86020f8064402 |
+| commit | 86f1db514b648b5f71ac26ab80fee33798ac41a2 |
 | modeling_edgetam_video_touched | False |
 
 ## Correctness
@@ -31,11 +31,43 @@ Original weights + custom batch=3 multi-session runtime.
 | hf_batch_vision_seq_session | reduce-overhead | 58.43767599435523 | 65.8067935204599 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_reduce_overhead.json |
 | hf_batched_multisession | none | 63.66823450662196 | 65.51955243339762 | True | docs/generated/edgetam_batched_profile_hf_batched_multisession_none.json |
 
+## SAM3.1 replay reference correctness
+
+- reference_source: `sam31-replay`
+- sam31_mask_root: `/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_stuffed_animal/sam31_video_reference_masks`
+- backend: `hf_batch_vision_seq_session`
+
+| compile_mode | correctness_pass | global_iou_avg | global_iou_min | global_iou_p50 | empty_mismatch |
+| --- | --- | --- | --- | --- | --- |
+| max-autotune-no-cudagraphs | True | 0.98122 | 0.93887 | 0.99073 | 0 |
+| none | True | 0.98137 | 0.94032 | 0.99073 | 0 |
+| reduce-overhead | True | 0.98138 | 0.93835 | 0.99073 | 0 |
+
+## Non-empty object quality: stuffed animal only
+
+| compile_mode | cam0 stuffed animal IoU | cam1 stuffed animal IoU | cam2 stuffed animal IoU |
+| --- | --- | --- | --- |
+| max-autotune-no-cudagraphs | 0.97582 | 0.96297 | 0.94242 |
+| none | 0.97578 | 0.96238 | 0.94318 |
+| reduce-overhead | 0.97472 | 0.96269 | 0.94373 |
+
+## Controller/towel caveat
+
+SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras.
+Therefore obj0 IoU=1.0 is empty-vs-empty and does not validate controller tracking.
+The current replay validates stuffed animal quality, not successful towel tracking.
+A new replay with non-empty towel masks is required before claiming controller-object correctness.
+
 ## Decision
 
 | field | value |
 | --- | --- |
+| hf_batch_vision_seq_session_usable | True |
 | hf_batched_multisession_usable | False |
+| hf_batched_multisession_reason | true batched session/memory/object-pointer tensorization is not complete |
 | faster_than_77_92_ms_baseline | True |
 | recommended_backend | hf_batch_vision_seq_session |
+| recommended_compile_mode | reduce-overhead |
 | fallback_backend | hf_batch_vision_seq_session |
+| controller_towel_validated | False |
+| controller_towel_caveat | SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras; current quality claim is for stuffed animal only. |
