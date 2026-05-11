@@ -11,7 +11,7 @@ Original weights + custom batch=3 multi-session runtime.
 | github_repo | https://github.com/BaochaiXue/transformers/tree/feat/edgetam-batched-multisession-runtime |
 | fork_path | /home/zhangxinjie/EdgeTAM-HF-batched |
 | branch | feat/edgetam-batched-multisession-runtime |
-| commit | 4eab2efb6d7a9e22ebca32ebd2f6865df01b2d89 |
+| commit | d83184ff7809c53b127e00d3558c029453d555ac |
 | modeling_edgetam_video_touched | False |
 
 ## Correctness
