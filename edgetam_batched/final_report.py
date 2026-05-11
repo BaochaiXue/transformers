@@ -30,6 +30,7 @@ def main() -> int:
     parser.add_argument("--correctness-json", nargs="*", default=[])
     parser.add_argument("--profile-json", nargs="*", default=[])
     parser.add_argument("--iou-ref-summary", default=None)
+    parser.add_argument("--different-types-summary", default=None)
     parser.add_argument("--output-md", required=True)
     parser.add_argument("--output-json", required=True)
     args = parser.parse_args()
@@ -37,6 +38,7 @@ def main() -> int:
     correctness = load_jsons(args.correctness_json)
     profiles = load_jsons(args.profile_json)
     iou_ref_summary = load_optional_json(args.iou_ref_summary)
+    different_types_summary = load_optional_json(args.different_types_summary)
     repo = {
         "branch": _git("branch", "--show-current"),
         "commit": _git("rev-parse", "HEAD"),
@@ -54,9 +56,34 @@ def main() -> int:
         "correctness": correctness,
         "profiles": profiles,
         "sam31_replay_iou": iou_ref_summary,
+        "different_types_summary": different_types_summary,
         "best_profile": best_profile,
         "decision": {
             "hf_batch_vision_seq_session_usable": bool(sam31_best),
+            "single_object_stuffed_animal_validated": bool(
+                (different_types_summary or {})
+                .get("decision", {})
+                .get("single_object_stuffed_animal_validated")
+            ),
+            "single_object_30fps_p50_gate": bool(
+                (different_types_summary or {})
+                .get("single_object", {})
+                .get("p50_30fps_gate")
+            ),
+            "single_object_30fps_p90_gate": bool(
+                (different_types_summary or {})
+                .get("single_object", {})
+                .get("p90_30fps_gate")
+            ),
+            "single_object_30fps_p95_gate": (
+                "pass"
+                if (different_types_summary or {})
+                .get("single_object", {})
+                .get("p95_30fps_gate")
+                else "borderline/fail"
+            )
+            if different_types_summary
+            else None,
             "hf_batched_multisession_usable": bool(
                 full and full.get("metrics", {}).get("correctness_pass") is True
             ),
@@ -69,6 +96,12 @@ def main() -> int:
             "recommended_backend": "hf_batch_vision_seq_session",
             "recommended_compile_mode": (sam31_best or {}).get("compile_mode") or (best_profile or {}).get("compile_mode"),
             "fallback_backend": "hf_batch_vision_seq_session",
+            "controller_hand_validated": bool(
+                (different_types_summary or {}).get("decision", {}).get("controller_hand_validated")
+            ),
+            "controller_hand_status": (
+                (different_types_summary or {}).get("decision", {}).get("controller_hand_reason")
+            ),
             "controller_towel_validated": False,
             "controller_towel_caveat": (
                 "SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras; "
@@ -173,6 +206,7 @@ def render(payload: dict[str, Any]) -> str:
             ]
         )
     sam31_summary = payload.get("sam31_replay_iou")
+    different_types_summary = payload.get("different_types_summary")
     sam31_rows = []
     stuffed_rows = []
     controller_empty = False
@@ -249,6 +283,14 @@ def render(payload: dict[str, Any]) -> str:
                 else ["Controller/towel reference is not empty in all cameras for the provided summary."]
             ),
             "",
+            "## Different-types sloth_set_2 result",
+            "",
+            *(
+                render_different_types_section(different_types_summary)
+                if different_types_summary
+                else ["No different-types summary provided."]
+            ),
+            "",
             "## Decision",
             "",
             markdown_table(["field", "value"], payload["decision"].items()),
@@ -275,6 +317,33 @@ def render_stuffed_section(rows: list[list[Any]]) -> list[str]:
             ["compile_mode", "cam0 stuffed animal IoU", "cam1 stuffed animal IoU", "cam2 stuffed animal IoU"],
             rows,
         )
+    ]
+
+
+def render_different_types_section(summary: dict[str, Any]) -> list[str]:
+    single = summary.get("single_object", {})
+    stage = single.get("stage_wall_ms", {})
+    decision = summary.get("decision", {})
+    return [
+        f"- replay: `{summary.get('replay')}`",
+        "",
+        markdown_table(
+            ["field", "value"],
+            [
+                ["single_object_stuffed_animal_validated", decision.get("single_object_stuffed_animal_validated")],
+                ["controller_hand_validated", decision.get("controller_hand_validated")],
+                ["controller_hand_reason", decision.get("controller_hand_reason")],
+                ["backend", single.get("backend")],
+                ["compile", single.get("compile_mode")],
+                ["stage_wall_p50_ms", _round(stage.get("p50"))],
+                ["stage_wall_p90_ms", _round(stage.get("p90"))],
+                ["stage_wall_p95_ms", _round(stage.get("p95"))],
+                ["complete_group_fps_from_p50", _round(single.get("complete_group_fps_from_p50"))],
+                ["p50_30fps_gate", single.get("p50_30fps_gate")],
+                ["p90_30fps_gate", single.get("p90_30fps_gate")],
+                ["p95_30fps_gate", single.get("p95_30fps_gate")],
+            ],
+        ),
     ]
 
 

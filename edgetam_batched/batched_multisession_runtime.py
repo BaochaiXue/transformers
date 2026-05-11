@@ -192,15 +192,19 @@ def run_candidate(
 
     first_frame = rgb_replay_frames[0]
     width, height = first_frame.images[0].size
+    object_count = int(getattr(reference_runtime.config, "object_count", 2))
     initial_masks_by_camera = getattr(reference_runtime, "initial_masks_by_camera", None)
     if initial_masks_by_camera is None:
         controller_mask, object_mask = reference_runtime.initial_masks
-        initial_masks_by_camera = [
-            (controller_mask.copy(), object_mask.copy()) for _ in range(len(first_frame.images))
-        ]
+        if object_count == 1:
+            initial_masks_by_camera = [(object_mask.copy(),) for _ in range(len(first_frame.images))]
+        else:
+            initial_masks_by_camera = [
+                (controller_mask.copy(), object_mask.copy()) for _ in range(len(first_frame.images))
+            ]
     sessions = []
     for cam_idx, _ in enumerate(first_frame.images):
-        controller_mask, object_mask = initial_masks_by_camera[cam_idx]
+        cam_masks = tuple(np.asarray(mask, dtype=bool) for mask in initial_masks_by_camera[cam_idx])
         session = EdgeTamVideoInferenceSession(
             video=None,
             video_height=height,
@@ -213,8 +217,8 @@ def run_candidate(
         reference_runtime.processor.add_inputs_to_inference_session(
             inference_session=session,
             frame_idx=0,
-            obj_ids=[1, 2],
-            input_masks=[controller_mask.copy(), object_mask.copy()],
+            obj_ids=list(range(1, object_count + 1)),
+            input_masks=[mask.copy() for mask in cam_masks],
         )
         sessions.append(session)
 
@@ -223,7 +227,7 @@ def run_candidate(
         reference_runtime.processor,
         backend=backend,
         batch_size=len(first_frame.images),
-        object_count=2,
+        object_count=object_count,
         dtype=reference_runtime.dtype,
         device=reference_runtime.config.device,
         compile_mode=compile_mode,

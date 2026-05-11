@@ -149,9 +149,38 @@ def main() -> int:
     parser.add_argument("--frames", type=int, default=100)
     parser.add_argument("--warmup", type=int, default=20)
     parser.add_argument("--object-count", type=int, default=2)
+    parser.add_argument("--object-prompt", default="stuffed animal")
+    parser.add_argument("--controller-prompt", default="towel")
     parser.add_argument("--dtype", default="bfloat16")
     parser.add_argument("--compile-mode", default="none")
     parser.add_argument("--graph-output-policy", default="ring_buffer")
+    parser.add_argument(
+        "--init-source",
+        choices=("deterministic", "sam31-image-frame0"),
+        default="deterministic",
+    )
+    parser.add_argument("--sam31-checkpoint", default=None)
+    parser.add_argument("--sam31-compile-model", action="store_true")
+    parser.add_argument("--sam31-frame0-init-mask-root", default=None)
+    parser.add_argument("--sam31-frame0-init-overwrite", action="store_true")
+    parser.add_argument("--sam31-frame0-controller-prompt", default=None)
+    parser.add_argument("--sam31-frame0-object-prompt", default=None)
+    parser.add_argument("--sam31-frame0-confidence-threshold", type=float, default=0.25)
+    parser.add_argument(
+        "--sam31-frame0-controller-selection-mode",
+        choices=("green-score", "largest", "all"),
+        default="green-score",
+    )
+    parser.add_argument(
+        "--sam31-frame0-object-selection-mode",
+        choices=("green-score", "largest", "all"),
+        default="largest",
+    )
+    parser.add_argument("--sam31-frame0-controller-max-instances", type=int, default=3)
+    parser.add_argument("--sam31-frame0-object-max-instances", type=int, default=1)
+    parser.add_argument("--sam31-frame0-min-area", type=int, default=64)
+    parser.add_argument("--sam31-frame0-allow-empty", action="store_true")
+    parser.add_argument("--qqtt-root", default="/home/zhangxinjie/proj-QQTT-v2")
     parser.add_argument("--gpu-sampling", action="store_true")
     parser.add_argument("--profile-cuda-events", action="store_true")
     parser.add_argument("--profile-nvtx", action="store_true")
@@ -209,16 +238,59 @@ def run_replay_profile(args: argparse.Namespace) -> dict:
     from .batched_multisession_runtime import run_candidate
     from .reference_runtime import HfEdgeTamReferenceRuntime, ReferenceRuntimeConfig
     from .rgb_replay import load_replay_frames
+    from .sam31_frame0_init import (
+        default_sam31_frame0_init_mask_root,
+        generate_sam31_frame0_init_masks,
+    )
+    from .sam31_replay_reference import initial_masks_by_camera_from_sam31
 
     replay_frames = load_replay_frames(args.rgb_replay)
     config = ReferenceRuntimeConfig(
         model_id=args.model_id,
         dtype=args.dtype,
         device=args.device,
+        object_count=args.object_count,
+        object_prompt=args.object_prompt,
+        controller_prompt=args.controller_prompt,
     )
     reference_runtime = HfEdgeTamReferenceRuntime(config)
     reference_runtime.load()
-    reference_runtime.init_sessions(replay_frames[0])
+    initial_masks_by_camera = None
+    sam31_frame0_init_summary = None
+    sam31_frame0_init_mask_root = None
+    if args.init_source == "sam31-image-frame0":
+        sam31_frame0_init_mask_root = args.sam31_frame0_init_mask_root or str(
+            default_sam31_frame0_init_mask_root(args.rgb_replay)
+        )
+        frame0_controller_prompt = args.sam31_frame0_controller_prompt or args.controller_prompt
+        frame0_object_prompt = args.sam31_frame0_object_prompt or args.object_prompt
+        sam31_frame0_init_summary = generate_sam31_frame0_init_masks(
+            rgb_replay=args.rgb_replay,
+            output_dir=sam31_frame0_init_mask_root,
+            qqtt_root=args.qqtt_root,
+            checkpoint_path=args.sam31_checkpoint,
+            object_prompt=frame0_object_prompt,
+            controller_prompt=frame0_controller_prompt,
+            controller_label=args.controller_prompt,
+            object_label=args.object_prompt,
+            overwrite=args.sam31_frame0_init_overwrite,
+            compile_model=args.sam31_compile_model,
+            confidence_threshold=args.sam31_frame0_confidence_threshold,
+            controller_selection_mode=args.sam31_frame0_controller_selection_mode,
+            object_selection_mode=args.sam31_frame0_object_selection_mode,
+            controller_max_instances=args.sam31_frame0_controller_max_instances,
+            object_max_instances=args.sam31_frame0_object_max_instances,
+            min_area=args.sam31_frame0_min_area,
+            fail_on_empty=not args.sam31_frame0_allow_empty,
+            device=args.device,
+        )
+        initial_masks_by_camera = initial_masks_by_camera_from_sam31(
+            rgb_replay=args.rgb_replay,
+            mask_root=sam31_frame0_init_mask_root,
+            object_prompt=args.object_prompt,
+            controller_prompt=args.controller_prompt,
+        )
+    reference_runtime.init_sessions(replay_frames[0], initial_masks_by_camera=initial_masks_by_camera)
     result = run_candidate(
         rgb_replay_frames=replay_frames,
         reference_runtime=reference_runtime,
@@ -242,6 +314,9 @@ def run_replay_profile(args: argparse.Namespace) -> dict:
         "cuda_graph_enabled": args.compile_mode == "reduce-overhead",
         "ring_buffer_size": 8 if args.graph_output_policy == "ring_buffer" else 0,
         "correctness_pass": False,
+        "init_source": args.init_source,
+        "sam31_frame0_init_mask_root": sam31_frame0_init_mask_root,
+        "sam31_frame0_init_summary": sam31_frame0_init_summary,
         "note": "profile-only run; use compare_multisession correctness JSON for acceptance",
     }
 

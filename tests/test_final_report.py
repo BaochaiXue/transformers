@@ -71,6 +71,29 @@ class FinalReportTests(unittest.TestCase):
                 ),
                 encoding="utf-8",
             )
+            different_types = root / "different_types.json"
+            different_types.write_text(
+                json.dumps(
+                    {
+                        "replay": "/tmp/replay",
+                        "single_object": {
+                            "backend": "hf_batch_vision_seq_session",
+                            "compile_mode": "reduce-overhead",
+                            "stage_wall_ms": {"p50": 31.31, "p90": 32.99, "p95": 33.75},
+                            "complete_group_fps_from_p50": 31.94,
+                            "p50_30fps_gate": True,
+                            "p90_30fps_gate": True,
+                            "p95_30fps_gate": False,
+                        },
+                        "decision": {
+                            "single_object_stuffed_animal_validated": True,
+                            "controller_hand_validated": False,
+                            "controller_hand_reason": "low IoU outliers on cam0/cam2",
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
             out_md = root / "final.md"
             out_json = root / "final.json"
 
@@ -82,6 +105,8 @@ class FinalReportTests(unittest.TestCase):
                 str(profile),
                 "--iou-ref-summary",
                 str(summary),
+                "--different-types-summary",
+                str(different_types),
                 "--output-md",
                 str(out_md),
                 "--output-json",
@@ -97,8 +122,14 @@ class FinalReportTests(unittest.TestCase):
             self.assertIn("SAM3.1 replay reference correctness", md)
             self.assertIn("Non-empty object quality: stuffed animal only", md)
             self.assertIn("Controller/towel caveat", md)
+            self.assertIn("Different-types sloth_set_2 result", md)
             self.assertIn("empty-vs-empty", md)
             self.assertTrue(payload["decision"]["hf_batch_vision_seq_session_usable"])
+            self.assertTrue(payload["decision"]["single_object_stuffed_animal_validated"])
+            self.assertTrue(payload["decision"]["single_object_30fps_p50_gate"])
+            self.assertTrue(payload["decision"]["single_object_30fps_p90_gate"])
+            self.assertEqual(payload["decision"]["single_object_30fps_p95_gate"], "borderline/fail")
+            self.assertFalse(payload["decision"]["controller_hand_validated"])
             self.assertFalse(payload["decision"]["hf_batched_multisession_usable"])
             self.assertEqual(payload["decision"]["recommended_backend"], "hf_batch_vision_seq_session")
             self.assertEqual(payload["decision"]["recommended_compile_mode"], "reduce-overhead")

@@ -15,6 +15,10 @@ from .leakage_test import compare_cam0_stability
 from .reference_runtime import HfEdgeTamReferenceRuntime, ReferenceRuntimeConfig
 from .report_utils import markdown_table, write_json, write_markdown
 from .rgb_replay import load_replay_frames
+from .sam31_frame0_init import (
+    default_sam31_frame0_init_mask_root,
+    generate_sam31_frame0_init_masks,
+)
 from .sam31_replay_reference import (
     default_sam31_mask_root,
     generate_sam31_replay_masks,
@@ -104,6 +108,53 @@ def compare_outputs(reference, candidate) -> dict[str, Any]:
     }
 
 
+def select_object_outputs(outputs, *, object_count: int, object_index: int = -1):
+    """Return an Outputs-like view restricted to a requested object count.
+
+    Existing SAM3.1 sidecars are usually ordered as controller/object. For the
+    single-object experiment we keep the object layer, i.e. the last mask plane.
+    """
+
+    object_count = int(object_count)
+    if object_count != 1:
+        return outputs
+    selected_masks = []
+    selected_logits = []
+    selected_scores = []
+    for frame_idx, frame_masks in enumerate(outputs.masks):
+        masks_by_cam = []
+        logits_by_cam = []
+        scores_by_cam = []
+        for cam_idx, cam_masks in enumerate(frame_masks):
+            mask_arr = np.asarray(cam_masks)
+            logit_arr = np.asarray(outputs.logits[frame_idx][cam_idx])
+            score_arr = np.asarray(outputs.object_scores[frame_idx][cam_idx]).reshape(-1)
+            idx = object_index if object_index >= 0 else mask_arr.shape[0] - 1
+            masks_by_cam.append(mask_arr[idx : idx + 1])
+            logits_by_cam.append(logit_arr[idx : idx + 1])
+            if idx < score_arr.shape[0]:
+                scores_by_cam.append(score_arr[idx : idx + 1])
+            else:
+                scores_by_cam.append(np.ones((1,), dtype=np.float32))
+        selected_masks.append(masks_by_cam)
+        selected_logits.append(logits_by_cam)
+        selected_scores.append(scores_by_cam)
+    return type(
+        "Outputs",
+        (),
+        {
+            "masks": selected_masks,
+            "logits": selected_logits,
+            "object_scores": selected_scores,
+            "timings_ms": getattr(outputs, "timings_ms", {}),
+            "backend": getattr(outputs, "backend", "selected_object"),
+            "partial": getattr(outputs, "partial", False),
+            "fallback_backend": getattr(outputs, "fallback_backend", None),
+            "blockers": getattr(outputs, "blockers", []),
+        },
+    )()
+
+
 def _expand_summary_sample(summary_dict: dict[str, Any]) -> list[float]:
     values = []
     for key in ("avg", "p50", "p90", "p95", "p99", "min", "max"):
@@ -174,8 +225,10 @@ def render_compare_report(payload: dict[str, Any]) -> str:
             f"- candidate_partial: `{payload['metrics']['candidate_partial']}`",
             f"- fallback_backend: `{payload['metrics']['fallback_backend']}`",
             f"- reference_source: `{payload.get('reference_source', 'hf-public')}`",
+            f"- init_source: `{payload.get('init_source')}`",
             f"- prompt_source: `{payload.get('prompt_source')}`",
             f"- sam31_mask_root: `{payload.get('sam31_mask_root')}`",
+            f"- sam31_frame0_init_mask_root: `{payload.get('sam31_frame0_init_mask_root')}`",
             "",
             "## Blockers",
             "",
@@ -207,10 +260,35 @@ def main() -> int:
         default="hf-public",
         help="Reference masks used for IoU_ref.",
     )
+    parser.add_argument(
+        "--init-source",
+        choices=("auto", "deterministic", "sam31-video-reference", "sam31-image-frame0"),
+        default="auto",
+        help="Frame-0 masks used to initialize EdgeTAM sessions.",
+    )
     parser.add_argument("--sam31-mask-root", default=None)
     parser.add_argument("--sam31-checkpoint", default=None)
     parser.add_argument("--sam31-overwrite", action="store_true")
     parser.add_argument("--sam31-compile-model", action="store_true")
+    parser.add_argument("--sam31-frame0-init-mask-root", default=None)
+    parser.add_argument("--sam31-frame0-init-overwrite", action="store_true")
+    parser.add_argument("--sam31-frame0-controller-prompt", default=None)
+    parser.add_argument("--sam31-frame0-object-prompt", default=None)
+    parser.add_argument("--sam31-frame0-confidence-threshold", type=float, default=0.25)
+    parser.add_argument(
+        "--sam31-frame0-controller-selection-mode",
+        choices=("green-score", "largest", "all"),
+        default="green-score",
+    )
+    parser.add_argument(
+        "--sam31-frame0-object-selection-mode",
+        choices=("green-score", "largest", "all"),
+        default="largest",
+    )
+    parser.add_argument("--sam31-frame0-controller-max-instances", type=int, default=3)
+    parser.add_argument("--sam31-frame0-object-max-instances", type=int, default=1)
+    parser.add_argument("--sam31-frame0-min-area", type=int, default=64)
+    parser.add_argument("--sam31-frame0-allow-empty", action="store_true")
     parser.add_argument("--qqtt-root", default="/home/zhangxinjie/proj-QQTT-v2")
     parser.add_argument("--output-md", required=True)
     parser.add_argument("--output-json", required=True)
@@ -224,10 +302,18 @@ def main() -> int:
         device=args.device,
         object_prompt=args.object_prompt,
         controller_prompt=args.controller_prompt,
+        object_count=args.object_count,
     )
     reference_runtime = HfEdgeTamReferenceRuntime(config)
     reference_runtime.load()
     sam31_mask_root = None
+    sam31_frame0_init_mask_root = None
+    sam31_frame0_init_summary = None
+    init_source = args.init_source
+    if init_source == "auto":
+        init_source = "sam31-video-reference" if args.reference_source == "sam31-replay" else "deterministic"
+
+    initial_masks_by_camera = None
     if args.reference_source == "sam31-replay":
         sam31_mask_root = args.sam31_mask_root or str(default_sam31_mask_root(args.rgb_replay))
         generate_sam31_replay_masks(
@@ -247,15 +333,62 @@ def main() -> int:
             object_prompt=args.object_prompt,
             controller_prompt=args.controller_prompt,
         )
+        reference = select_object_outputs(reference, object_count=args.object_count)
+
+    if init_source == "sam31-video-reference":
+        if sam31_mask_root is None:
+            raise ValueError("--init-source sam31-video-reference requires --reference-source sam31-replay")
         initial_masks_by_camera = initial_masks_by_camera_from_sam31(
             rgb_replay=args.rgb_replay,
             mask_root=sam31_mask_root,
             object_prompt=args.object_prompt,
             controller_prompt=args.controller_prompt,
         )
+    elif init_source == "sam31-image-frame0":
+        sam31_frame0_init_mask_root = args.sam31_frame0_init_mask_root or str(
+            default_sam31_frame0_init_mask_root(args.rgb_replay)
+        )
+        frame0_controller_prompt = args.sam31_frame0_controller_prompt or args.controller_prompt
+        frame0_object_prompt = args.sam31_frame0_object_prompt or args.object_prompt
+        sam31_frame0_init_summary = generate_sam31_frame0_init_masks(
+            rgb_replay=args.rgb_replay,
+            output_dir=sam31_frame0_init_mask_root,
+            qqtt_root=args.qqtt_root,
+            checkpoint_path=args.sam31_checkpoint,
+            object_prompt=frame0_object_prompt,
+            controller_prompt=frame0_controller_prompt,
+            controller_label=args.controller_prompt,
+            object_label=args.object_prompt,
+            overwrite=args.sam31_frame0_init_overwrite,
+            compile_model=args.sam31_compile_model,
+            confidence_threshold=args.sam31_frame0_confidence_threshold,
+            controller_selection_mode=args.sam31_frame0_controller_selection_mode,
+            object_selection_mode=args.sam31_frame0_object_selection_mode,
+            controller_max_instances=args.sam31_frame0_controller_max_instances,
+            object_max_instances=args.sam31_frame0_object_max_instances,
+            min_area=args.sam31_frame0_min_area,
+            fail_on_empty=not args.sam31_frame0_allow_empty,
+            device=args.device,
+        )
+        initial_masks_by_camera = initial_masks_by_camera_from_sam31(
+            rgb_replay=args.rgb_replay,
+            mask_root=sam31_frame0_init_mask_root,
+            object_prompt=args.object_prompt,
+            controller_prompt=args.controller_prompt,
+        )
+
+    prompt_source = {
+        "deterministic": "deterministic_replay_boxes",
+        "sam31-video-reference": "sam31_frame0_video_reference_masks",
+        "sam31-image-frame0": "sam31_image_frame0_masks",
+    }[init_source]
+
+    if args.reference_source == "sam31-replay":
         reference_runtime.init_sessions(frames[0], initial_masks_by_camera=initial_masks_by_camera)
+        reference_runtime.prompt_source = prompt_source
     else:
-        reference_runtime.init_sessions(frames[0])
+        reference_runtime.init_sessions(frames[0], initial_masks_by_camera=initial_masks_by_camera)
+        reference_runtime.prompt_source = prompt_source
         ref_masks = []
         ref_logits = []
         ref_scores = []
@@ -272,9 +405,11 @@ def main() -> int:
             "object_scores": ref_scores,
             "timings_ms": ref_timings,
         })()
+        reference = select_object_outputs(reference, object_count=args.object_count, object_index=0)
 
         # Candidate uses a fresh runtime but the same loaded model/processor.
-        reference_runtime.init_sessions(frames[0])
+        reference_runtime.init_sessions(frames[0], initial_masks_by_camera=initial_masks_by_camera)
+        reference_runtime.prompt_source = prompt_source
     candidate = run_candidate(
         rgb_replay_frames=frames,
         reference_runtime=reference_runtime,
@@ -282,6 +417,7 @@ def main() -> int:
         compile_mode=args.compile_mode,
         graph_output_policy=args.graph_output_policy,
     )
+    candidate = select_object_outputs(candidate, object_count=args.object_count, object_index=0)
     metrics = compare_outputs(reference, candidate)
     payload = {
         "backend": args.backend,
@@ -289,7 +425,10 @@ def main() -> int:
         "graph_output_policy": args.graph_output_policy,
         "rgb_replay": str(args.rgb_replay),
         "reference_source": args.reference_source,
+        "init_source": init_source,
         "sam31_mask_root": str(sam31_mask_root) if sam31_mask_root is not None else None,
+        "sam31_frame0_init_mask_root": str(sam31_frame0_init_mask_root) if sam31_frame0_init_mask_root is not None else None,
+        "sam31_frame0_init_summary": sam31_frame0_init_summary,
         "prompt_source": getattr(reference_runtime, "prompt_source", "deterministic_replay_boxes"),
         "metrics": metrics,
     }

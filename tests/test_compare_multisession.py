@@ -4,7 +4,7 @@ import unittest
 
 import numpy as np
 
-from edgetam_batched.compare_multisession import compare_outputs
+from edgetam_batched.compare_multisession import compare_outputs, select_object_outputs
 
 
 class CompareMultisessionTests(unittest.TestCase):
@@ -40,6 +40,23 @@ class CompareMultisessionTests(unittest.TestCase):
         metrics = compare_outputs(reference, candidate)
 
         self.assertTrue(metrics["correctness_pass"])
+
+    def test_select_single_object_keeps_last_object_plane(self):
+        controller = np.zeros((2, 2), dtype=bool)
+        obj = np.ones((2, 2), dtype=bool)
+        outputs = type("Outputs", (), {})()
+        outputs.masks = [[np.stack([controller, obj], axis=0)]]
+        outputs.logits = [[np.stack([controller, obj], axis=0).astype(np.float32)]]
+        outputs.object_scores = [[np.array([0.1, 0.9], dtype=np.float32)]]
+        outputs.partial = False
+        outputs.fallback_backend = None
+        outputs.blockers = []
+
+        selected = select_object_outputs(outputs, object_count=1)
+
+        self.assertEqual(selected.masks[0][0].shape, (1, 2, 2))
+        self.assertEqual(int(selected.masks[0][0].sum()), 4)
+        self.assertAlmostEqual(float(selected.object_scores[0][0][0]), 0.9, places=6)
 
 
 if __name__ == "__main__":

@@ -22,6 +22,7 @@ class ReferenceRuntimeConfig:
     device: str = "cuda"
     object_prompt: str = "stuffed animal"
     controller_prompt: str = "towel"
+    object_count: int = 2
 
 
 @dataclass
@@ -65,20 +66,26 @@ class HfEdgeTamReferenceRuntime:
         self,
         first_frame: ReplayFrame,
         *,
-        initial_masks_by_camera: list[tuple[np.ndarray, np.ndarray]] | None = None,
+        initial_masks_by_camera: list[tuple[np.ndarray, ...]] | None = None,
     ) -> list[Any]:
         if self.model is None or self.processor is None or self.torch is None:
             raise RuntimeError("call load() before init_sessions()")
         from transformers import EdgeTamVideoInferenceSession
 
         width, height = first_frame.images[0].size
-        obj_ids = [1, 2]
+        object_count = int(self.config.object_count)
+        if object_count not in {1, 2}:
+            raise ValueError(f"unsupported object_count: {object_count}")
+        obj_ids = list(range(1, object_count + 1))
         controller_mask, object_mask = make_initial_prompt_masks(height, width)
         self.initial_masks = (controller_mask, object_mask)
         if initial_masks_by_camera is None:
-            self.initial_masks_by_camera = [
-                (controller_mask.copy(), object_mask.copy()) for _ in range(len(first_frame.images))
-            ]
+            if object_count == 1:
+                self.initial_masks_by_camera = [(object_mask.copy(),) for _ in range(len(first_frame.images))]
+            else:
+                self.initial_masks_by_camera = [
+                    (controller_mask.copy(), object_mask.copy()) for _ in range(len(first_frame.images))
+                ]
             self.prompt_source = "deterministic_replay_boxes"
         else:
             if len(initial_masks_by_camera) != len(first_frame.images):
@@ -86,14 +93,19 @@ class HfEdgeTamReferenceRuntime:
                     f"expected {len(first_frame.images)} camera initial mask pairs, "
                     f"got {len(initial_masks_by_camera)}"
                 )
-            self.initial_masks_by_camera = [
-                (np.asarray(controller, dtype=bool), np.asarray(obj, dtype=bool))
-                for controller, obj in initial_masks_by_camera
-            ]
+            self.initial_masks_by_camera = []
+            for masks in initial_masks_by_camera:
+                normalized = tuple(np.asarray(mask, dtype=bool) for mask in masks)
+                if object_count == 1:
+                    self.initial_masks_by_camera.append((_select_single_object_mask(normalized),))
+                else:
+                    if len(normalized) != 2:
+                        raise ValueError(f"expected controller/object mask pair, got {len(normalized)} masks")
+                    self.initial_masks_by_camera.append(normalized)
             self.prompt_source = "sam31_frame0_video_reference_masks"
         self.sessions = []
         for camera_idx in range(len(first_frame.images)):
-            cam_controller_mask, cam_object_mask = self.initial_masks_by_camera[camera_idx]
+            cam_masks = self.initial_masks_by_camera[camera_idx]
             session = EdgeTamVideoInferenceSession(
                 video=None,
                 video_height=height,
@@ -107,7 +119,7 @@ class HfEdgeTamReferenceRuntime:
                 inference_session=session,
                 frame_idx=0,
                 obj_ids=list(obj_ids),
-                input_masks=[cam_controller_mask.copy(), cam_object_mask.copy()],
+                input_masks=[mask.copy() for mask in cam_masks],
             )
             self.sessions.append(session)
         return self.sessions
@@ -202,6 +214,15 @@ def make_initial_prompt_masks(height: int, width: int) -> tuple[np.ndarray, np.n
     return controller, obj
 
 
+def _select_single_object_mask(masks: tuple[np.ndarray, ...]) -> np.ndarray:
+    if not masks:
+        raise ValueError("cannot initialize single-object EdgeTAM without an object mask")
+    if len(masks) == 1:
+        return masks[0]
+    # Existing two-object mask roots use obj0=controller and obj1=stuffed animal.
+    return masks[1]
+
+
 def summarize_timing_rows(rows: list[dict[str, float]]) -> dict[str, Any]:
     keys = sorted({key for row in rows for key in row})
     return {key: summarize(row[key] for row in rows if key in row) for key in keys}
@@ -243,6 +264,7 @@ def main() -> int:
     parser.add_argument("--frames", type=int, default=100)
     parser.add_argument("--object-prompt", default="stuffed animal")
     parser.add_argument("--controller-prompt", default="towel")
+    parser.add_argument("--object-count", type=int, default=2)
     parser.add_argument("--dtype", default="bfloat16")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--model-id", default="yonigozlan/EdgeTAM-hf")
@@ -258,6 +280,7 @@ def main() -> int:
         device=args.device,
         object_prompt=args.object_prompt,
         controller_prompt=args.controller_prompt,
+        object_count=args.object_count,
     )
     outputs = run_reference(rgb_replay=args.rgb_replay, frames=args.frames, config=config)
     save_reference_outputs(args.output_dir, outputs)

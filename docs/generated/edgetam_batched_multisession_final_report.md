@@ -10,7 +10,7 @@ Original weights + custom batch=3 multi-session runtime.
 | --- | --- |
 | fork_path | /home/zhangxinjie/EdgeTAM-HF-batched |
 | branch | feat/edgetam-batched-multisession-runtime |
-| commit | 86f1db514b648b5f71ac26ab80fee33798ac41a2 |
+| commit | 83110b8dd4820ba22d288993e7a24060f2ddf494 |
 | modeling_edgetam_video_touched | False |
 
 ## Correctness
@@ -58,16 +58,41 @@ Therefore obj0 IoU=1.0 is empty-vs-empty and does not validate controller tracki
 The current replay validates stuffed animal quality, not successful towel tracking.
 A new replay with non-empty towel masks is required before claiming controller-object correctness.
 
+## Different-types sloth_set_2 result
+
+- replay: `/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal`
+
+| field | value |
+| --- | --- |
+| single_object_stuffed_animal_validated | True |
+| controller_hand_validated | False |
+| controller_hand_reason | low IoU outliers on cam0/cam2 |
+| backend | hf_batch_vision_seq_session |
+| compile | reduce-overhead |
+| stage_wall_p50_ms | 31.30548 |
+| stage_wall_p90_ms | 32.98849 |
+| stage_wall_p95_ms | 33.75403 |
+| complete_group_fps_from_p50 | 31.94329 |
+| p50_30fps_gate | True |
+| p90_30fps_gate | True |
+| p95_30fps_gate | False |
+
 ## Decision
 
 | field | value |
 | --- | --- |
 | hf_batch_vision_seq_session_usable | True |
+| single_object_stuffed_animal_validated | True |
+| single_object_30fps_p50_gate | True |
+| single_object_30fps_p90_gate | True |
+| single_object_30fps_p95_gate | borderline/fail |
 | hf_batched_multisession_usable | False |
 | hf_batched_multisession_reason | true batched session/memory/object-pointer tensorization is not complete |
 | faster_than_77_92_ms_baseline | True |
 | recommended_backend | hf_batch_vision_seq_session |
 | recommended_compile_mode | reduce-overhead |
 | fallback_backend | hf_batch_vision_seq_session |
+| controller_hand_validated | False |
+| controller_hand_status | low IoU outliers on cam0/cam2 |
 | controller_towel_validated | False |
 | controller_towel_caveat | SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras; current quality claim is for stuffed animal only. |
