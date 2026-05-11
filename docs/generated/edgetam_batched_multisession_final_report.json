@@ -1,0 +1,39 @@
+{
+  "branch": "feat/edgetam-batched-multisession-runtime",
+  "fork_path": "/home/zhangxinjie/EdgeTAM-HF-batched",
+  "upstream_commit": "e9fd66d116c1dc03f85803931a1a3a940057488a",
+  "hf_source_touched": false,
+  "generated_modeling_edgetam_video_touched": false,
+  "runtime_status": "scaffold_only",
+  "state_map": {
+    "session_count": 3,
+    "field_count": 61,
+    "tensor_field_count": 14,
+    "stackable_tensor_field_count": 14,
+    "metadata_field_count": 47,
+    "mutated_field_count": 10
+  },
+  "real_rgb_replay_found": false,
+  "correctness_pass": false,
+  "performance_claim_valid": false,
+  "synthetic_hf_public_profile": {
+    "backend": "hf_ref_seq_public",
+    "status": "synthetic_hf_public",
+    "stage_wall_p50_ms": 76.00097797694616,
+    "stage_wall_p90_ms": 80.38774723536335,
+    "cam0_p50_ms": 24.08466750057414,
+    "cam1_p50_ms": 24.495790508808568,
+    "cam2_p50_ms": 25.59644845314324,
+    "note": "synthetic RGB/masks and sequential public HF sessions; not a validated batched multi-session runtime result"
+  },
+  "current_valid_baseline": {
+    "source": "proj-QQTT-v2 Demo 2.1.5 profile",
+    "backend": "hf_batch_vision_seq_session",
+    "compile_mode": "vision-reduce-overhead",
+    "stage_wall_p50_ms": 77.92,
+    "stage_wall_p90_ms": 86.24,
+    "complete_group_fps": 12.48
+  },
+  "recommended_backend_now": "hf_batch_vision_seq_session",
+  "next_step": "create or locate real 100-frame RGB triplet replay and implement HF reference stepping before batched runtime correctness/profile claims"
+}

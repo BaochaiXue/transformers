@@ -1,0 +1,53 @@
+# EdgeTAM Batched Source Inspection
+
+## Repo
+
+| field | value |
+| --- | --- |
+| branch | feat/edgetam-batched-multisession-runtime |
+| commit | e9fd66d116c1dc03f85803931a1a3a940057488a |
+| status_short | ?? docs/generated/<br>?? edgetam_batched/<br>?? tests/test_camera_order.py<br>?? tests/test_compile_config.py<br>?? tests/test_leakage_test.py<br>?? tests/test_profile_stats.py<br>?? tests/test_ring_buffer.py<br>?? tests/test_state_map.py |
+
+## Files
+
+| name | path | exists | generated | size |
+| --- | --- | --- | --- | --- |
+| edgetam_modular | src/transformers/models/edgetam_video/modular_edgetam_video.py | True | False | 66587 |
+| edgetam_modeling | src/transformers/models/edgetam_video/modeling_edgetam_video.py | True | True | 146530 |
+| sam2_video_modeling | src/transformers/models/sam2_video/modeling_sam2_video.py | True | True | 133217 |
+| sam2_video_processing | src/transformers/models/sam2_video/processing_sam2_video.py | True | True | 37447 |
+
+## Findings
+
+| finding | value |
+| --- | --- |
+| edgetam_subclasses_sam2_video | True |
+| public_forward_has_inference_session | True |
+| get_image_features_defined | True |
+| session_class_defined | True |
+| processor_init_video_session | True |
+| processor_add_inputs | True |
+
+## Component Token Counts
+
+| component | count |
+| --- | --- |
+| vision_encoder | 6 |
+| memory_attention | 116 |
+| memory_encoder | 15 |
+| mask_decoder | 33 |
+| prompt_encoder | 31 |
+| object_pointer | 189 |
+
+## Signatures
+
+| symbol | signature |
+| --- | --- |
+| EdgeTamVideoModel.forward | def forward(self, inference_session: EdgeTamVideoInferenceSession, frame_idx: int \| None = None, frame: torch.Tensor \| None = None, reverse: bool = False, **kwargs, ) -> EdgeTamVideoSegmentationOutput: r""" inference_session (`EdgeTamVideoInferenceSession`) |
+| Sam2VideoModel.get_image_features | def get_image_features(self, pixel_values: torch.FloatTensor, **kwargs: Unpack[TransformersKwargs], ) -> tuple \| Sam2VideoVisionEncoderOutput: r""" pixel_values (`torch.FloatTensor`) |
+| EdgeTamVideoInferenceSession | class EdgeTamVideoInferenceSession(Sam2VideoInferenceSession): |
+
+## Boundary
+
+- Do not edit `modeling_edgetam_video.py` directly; it is generated.
+- The research runtime should use wrapper modules first and only patch modular source for accessors if blocked.
