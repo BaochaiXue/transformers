@@ -1,0 +1,348 @@
+{
+  "backend": "hf_batched_multisession",
+  "camera": "cam1",
+  "compile_mode": "none",
+  "dtype": "bfloat16",
+  "effective_dtype": "bfloat16",
+  "force_reference_state_before_frame": true,
+  "frame_idx": 47,
+  "inferred_issue": "replacement_level_requires_runtime_debug_hook",
+  "normal_variant": {
+    "backend_contract": {
+      "backend": "hf_batched_multisession",
+      "batch_mask_decoder": true,
+      "batch_memory_attention": true,
+      "batch_memory_encoder": true,
+      "batch_vision": true,
+      "batched_state_scatter": true,
+      "blockers": [],
+      "contract_pass": true,
+      "missing_requirements": [],
+      "partial_fallback_used": false,
+      "used_public_session_step_in_hot_path": false
+    },
+    "candidate_bucket": "non_cond_frame_outputs",
+    "field_diffs": {
+      "maskmem_features": {
+        "candidate_shape": [
+          1,
+          512,
+          64
+        ],
+        "max_abs_diff": 5.4375,
+        "mean_abs_diff": 0.274955153465271,
+        "p95_abs_diff": 1.076171875,
+        "present_in_candidate": true,
+        "present_in_reference": true,
+        "reference_shape": [
+          1,
+          512,
+          64
+        ],
+        "shape_match": true
+      },
+      "maskmem_pos_enc": {
+        "candidate_shape": [
+          1,
+          512,
+          64
+        ],
+        "max_abs_diff": 0.0,
+        "mean_abs_diff": 0.0,
+        "p95_abs_diff": 0.0,
+        "present_in_candidate": true,
+        "present_in_reference": true,
+        "reference_shape": [
+          1,
+          512,
+          64
+        ],
+        "shape_match": true
+      },
+      "object_pointer": {
+        "candidate_shape": [
+          1,
+          1,
+          256
+        ],
+        "max_abs_diff": 1.79296875,
+        "mean_abs_diff": 0.3509357273578644,
+        "p95_abs_diff": 0.85595703125,
+        "present_in_candidate": true,
+        "present_in_reference": true,
+        "reference_shape": [
+          1,
+          1,
+          256
+        ],
+        "shape_match": true
+      },
+      "object_score_logits": {
+        "candidate_shape": [
+          1,
+          1,
+          1
+        ],
+        "max_abs_diff": 0.03125,
+        "mean_abs_diff": 0.03125,
+        "p95_abs_diff": 0.03125,
+        "present_in_candidate": true,
+        "present_in_reference": true,
+        "reference_shape": [
+          1,
+          1,
+          1
+        ],
+        "shape_match": true
+      },
+      "pred_masks": {
+        "candidate_shape": [
+          1,
+          1,
+          256,
+          256
+        ],
+        "max_abs_diff": 8.09375,
+        "mean_abs_diff": 5.0433125495910645,
+        "p95_abs_diff": 6.8125,
+        "present_in_candidate": true,
+        "present_in_reference": true,
+        "reference_shape": [
+          1,
+          1,
+          256,
+          256
+        ],
+        "shape_match": true
+      }
+    },
+    "geometry": {
+      "bbox_area_ratio": 2.118337850045167,
+      "bbox_center_distance_px": 22.47220505424423,
+      "boundary_flip_count": 784,
+      "candidate_area": 2876,
+      "candidate_bbox": [
+        101,
+        65,
+        168,
+        170
+      ],
+      "intersection_area": 2152,
+      "reference_area": 2212,
+      "reference_bbox": [
+        95,
+        89,
+        136,
+        170
+      ],
+      "threshold_flip_count": 784,
+      "union_area": 2936
+    },
+    "image_indices": [
+      0,
+      1,
+      2
+    ],
+    "iou_vs_hf_public": 0.7329700272479565,
+    "raw_iou_vs_hf_public": 0.7329700272479565,
+    "reference_bucket": "non_cond_frame_outputs",
+    "replacement_applied": false,
+    "replacement_reason": "runtime does not yet expose an in-frame component replacement hook for this level",
+    "replacement_supported": false,
+    "session_indices": [
+      0,
+      1,
+      2
+    ],
+    "status": "ok",
+    "summary_diffs": {
+      "maskmem_features_max_abs_diff": 5.4375,
+      "maskmem_features_p95_abs_diff": 1.076171875,
+      "maskmem_pos_enc_max_abs_diff": 0.0,
+      "maskmem_pos_enc_p95_abs_diff": 0.0,
+      "object_pointer_max_abs_diff": 1.79296875,
+      "object_pointer_p95_abs_diff": 0.85595703125,
+      "object_score_logits_max_abs_diff": 0.03125,
+      "object_score_logits_p95_abs_diff": 0.03125,
+      "pred_masks_max_abs_diff": 8.09375,
+      "pred_masks_p95_abs_diff": 6.8125
+    },
+    "target_output_index": 1,
+    "variant": "normal_batch"
+  },
+  "object_count": 1,
+  "object_prompt": "stuffed animal",
+  "precision_mode": "all_bf16",
+  "replace": "decoder_inputs_with_reference",
+  "replacement": {
+    "posthoc": false,
+    "reason": "runtime does not yet expose an in-frame component replacement hook for this level",
+    "supported": false
+  },
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+  "variants": [
+    {
+      "backend_contract": {
+        "backend": "hf_batched_multisession",
+        "batch_mask_decoder": true,
+        "batch_memory_attention": true,
+        "batch_memory_encoder": true,
+        "batch_vision": true,
+        "batched_state_scatter": true,
+        "blockers": [],
+        "contract_pass": true,
+        "missing_requirements": [],
+        "partial_fallback_used": false,
+        "used_public_session_step_in_hot_path": false
+      },
+      "candidate_bucket": "non_cond_frame_outputs",
+      "field_diffs": {
+        "maskmem_features": {
+          "candidate_shape": [
+            1,
+            512,
+            64
+          ],
+          "max_abs_diff": 5.4375,
+          "mean_abs_diff": 0.274955153465271,
+          "p95_abs_diff": 1.076171875,
+          "present_in_candidate": true,
+          "present_in_reference": true,
+          "reference_shape": [
+            1,
+            512,
+            64
+          ],
+          "shape_match": true
+        },
+        "maskmem_pos_enc": {
+          "candidate_shape": [
+            1,
+            512,
+            64
+          ],
+          "max_abs_diff": 0.0,
+          "mean_abs_diff": 0.0,
+          "p95_abs_diff": 0.0,
+          "present_in_candidate": true,
+          "present_in_reference": true,
+          "reference_shape": [
+            1,
+            512,
+            64
+          ],
+          "shape_match": true
+        },
+        "object_pointer": {
+          "candidate_shape": [
+            1,
+            1,
+            256
+          ],
+          "max_abs_diff": 1.79296875,
+          "mean_abs_diff": 0.3509357273578644,
+          "p95_abs_diff": 0.85595703125,
+          "present_in_candidate": true,
+          "present_in_reference": true,
+          "reference_shape": [
+            1,
+            1,
+            256
+          ],
+          "shape_match": true
+        },
+        "object_score_logits": {
+          "candidate_shape": [
+            1,
+            1,
+            1
+          ],
+          "max_abs_diff": 0.03125,
+          "mean_abs_diff": 0.03125,
+          "p95_abs_diff": 0.03125,
+          "present_in_candidate": true,
+          "present_in_reference": true,
+          "reference_shape": [
+            1,
+            1,
+            1
+          ],
+          "shape_match": true
+        },
+        "pred_masks": {
+          "candidate_shape": [
+            1,
+            1,
+            256,
+            256
+          ],
+          "max_abs_diff": 8.09375,
+          "mean_abs_diff": 5.0433125495910645,
+          "p95_abs_diff": 6.8125,
+          "present_in_candidate": true,
+          "present_in_reference": true,
+          "reference_shape": [
+            1,
+            1,
+            256,
+            256
+          ],
+          "shape_match": true
+        }
+      },
+      "geometry": {
+        "bbox_area_ratio": 2.118337850045167,
+        "bbox_center_distance_px": 22.47220505424423,
+        "boundary_flip_count": 784,
+        "candidate_area": 2876,
+        "candidate_bbox": [
+          101,
+          65,
+          168,
+          170
+        ],
+        "intersection_area": 2152,
+        "reference_area": 2212,
+        "reference_bbox": [
+          95,
+          89,
+          136,
+          170
+        ],
+        "threshold_flip_count": 784,
+        "union_area": 2936
+      },
+      "image_indices": [
+        0,
+        1,
+        2
+      ],
+      "iou_vs_hf_public": 0.7329700272479565,
+      "raw_iou_vs_hf_public": 0.7329700272479565,
+      "reference_bucket": "non_cond_frame_outputs",
+      "replacement_applied": false,
+      "replacement_reason": "runtime does not yet expose an in-frame component replacement hook for this level",
+      "replacement_supported": false,
+      "session_indices": [
+        0,
+        1,
+        2
+      ],
+      "status": "ok",
+      "summary_diffs": {
+        "maskmem_features_max_abs_diff": 5.4375,
+        "maskmem_features_p95_abs_diff": 1.076171875,
+        "maskmem_pos_enc_max_abs_diff": 0.0,
+        "maskmem_pos_enc_p95_abs_diff": 0.0,
+        "object_pointer_max_abs_diff": 1.79296875,
+        "object_pointer_p95_abs_diff": 0.85595703125,
+        "object_score_logits_max_abs_diff": 0.03125,
+        "object_score_logits_p95_abs_diff": 0.03125,
+        "pred_masks_max_abs_diff": 8.09375,
+        "pred_masks_p95_abs_diff": 6.8125
+      },
+      "target_output_index": 1,
+      "variant": "normal_batch"
+    }
+  ]
+}

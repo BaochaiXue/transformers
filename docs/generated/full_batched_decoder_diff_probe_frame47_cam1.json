@@ -1,0 +1,70 @@
+{
+  "backend": "hf_batched_multisession",
+  "bbox_area_ratio": 2.118337850045167,
+  "bbox_center_distance": 22.47220505424423,
+  "camera": "cam1",
+  "candidate_area": 2876,
+  "dtype": "bfloat16",
+  "effective_dtype": "bfloat16",
+  "first_divergent_tensor": {
+    "field": "pred_masks",
+    "max_abs_diff": 8.09375,
+    "mean_abs_diff": 5.0433125495910645,
+    "p95_abs_diff": 6.8125,
+    "shape_match": true
+  },
+  "frame_idx": 47,
+  "logit_diff_causes_threshold_flip_count": 784,
+  "mask_boundary_flip_count": 784,
+  "note": "This probe compares stored HF session outputs. Internal decoder tensors need a deeper runtime debug hook before they can be compared directly.",
+  "precision_mode": "all_bf16",
+  "raw_iou_vs_hf_public": 0.7329700272479565,
+  "reference_area": 2212,
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+  "tensor_diffs": [
+    {
+      "field": "pred_masks",
+      "max_abs_diff": 8.09375,
+      "mean_abs_diff": 5.0433125495910645,
+      "p95_abs_diff": 6.8125,
+      "shape_match": true
+    },
+    {
+      "field": "object_pointer",
+      "max_abs_diff": 1.79296875,
+      "mean_abs_diff": 0.3509357273578644,
+      "p95_abs_diff": 0.85595703125,
+      "shape_match": true
+    },
+    {
+      "field": "object_score_logits",
+      "max_abs_diff": 0.03125,
+      "mean_abs_diff": 0.03125,
+      "p95_abs_diff": 0.03125,
+      "shape_match": true
+    },
+    {
+      "field": "maskmem_features",
+      "max_abs_diff": 5.4375,
+      "mean_abs_diff": 0.274955153465271,
+      "p95_abs_diff": 1.076171875,
+      "shape_match": true
+    },
+    {
+      "field": "maskmem_pos_enc",
+      "max_abs_diff": 0.0,
+      "mean_abs_diff": 0.0,
+      "p95_abs_diff": 0.0,
+      "shape_match": true
+    }
+  ],
+  "unsupported_internal_tensors": [
+    "image_embed",
+    "high_res_features",
+    "prompt embeddings",
+    "memory_attention output",
+    "decoder input tokens",
+    "decoder low_res_logits",
+    "decoder high_res_logits"
+  ]
+}

@@ -11,7 +11,7 @@ Original weights + custom batch=3 multi-session runtime.
 | github_repo | https://github.com/BaochaiXue/transformers/tree/feat/edgetam-batched-multisession-runtime |
 | fork_path | /home/zhangxinjie/EdgeTAM-HF-batched |
 | branch | feat/edgetam-batched-multisession-runtime |
-| commit | 90bb25a043b31fc9867f65ccfe9e0c4a871626f4 |
+| commit | 97fba4dabd9a7b9d8730f6a157dd53e3179cba9c |
 | modeling_edgetam_video_touched | False |
 
 ## Correctness
@@ -19,63 +19,31 @@ Original weights + custom batch=3 multi-session runtime.
 | backend | compile | pass | mask_pass | partial | fallback | contract_pass | path |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | hf_batched_multisession | none | False | False | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_none.json |
+| hf_batched_multisession | none | True | True | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_all_fp32_none.json |
 | hf_batched_multisession | none | True | True | False |  | True | docs/generated/different_types_sam31ref_full_batched_single_stuffed_animal_ignore_ref_empty.json |
-| hf_ref_seq_public | none | True | True | False |  | False | docs/generated/different_types_sam31ref_original_hf_seq_single_stuffed_animal_ignore_ref_empty.json |
 
 ## Profiles
 
 | backend | compile | p50 | p90 | partial | path |
 | --- | --- | --- | --- | --- | --- |
-| hf_batch_vision_seq_session | max-autotune-no-cudagraphs | 59.9900099914521 | 66.65191479842179 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json |
-| hf_batch_vision_seq_session | none | 63.74551501357928 | 66.34561588289216 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_none.json |
-| hf_batch_vision_seq_session | reduce-overhead | 58.43767599435523 | 65.8067935204599 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_reduce_overhead.json |
 | hf_batched_multisession | none | 63.66823450662196 | 65.51955243339762 | True | docs/generated/edgetam_batched_profile_hf_batched_multisession_none.json |
+| hf_batch_vision_seq_session | reduce-overhead | 58.43767599435523 | 65.8067935204599 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_reduce_overhead.json |
 
 ## SAM3.1 replay reference correctness
 
-- reference_source: `sam31-replay`
-- sam31_mask_root: `/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_stuffed_animal/sam31_video_reference_masks`
-- backend: `hf_batch_vision_seq_session`
-
-| compile_mode | correctness_pass | global_iou_avg | global_iou_min | global_iou_p50 | empty_mismatch |
-| --- | --- | --- | --- | --- | --- |
-| max-autotune-no-cudagraphs | True | 0.98122 | 0.93887 | 0.99073 | 0 |
-| none | True | 0.98137 | 0.94032 | 0.99073 | 0 |
-| reduce-overhead | True | 0.98138 | 0.93835 | 0.99073 | 0 |
+No SAM3.1 replay IoU summary provided.
 
 ## Non-empty object quality: stuffed animal only
 
-| compile_mode | cam0 stuffed animal IoU | cam1 stuffed animal IoU | cam2 stuffed animal IoU |
-| --- | --- | --- | --- |
-| max-autotune-no-cudagraphs | 0.97582 | 0.96297 | 0.94242 |
-| none | 0.97578 | 0.96238 | 0.94318 |
-| reduce-overhead | 0.97472 | 0.96269 | 0.94373 |
+No stuffed animal IoU rows available.
 
 ## Controller/towel caveat
 
-SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras.
-Therefore obj0 IoU=1.0 is empty-vs-empty and does not validate controller tracking.
-The current replay validates stuffed animal quality, not successful towel tracking.
-A new replay with non-empty towel masks is required before claiming controller-object correctness.
+Controller/towel reference is not empty in all cameras for the provided summary.
 
 ## Different-types sloth_set_2 result
 
-- replay: `/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal`
-
-| field | value |
-| --- | --- |
-| single_object_stuffed_animal_validated | True |
-| controller_hand_validated | False |
-| controller_hand_reason | low IoU outliers on cam0/cam2 |
-| backend | hf_batch_vision_seq_session |
-| compile | reduce-overhead |
-| stage_wall_p50_ms | 31.30548 |
-| stage_wall_p90_ms | 32.98849 |
-| stage_wall_p95_ms | 33.75403 |
-| complete_group_fps_from_p50 | 31.94329 |
-| p50_30fps_gate | True |
-| p90_30fps_gate | True |
-| p95_30fps_gate | False |
+No different-types summary provided.
 
 ## Empty SAM3.1 reference policy
 
@@ -163,29 +131,82 @@ Compiled batch vision is compared against original HF public only on SAM3.1 refe
 | first_mismatch |  |
 | path | docs/generated/full_batched_memory_slot_audit.json |
 
+## Current-frame divergence probes
+
+### Current-frame isolation
+
+| frame | camera | replace | precision | raw_iou | inferred_issue | path |
+| --- | --- | --- | --- | --- | --- | --- |
+| 47 | cam1 | none | all_bf16 | 0.73297 | batch3_dimension_handling_or_diagonal_slicing_suspect | docs/generated/full_batched_current_frame_isolation_frame47_cam1.json |
+| 47 | cam1 | decoder_inputs_with_reference | all_bf16 | 0.73297 | replacement_level_requires_runtime_debug_hook | docs/generated/current_frame47_cam1_replace_decoder_inputs_with_reference.json |
+| 47 | cam1 | mask_decoder_output_with_reference | all_bf16 | 0.73297 | posthoc_replacement_reaches_reference_mask; rerun-level hook still needed | docs/generated/current_frame47_cam1_replace_mask_decoder_output_with_reference.json |
+| 47 | cam1 | memory_encoder_output_with_reference | all_bf16 | 0.73297 | replacement_level_requires_runtime_debug_hook | docs/generated/current_frame47_cam1_replace_memory_encoder_output_with_reference.json |
+| 47 | cam1 | object_pointer_with_reference | all_bf16 | 0.73297 | replacement_level_requires_runtime_debug_hook | docs/generated/current_frame47_cam1_replace_object_pointer_with_reference.json |
+| 47 | cam1 | postprocess_output_with_reference | all_bf16 | 0.73297 | posthoc_replacement_reaches_reference_mask; rerun-level hook still needed | docs/generated/current_frame47_cam1_replace_postprocess_output_with_reference.json |
+
+### Decoder diff probe
+
+| field | value |
+| --- | --- |
+| raw_iou | 0.73297 |
+| first_divergent_tensor | {'field': 'pred_masks', 'max_abs_diff': 8.09375, 'mean_abs_diff': 5.0433125495910645, 'p95_abs_diff': 6.8125, 'shape_match': True} |
+| threshold_flip_count | 784 |
+| reference_area | 2212 |
+| candidate_area | 2876 |
+| bbox_center_distance | 22.47221 |
+
+### Precision ladder
+
+| mode | implemented | dtype | raw_iou | conclusion | reason |
+| --- | --- | --- | --- | --- | --- |
+| all_bf16 | True | bfloat16 | 0.73297 | current-frame divergence remains under this precision |  |
+| all_fp32 | True | float32 | 0.99908 | current-frame pass under this precision |  |
+| memory_path_fp32 | False | bfloat16 |  | not implemented; add selective dtype hooks before using this mode as evidence | selective component fp32 requires runtime-level dtype hooks; current probe records this as a pending patch |
+
+### Batch order ablation
+
+| field | value |
+| --- | --- |
+| order_dependent | False |
+| diagonal_slicing_bug | False |
+| path | docs/generated/full_batched_batch_order_ablation.json |
+
+### Storage alias audit
+
+| field | value |
+| --- | --- |
+| alias_found | False |
+| alias_record_count | 0 |
+| path | docs/generated/full_batched_storage_alias_audit.json |
+
 ## Decision
 
 | field | value |
 | --- | --- |
-| hf_batch_vision_seq_session_usable | True |
-| single_object_stuffed_animal_validated | True |
-| single_object_30fps_p50_gate | True |
-| single_object_30fps_p90_gate | True |
-| single_object_30fps_p95_gate | borderline/fail |
+| hf_batch_vision_seq_session_usable | False |
+| single_object_stuffed_animal_validated | False |
+| single_object_30fps_p50_gate | False |
+| single_object_30fps_p90_gate | False |
+| single_object_30fps_p95_gate |  |
 | hf_batched_multisession_usable | False |
-| hf_batched_multisession_failure_stage | correctness |
-| hf_batched_multisession_reason | first bad frame 43 cam1 IoU=0.59205, component=mask_decoder_or_accumulated_state; mask correctness gate failed: gate=strict, evaluated=279/1, empty_mismatch=0/0, global_iou_avg=0.97983960550254/0.98, global_iou_p50=0.9899300221880867/0.98 |
-| hf_batched_multisession_blockers | first bad frame 43 cam1 IoU=0.59205, component=mask_decoder_or_accumulated_state; mask correctness gate failed: gate=strict, evaluated=279/1, empty_mismatch=0/0, global_iou_avg=0.97983960550254/0.98, global_iou_p50=0.9899300221880867/0.98 |
+| hf_batched_multisession_failure_stage | precision |
+| hf_batched_multisession_reason | first bad frame 43 cam1 IoU=0.59205, component=mask_decoder_or_accumulated_state; bf16 closed-loop strict fails, while diagnostic all-fp32 eager strict passes; next patch must implement selective mixed memory/decoder path and compiled correctness |
+| hf_batched_multisession_blockers | first bad frame 43 cam1 IoU=0.59205, component=mask_decoder_or_accumulated_state; bf16 closed-loop strict fails, while diagnostic all-fp32 eager strict passes; next patch must implement selective mixed memory/decoder path and compiled correctness |
+| full_batched_bf16_strict_pass | False |
+| full_batched_all_fp32_strict_pass | True |
 | full_batched_vs_sam31_not_worse | True |
 | full_batched_vs_sam31_delta | -1.81535062957483e-05 |
 | recurrent_memory_slot_order_pass | True |
+| current_frame_inferred_issue | batch3_dimension_handling_or_diagonal_slicing_suspect |
+| batch_order_dependent | False |
+| storage_alias_found | False |
 | recurrent_drift_first_tensor | {'camera': 'cam0', 'field': 'maskmem_features', 'frame_idx': 0, 'p95_abs_diff': 0.015625, 'threshold': 0.001} |
 | faster_than_77_92_ms_baseline | True |
 | recommended_backend | hf_batch_vision_seq_session |
 | recommended_compile_mode | reduce-overhead |
 | fallback_backend | hf_batch_vision_seq_session |
 | controller_hand_validated | False |
-| controller_hand_status | low IoU outliers on cam0/cam2 |
+| controller_hand_status |  |
 | controller_towel_validated | False |
 | speed_first_usable | True |
 | strict_validated_objects | ['stuffed animal'] |

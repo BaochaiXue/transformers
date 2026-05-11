@@ -38,6 +38,11 @@ def main() -> int:
     parser.add_argument("--state-commit-json", nargs="*", default=[])
     parser.add_argument("--memory-slot-audit-json", default=None)
     parser.add_argument("--component-equivalence-json", nargs="*", default=[])
+    parser.add_argument("--current-frame-json", nargs="*", default=[])
+    parser.add_argument("--decoder-diff-json", default=None)
+    parser.add_argument("--precision-json", nargs="*", default=[])
+    parser.add_argument("--batch-order-json", default=None)
+    parser.add_argument("--storage-alias-json", default=None)
     parser.add_argument("--output-md", required=True)
     parser.add_argument("--output-json", required=True)
     args = parser.parse_args()
@@ -53,6 +58,11 @@ def main() -> int:
     state_commit = [compact_diagnostic_payload(item) for item in load_jsons(args.state_commit_json)]
     memory_slot_audit = compact_diagnostic_payload(load_optional_json(args.memory_slot_audit_json))
     component_equivalence = [compact_diagnostic_payload(item) for item in load_jsons(args.component_equivalence_json)]
+    current_frame = [compact_diagnostic_payload(item) for item in load_jsons(args.current_frame_json)]
+    decoder_diff = compact_diagnostic_payload(load_optional_json(args.decoder_diff_json))
+    precision = [compact_diagnostic_payload(item) for item in load_jsons(args.precision_json)]
+    batch_order = compact_diagnostic_payload(load_optional_json(args.batch_order_json))
+    storage_alias = compact_diagnostic_payload(load_optional_json(args.storage_alias_json))
     repo = {
         "branch": _git("branch", "--show-current"),
         "commit": _git("rev-parse", "HEAD"),
@@ -66,7 +76,15 @@ def main() -> int:
         full_contract = full or {}
     full_usable = is_strict_full_closed_loop_pass(full, full_contract)
     full_failure_stage = full_failure_stage_for(full, full_contract)
+    full_bf16_pass = full_strict_pass_for_dtype(full_candidates, {"bfloat16", "bf16", "torch.bfloat16"})
+    full_fp32_pass = full_strict_pass_for_dtype(full_candidates, {"float32", "fp32", "torch.float32"})
     full_blocker = full_blocker_for(full, full_contract, first_bad_frame)
+    if full_fp32_pass and not full_bf16_pass:
+        full_failure_stage = "precision"
+        full_blocker = (
+            f"{full_blocker}; bf16 closed-loop strict fails, while diagnostic all-fp32 eager strict passes; "
+            "next patch must implement selective mixed memory/decoder path and compiled correctness"
+        )
     payload = {
         "goal": "original weights + custom batch=3 multi-session runtime",
         "source": {
@@ -86,6 +104,11 @@ def main() -> int:
         "state_commit": state_commit,
         "memory_slot_audit": memory_slot_audit,
         "component_equivalence": component_equivalence,
+        "current_frame": current_frame,
+        "decoder_diff": decoder_diff,
+        "precision": precision,
+        "batch_order": batch_order,
+        "storage_alias": storage_alias,
         "best_profile": best_profile,
         "decision": {
             "hf_batch_vision_seq_session_usable": bool(sam31_best),
@@ -117,6 +140,8 @@ def main() -> int:
             "hf_batched_multisession_failure_stage": None if full_usable else full_failure_stage,
             "hf_batched_multisession_reason": "contract pass + correctness pass" if full_usable else full_blocker,
             "hf_batched_multisession_blockers": full_blocker,
+            "full_batched_bf16_strict_pass": full_bf16_pass,
+            "full_batched_all_fp32_strict_pass": full_fp32_pass,
             "full_batched_vs_sam31_not_worse": (
                 (candidate_delta or {})
                 .get("per_object", {})
@@ -132,6 +157,9 @@ def main() -> int:
             "recurrent_memory_slot_order_pass": (
                 None if memory_slot_audit is None else bool(memory_slot_audit.get("pass"))
             ),
+            "current_frame_inferred_issue": first_current_frame_issue(current_frame),
+            "batch_order_dependent": None if batch_order is None else bool(batch_order.get("order_dependent")),
+            "storage_alias_found": None if storage_alias is None else bool(storage_alias.get("alias_found")),
             "recurrent_drift_first_tensor": (
                 ((state_drift or {}).get("summary") or {}).get("first_tensor_drift")
             ),
@@ -286,7 +314,25 @@ def is_strict_full_closed_loop_pass(full: dict[str, Any] | None, contract: dict[
         and full.get("reference_source") in {"hf-public", "hf-public-seq"}
         and contract.get("contract_pass") is True
         and metrics.get("strict_correctness_pass") is True
+        and full.get("dtype") not in {"float32", "fp32", "torch.float32"}
+        and full.get("compile_mode") in {"max-autotune-no-cudagraphs", "reduce-overhead"}
     )
+
+
+def full_strict_pass_for_dtype(candidates: list[dict[str, Any]], dtype_names: set[str]) -> bool:
+    normalized = {name.lower() for name in dtype_names}
+    for item in candidates:
+        metrics = item.get("metrics") or {}
+        contract = item.get("backend_contract") or metrics.get("backend_contract") or {}
+        if (
+            item.get("backend") == "hf_batched_multisession"
+            and item.get("reference_source") in {"hf-public", "hf-public-seq"}
+            and contract.get("contract_pass") is True
+            and metrics.get("strict_correctness_pass") is True
+            and str(item.get("dtype") or "").lower() in normalized
+        ):
+            return True
+    return False
 
 
 def render(payload: dict[str, Any]) -> str:
@@ -435,6 +481,10 @@ def render(payload: dict[str, Any]) -> str:
             "",
             *render_recurrent_drift_section(payload),
             "",
+            "## Current-frame divergence probes",
+            "",
+            *render_current_frame_probe_section(payload),
+            "",
             "## Decision",
             "",
             markdown_table(["field", "value"], payload["decision"].items()),
@@ -452,6 +502,10 @@ def full_failure_stage_for(full: dict[str, Any] | None, contract: dict[str, Any]
         return "closed_loop_reference_missing"
     if metrics.get("strict_correctness_pass") is not True:
         return "correctness"
+    if full.get("dtype") in {"float32", "fp32", "torch.float32"}:
+        return "precision"
+    if full.get("compile_mode") == "none":
+        return "compile"
     return full.get("failure_stage") or "unknown"
 
 
@@ -478,6 +532,10 @@ def full_blocker_for(
         )
     if blockers:
         return "; ".join(str(item) for item in blockers)
+    if metrics.get("strict_correctness_pass") is True and full.get("dtype") in {"float32", "fp32", "torch.float32"}:
+        return "strict closed-loop pass only in diagnostic all-fp32; bf16/mixed compiled runtime still required"
+    if metrics.get("strict_correctness_pass") is True and full.get("compile_mode") == "none":
+        return "strict closed-loop eager pass only; compiled reduce-overhead correctness still required"
     if metrics.get("correctness_pass") is not True:
         global_iou = metrics.get("global_mask_iou") or metrics.get("global_iou_on_evaluated") or {}
         return (
@@ -748,6 +806,124 @@ def render_recurrent_drift_section(payload: dict[str, Any]) -> list[str]:
     if not lines:
         return ["No recurrent drift localization reports provided."]
     return lines
+
+
+def render_current_frame_probe_section(payload: dict[str, Any]) -> list[str]:
+    lines: list[str] = []
+    current_rows = []
+    for item in payload.get("current_frame") or []:
+        normal = item.get("normal_variant") or {}
+        current_rows.append(
+            [
+                item.get("frame_idx"),
+                item.get("camera"),
+                item.get("replace"),
+                item.get("precision_mode"),
+                _round(normal.get("raw_iou_vs_hf_public")),
+                item.get("inferred_issue"),
+                item.get("_path"),
+            ]
+        )
+    if current_rows:
+        lines.extend(
+            [
+                "### Current-frame isolation",
+                "",
+                markdown_table(
+                    ["frame", "camera", "replace", "precision", "raw_iou", "inferred_issue", "path"],
+                    current_rows,
+                ),
+                "",
+            ]
+        )
+
+    decoder = payload.get("decoder_diff")
+    if decoder:
+        lines.extend(
+            [
+                "### Decoder diff probe",
+                "",
+                markdown_table(
+                    ["field", "value"],
+                    [
+                        ["raw_iou", _round(decoder.get("raw_iou_vs_hf_public"))],
+                        ["first_divergent_tensor", decoder.get("first_divergent_tensor")],
+                        ["threshold_flip_count", decoder.get("logit_diff_causes_threshold_flip_count")],
+                        ["reference_area", decoder.get("reference_area")],
+                        ["candidate_area", decoder.get("candidate_area")],
+                        ["bbox_center_distance", _round(decoder.get("bbox_center_distance"))],
+                    ],
+                ),
+                "",
+            ]
+        )
+
+    precision_rows = []
+    for item in payload.get("precision") or []:
+        precision_rows.append(
+            [
+                item.get("precision_mode"),
+                item.get("implemented"),
+                item.get("effective_dtype"),
+                _round(item.get("raw_iou_vs_hf_public")),
+                item.get("conclusion"),
+                item.get("reason"),
+            ]
+        )
+    if precision_rows:
+        lines.extend(
+            [
+                "### Precision ladder",
+                "",
+                markdown_table(["mode", "implemented", "dtype", "raw_iou", "conclusion", "reason"], precision_rows),
+                "",
+            ]
+        )
+
+    batch_order = payload.get("batch_order")
+    if batch_order:
+        lines.extend(
+            [
+                "### Batch order ablation",
+                "",
+                markdown_table(
+                    ["field", "value"],
+                    [
+                        ["order_dependent", batch_order.get("order_dependent")],
+                        ["diagonal_slicing_bug", batch_order.get("diagonal_slicing_bug")],
+                        ["path", batch_order.get("_path")],
+                    ],
+                ),
+                "",
+            ]
+        )
+
+    storage = payload.get("storage_alias")
+    if storage:
+        lines.extend(
+            [
+                "### Storage alias audit",
+                "",
+                markdown_table(
+                    ["field", "value"],
+                    [
+                        ["alias_found", storage.get("alias_found")],
+                        ["alias_record_count", storage.get("alias_record_count")],
+                        ["path", storage.get("_path")],
+                    ],
+                ),
+            ]
+        )
+    if not lines:
+        return ["No current-frame divergence probes provided."]
+    return lines
+
+
+def first_current_frame_issue(items: list[dict[str, Any] | None]) -> str | None:
+    for item in items:
+        if item and item.get("inferred_issue"):
+            return item.get("inferred_issue")
+    return None
 
 
 def first_empty_reference_policy(correctness: list[dict[str, Any]]) -> str | None:

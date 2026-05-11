@@ -614,7 +614,7 @@ def split_hf_vision_features_for_session(image_outputs: Any, batch_idx: int) -> 
 
 
 def _slice_batch(value: Any, batch_idx: int) -> Any:
-    return value[batch_idx : batch_idx + 1].contiguous()
+    return value[batch_idx : batch_idx + 1].clone().contiguous()
 
 
 def _slice_object_pointer_batch(value: Any, batch_idx: int, *, batch_size: int) -> Any:
@@ -633,7 +633,7 @@ def _slice_object_pointer_batch(value: Any, batch_idx: int, *, batch_size: int) 
         and value.shape[1] == batch_size
         and batch_size > 1
     ):
-        return value[batch_idx : batch_idx + 1, batch_idx : batch_idx + 1, :].contiguous()
+        return value[batch_idx : batch_idx + 1, batch_idx : batch_idx + 1, :].clone().contiguous()
     return _slice_batch(value, batch_idx)
 
 

@@ -1,0 +1,9 @@
+{
+  "camera": "cam1",
+  "conclusion": "not implemented; add selective dtype hooks before using this mode as evidence",
+  "effective_dtype": "bfloat16",
+  "frame_idx": 47,
+  "implemented": false,
+  "precision_mode": "memory_path_fp32",
+  "reason": "selective component fp32 requires runtime-level dtype hooks; current probe records this as a pending patch"
+}

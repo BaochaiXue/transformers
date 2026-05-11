@@ -1,0 +1,358 @@
+{
+  "camera": "cam1",
+  "conclusion": "current-frame pass under this precision",
+  "effective_dtype": "float32",
+  "frame_idx": 47,
+  "implemented": true,
+  "isolation": {
+    "backend": "hf_batched_multisession",
+    "camera": "cam1",
+    "compile_mode": "none",
+    "dtype": "bfloat16",
+    "effective_dtype": "float32",
+    "force_reference_state_before_frame": true,
+    "frame_idx": 47,
+    "inferred_issue": "precision_sensitive_current_frame_path",
+    "normal_variant": {
+      "backend_contract": {
+        "backend": "hf_batched_multisession",
+        "batch_mask_decoder": true,
+        "batch_memory_attention": true,
+        "batch_memory_encoder": true,
+        "batch_vision": true,
+        "batched_state_scatter": true,
+        "blockers": [],
+        "contract_pass": true,
+        "missing_requirements": [],
+        "partial_fallback_used": false,
+        "used_public_session_step_in_hot_path": false
+      },
+      "candidate_bucket": "non_cond_frame_outputs",
+      "field_diffs": {
+        "maskmem_features": {
+          "candidate_shape": [
+            1,
+            512,
+            64
+          ],
+          "max_abs_diff": 0.1484586000442505,
+          "mean_abs_diff": 0.0030463109724223614,
+          "p95_abs_diff": 0.010450213216245174,
+          "present_in_candidate": true,
+          "present_in_reference": true,
+          "reference_shape": [
+            1,
+            512,
+            64
+          ],
+          "shape_match": true
+        },
+        "maskmem_pos_enc": {
+          "candidate_shape": [
+            1,
+            512,
+            64
+          ],
+          "max_abs_diff": 0.0,
+          "mean_abs_diff": 0.0,
+          "p95_abs_diff": 0.0,
+          "present_in_candidate": true,
+          "present_in_reference": true,
+          "reference_shape": [
+            1,
+            512,
+            64
+          ],
+          "shape_match": true
+        },
+        "object_pointer": {
+          "candidate_shape": [
+            1,
+            1,
+            256
+          ],
+          "max_abs_diff": 0.004728496074676514,
+          "mean_abs_diff": 0.0009006541222333908,
+          "p95_abs_diff": 0.002194322645664215,
+          "present_in_candidate": true,
+          "present_in_reference": true,
+          "reference_shape": [
+            1,
+            1,
+            256
+          ],
+          "shape_match": true
+        },
+        "object_score_logits": {
+          "candidate_shape": [
+            1,
+            1,
+            1
+          ],
+          "max_abs_diff": 0.0093536376953125,
+          "mean_abs_diff": 0.0093536376953125,
+          "p95_abs_diff": 0.0093536376953125,
+          "present_in_candidate": true,
+          "present_in_reference": true,
+          "reference_shape": [
+            1,
+            1,
+            1
+          ],
+          "shape_match": true
+        },
+        "pred_masks": {
+          "candidate_shape": [
+            1,
+            1,
+            256,
+            256
+          ],
+          "max_abs_diff": 0.0304107666015625,
+          "mean_abs_diff": 0.004281885921955109,
+          "p95_abs_diff": 0.010089993476867676,
+          "present_in_candidate": true,
+          "present_in_reference": true,
+          "reference_shape": [
+            1,
+            1,
+            256,
+            256
+          ],
+          "shape_match": true
+        }
+      },
+      "geometry": {
+        "bbox_area_ratio": 1.0,
+        "bbox_center_distance_px": 0.0,
+        "boundary_flip_count": 2,
+        "candidate_area": 2171,
+        "candidate_bbox": [
+          100,
+          89,
+          136,
+          168
+        ],
+        "intersection_area": 2171,
+        "reference_area": 2173,
+        "reference_bbox": [
+          100,
+          89,
+          136,
+          168
+        ],
+        "threshold_flip_count": 2,
+        "union_area": 2173
+      },
+      "image_indices": [
+        0,
+        1,
+        2
+      ],
+      "iou_vs_hf_public": 0.9990796134376438,
+      "raw_iou_vs_hf_public": 0.9990796134376438,
+      "reference_bucket": "non_cond_frame_outputs",
+      "replacement_applied": false,
+      "replacement_reason": null,
+      "replacement_supported": true,
+      "session_indices": [
+        0,
+        1,
+        2
+      ],
+      "status": "ok",
+      "summary_diffs": {
+        "maskmem_features_max_abs_diff": 0.1484586000442505,
+        "maskmem_features_p95_abs_diff": 0.010450213216245174,
+        "maskmem_pos_enc_max_abs_diff": 0.0,
+        "maskmem_pos_enc_p95_abs_diff": 0.0,
+        "object_pointer_max_abs_diff": 0.004728496074676514,
+        "object_pointer_p95_abs_diff": 0.002194322645664215,
+        "object_score_logits_max_abs_diff": 0.0093536376953125,
+        "object_score_logits_p95_abs_diff": 0.0093536376953125,
+        "pred_masks_max_abs_diff": 0.0304107666015625,
+        "pred_masks_p95_abs_diff": 0.010089993476867676
+      },
+      "target_output_index": 1,
+      "variant": "normal_batch"
+    },
+    "object_count": 1,
+    "object_prompt": "stuffed animal",
+    "precision_mode": "all_fp32",
+    "replace": "none",
+    "replacement": {
+      "posthoc": false,
+      "reason": null,
+      "supported": true
+    },
+    "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+    "variants": [
+      {
+        "backend_contract": {
+          "backend": "hf_batched_multisession",
+          "batch_mask_decoder": true,
+          "batch_memory_attention": true,
+          "batch_memory_encoder": true,
+          "batch_vision": true,
+          "batched_state_scatter": true,
+          "blockers": [],
+          "contract_pass": true,
+          "missing_requirements": [],
+          "partial_fallback_used": false,
+          "used_public_session_step_in_hot_path": false
+        },
+        "candidate_bucket": "non_cond_frame_outputs",
+        "field_diffs": {
+          "maskmem_features": {
+            "candidate_shape": [
+              1,
+              512,
+              64
+            ],
+            "max_abs_diff": 0.1484586000442505,
+            "mean_abs_diff": 0.0030463109724223614,
+            "p95_abs_diff": 0.010450213216245174,
+            "present_in_candidate": true,
+            "present_in_reference": true,
+            "reference_shape": [
+              1,
+              512,
+              64
+            ],
+            "shape_match": true
+          },
+          "maskmem_pos_enc": {
+            "candidate_shape": [
+              1,
+              512,
+              64
+            ],
+            "max_abs_diff": 0.0,
+            "mean_abs_diff": 0.0,
+            "p95_abs_diff": 0.0,
+            "present_in_candidate": true,
+            "present_in_reference": true,
+            "reference_shape": [
+              1,
+              512,
+              64
+            ],
+            "shape_match": true
+          },
+          "object_pointer": {
+            "candidate_shape": [
+              1,
+              1,
+              256
+            ],
+            "max_abs_diff": 0.004728496074676514,
+            "mean_abs_diff": 0.0009006541222333908,
+            "p95_abs_diff": 0.002194322645664215,
+            "present_in_candidate": true,
+            "present_in_reference": true,
+            "reference_shape": [
+              1,
+              1,
+              256
+            ],
+            "shape_match": true
+          },
+          "object_score_logits": {
+            "candidate_shape": [
+              1,
+              1,
+              1
+            ],
+            "max_abs_diff": 0.0093536376953125,
+            "mean_abs_diff": 0.0093536376953125,
+            "p95_abs_diff": 0.0093536376953125,
+            "present_in_candidate": true,
+            "present_in_reference": true,
+            "reference_shape": [
+              1,
+              1,
+              1
+            ],
+            "shape_match": true
+          },
+          "pred_masks": {
+            "candidate_shape": [
+              1,
+              1,
+              256,
+              256
+            ],
+            "max_abs_diff": 0.0304107666015625,
+            "mean_abs_diff": 0.004281885921955109,
+            "p95_abs_diff": 0.010089993476867676,
+            "present_in_candidate": true,
+            "present_in_reference": true,
+            "reference_shape": [
+              1,
+              1,
+              256,
+              256
+            ],
+            "shape_match": true
+          }
+        },
+        "geometry": {
+          "bbox_area_ratio": 1.0,
+          "bbox_center_distance_px": 0.0,
+          "boundary_flip_count": 2,
+          "candidate_area": 2171,
+          "candidate_bbox": [
+            100,
+            89,
+            136,
+            168
+          ],
+          "intersection_area": 2171,
+          "reference_area": 2173,
+          "reference_bbox": [
+            100,
+            89,
+            136,
+            168
+          ],
+          "threshold_flip_count": 2,
+          "union_area": 2173
+        },
+        "image_indices": [
+          0,
+          1,
+          2
+        ],
+        "iou_vs_hf_public": 0.9990796134376438,
+        "raw_iou_vs_hf_public": 0.9990796134376438,
+        "reference_bucket": "non_cond_frame_outputs",
+        "replacement_applied": false,
+        "replacement_reason": null,
+        "replacement_supported": true,
+        "session_indices": [
+          0,
+          1,
+          2
+        ],
+        "status": "ok",
+        "summary_diffs": {
+          "maskmem_features_max_abs_diff": 0.1484586000442505,
+          "maskmem_features_p95_abs_diff": 0.010450213216245174,
+          "maskmem_pos_enc_max_abs_diff": 0.0,
+          "maskmem_pos_enc_p95_abs_diff": 0.0,
+          "object_pointer_max_abs_diff": 0.004728496074676514,
+          "object_pointer_p95_abs_diff": 0.002194322645664215,
+          "object_score_logits_max_abs_diff": 0.0093536376953125,
+          "object_score_logits_p95_abs_diff": 0.0093536376953125,
+          "pred_masks_max_abs_diff": 0.0304107666015625,
+          "pred_masks_p95_abs_diff": 0.010089993476867676
+        },
+        "target_output_index": 1,
+        "variant": "normal_batch"
+      }
+    ]
+  },
+  "precision_mode": "all_fp32",
+  "raw_iou_vs_hf_public": 0.9990796134376438,
+  "reason": null
+}

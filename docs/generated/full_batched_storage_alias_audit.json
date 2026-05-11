@@ -1,0 +1,22 @@
+{
+  "alias_found": false,
+  "alias_record_count": 0,
+  "alias_records": [],
+  "backend": "hf_batched_multisession",
+  "backend_contract": {
+    "backend": "hf_batched_multisession",
+    "batch_mask_decoder": true,
+    "batch_memory_attention": true,
+    "batch_memory_encoder": true,
+    "batch_vision": true,
+    "batched_state_scatter": true,
+    "blockers": [],
+    "contract_pass": true,
+    "missing_requirements": [],
+    "partial_fallback_used": false,
+    "used_public_session_step_in_hot_path": false
+  },
+  "dtype": "bfloat16",
+  "frames": 60,
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal"
+}
