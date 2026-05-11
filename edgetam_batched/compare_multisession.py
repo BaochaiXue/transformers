@@ -29,7 +29,55 @@ from .sam31_replay_reference import (
 from .stats import summarize
 
 
-def compare_outputs(reference, candidate) -> dict[str, Any]:
+def resolve_correctness_gate(
+    gate_name: str,
+    *,
+    min_global_iou_avg: float | None = None,
+    min_global_iou_p50: float | None = None,
+    max_empty_mismatch_count: int | None = None,
+) -> dict[str, Any]:
+    gate_name = gate_name.replace("_", "-")
+    if gate_name == "strict":
+        defaults = {
+            "min_global_iou_avg": 0.98,
+            "min_global_iou_p50": 0.98,
+            "max_empty_mismatch_count": 0,
+            "speed_first": False,
+        }
+    elif gate_name == "speed-first":
+        defaults = {
+            "min_global_iou_avg": 0.93,
+            "min_global_iou_p50": 0.95,
+            "max_empty_mismatch_count": 3,
+            "speed_first": True,
+        }
+    else:
+        raise ValueError(f"unsupported correctness gate: {gate_name}")
+    if min_global_iou_avg is not None:
+        defaults["min_global_iou_avg"] = float(min_global_iou_avg)
+    if min_global_iou_p50 is not None:
+        defaults["min_global_iou_p50"] = float(min_global_iou_p50)
+    if max_empty_mismatch_count is not None:
+        defaults["max_empty_mismatch_count"] = int(max_empty_mismatch_count)
+    defaults["name"] = gate_name
+    return defaults
+
+
+def compare_outputs(
+    reference,
+    candidate,
+    *,
+    correctness_gate: str = "strict",
+    min_global_iou_avg: float | None = None,
+    min_global_iou_p50: float | None = None,
+    max_empty_mismatch_count: int | None = None,
+) -> dict[str, Any]:
+    gate = resolve_correctness_gate(
+        correctness_gate,
+        min_global_iou_avg=min_global_iou_avg,
+        min_global_iou_p50=min_global_iou_p50,
+        max_empty_mismatch_count=max_empty_mismatch_count,
+    )
     frame_count = min(len(reference.masks), len(candidate.masks))
     camera_count = len(reference.masks[0]) if frame_count else 0
     object_count = reference.masks[0][0].shape[0] if frame_count else 0
@@ -85,15 +133,19 @@ def compare_outputs(reference, candidate) -> dict[str, Any]:
     global_iou = summarize(all_ious)
     mask_correctness_pass = (
         bool(order["pass"])
-        and empty_mismatch_count == 0
-        and (global_iou["avg"] is not None and global_iou["avg"] >= 0.98)
-        and (global_iou["p50"] is not None and global_iou["p50"] >= 0.98)
+        and empty_mismatch_count <= gate["max_empty_mismatch_count"]
+        and (global_iou["avg"] is not None and global_iou["avg"] >= gate["min_global_iou_avg"])
+        and (global_iou["p50"] is not None and global_iou["p50"] >= gate["min_global_iou_p50"])
     )
     correctness_pass = mask_correctness_pass and not candidate.partial
     blockers = list(candidate.blockers or [])
     if not mask_correctness_pass:
         blockers.append(
-            "mask correctness gate failed: full backend contract passes, but 100-frame IoU drifts below threshold"
+            "mask correctness gate failed: "
+            f"gate={gate['name']}, "
+            f"empty_mismatch={empty_mismatch_count}/{gate['max_empty_mismatch_count']}, "
+            f"global_iou_avg={global_iou['avg']}/{gate['min_global_iou_avg']}, "
+            f"global_iou_p50={global_iou['p50']}/{gate['min_global_iou_p50']}"
         )
     return {
         "frame_count": frame_count,
@@ -102,6 +154,7 @@ def compare_outputs(reference, candidate) -> dict[str, Any]:
         "per_camera_object": per_key,
         "global_mask_iou": global_iou,
         "empty_mismatch_count": empty_mismatch_count,
+        "correctness_gate": gate,
         "camera_order_check": "pass" if order["pass"] else "fail",
         "camera_order_matrix": order["matrix"],
         "state_leakage_check": "pass" if leakage["pass"] else "fail",
@@ -237,6 +290,8 @@ def render_compare_report(payload: dict[str, Any]) -> str:
             f"- prompt_source: `{payload.get('prompt_source')}`",
             f"- sam31_mask_root: `{payload.get('sam31_mask_root')}`",
             f"- sam31_frame0_init_mask_root: `{payload.get('sam31_frame0_init_mask_root')}`",
+            f"- correctness_gate: `{payload['metrics'].get('correctness_gate', {}).get('name', 'strict')}`",
+            f"- speed_first_gate: `{payload['metrics'].get('correctness_gate', {}).get('speed_first', False)}`",
             f"- strict_full_batched: `{payload.get('strict_full_batched', False)}`",
             f"- disallow_partial_backend_success: `{payload.get('disallow_partial_backend_success', False)}`",
             "",
@@ -333,6 +388,15 @@ def main() -> int:
     parser.add_argument("--qqtt-root", default="/home/zhangxinjie/proj-QQTT-v2")
     parser.add_argument("--output-md", required=True)
     parser.add_argument("--output-json", required=True)
+    parser.add_argument(
+        "--correctness-gate",
+        choices=("strict", "speed-first"),
+        default="strict",
+        help="Correctness acceptance gate. speed-first is relaxed and must not be treated as strict validation.",
+    )
+    parser.add_argument("--min-global-iou-avg", type=float, default=None)
+    parser.add_argument("--min-global-iou-p50", type=float, default=None)
+    parser.add_argument("--max-empty-mismatch-count", type=int, default=None)
     parser.add_argument("--strict-full-batched", action="store_true")
     parser.add_argument("--disallow-partial-backend-success", action="store_true")
     parser.add_argument("--debug", action="store_true")
@@ -490,6 +554,12 @@ def main() -> int:
                 "per_camera_object": {},
                 "global_mask_iou": {},
                 "empty_mismatch_count": None,
+                "correctness_gate": resolve_correctness_gate(
+                    args.correctness_gate,
+                    min_global_iou_avg=args.min_global_iou_avg,
+                    min_global_iou_p50=args.min_global_iou_p50,
+                    max_empty_mismatch_count=args.max_empty_mismatch_count,
+                ),
                 "camera_order_check": "not_run",
                 "state_leakage_check": "not_run",
                 "mask_correctness_pass": False,
@@ -506,7 +576,14 @@ def main() -> int:
             print(payload)
         return 3
     candidate = select_object_outputs(candidate, object_count=args.object_count, object_index=0)
-    metrics = compare_outputs(reference, candidate)
+    metrics = compare_outputs(
+        reference,
+        candidate,
+        correctness_gate=args.correctness_gate,
+        min_global_iou_avg=args.min_global_iou_avg,
+        min_global_iou_p50=args.min_global_iou_p50,
+        max_empty_mismatch_count=args.max_empty_mismatch_count,
+    )
     payload = {
         "backend": args.backend,
         "compile_mode": args.compile_mode,

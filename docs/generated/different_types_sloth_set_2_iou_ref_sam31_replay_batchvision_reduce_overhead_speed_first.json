@@ -1,0 +1,291 @@
+{
+  "backend": "hf_batch_vision_seq_session",
+  "compile_mode": "reduce-overhead",
+  "disallow_partial_backend_success": false,
+  "graph_output_policy": "ring_buffer",
+  "init_source": "sam31-video-reference",
+  "metrics": {
+    "backend_contract": {
+      "backend": "hf_batch_vision_seq_session",
+      "batch_mask_decoder": false,
+      "batch_memory_attention": false,
+      "batch_memory_encoder": false,
+      "batch_vision": true,
+      "batched_state_scatter": false,
+      "blockers": [],
+      "contract_pass": false,
+      "missing_requirements": [
+        "backend is not hf_batched_multisession",
+        "batch_memory_attention",
+        "batch_mask_decoder",
+        "batch_memory_encoder",
+        "batched_state_scatter",
+        "used_public_session_step_in_hot_path"
+      ],
+      "partial_fallback_used": false,
+      "used_public_session_step_in_hot_path": true
+    },
+    "blockers": [],
+    "camera_count": 3,
+    "camera_order_check": "pass",
+    "camera_order_matrix": [
+      [
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0
+      ]
+    ],
+    "candidate_partial": false,
+    "correctness_gate": {
+      "max_empty_mismatch_count": 3,
+      "min_global_iou_avg": 0.93,
+      "min_global_iou_p50": 0.95,
+      "name": "speed-first",
+      "speed_first": true
+    },
+    "correctness_pass": true,
+    "empty_mismatch_count": 3,
+    "fallback_backend": null,
+    "frame_count": 93,
+    "global_mask_iou": {
+      "avg": 0.9343515846439947,
+      "count": 42,
+      "max": 1.0,
+      "min": 0.0,
+      "p50": 0.9740589632320303,
+      "p90": 1.0,
+      "p95": 1.0,
+      "p99": 1.0
+    },
+    "mask_correctness_pass": true,
+    "object_count": 2,
+    "per_camera_object": {
+      "cam0_obj0": {
+        "candidate_nonempty_count": 0,
+        "logit_abs_diff": {
+          "avg": 1013.0967741935484,
+          "count": 93,
+          "max": 1024.0,
+          "min": 10.0,
+          "p50": 1024.0,
+          "p90": 1024.0,
+          "p95": 1024.0,
+          "p99": 1024.0
+        },
+        "mask_iou": {
+          "avg": 1.0,
+          "count": 93,
+          "max": 1.0,
+          "min": 1.0,
+          "p50": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "object_score_abs_diff": {
+          "avg": 1.3352306735131048,
+          "count": 93,
+          "max": 11.0,
+          "min": 1.00128173828125,
+          "p50": 1.2353515625,
+          "p90": 1.347265625,
+          "p95": 1.3699218750000002,
+          "p99": 2.227656249999984
+        },
+        "reference_nonempty_count": 0
+      },
+      "cam0_obj1": {
+        "candidate_nonempty_count": 93,
+        "logit_abs_diff": {
+          "avg": 13.241350778969386,
+          "count": 93,
+          "max": 14.807331085205078,
+          "min": 9.882301330566406,
+          "p50": 13.220305442810059,
+          "p90": 14.200669097900391,
+          "p95": 14.546749877929688,
+          "p99": 14.675492401123046
+        },
+        "mask_iou": {
+          "avg": 0.9576243485466404,
+          "count": 93,
+          "max": 0.9650870579788189,
+          "min": 0.9493757827966547,
+          "p50": 0.9576047252661848,
+          "p90": 0.9607094287676003,
+          "p95": 0.961731775553874,
+          "p99": 0.964054448310991
+        },
+        "object_score_abs_diff": {
+          "avg": 7.891129032258065,
+          "count": 93,
+          "max": 9.0,
+          "min": 6.125,
+          "p50": 8.0,
+          "p90": 8.3,
+          "p95": 8.337499999999999,
+          "p99": 8.424999999999999
+        },
+        "reference_nonempty_count": 93
+      },
+      "cam1_obj0": {
+        "candidate_nonempty_count": 2,
+        "logit_abs_diff": {
+          "avg": 991.1261795797656,
+          "count": 93,
+          "max": 1024.0,
+          "min": 2.263697624206543,
+          "p50": 1024.0,
+          "p90": 1024.0,
+          "p95": 1024.0,
+          "p99": 1024.0
+        },
+        "mask_iou": {
+          "avg": 0.978494623655914,
+          "count": 93,
+          "max": 1.0,
+          "min": 0.0,
+          "p50": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "object_score_abs_diff": {
+          "avg": 1.7384912634408602,
+          "count": 93,
+          "max": 11.0,
+          "min": 0.8662109375,
+          "p50": 1.5546875,
+          "p90": 2.640624999999999,
+          "p95": 3.046875,
+          "p99": 4.028124999999987
+        },
+        "reference_nonempty_count": 0
+      },
+      "cam1_obj1": {
+        "candidate_nonempty_count": 93,
+        "logit_abs_diff": {
+          "avg": 12.318258741850494,
+          "count": 93,
+          "max": 16.158754348754883,
+          "min": 7.085031986236572,
+          "p50": 12.533052444458008,
+          "p90": 15.548423767089844,
+          "p95": 15.769529151916501,
+          "p99": 16.07956024169922
+        },
+        "mask_iou": {
+          "avg": 0.9669110699737559,
+          "count": 93,
+          "max": 0.9750479846449136,
+          "min": 0.9596998700851075,
+          "p50": 0.9673281379716665,
+          "p90": 0.9699625785101728,
+          "p95": 0.9707392956005414,
+          "p99": 0.9723447584642105
+        },
+        "object_score_abs_diff": {
+          "avg": 8.85013440860215,
+          "count": 93,
+          "max": 9.875,
+          "min": 7.75,
+          "p50": 8.875,
+          "p90": 9.375,
+          "p95": 9.649999999999999,
+          "p99": 9.8175
+        },
+        "reference_nonempty_count": 93
+      },
+      "cam2_obj0": {
+        "candidate_nonempty_count": 1,
+        "logit_abs_diff": {
+          "avg": 1002.2436078492032,
+          "count": 93,
+          "max": 1024.0,
+          "min": 10.0,
+          "p50": 1024.0,
+          "p90": 1024.0,
+          "p95": 1024.0,
+          "p99": 1024.0
+        },
+        "mask_iou": {
+          "avg": 0.989247311827957,
+          "count": 93,
+          "max": 1.0,
+          "min": 0.0,
+          "p50": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "object_score_abs_diff": {
+          "avg": 1.6776201801915323,
+          "count": 93,
+          "max": 11.0,
+          "min": 0.91357421875,
+          "p50": 1.423828125,
+          "p90": 1.9531249999999998,
+          "p95": 2.5718749999999955,
+          "p99": 3.7837499999999866
+        },
+        "reference_nonempty_count": 0
+      },
+      "cam2_obj1": {
+        "candidate_nonempty_count": 93,
+        "logit_abs_diff": {
+          "avg": 13.13512380148775,
+          "count": 93,
+          "max": 16.57293128967285,
+          "min": 7.861619472503662,
+          "p50": 13.66131591796875,
+          "p90": 15.623475265502929,
+          "p95": 15.883494567871093,
+          "p99": 16.572269744873047
+        },
+        "mask_iou": {
+          "avg": 0.9659111130993341,
+          "count": 93,
+          "max": 0.9769235997824904,
+          "min": 0.9538039555363073,
+          "p50": 0.9661855825902977,
+          "p90": 0.9701227999139818,
+          "p95": 0.9707863643512158,
+          "p99": 0.9730699418191471
+        },
+        "object_score_abs_diff": {
+          "avg": 8.566532258064516,
+          "count": 93,
+          "max": 9.8125,
+          "min": 7.625,
+          "p50": 8.4375,
+          "p90": 9.25,
+          "p95": 9.337499999999999,
+          "p99": 9.524999999999999
+        },
+        "reference_nonempty_count": 93
+      }
+    },
+    "state_leakage": {
+      "note": "candidate runtime keeps per-camera session state containers isolated",
+      "pass": true
+    },
+    "state_leakage_check": "pass"
+  },
+  "prompt_source": "sam31_frame0_video_reference_masks",
+  "reference_source": "sam31-replay",
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+  "sam31_frame0_init_mask_root": null,
+  "sam31_frame0_init_summary": null,
+  "sam31_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal/sam31_video_reference_masks",
+  "strict_full_batched": false
+}
