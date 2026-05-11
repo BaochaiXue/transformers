@@ -15,6 +15,12 @@ from .leakage_test import compare_cam0_stability
 from .reference_runtime import HfEdgeTamReferenceRuntime, ReferenceRuntimeConfig
 from .report_utils import markdown_table, write_json, write_markdown
 from .rgb_replay import load_replay_frames
+from .sam31_replay_reference import (
+    default_sam31_mask_root,
+    generate_sam31_replay_masks,
+    initial_masks_by_camera_from_sam31,
+    load_sam31_reference_outputs,
+)
 from .stats import summarize
 
 
@@ -36,6 +42,7 @@ def compare_outputs(reference, candidate) -> dict[str, Any]:
             for frame_idx in range(frame_count):
                 ref_mask = reference.masks[frame_idx][cam_idx][obj_idx]
                 cand_mask = candidate.masks[frame_idx][cam_idx][obj_idx]
+                cand_mask = _resize_mask_like(cand_mask, ref_mask)
                 ref_has = bool(np.count_nonzero(ref_mask))
                 cand_has = bool(np.count_nonzero(cand_mask))
                 ref_nonempty += int(ref_has)
@@ -44,6 +51,7 @@ def compare_outputs(reference, candidate) -> dict[str, Any]:
                 ious.append(mask_iou(ref_mask, cand_mask))
                 ref_logit = reference.logits[frame_idx][cam_idx][obj_idx]
                 cand_logit = candidate.logits[frame_idx][cam_idx][obj_idx]
+                cand_logit = _resize_float_like(cand_logit, ref_logit)
                 logit_diffs.append(float(np.mean(np.abs(ref_logit - cand_logit))))
                 ref_score = np.asarray(reference.object_scores[frame_idx][cam_idx]).reshape(-1)
                 cand_score = np.asarray(candidate.object_scores[frame_idx][cam_idx]).reshape(-1)
@@ -58,7 +66,10 @@ def compare_outputs(reference, candidate) -> dict[str, Any]:
             }
 
     first_ref = [reference.masks[0][cam_idx][0] for cam_idx in range(camera_count)] if frame_count else []
-    first_cand = [candidate.masks[0][cam_idx][0] for cam_idx in range(camera_count)] if frame_count else []
+    first_cand = [
+        _resize_mask_like(candidate.masks[0][cam_idx][0], reference.masks[0][cam_idx][0])
+        for cam_idx in range(camera_count)
+    ] if frame_count else []
     order = diagonal_best(iou_matrix(first_cand, first_ref)) if first_ref else {"pass": False, "matrix": []}
     leakage = {"pass": True, "note": "no cross-camera tensor state is shared in implemented batch-vision fallback"}
     all_ious = [
@@ -102,6 +113,43 @@ def _expand_summary_sample(summary_dict: dict[str, Any]) -> list[float]:
     return values
 
 
+def _squeeze_spatial(array: Any) -> np.ndarray:
+    arr = np.asarray(array)
+    while arr.ndim > 2 and 1 in arr.shape[:-2]:
+        arr = np.squeeze(arr, axis=tuple(idx for idx, size in enumerate(arr.shape[:-2]) if size == 1))
+    if arr.ndim > 2:
+        arr = arr.reshape((-1, *arr.shape[-2:]))[0]
+    return arr
+
+
+def _resize_mask_like(mask: Any, reference_mask: Any) -> np.ndarray:
+    ref = _squeeze_spatial(reference_mask).astype(bool)
+    arr = _squeeze_spatial(mask).astype(bool)
+    if arr.shape == ref.shape:
+        return arr
+    from PIL import Image
+
+    resized = Image.fromarray(arr.astype(np.uint8) * 255).resize(
+        (ref.shape[1], ref.shape[0]),
+        Image.Resampling.NEAREST,
+    )
+    return np.asarray(resized) > 0
+
+
+def _resize_float_like(value: Any, reference_value: Any) -> np.ndarray:
+    ref = _squeeze_spatial(reference_value).astype(np.float32)
+    arr = _squeeze_spatial(value).astype(np.float32)
+    if arr.shape == ref.shape:
+        return arr
+    from PIL import Image
+
+    resized = Image.fromarray(arr).resize(
+        (ref.shape[1], ref.shape[0]),
+        Image.Resampling.BILINEAR,
+    )
+    return np.asarray(resized, dtype=np.float32)
+
+
 def render_compare_report(payload: dict[str, Any]) -> str:
     rows = []
     for key, metrics in payload["metrics"]["per_camera_object"].items():
@@ -125,6 +173,9 @@ def render_compare_report(payload: dict[str, Any]) -> str:
             f"- mask_correctness_pass: `{payload['metrics']['mask_correctness_pass']}`",
             f"- candidate_partial: `{payload['metrics']['candidate_partial']}`",
             f"- fallback_backend: `{payload['metrics']['fallback_backend']}`",
+            f"- reference_source: `{payload.get('reference_source', 'hf-public')}`",
+            f"- prompt_source: `{payload.get('prompt_source')}`",
+            f"- sam31_mask_root: `{payload.get('sam31_mask_root')}`",
             "",
             "## Blockers",
             "",
@@ -150,6 +201,17 @@ def main() -> int:
     parser.add_argument("--model-id", default="yonigozlan/EdgeTAM-hf")
     parser.add_argument("--compile-mode", default="none")
     parser.add_argument("--graph-output-policy", default="ring_buffer")
+    parser.add_argument(
+        "--reference-source",
+        choices=("hf-public", "sam31-replay"),
+        default="hf-public",
+        help="Reference masks used for IoU_ref.",
+    )
+    parser.add_argument("--sam31-mask-root", default=None)
+    parser.add_argument("--sam31-checkpoint", default=None)
+    parser.add_argument("--sam31-overwrite", action="store_true")
+    parser.add_argument("--sam31-compile-model", action="store_true")
+    parser.add_argument("--qqtt-root", default="/home/zhangxinjie/proj-QQTT-v2")
     parser.add_argument("--output-md", required=True)
     parser.add_argument("--output-json", required=True)
     parser.add_argument("--debug", action="store_true")
@@ -165,26 +227,54 @@ def main() -> int:
     )
     reference_runtime = HfEdgeTamReferenceRuntime(config)
     reference_runtime.load()
-    reference_runtime.init_sessions(frames[0])
-    ref_masks = []
-    ref_logits = []
-    ref_scores = []
-    ref_timings = []
-    for frame in frames:
-        masks, logits, scores, timings = reference_runtime.step_public(frame)
-        ref_masks.append(masks)
-        ref_logits.append(logits)
-        ref_scores.append(scores)
-        ref_timings.append(timings)
-    reference = type("Outputs", (), {
-        "masks": ref_masks,
-        "logits": ref_logits,
-        "object_scores": ref_scores,
-        "timings_ms": ref_timings,
-    })()
+    sam31_mask_root = None
+    if args.reference_source == "sam31-replay":
+        sam31_mask_root = args.sam31_mask_root or str(default_sam31_mask_root(args.rgb_replay))
+        generate_sam31_replay_masks(
+            rgb_replay=args.rgb_replay,
+            output_dir=sam31_mask_root,
+            qqtt_root=args.qqtt_root,
+            checkpoint_path=args.sam31_checkpoint,
+            object_prompt=args.object_prompt,
+            controller_prompt=args.controller_prompt,
+            overwrite=args.sam31_overwrite,
+            compile_model=args.sam31_compile_model,
+        )
+        reference = load_sam31_reference_outputs(
+            rgb_replay=args.rgb_replay,
+            mask_root=sam31_mask_root,
+            frames=args.frames,
+            object_prompt=args.object_prompt,
+            controller_prompt=args.controller_prompt,
+        )
+        initial_masks_by_camera = initial_masks_by_camera_from_sam31(
+            rgb_replay=args.rgb_replay,
+            mask_root=sam31_mask_root,
+            object_prompt=args.object_prompt,
+            controller_prompt=args.controller_prompt,
+        )
+        reference_runtime.init_sessions(frames[0], initial_masks_by_camera=initial_masks_by_camera)
+    else:
+        reference_runtime.init_sessions(frames[0])
+        ref_masks = []
+        ref_logits = []
+        ref_scores = []
+        ref_timings = []
+        for frame in frames:
+            masks, logits, scores, timings = reference_runtime.step_public(frame)
+            ref_masks.append(masks)
+            ref_logits.append(logits)
+            ref_scores.append(scores)
+            ref_timings.append(timings)
+        reference = type("Outputs", (), {
+            "masks": ref_masks,
+            "logits": ref_logits,
+            "object_scores": ref_scores,
+            "timings_ms": ref_timings,
+        })()
 
-    # Candidate uses a fresh runtime but the same loaded model/processor.
-    reference_runtime.init_sessions(frames[0])
+        # Candidate uses a fresh runtime but the same loaded model/processor.
+        reference_runtime.init_sessions(frames[0])
     candidate = run_candidate(
         rgb_replay_frames=frames,
         reference_runtime=reference_runtime,
@@ -198,7 +288,9 @@ def main() -> int:
         "compile_mode": args.compile_mode,
         "graph_output_policy": args.graph_output_policy,
         "rgb_replay": str(args.rgb_replay),
-        "prompt_source": "deterministic_replay_boxes",
+        "reference_source": args.reference_source,
+        "sam31_mask_root": str(sam31_mask_root) if sam31_mask_root is not None else None,
+        "prompt_source": getattr(reference_runtime, "prompt_source", "deterministic_replay_boxes"),
         "metrics": metrics,
     }
     write_json(args.output_json, payload)

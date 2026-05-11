@@ -61,7 +61,12 @@ class HfEdgeTamReferenceRuntime:
         self.processor = Sam2VideoProcessor.from_pretrained(self.config.model_id)
         self.load_ms = (time.perf_counter() - started) * 1000.0
 
-    def init_sessions(self, first_frame: ReplayFrame) -> list[Any]:
+    def init_sessions(
+        self,
+        first_frame: ReplayFrame,
+        *,
+        initial_masks_by_camera: list[tuple[np.ndarray, np.ndarray]] | None = None,
+    ) -> list[Any]:
         if self.model is None or self.processor is None or self.torch is None:
             raise RuntimeError("call load() before init_sessions()")
         from transformers import EdgeTamVideoInferenceSession
@@ -70,8 +75,25 @@ class HfEdgeTamReferenceRuntime:
         obj_ids = [1, 2]
         controller_mask, object_mask = make_initial_prompt_masks(height, width)
         self.initial_masks = (controller_mask, object_mask)
+        if initial_masks_by_camera is None:
+            self.initial_masks_by_camera = [
+                (controller_mask.copy(), object_mask.copy()) for _ in range(len(first_frame.images))
+            ]
+            self.prompt_source = "deterministic_replay_boxes"
+        else:
+            if len(initial_masks_by_camera) != len(first_frame.images):
+                raise ValueError(
+                    f"expected {len(first_frame.images)} camera initial mask pairs, "
+                    f"got {len(initial_masks_by_camera)}"
+                )
+            self.initial_masks_by_camera = [
+                (np.asarray(controller, dtype=bool), np.asarray(obj, dtype=bool))
+                for controller, obj in initial_masks_by_camera
+            ]
+            self.prompt_source = "sam31_frame0_video_reference_masks"
         self.sessions = []
-        for _camera_idx in range(len(first_frame.images)):
+        for camera_idx in range(len(first_frame.images)):
+            cam_controller_mask, cam_object_mask = self.initial_masks_by_camera[camera_idx]
             session = EdgeTamVideoInferenceSession(
                 video=None,
                 video_height=height,
@@ -85,7 +107,7 @@ class HfEdgeTamReferenceRuntime:
                 inference_session=session,
                 frame_idx=0,
                 obj_ids=list(obj_ids),
-                input_masks=[controller_mask.copy(), object_mask.copy()],
+                input_masks=[cam_controller_mask.copy(), cam_object_mask.copy()],
             )
             self.sessions.append(session)
         return self.sessions

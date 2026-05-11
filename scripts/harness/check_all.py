@@ -33,6 +33,7 @@ def main() -> int:
             "tests.test_component_adapter",
             "tests.test_compare_multisession",
             "tests.test_profile_multisession",
+            "tests.test_sam31_replay_reference",
         ],
     ]
 

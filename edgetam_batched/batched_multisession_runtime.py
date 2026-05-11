@@ -192,9 +192,15 @@ def run_candidate(
 
     first_frame = rgb_replay_frames[0]
     width, height = first_frame.images[0].size
-    controller_mask, object_mask = reference_runtime.initial_masks
+    initial_masks_by_camera = getattr(reference_runtime, "initial_masks_by_camera", None)
+    if initial_masks_by_camera is None:
+        controller_mask, object_mask = reference_runtime.initial_masks
+        initial_masks_by_camera = [
+            (controller_mask.copy(), object_mask.copy()) for _ in range(len(first_frame.images))
+        ]
     sessions = []
-    for _ in first_frame.images:
+    for cam_idx, _ in enumerate(first_frame.images):
+        controller_mask, object_mask = initial_masks_by_camera[cam_idx]
         session = EdgeTamVideoInferenceSession(
             video=None,
             video_height=height,
