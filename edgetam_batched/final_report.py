@@ -32,6 +32,7 @@ def main() -> int:
     parser.add_argument("--iou-ref-summary", default=None)
     parser.add_argument("--different-types-summary", default=None)
     parser.add_argument("--candidate-delta", default=None)
+    parser.add_argument("--first-bad-frame", default=None)
     parser.add_argument("--output-md", required=True)
     parser.add_argument("--output-json", required=True)
     args = parser.parse_args()
@@ -41,6 +42,7 @@ def main() -> int:
     iou_ref_summary = load_optional_json(args.iou_ref_summary)
     different_types_summary = load_optional_json(args.different_types_summary)
     candidate_delta = load_optional_json(args.candidate_delta)
+    first_bad_frame = load_optional_json(args.first_bad_frame)
     repo = {
         "branch": _git("branch", "--show-current"),
         "commit": _git("rev-parse", "HEAD"),
@@ -48,10 +50,7 @@ def main() -> int:
     best_profile = choose_best_profile(profiles)
     sam31_best = choose_sam31_compile_mode(iou_ref_summary)
     full_candidates = [c for c in correctness if c.get("backend") == "hf_batched_multisession"]
-    full = next(
-        (c for c in full_candidates if c.get("backend_contract") or "contract_pass" in c or c.get("failure_stage")),
-        full_candidates[0] if full_candidates else None,
-    )
+    full = choose_full_batched_report(full_candidates)
     full_contract = (full or {}).get("backend_contract") or (full or {}).get("metrics", {}).get("backend_contract") or {}
     if not full_contract and "contract_pass" in (full or {}):
         full_contract = full or {}
@@ -60,6 +59,8 @@ def main() -> int:
         and full.get("metrics", {}).get("correctness_pass") is True
         and full_contract.get("contract_pass") is True
     )
+    full_failure_stage = full_failure_stage_for(full, full_contract)
+    full_blocker = full_blocker_for(full, full_contract, first_bad_frame)
     payload = {
         "goal": "original weights + custom batch=3 multi-session runtime",
         "source": {
@@ -73,6 +74,7 @@ def main() -> int:
         "sam31_replay_iou": iou_ref_summary,
         "different_types_summary": different_types_summary,
         "candidate_delta": candidate_delta,
+        "first_bad_frame": first_bad_frame,
         "best_profile": best_profile,
         "decision": {
             "hf_batch_vision_seq_session_usable": bool(sam31_best),
@@ -101,15 +103,9 @@ def main() -> int:
             if different_types_summary
             else None,
             "hf_batched_multisession_usable": full_usable,
-            "hf_batched_multisession_failure_stage": None if full_usable else (full or {}).get("failure_stage", "state_tensorization"),
-            "hf_batched_multisession_reason": "contract pass + correctness pass" if full_usable else (
-                "true batched session/memory/object-pointer tensorization is not complete"
-            ),
-            "hf_batched_multisession_blockers": "; ".join(
-                (full or {}).get("metrics", {}).get("blockers")
-                or full_contract.get("blockers")
-                or ["no strict full-batched correctness report"]
-            ),
+            "hf_batched_multisession_failure_stage": None if full_usable else full_failure_stage,
+            "hf_batched_multisession_reason": "contract pass + correctness pass" if full_usable else full_blocker,
+            "hf_batched_multisession_blockers": full_blocker,
             "faster_than_77_92_ms_baseline": bool(
                 best_profile and (best_profile.get("stage_wall_p50_ms") or 1e9) < 77.92
             ),
@@ -132,6 +128,7 @@ def main() -> int:
             "reference_uncertain_objects": reference_uncertain_objects(correctness),
             "empty_reference_policy": first_empty_reference_policy(correctness),
             "demo22_final_fps_pending": True,
+            "demo22_final_fps_source": "pending full Demo 2.2 profile; replay/component FPS is not final FPS",
             "controller_towel_caveat": (
                 "SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras; "
                 "current quality claim is for stuffed animal only."
@@ -208,6 +205,22 @@ def choose_sam31_compile_mode(summary: dict[str, Any] | None) -> dict[str, Any] 
             if item["compile_mode"] == preferred:
                 return item
     return passing[0]
+
+
+def choose_full_batched_report(candidates: list[dict[str, Any]]) -> dict[str, Any] | None:
+    if not candidates:
+        return None
+
+    def score(item: dict[str, Any]) -> tuple[int, int, int, str]:
+        metrics = item.get("metrics") or {}
+        contract = item.get("backend_contract") or metrics.get("backend_contract") or {}
+        strict = bool(item.get("strict_full_batched"))
+        contract_pass = bool(contract.get("contract_pass"))
+        correctness_pass = bool(metrics.get("correctness_pass"))
+        path = str(item.get("_path") or "")
+        return (int(strict), int(contract_pass), int(correctness_pass), path)
+
+    return max(candidates, key=score)
 
 
 def render(payload: dict[str, Any]) -> str:
@@ -344,11 +357,63 @@ def render(payload: dict[str, Any]) -> str:
                 else ["No original-vs-compiled delta report provided."]
             ),
             "",
+            "## Full batched first bad frame",
+            "",
+            *(
+                render_first_bad_frame_section(payload.get("first_bad_frame"))
+                if payload.get("first_bad_frame")
+                else ["No first-bad-frame report provided."]
+            ),
+            "",
             "## Decision",
             "",
             markdown_table(["field", "value"], payload["decision"].items()),
         ]
     )
+
+
+def full_failure_stage_for(full: dict[str, Any] | None, contract: dict[str, Any]) -> str:
+    if not full:
+        return "missing_full_batched_report"
+    if contract.get("contract_pass") is not True:
+        return "backend_contract"
+    metrics = full.get("metrics") or {}
+    if metrics.get("correctness_pass") is not True:
+        return "correctness"
+    return full.get("failure_stage") or "unknown"
+
+
+def full_blocker_for(
+    full: dict[str, Any] | None,
+    contract: dict[str, Any],
+    first_bad_frame: dict[str, Any] | None,
+) -> str:
+    if not full:
+        return "no strict full-batched correctness report"
+    contract_blockers = contract.get("blockers") or []
+    if contract.get("contract_pass") is not True:
+        return "; ".join(contract_blockers or ["strict full backend contract failed"])
+    metrics = full.get("metrics") or {}
+    blockers = list(metrics.get("blockers") or [])
+    if first_bad_frame and first_bad_frame.get("first_bad_frame"):
+        bad = first_bad_frame["first_bad_frame"]
+        blockers.insert(
+            0,
+            "first bad frame "
+            f"{bad.get('frame_idx')} {bad.get('camera')} "
+            f"IoU={_round(bad.get('iou'))}, "
+            f"component={bad.get('first_diverging_component')}",
+        )
+    if blockers:
+        return "; ".join(str(item) for item in blockers)
+    if metrics.get("correctness_pass") is not True:
+        global_iou = metrics.get("global_mask_iou") or metrics.get("global_iou_on_evaluated") or {}
+        return (
+            "strict correctness failed: "
+            f"global_iou_avg={_round(global_iou.get('avg'))}, "
+            f"global_iou_p50={_round(global_iou.get('p50'))}"
+        )
+    return "no blocker"
 
 
 def render_sam31_section(summary: dict[str, Any], rows: list[list[Any]]) -> list[str]:
@@ -440,6 +505,38 @@ def render_candidate_delta_section(summary: dict[str, Any]) -> list[str]:
                 "reason",
             ],
             rows,
+        ),
+    ]
+
+
+def render_first_bad_frame_section(summary: dict[str, Any]) -> list[str]:
+    bad = summary.get("first_bad_frame") if summary else None
+    if not bad:
+        return ["No frame below the requested IoU threshold was found."]
+    diffs = bad.get("field_diffs") or {}
+    return [
+        markdown_table(
+            ["field", "value"],
+            [
+                ["frame_idx", bad.get("frame_idx")],
+                ["camera", bad.get("camera")],
+                ["iou", _round(bad.get("iou"))],
+                ["first_diverging_component", bad.get("first_diverging_component")],
+                ["backend_contract_pass", (summary.get("backend_contract") or {}).get("contract_pass")],
+            ],
+        ),
+        "",
+        markdown_table(
+            ["tensor", "max_abs_diff", "mean_abs_diff", "p95_abs_diff"],
+            [
+                [
+                    name,
+                    _round(diff.get("max_abs_diff")),
+                    _round(diff.get("mean_abs_diff")),
+                    _round(diff.get("p95_abs_diff")),
+                ]
+                for name, diff in sorted(diffs.items())
+            ],
         ),
     ]
 

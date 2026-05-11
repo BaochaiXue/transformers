@@ -477,21 +477,8 @@ class BatchedEdgeTamMultiSessionRuntime:
                 ..., None, None
             ].expand(*maskmem_features.shape)
 
-        # The raw memory encoder is batch-safe. The following spatial perceiver
-        # has measurable BF16 divergence when run as one B=3 batch, and that
-        # drift compounds through the video memory bank. Run it per camera to
-        # preserve the HF public-session numerical contract while keeping the
-        # memory encoder component itself batched.
-        per_cam_features = []
-        per_cam_pos = []
-        for cam_idx in range(batch_size):
-            features_i, pos_i = self.model.spatial_perceiver(
-                maskmem_features[cam_idx : cam_idx + 1],
-                maskmem_pos_enc[cam_idx : cam_idx + 1],
-            )
-            per_cam_features.append(features_i.to(pred_masks_high_res.dtype))
-            per_cam_pos.append(pos_i.to(pred_masks_high_res.dtype))
-        return self.torch.cat(per_cam_features, dim=0), self.torch.cat(per_cam_pos, dim=0)
+        maskmem_features, maskmem_pos_enc = self.model.spatial_perceiver(maskmem_features, maskmem_pos_enc)
+        return maskmem_features.to(pred_masks_high_res.dtype), maskmem_pos_enc.to(pred_masks_high_res.dtype)
 
 
 def run_candidate(

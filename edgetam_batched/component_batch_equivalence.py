@@ -338,6 +338,7 @@ def main() -> int:
     parser.add_argument("--fixtures-dir", default=None)
     parser.add_argument("--frames", type=int, default=30)
     parser.add_argument("--batch-size", type=int, default=3)
+    parser.add_argument("--object-count", type=int, default=1)
     parser.add_argument("--stack-strategy", default="auto")
     parser.add_argument("--dtype", default="bfloat16")
     parser.add_argument("--model-id", default="yonigozlan/EdgeTAM-hf")

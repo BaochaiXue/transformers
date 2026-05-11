@@ -172,6 +172,7 @@ def compare_outputs(
             mask_iou_summary = summarize(ious)
             per_key[key] = {
                 "mask_iou": mask_iou_summary,
+                "iou_values_on_evaluated": list(ious),
                 "iou_avg_on_evaluated": mask_iou_summary["avg"],
                 "iou_p50_on_evaluated": mask_iou_summary["p50"],
                 "iou_min_on_evaluated": mask_iou_summary["min"],
@@ -346,10 +347,9 @@ def _summarize_by_object(
             int(row.get("candidate_nonempty_count_on_evaluated") or 0) for row in rows
         )
         iou_values = [
-            float(row["mask_iou"][field])
+            float(value)
             for row in rows
-            for field in ("avg", "p50", "min", "max")
-            if row.get("mask_iou", {}).get(field) is not None
+            for value in row.get("iou_values_on_evaluated", [])
         ]
         iou_summary = summarize(iou_values)
         object_validated = evaluated >= int(min_evaluated_samples_per_object)
@@ -389,10 +389,9 @@ def _summarize_by_camera(
             int(row.get("candidate_nonempty_count_on_evaluated") or 0) for row in rows
         )
         iou_values = [
-            float(row["mask_iou"][field])
+            float(value)
             for row in rows
-            for field in ("avg", "p50", "min", "max")
-            if row.get("mask_iou", {}).get(field) is not None
+            for value in row.get("iou_values_on_evaluated", [])
         ]
         iou_summary = summarize(iou_values)
         summaries[f"cam{cam_idx}"] = {

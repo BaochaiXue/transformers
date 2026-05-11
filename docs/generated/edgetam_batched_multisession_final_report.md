@@ -11,7 +11,7 @@ Original weights + custom batch=3 multi-session runtime.
 | github_repo | https://github.com/BaochaiXue/transformers/tree/feat/edgetam-batched-multisession-runtime |
 | fork_path | /home/zhangxinjie/EdgeTAM-HF-batched |
 | branch | feat/edgetam-batched-multisession-runtime |
-| commit | eba0c709405805c434b545f7a7849f1f1156723b |
+| commit | 4eab2efb6d7a9e22ebca32ebd2f6865df01b2d89 |
 | modeling_edgetam_video_touched | False |
 
 ## Correctness
@@ -22,10 +22,12 @@ Original weights + custom batch=3 multi-session runtime.
 | hf_batch_vision_seq_session | max-autotune-no-cudagraphs | False | False | False |  |  | docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json |
 | hf_batch_vision_seq_session | reduce-overhead | False | False | False |  |  | docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session_reduce_overhead.json |
 | hf_batched_multisession | none | False | True | True | hf_batch_vision_seq_session |  | docs/generated/edgetam_batched_correctness_hf_batched_multisession.json |
-| hf_ref_seq_public | none | False | False | False |  | False | docs/generated/different_types_sam31ref_original_hf_seq_hand_stuffed_animal_ignore_ref_empty.json |
 | hf_batch_vision_seq_session | none | False | False | False |  | False | docs/generated/different_types_sam31ref_batchvision_none_hand_stuffed_animal_ignore_ref_empty.json |
-| hf_batch_vision_seq_session | reduce-overhead | False | False | False |  | False | docs/generated/different_types_sam31ref_batchvision_reduce_hand_stuffed_animal_ignore_ref_empty_strict.json |
 | hf_batch_vision_seq_session | reduce-overhead | True | True | False |  | False | docs/generated/different_types_sam31ref_batchvision_reduce_hand_stuffed_animal_ignore_ref_empty_speed_first.json |
+| hf_batch_vision_seq_session | reduce-overhead | False | False | False |  | False | docs/generated/different_types_sam31ref_batchvision_reduce_hand_stuffed_animal_ignore_ref_empty_strict.json |
+| hf_ref_seq_public | none | False | False | False |  | False | docs/generated/different_types_sam31ref_original_hf_seq_hand_stuffed_animal_ignore_ref_empty.json |
+|  |  |  |  |  |  |  | docs/generated/different_types_sam31ref_original_vs_batchvision_delta_ignore_ref_empty.json |
+| hf_batched_multisession | none | False | False | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_none.json |
 
 ## Profiles
 
@@ -36,8 +38,6 @@ Original weights + custom batch=3 multi-session runtime.
 | hf_batch_vision_seq_session | reduce-overhead | 58.43767599435523 | 65.8067935204599 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_reduce_overhead.json |
 | hf_batched_multisession | none | 63.66823450662196 | 65.51955243339762 | True | docs/generated/edgetam_batched_profile_hf_batched_multisession_none.json |
 | hf_batch_vision_seq_session | reduce-overhead | 31.305484008044004 | 32.98849139828235 | False | docs/generated/different_types_sloth_set_2_edgetam_stuffed_animal_single_batchvision_profile_reduce_overhead.json |
-| hf_batch_vision_seq_session | reduce-overhead | 63.068919494980946 | 72.24762782570906 | False | docs/generated/different_types_sloth_set_2_profile_batchvision_reduce_overhead_sam31_frame0.json |
-| hf_ref_seq_public | none | 92.35824146890081 | 108.51287908153608 | False | docs/generated/different_types_sloth_set_2_profile_hf_public_none_sam31_frame0.json |
 
 ## SAM3.1 replay reference correctness
 
@@ -104,6 +104,24 @@ Compiled batch vision is compared against original HF public only on SAM3.1 refe
 | hand |  |  |  |  | 0 | 279 | 3 | True | no evaluated SAM3.1 reference samples |
 | stuffed animal | 0.96344 | 0.96348 | 4e-05 | True | 279 | 0 | 0 | False |  |
 
+## Full batched first bad frame
+
+| field | value |
+| --- | --- |
+| frame_idx | 43 |
+| camera | cam1 |
+| iou | 0.59205 |
+| first_diverging_component | mask_decoder_or_accumulated_state |
+| backend_contract_pass | True |
+
+| tensor | max_abs_diff | mean_abs_diff | p95_abs_diff |
+| --- | --- | --- | --- |
+| maskmem_features | 5.46875 | 0.21898 | 1.04263 |
+| maskmem_pos_enc | 0.0 | 0.0 | 0.0 |
+| object_pointer | 0.95508 | 0.20126 | 0.49171 |
+| object_score_logits | 0.21875 | 0.21875 | 0.21875 |
+| pred_masks | 7.98438 | 1.93154 | 3.25 |
+
 ## Decision
 
 | field | value |
@@ -114,9 +132,9 @@ Compiled batch vision is compared against original HF public only on SAM3.1 refe
 | single_object_30fps_p90_gate | True |
 | single_object_30fps_p95_gate | borderline/fail |
 | hf_batched_multisession_usable | False |
-| hf_batched_multisession_failure_stage | state_tensorization |
-| hf_batched_multisession_reason | true batched session/memory/object-pointer tensorization is not complete |
-| hf_batched_multisession_blockers | hf_batched_multisession requires explicit HF session memory/object-pointer tensorization; current implementation falls back to batch vision + sequential session decode |
+| hf_batched_multisession_failure_stage | correctness |
+| hf_batched_multisession_reason | first bad frame 43 cam1 IoU=0.59205, component=mask_decoder_or_accumulated_state; mask correctness gate failed: gate=strict, evaluated=279/1, empty_mismatch=0/0, global_iou_avg=0.97983960550254/0.98, global_iou_p50=0.9899300221880867/0.98 |
+| hf_batched_multisession_blockers | first bad frame 43 cam1 IoU=0.59205, component=mask_decoder_or_accumulated_state; mask correctness gate failed: gate=strict, evaluated=279/1, empty_mismatch=0/0, global_iou_avg=0.97983960550254/0.98, global_iou_p50=0.9899300221880867/0.98 |
 | faster_than_77_92_ms_baseline | True |
 | recommended_backend | hf_batch_vision_seq_session |
 | recommended_compile_mode | reduce-overhead |
@@ -129,4 +147,5 @@ Compiled batch vision is compared against original HF public only on SAM3.1 refe
 | reference_uncertain_objects | ['hand'] |
 | empty_reference_policy | ignore-candidate |
 | demo22_final_fps_pending | True |
+| demo22_final_fps_source | pending full Demo 2.2 profile; replay/component FPS is not final FPS |
 | controller_towel_caveat | SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras; current quality claim is for stuffed animal only. |

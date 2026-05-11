@@ -90,6 +90,32 @@ class CompareMultisessionTests(unittest.TestCase):
         self.assertEqual(int(selected.masks[0][0].sum()), 4)
         self.assertAlmostEqual(float(selected.object_scores[0][0][0]), 0.9, places=6)
 
+    def test_object_summary_uses_sample_ious_not_summary_fields(self):
+        full = np.ones((1, 2, 2), dtype=bool)
+        half_ref = np.zeros((1, 2, 2), dtype=bool)
+        half_ref[:, 0, :] = True
+        half_cand = np.zeros((1, 2, 2), dtype=bool)
+        half_cand[:, :, 0] = True
+
+        reference = type("Outputs", (), {})()
+        reference.masks = [[full, full, half_ref]]
+        reference.logits = [[mask.astype(np.float32) for mask in reference.masks[0]]]
+        reference.object_scores = [[np.ones((1,), dtype=np.float32) for _ in range(3)]]
+
+        candidate = type("Outputs", (), {})()
+        candidate.masks = [[full, full, half_cand]]
+        candidate.logits = [[mask.astype(np.float32) for mask in candidate.masks[0]]]
+        candidate.object_scores = [[np.ones((1,), dtype=np.float32) for _ in range(3)]]
+        candidate.partial = False
+        candidate.fallback_backend = None
+        candidate.blockers = []
+
+        metrics = compare_outputs(reference, candidate, min_global_iou_avg=0.0, min_global_iou_p50=0.0)
+
+        expected = (1.0 + 1.0 + (1.0 / 3.0)) / 3.0
+        self.assertAlmostEqual(metrics["object_summaries"]["obj0"]["iou_avg_on_evaluated"], expected)
+        self.assertAlmostEqual(metrics["camera_summaries"]["cam2"]["iou_avg_on_evaluated"], 1.0 / 3.0)
+
 
 if __name__ == "__main__":
     unittest.main()
