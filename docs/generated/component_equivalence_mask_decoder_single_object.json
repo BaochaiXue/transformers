@@ -1,0 +1,18 @@
+{
+  "all_components_pass": false,
+  "batch_size": 3,
+  "components": [
+    {
+      "blockers": [
+        "requires tensorized prompted/empty-tracking decoder inputs across camera sessions",
+        "raw tensor equivalence is not proven by shape-only trace"
+      ],
+      "component": "mask_decoder",
+      "equivalence_pass": false,
+      "records": 90,
+      "requirement": "requires tensorized prompted/empty-tracking decoder inputs across camera sessions"
+    }
+  ],
+  "dtype": "bfloat16",
+  "trace_json": "docs/generated/hf_edgetam_component_trace_single_object_30f.json"
+}

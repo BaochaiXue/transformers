@@ -1,0 +1,18 @@
+{
+  "all_components_pass": false,
+  "batch_size": 3,
+  "components": [
+    {
+      "blockers": [
+        "requires tensorized memory/object-pointer inputs across camera sessions",
+        "raw tensor equivalence is not proven by shape-only trace"
+      ],
+      "component": "memory_attention",
+      "equivalence_pass": false,
+      "records": 87,
+      "requirement": "requires tensorized memory/object-pointer inputs across camera sessions"
+    }
+  ],
+  "dtype": "bfloat16",
+  "trace_json": "docs/generated/hf_edgetam_component_trace_single_object_30f.json"
+}

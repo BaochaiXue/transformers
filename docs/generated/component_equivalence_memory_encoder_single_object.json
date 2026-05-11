@@ -1,0 +1,17 @@
+{
+  "all_components_pass": false,
+  "batch_size": 3,
+  "components": [
+    {
+      "blockers": [
+        "EdgeTamVideoModel._batch_encode_memories is NotImplemented; full state update cannot be batched yet"
+      ],
+      "component": "memory_encoder",
+      "equivalence_pass": false,
+      "records": 90,
+      "requirement": "EdgeTamVideoModel._batch_encode_memories is NotImplemented in modular source"
+    }
+  ],
+  "dtype": "bfloat16",
+  "trace_json": "docs/generated/hf_edgetam_component_trace_single_object_30f.json"
+}
