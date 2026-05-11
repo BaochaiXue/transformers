@@ -63,15 +63,28 @@ def resolve_correctness_gate(
     return defaults
 
 
+def resolve_empty_reference_policy(policy: str, *, reference_source: str = "hf-public") -> str:
+    if policy == "auto":
+        return "ignore-candidate" if reference_source == "sam31-replay" else "strict-empty-mismatch"
+    if policy not in {"ignore-candidate", "strict-empty-mismatch"}:
+        raise ValueError(f"unsupported empty reference policy: {policy}")
+    return policy
+
+
 def compare_outputs(
     reference,
     candidate,
     *,
     correctness_gate: str = "strict",
+    empty_reference_policy: str = "strict-empty-mismatch",
     min_global_iou_avg: float | None = None,
     min_global_iou_p50: float | None = None,
     max_empty_mismatch_count: int | None = None,
+    min_evaluated_samples: int = 1,
+    min_evaluated_samples_per_object: int = 1,
+    min_evaluated_samples_per_camera: int = 1,
 ) -> dict[str, Any]:
+    empty_reference_policy = resolve_empty_reference_policy(empty_reference_policy)
     gate = resolve_correctness_gate(
         correctness_gate,
         min_global_iou_avg=min_global_iou_avg,
@@ -82,7 +95,14 @@ def compare_outputs(
     camera_count = len(reference.masks[0]) if frame_count else 0
     object_count = reference.masks[0][0].shape[0] if frame_count else 0
     per_key: dict[str, dict[str, list[float] | int]] = {}
+    sample_statuses = []
     empty_mismatch_count = 0
+    global_evaluated_sample_count = 0
+    global_ignored_reference_empty_count = 0
+    global_candidate_nonempty_when_reference_empty_count = 0
+    global_reference_nonempty_count = 0
+    global_candidate_nonempty_count_on_evaluated = 0
+    global_ious: list[float] = []
 
     for cam_idx in range(camera_count):
         for obj_idx in range(object_count):
@@ -92,6 +112,11 @@ def compare_outputs(
             score_diffs = []
             ref_nonempty = 0
             cand_nonempty = 0
+            candidate_nonempty_on_evaluated = 0
+            ignored_reference_empty = 0
+            candidate_nonempty_when_reference_empty = 0
+            evaluated_sample_count = 0
+            counted_empty_mismatches = 0
             for frame_idx in range(frame_count):
                 ref_mask = reference.masks[frame_idx][cam_idx][obj_idx]
                 cand_mask = candidate.masks[frame_idx][cam_idx][obj_idx]
@@ -100,22 +125,66 @@ def compare_outputs(
                 cand_has = bool(np.count_nonzero(cand_mask))
                 ref_nonempty += int(ref_has)
                 cand_nonempty += int(cand_has)
-                empty_mismatch_count += int(ref_has != cand_has)
-                ious.append(mask_iou(ref_mask, cand_mask))
-                ref_logit = reference.logits[frame_idx][cam_idx][obj_idx]
-                cand_logit = candidate.logits[frame_idx][cam_idx][obj_idx]
-                cand_logit = _resize_float_like(cand_logit, ref_logit)
-                logit_diffs.append(float(np.mean(np.abs(ref_logit - cand_logit))))
-                ref_score = np.asarray(reference.object_scores[frame_idx][cam_idx]).reshape(-1)
-                cand_score = np.asarray(candidate.object_scores[frame_idx][cam_idx]).reshape(-1)
-                if obj_idx < len(ref_score) and obj_idx < len(cand_score):
-                    score_diffs.append(float(abs(ref_score[obj_idx] - cand_score[obj_idx])))
+                evaluated = ref_has or empty_reference_policy == "strict-empty-mismatch"
+                ignored_reason = None
+                empty_mismatch_counted = False
+                iou_value = None
+                if not evaluated:
+                    ignored_reference_empty += 1
+                    candidate_nonempty_when_reference_empty += int(cand_has)
+                    ignored_reason = "reference_empty"
+                else:
+                    evaluated_sample_count += 1
+                    candidate_nonempty_on_evaluated += int(cand_has)
+                    if ref_has != cand_has:
+                        empty_mismatch_count += 1
+                        counted_empty_mismatches += 1
+                        empty_mismatch_counted = True
+                    iou_value = mask_iou(ref_mask, cand_mask)
+                    ious.append(iou_value)
+                    ref_logit = reference.logits[frame_idx][cam_idx][obj_idx]
+                    cand_logit = candidate.logits[frame_idx][cam_idx][obj_idx]
+                    cand_logit = _resize_float_like(cand_logit, ref_logit)
+                    logit_diffs.append(float(np.mean(np.abs(ref_logit - cand_logit))))
+                    ref_score = np.asarray(reference.object_scores[frame_idx][cam_idx]).reshape(-1)
+                    cand_score = np.asarray(candidate.object_scores[frame_idx][cam_idx]).reshape(-1)
+                    if obj_idx < len(ref_score) and obj_idx < len(cand_score):
+                        score_diffs.append(float(abs(ref_score[obj_idx] - cand_score[obj_idx])))
+                sample_statuses.append(
+                    {
+                        "camera": f"cam{cam_idx}",
+                        "object_index": obj_idx,
+                        "frame_idx": frame_idx,
+                        "reference_nonempty": ref_has,
+                        "candidate_nonempty": cand_has,
+                        "evaluated": evaluated,
+                        "ignored_reason": ignored_reason,
+                        "iou": iou_value,
+                        "empty_mismatch_counted": empty_mismatch_counted,
+                    }
+                )
+            global_evaluated_sample_count += evaluated_sample_count
+            global_ignored_reference_empty_count += ignored_reference_empty
+            global_candidate_nonempty_when_reference_empty_count += candidate_nonempty_when_reference_empty
+            global_reference_nonempty_count += ref_nonempty
+            global_candidate_nonempty_count_on_evaluated += candidate_nonempty_on_evaluated
+            global_ious.extend(ious)
+            mask_iou_summary = summarize(ious)
             per_key[key] = {
-                "mask_iou": summarize(ious),
+                "mask_iou": mask_iou_summary,
+                "iou_avg_on_evaluated": mask_iou_summary["avg"],
+                "iou_p50_on_evaluated": mask_iou_summary["p50"],
+                "iou_min_on_evaluated": mask_iou_summary["min"],
                 "logit_abs_diff": summarize(logit_diffs),
                 "object_score_abs_diff": summarize(score_diffs),
+                "evaluated_sample_count": evaluated_sample_count,
+                "ignored_reference_empty_count": ignored_reference_empty,
+                "candidate_nonempty_when_reference_empty_count": candidate_nonempty_when_reference_empty,
                 "reference_nonempty_count": ref_nonempty,
                 "candidate_nonempty_count": cand_nonempty,
+                "candidate_nonempty_count_on_evaluated": candidate_nonempty_on_evaluated,
+                "empty_mismatch_count": counted_empty_mismatches,
+                "reference_uncertain": ignored_reference_empty > 0,
             }
 
     first_ref = [reference.masks[0][cam_idx][0] for cam_idx in range(camera_count)] if frame_count else []
@@ -125,17 +194,36 @@ def compare_outputs(
     ] if frame_count else []
     order = diagonal_best(iou_matrix(first_cand, first_ref)) if first_ref else {"pass": False, "matrix": []}
     leakage = {"pass": True, "note": "candidate runtime keeps per-camera session state containers isolated"}
-    all_ious = [
-        value
-        for metrics in per_key.values()
-        for value in _expand_summary_sample(metrics["mask_iou"])
-    ]
-    global_iou = summarize(all_ious)
-    mask_correctness_pass = (
-        bool(order["pass"])
-        and empty_mismatch_count <= gate["max_empty_mismatch_count"]
-        and (global_iou["avg"] is not None and global_iou["avg"] >= gate["min_global_iou_avg"])
-        and (global_iou["p50"] is not None and global_iou["p50"] >= gate["min_global_iou_p50"])
+    global_iou = summarize(global_ious)
+    object_summaries = _summarize_by_object(per_key, object_count, min_evaluated_samples_per_object)
+    camera_summaries = _summarize_by_camera(per_key, camera_count, min_evaluated_samples_per_camera)
+    all_objects_validated = all(item["object_validated"] for item in object_summaries.values()) if object_summaries else False
+    all_cameras_validated = all(item["camera_validated"] for item in camera_summaries.values()) if camera_summaries else False
+    strict_gate = resolve_correctness_gate("strict")
+    speed_first_gate = resolve_correctness_gate("speed-first")
+    strict_correctness_pass = _passes_gate(
+        strict_gate,
+        order_pass=bool(order["pass"]),
+        evaluated_sample_count=global_evaluated_sample_count,
+        min_evaluated_samples=int(min_evaluated_samples),
+        empty_mismatch_count=empty_mismatch_count,
+        global_iou=global_iou,
+    )
+    speed_first_acceptance_pass = _passes_gate(
+        speed_first_gate,
+        order_pass=bool(order["pass"]),
+        evaluated_sample_count=global_evaluated_sample_count,
+        min_evaluated_samples=int(min_evaluated_samples),
+        empty_mismatch_count=empty_mismatch_count,
+        global_iou=global_iou,
+    )
+    mask_correctness_pass = _passes_gate(
+        gate,
+        order_pass=bool(order["pass"]),
+        evaluated_sample_count=global_evaluated_sample_count,
+        min_evaluated_samples=int(min_evaluated_samples),
+        empty_mismatch_count=empty_mismatch_count,
+        global_iou=global_iou,
     )
     correctness_pass = mask_correctness_pass and not candidate.partial
     blockers = list(candidate.blockers or [])
@@ -143,6 +231,7 @@ def compare_outputs(
         blockers.append(
             "mask correctness gate failed: "
             f"gate={gate['name']}, "
+            f"evaluated={global_evaluated_sample_count}/{min_evaluated_samples}, "
             f"empty_mismatch={empty_mismatch_count}/{gate['max_empty_mismatch_count']}, "
             f"global_iou_avg={global_iou['avg']}/{gate['min_global_iou_avg']}, "
             f"global_iou_p50={global_iou['p50']}/{gate['min_global_iou_p50']}"
@@ -153,13 +242,35 @@ def compare_outputs(
         "object_count": object_count,
         "per_camera_object": per_key,
         "global_mask_iou": global_iou,
+        "global_iou_on_evaluated": global_iou,
+        "evaluated_sample_count": global_evaluated_sample_count,
+        "ignored_reference_empty_count": global_ignored_reference_empty_count,
+        "candidate_nonempty_when_reference_empty_count": global_candidate_nonempty_when_reference_empty_count,
+        "reference_nonempty_count": global_reference_nonempty_count,
+        "candidate_nonempty_count_on_evaluated": global_candidate_nonempty_count_on_evaluated,
         "empty_mismatch_count": empty_mismatch_count,
+        "empty_reference_policy": empty_reference_policy,
         "correctness_gate": gate,
+        "min_evaluated_samples": int(min_evaluated_samples),
+        "min_evaluated_samples_per_object": int(min_evaluated_samples_per_object),
+        "min_evaluated_samples_per_camera": int(min_evaluated_samples_per_camera),
+        "object_summaries": object_summaries,
+        "camera_summaries": camera_summaries,
+        "all_objects_validated": all_objects_validated,
+        "all_cameras_validated": all_cameras_validated,
+        "sample_statuses": sample_statuses,
         "camera_order_check": "pass" if order["pass"] else "fail",
         "camera_order_matrix": order["matrix"],
         "state_leakage_check": "pass" if leakage["pass"] else "fail",
         "state_leakage": leakage,
         "mask_correctness_pass": mask_correctness_pass,
+        "active_gate_acceptance_pass": mask_correctness_pass,
+        "strict_correctness_pass": strict_correctness_pass,
+        "speed_first_acceptance_pass": speed_first_acceptance_pass,
+        "correctness_pass_by_gate": {
+            "strict": strict_correctness_pass and not candidate.partial,
+            "speed_first": speed_first_acceptance_pass and not candidate.partial,
+        },
         "correctness_pass": correctness_pass,
         "candidate_partial": candidate.partial,
         "fallback_backend": candidate.fallback_backend,
@@ -214,6 +325,108 @@ def select_object_outputs(outputs, *, object_count: int, object_index: int = -1)
             "backend_contract": getattr(outputs, "backend_contract", None),
         },
     )()
+
+
+def _summarize_by_object(
+    per_key: dict[str, dict[str, Any]],
+    object_count: int,
+    min_evaluated_samples_per_object: int,
+) -> dict[str, dict[str, Any]]:
+    summaries = {}
+    for obj_idx in range(object_count):
+        rows = [metrics for key, metrics in per_key.items() if key.endswith(f"_obj{obj_idx}")]
+        evaluated = sum(int(row.get("evaluated_sample_count") or 0) for row in rows)
+        ignored = sum(int(row.get("ignored_reference_empty_count") or 0) for row in rows)
+        candidate_nonempty_ignored = sum(
+            int(row.get("candidate_nonempty_when_reference_empty_count") or 0) for row in rows
+        )
+        empty_mismatch = sum(int(row.get("empty_mismatch_count") or 0) for row in rows)
+        reference_nonempty = sum(int(row.get("reference_nonempty_count") or 0) for row in rows)
+        candidate_nonempty_on_evaluated = sum(
+            int(row.get("candidate_nonempty_count_on_evaluated") or 0) for row in rows
+        )
+        iou_values = [
+            float(row["mask_iou"][field])
+            for row in rows
+            for field in ("avg", "p50", "min", "max")
+            if row.get("mask_iou", {}).get(field) is not None
+        ]
+        iou_summary = summarize(iou_values)
+        object_validated = evaluated >= int(min_evaluated_samples_per_object)
+        summaries[f"obj{obj_idx}"] = {
+            "evaluated_sample_count": evaluated,
+            "ignored_reference_empty_count": ignored,
+            "candidate_nonempty_when_reference_empty_count": candidate_nonempty_ignored,
+            "reference_nonempty_count": reference_nonempty,
+            "candidate_nonempty_count_on_evaluated": candidate_nonempty_on_evaluated,
+            "empty_mismatch_count": empty_mismatch,
+            "iou_avg_on_evaluated": iou_summary["avg"],
+            "iou_p50_on_evaluated": iou_summary["p50"],
+            "iou_min_on_evaluated": iou_summary["min"],
+            "reference_uncertain": ignored > 0,
+            "object_reference_absent": evaluated == 0,
+            "object_validated": object_validated,
+        }
+    return summaries
+
+
+def _summarize_by_camera(
+    per_key: dict[str, dict[str, Any]],
+    camera_count: int,
+    min_evaluated_samples_per_camera: int,
+) -> dict[str, dict[str, Any]]:
+    summaries = {}
+    for cam_idx in range(camera_count):
+        rows = [metrics for key, metrics in per_key.items() if key.startswith(f"cam{cam_idx}_")]
+        evaluated = sum(int(row.get("evaluated_sample_count") or 0) for row in rows)
+        ignored = sum(int(row.get("ignored_reference_empty_count") or 0) for row in rows)
+        candidate_nonempty_ignored = sum(
+            int(row.get("candidate_nonempty_when_reference_empty_count") or 0) for row in rows
+        )
+        empty_mismatch = sum(int(row.get("empty_mismatch_count") or 0) for row in rows)
+        reference_nonempty = sum(int(row.get("reference_nonempty_count") or 0) for row in rows)
+        candidate_nonempty_on_evaluated = sum(
+            int(row.get("candidate_nonempty_count_on_evaluated") or 0) for row in rows
+        )
+        iou_values = [
+            float(row["mask_iou"][field])
+            for row in rows
+            for field in ("avg", "p50", "min", "max")
+            if row.get("mask_iou", {}).get(field) is not None
+        ]
+        iou_summary = summarize(iou_values)
+        summaries[f"cam{cam_idx}"] = {
+            "evaluated_sample_count": evaluated,
+            "ignored_reference_empty_count": ignored,
+            "candidate_nonempty_when_reference_empty_count": candidate_nonempty_ignored,
+            "reference_nonempty_count": reference_nonempty,
+            "candidate_nonempty_count_on_evaluated": candidate_nonempty_on_evaluated,
+            "empty_mismatch_count": empty_mismatch,
+            "iou_avg_on_evaluated": iou_summary["avg"],
+            "iou_p50_on_evaluated": iou_summary["p50"],
+            "iou_min_on_evaluated": iou_summary["min"],
+            "reference_uncertain": ignored > 0,
+            "camera_validated": evaluated >= int(min_evaluated_samples_per_camera),
+        }
+    return summaries
+
+
+def _passes_gate(
+    gate: dict[str, Any],
+    *,
+    order_pass: bool,
+    evaluated_sample_count: int,
+    min_evaluated_samples: int,
+    empty_mismatch_count: int,
+    global_iou: dict[str, Any],
+) -> bool:
+    return (
+        bool(order_pass)
+        and int(evaluated_sample_count) >= int(min_evaluated_samples)
+        and int(empty_mismatch_count) <= int(gate["max_empty_mismatch_count"])
+        and (global_iou.get("avg") is not None and global_iou["avg"] >= gate["min_global_iou_avg"])
+        and (global_iou.get("p50") is not None and global_iou["p50"] >= gate["min_global_iou_p50"])
+    )
 
 
 def _expand_summary_sample(summary_dict: dict[str, Any]) -> list[float]:
@@ -271,8 +484,11 @@ def render_compare_report(payload: dict[str, Any]) -> str:
                 metrics["mask_iou"]["avg"],
                 metrics["mask_iou"]["min"],
                 metrics["mask_iou"]["p50"],
+                metrics.get("evaluated_sample_count"),
+                metrics.get("ignored_reference_empty_count"),
+                metrics.get("candidate_nonempty_when_reference_empty_count"),
                 metrics["reference_nonempty_count"],
-                metrics["candidate_nonempty_count"],
+                metrics.get("candidate_nonempty_count_on_evaluated"),
             ]
         )
     return "\n".join(
@@ -283,6 +499,8 @@ def render_compare_report(payload: dict[str, Any]) -> str:
             f"- compile_mode: `{payload['compile_mode']}`",
             f"- correctness_pass: `{payload['metrics']['correctness_pass']}`",
             f"- mask_correctness_pass: `{payload['metrics']['mask_correctness_pass']}`",
+            f"- strict_correctness_pass: `{payload['metrics'].get('strict_correctness_pass')}`",
+            f"- speed_first_acceptance_pass: `{payload['metrics'].get('speed_first_acceptance_pass')}`",
             f"- candidate_partial: `{payload['metrics']['candidate_partial']}`",
             f"- fallback_backend: `{payload['metrics']['fallback_backend']}`",
             f"- reference_source: `{payload.get('reference_source', 'hf-public')}`",
@@ -290,8 +508,12 @@ def render_compare_report(payload: dict[str, Any]) -> str:
             f"- prompt_source: `{payload.get('prompt_source')}`",
             f"- sam31_mask_root: `{payload.get('sam31_mask_root')}`",
             f"- sam31_frame0_init_mask_root: `{payload.get('sam31_frame0_init_mask_root')}`",
+            f"- empty_reference_policy: `{payload['metrics'].get('empty_reference_policy')}`",
             f"- correctness_gate: `{payload['metrics'].get('correctness_gate', {}).get('name', 'strict')}`",
             f"- speed_first_gate: `{payload['metrics'].get('correctness_gate', {}).get('speed_first', False)}`",
+            f"- evaluated_sample_count: `{payload['metrics'].get('evaluated_sample_count')}`",
+            f"- ignored_reference_empty_count: `{payload['metrics'].get('ignored_reference_empty_count')}`",
+            f"- candidate_nonempty_when_reference_empty_count: `{payload['metrics'].get('candidate_nonempty_when_reference_empty_count')}`",
             f"- strict_full_batched: `{payload.get('strict_full_batched', False)}`",
             f"- disallow_partial_backend_success: `{payload.get('disallow_partial_backend_success', False)}`",
             "",
@@ -301,7 +523,24 @@ def render_compare_report(payload: dict[str, Any]) -> str:
             "",
             "## Metrics",
             "",
-            markdown_table(["key", "iou_avg", "iou_min", "iou_p50", "ref_nonempty", "cand_nonempty"], rows),
+            markdown_table(
+                [
+                    "key",
+                    "iou_avg",
+                    "iou_min",
+                    "iou_p50",
+                    "evaluated",
+                    "ref_empty_ignored",
+                    "cand_nonempty_ref_empty",
+                    "ref_nonempty",
+                    "cand_nonempty_eval",
+                ],
+                rows,
+            ),
+            "",
+            "## Empty SAM3.1 Reference Policy",
+            "",
+            "When SAM3.1 reference is empty and the policy is `ignore-candidate`, candidate masks are ignored for IoU and empty-mismatch. Ignored samples are unevaluated, not correct.",
         ]
     )
 
@@ -362,7 +601,7 @@ def main() -> int:
         default="auto",
         help="Frame-0 masks used to initialize EdgeTAM sessions.",
     )
-    parser.add_argument("--sam31-mask-root", default=None)
+    parser.add_argument("--sam31-mask-root", "--reference-mask-root", dest="sam31_mask_root", default=None)
     parser.add_argument("--sam31-checkpoint", default=None)
     parser.add_argument("--sam31-overwrite", action="store_true")
     parser.add_argument("--sam31-compile-model", action="store_true")
@@ -397,6 +636,14 @@ def main() -> int:
     parser.add_argument("--min-global-iou-avg", type=float, default=None)
     parser.add_argument("--min-global-iou-p50", type=float, default=None)
     parser.add_argument("--max-empty-mismatch-count", type=int, default=None)
+    parser.add_argument(
+        "--empty-reference-policy",
+        choices=("auto", "ignore-candidate", "strict-empty-mismatch"),
+        default="auto",
+    )
+    parser.add_argument("--min-evaluated-samples", type=int, default=1)
+    parser.add_argument("--min-evaluated-samples-per-object", type=int, default=1)
+    parser.add_argument("--min-evaluated-samples-per-camera", type=int, default=1)
     parser.add_argument("--strict-full-batched", action="store_true")
     parser.add_argument("--disallow-partial-backend-success", action="store_true")
     parser.add_argument("--debug", action="store_true")
@@ -419,6 +666,10 @@ def main() -> int:
     init_source = args.init_source
     if init_source == "auto":
         init_source = "sam31-video-reference" if args.reference_source == "sam31-replay" else "deterministic"
+    empty_reference_policy = resolve_empty_reference_policy(
+        args.empty_reference_policy,
+        reference_source=args.reference_source,
+    )
 
     initial_masks_by_camera = None
     if args.reference_source == "sam31-replay":
@@ -541,8 +792,12 @@ def main() -> int:
             "compile_mode": args.compile_mode,
             "graph_output_policy": args.graph_output_policy,
             "rgb_replay": str(args.rgb_replay),
+            "object_count": args.object_count,
+            "object_prompt": args.object_prompt,
+            "controller_prompt": args.controller_prompt,
             "reference_source": args.reference_source,
             "init_source": init_source,
+            "empty_reference_policy": empty_reference_policy,
             "strict_full_batched": args.strict_full_batched,
             "disallow_partial_backend_success": args.disallow_partial_backend_success,
             "failure_stage": "backend_contract",
@@ -554,12 +809,16 @@ def main() -> int:
                 "per_camera_object": {},
                 "global_mask_iou": {},
                 "empty_mismatch_count": None,
+                "empty_reference_policy": empty_reference_policy,
                 "correctness_gate": resolve_correctness_gate(
                     args.correctness_gate,
                     min_global_iou_avg=args.min_global_iou_avg,
                     min_global_iou_p50=args.min_global_iou_p50,
                     max_empty_mismatch_count=args.max_empty_mismatch_count,
                 ),
+                "evaluated_sample_count": 0,
+                "ignored_reference_empty_count": 0,
+                "candidate_nonempty_when_reference_empty_count": 0,
                 "camera_order_check": "not_run",
                 "state_leakage_check": "not_run",
                 "mask_correctness_pass": False,
@@ -580,17 +839,25 @@ def main() -> int:
         reference,
         candidate,
         correctness_gate=args.correctness_gate,
+        empty_reference_policy=empty_reference_policy,
         min_global_iou_avg=args.min_global_iou_avg,
         min_global_iou_p50=args.min_global_iou_p50,
         max_empty_mismatch_count=args.max_empty_mismatch_count,
+        min_evaluated_samples=args.min_evaluated_samples,
+        min_evaluated_samples_per_object=args.min_evaluated_samples_per_object,
+        min_evaluated_samples_per_camera=args.min_evaluated_samples_per_camera,
     )
     payload = {
         "backend": args.backend,
         "compile_mode": args.compile_mode,
         "graph_output_policy": args.graph_output_policy,
         "rgb_replay": str(args.rgb_replay),
+        "object_count": args.object_count,
+        "object_prompt": args.object_prompt,
+        "controller_prompt": args.controller_prompt,
         "reference_source": args.reference_source,
         "init_source": init_source,
+        "empty_reference_policy": empty_reference_policy,
         "sam31_mask_root": str(sam31_mask_root) if sam31_mask_root is not None else None,
         "sam31_frame0_init_mask_root": str(sam31_frame0_init_mask_root) if sam31_frame0_init_mask_root is not None else None,
         "sam31_frame0_init_summary": sam31_frame0_init_summary,

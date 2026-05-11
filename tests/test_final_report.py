@@ -25,7 +25,25 @@ class FinalReportTests(unittest.TestCase):
                             "mask_correctness_pass": True,
                             "candidate_partial": True,
                             "fallback_backend": "hf_batch_vision_seq_session",
+                            "empty_reference_policy": "ignore-candidate",
+                            "object_summaries": {
+                                "obj0": {
+                                    "evaluated_sample_count": 0,
+                                    "ignored_reference_empty_count": 10,
+                                    "object_reference_absent": True,
+                                    "reference_uncertain": True,
+                                },
+                                "obj1": {
+                                    "evaluated_sample_count": 10,
+                                    "ignored_reference_empty_count": 0,
+                                    "object_reference_absent": False,
+                                    "reference_uncertain": False,
+                                },
+                            },
                         },
+                        "object_count": 2,
+                        "controller_prompt": "hand",
+                        "object_prompt": "stuffed animal",
                     }
                 ),
                 encoding="utf-8",
@@ -94,6 +112,42 @@ class FinalReportTests(unittest.TestCase):
                 ),
                 encoding="utf-8",
             )
+            delta = root / "delta.json"
+            delta.write_text(
+                json.dumps(
+                    {
+                        "baseline_backend": "hf_ref_seq_public",
+                        "candidate_backend": "hf_batch_vision_seq_session",
+                        "candidate_compile_mode": "reduce-overhead",
+                        "empty_reference_policy": "ignore-candidate",
+                        "evaluated_subset_mismatch": False,
+                        "per_object": {
+                            "obj0": {
+                                "baseline_iou_avg_on_evaluated": None,
+                                "candidate_iou_avg_on_evaluated": None,
+                                "delta": None,
+                                "not_worse": None,
+                                "evaluated_sample_count": 0,
+                                "ignored_reference_empty_count": 10,
+                                "candidate_nonempty_when_reference_empty_count": 2,
+                                "reference_uncertain": True,
+                                "reason": "no evaluated SAM3.1 reference samples",
+                            },
+                            "obj1": {
+                                "baseline_iou_avg_on_evaluated": 0.96,
+                                "candidate_iou_avg_on_evaluated": 0.955,
+                                "delta": -0.005,
+                                "not_worse": True,
+                                "evaluated_sample_count": 10,
+                                "ignored_reference_empty_count": 0,
+                                "candidate_nonempty_when_reference_empty_count": 0,
+                                "reference_uncertain": False,
+                            },
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
             out_md = root / "final.md"
             out_json = root / "final.json"
 
@@ -107,6 +161,8 @@ class FinalReportTests(unittest.TestCase):
                 str(summary),
                 "--different-types-summary",
                 str(different_types),
+                "--candidate-delta",
+                str(delta),
                 "--output-md",
                 str(out_md),
                 "--output-json",
@@ -123,6 +179,8 @@ class FinalReportTests(unittest.TestCase):
             self.assertIn("Non-empty object quality: stuffed animal only", md)
             self.assertIn("Controller/towel caveat", md)
             self.assertIn("Different-types sloth_set_2 result", md)
+            self.assertIn("Empty SAM3.1 reference policy", md)
+            self.assertIn("Original vs compiled delta on evaluated samples", md)
             self.assertIn("empty-vs-empty", md)
             self.assertTrue(payload["decision"]["hf_batch_vision_seq_session_usable"])
             self.assertTrue(payload["decision"]["single_object_stuffed_animal_validated"])
@@ -133,6 +191,10 @@ class FinalReportTests(unittest.TestCase):
             self.assertFalse(payload["decision"]["hf_batched_multisession_usable"])
             self.assertEqual(payload["decision"]["recommended_backend"], "hf_batch_vision_seq_session")
             self.assertEqual(payload["decision"]["recommended_compile_mode"], "reduce-overhead")
+            self.assertEqual(payload["decision"]["empty_reference_policy"], "ignore-candidate")
+            self.assertIn("stuffed animal", payload["decision"]["strict_validated_objects"])
+            self.assertIn("hand", payload["decision"]["reference_uncertain_objects"])
+            self.assertTrue(payload["decision"]["demo22_final_fps_pending"])
             self.assertGreater(out_json.stat().st_size, 100)
 
 

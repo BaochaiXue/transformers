@@ -31,14 +31,16 @@ def main() -> int:
     parser.add_argument("--profile-json", nargs="*", default=[])
     parser.add_argument("--iou-ref-summary", default=None)
     parser.add_argument("--different-types-summary", default=None)
+    parser.add_argument("--candidate-delta", default=None)
     parser.add_argument("--output-md", required=True)
     parser.add_argument("--output-json", required=True)
     args = parser.parse_args()
 
-    correctness = load_jsons(args.correctness_json)
+    correctness = [compact_correctness_payload(item) for item in load_jsons(args.correctness_json)]
     profiles = load_jsons(args.profile_json)
     iou_ref_summary = load_optional_json(args.iou_ref_summary)
     different_types_summary = load_optional_json(args.different_types_summary)
+    candidate_delta = load_optional_json(args.candidate_delta)
     repo = {
         "branch": _git("branch", "--show-current"),
         "commit": _git("rev-parse", "HEAD"),
@@ -61,6 +63,7 @@ def main() -> int:
     payload = {
         "goal": "original weights + custom batch=3 multi-session runtime",
         "source": {
+            "github_repo": "https://github.com/BaochaiXue/transformers/tree/feat/edgetam-batched-multisession-runtime",
             "fork_path": "/home/zhangxinjie/EdgeTAM-HF-batched",
             **repo,
             "modeling_edgetam_video_touched": False,
@@ -69,6 +72,7 @@ def main() -> int:
         "profiles": profiles,
         "sam31_replay_iou": iou_ref_summary,
         "different_types_summary": different_types_summary,
+        "candidate_delta": candidate_delta,
         "best_profile": best_profile,
         "decision": {
             "hf_batch_vision_seq_session_usable": bool(sam31_best),
@@ -119,6 +123,15 @@ def main() -> int:
                 (different_types_summary or {}).get("decision", {}).get("controller_hand_reason")
             ),
             "controller_towel_validated": False,
+            "speed_first_usable": any(
+                item.get("metrics", {}).get("correctness_gate", {}).get("speed_first")
+                and item.get("metrics", {}).get("correctness_pass") is True
+                for item in correctness
+            ),
+            "strict_validated_objects": strict_validated_objects(correctness),
+            "reference_uncertain_objects": reference_uncertain_objects(correctness),
+            "empty_reference_policy": first_empty_reference_policy(correctness),
+            "demo22_final_fps_pending": True,
             "controller_towel_caveat": (
                 "SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras; "
                 "current quality claim is for stuffed animal only."
@@ -136,6 +149,14 @@ def load_optional_json(path: str | None) -> dict[str, Any] | None:
         return None
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
     payload["_path"] = path
+    return payload
+
+
+def compact_correctness_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    metrics = payload.get("metrics")
+    if not isinstance(metrics, dict):
+        return payload
+    metrics.pop("sample_statuses", None)
     return payload
 
 
@@ -311,6 +332,18 @@ def render(payload: dict[str, Any]) -> str:
                 else ["No different-types summary provided."]
             ),
             "",
+            "## Empty SAM3.1 reference policy",
+            "",
+            "When SAM3.1 reference is empty, EdgeTAM candidate output is ignored for IoU and empty-mismatch. The sample is marked reference_absent_ignored. This is not counted as correct; it is unevaluated.",
+            "",
+            "## Original vs compiled delta on evaluated samples",
+            "",
+            *(
+                render_candidate_delta_section(payload.get("candidate_delta"))
+                if payload.get("candidate_delta")
+                else ["No original-vs-compiled delta report provided."]
+            ),
+            "",
             "## Decision",
             "",
             markdown_table(["field", "value"], payload["decision"].items()),
@@ -365,6 +398,101 @@ def render_different_types_section(summary: dict[str, Any]) -> list[str]:
             ],
         ),
     ]
+
+
+def render_candidate_delta_section(summary: dict[str, Any]) -> list[str]:
+    rows = []
+    for object_name, item in (summary.get("per_object") or {}).items():
+        rows.append(
+            [
+                object_name,
+                _round(item.get("baseline_iou_avg_on_evaluated")),
+                _round(item.get("candidate_iou_avg_on_evaluated")),
+                _round(item.get("delta")),
+                item.get("not_worse"),
+                item.get("evaluated_sample_count"),
+                item.get("ignored_reference_empty_count"),
+                item.get("candidate_nonempty_when_reference_empty_count"),
+                item.get("reference_uncertain"),
+                item.get("reason"),
+            ]
+        )
+    return [
+        f"- baseline_backend: `{summary.get('baseline_backend')}`",
+        f"- candidate_backend: `{summary.get('candidate_backend')}`",
+        f"- candidate_compile_mode: `{summary.get('candidate_compile_mode')}`",
+        f"- empty_reference_policy: `{summary.get('empty_reference_policy')}`",
+        f"- evaluated_subset_mismatch: `{summary.get('evaluated_subset_mismatch')}`",
+        "",
+        "Compiled batch vision is compared against original HF public only on SAM3.1 reference-nonempty samples.",
+        "",
+        markdown_table(
+            [
+                "object",
+                "baseline_iou",
+                "candidate_iou",
+                "delta",
+                "not_worse",
+                "evaluated",
+                "ref_empty_ignored",
+                "cand_nonempty_ref_empty",
+                "reference_uncertain",
+                "reason",
+            ],
+            rows,
+        ),
+    ]
+
+
+def first_empty_reference_policy(correctness: list[dict[str, Any]]) -> str | None:
+    for item in correctness:
+        metrics = item.get("metrics") or {}
+        policy = metrics.get("empty_reference_policy") or item.get("empty_reference_policy")
+        if policy:
+            return policy
+    return None
+
+
+def strict_validated_objects(correctness: list[dict[str, Any]]) -> list[str]:
+    labels: set[str] = set()
+    for item in correctness:
+        metrics = item.get("metrics") or {}
+        for obj_key, summary in (metrics.get("object_summaries") or {}).items():
+            if summary.get("object_reference_absent"):
+                continue
+            if summary.get("reference_uncertain"):
+                continue
+            if int(summary.get("evaluated_sample_count") or 0) <= 0:
+                continue
+            labels.add(_object_label(item, obj_key))
+    return sorted(labels)
+
+
+def reference_uncertain_objects(correctness: list[dict[str, Any]]) -> list[str]:
+    labels: set[str] = set()
+    for item in correctness:
+        metrics = item.get("metrics") or {}
+        for obj_key, summary in (metrics.get("object_summaries") or {}).items():
+            if summary.get("reference_uncertain") or summary.get("object_reference_absent"):
+                labels.add(_object_label(item, obj_key))
+    return sorted(labels)
+
+
+def _object_label(item: dict[str, Any], obj_key: str) -> str:
+    try:
+        obj_idx = int(str(obj_key).replace("obj", ""))
+    except ValueError:
+        return str(obj_key)
+    object_count = int(item.get("object_count") or item.get("metrics", {}).get("object_count") or 0)
+    object_prompt = item.get("object_prompt") or "stuffed animal"
+    controller_prompt = item.get("controller_prompt") or "controller"
+    if object_count == 1:
+        return object_prompt
+    if obj_idx == 0:
+        return controller_prompt
+    if obj_idx == 1:
+        return object_prompt
+    return f"obj{obj_idx}"
 
 
 def _round(value: Any, digits: int = 5) -> Any:
