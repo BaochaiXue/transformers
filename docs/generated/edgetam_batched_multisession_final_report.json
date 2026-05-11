@@ -1,39 +1,1771 @@
 {
-  "branch": "feat/edgetam-batched-multisession-runtime",
-  "fork_path": "/home/zhangxinjie/EdgeTAM-HF-batched",
-  "upstream_commit": "e9fd66d116c1dc03f85803931a1a3a940057488a",
-  "hf_source_touched": false,
-  "generated_modeling_edgetam_video_touched": false,
-  "runtime_status": "scaffold_only",
-  "state_map": {
-    "session_count": 3,
-    "field_count": 61,
-    "tensor_field_count": 14,
-    "stackable_tensor_field_count": 14,
-    "metadata_field_count": 47,
-    "mutated_field_count": 10
-  },
-  "real_rgb_replay_found": false,
-  "correctness_pass": false,
-  "performance_claim_valid": false,
-  "synthetic_hf_public_profile": {
-    "backend": "hf_ref_seq_public",
-    "status": "synthetic_hf_public",
-    "stage_wall_p50_ms": 76.00097797694616,
-    "stage_wall_p90_ms": 80.38774723536335,
-    "cam0_p50_ms": 24.08466750057414,
-    "cam1_p50_ms": 24.495790508808568,
-    "cam2_p50_ms": 25.59644845314324,
-    "note": "synthetic RGB/masks and sequential public HF sessions; not a validated batched multi-session runtime result"
-  },
-  "current_valid_baseline": {
-    "source": "proj-QQTT-v2 Demo 2.1.5 profile",
+  "best_profile": {
     "backend": "hf_batch_vision_seq_session",
-    "compile_mode": "vision-reduce-overhead",
-    "stage_wall_p50_ms": 77.92,
-    "stage_wall_p90_ms": 86.24,
-    "complete_group_fps": 12.48
+    "compile_mode": "reduce-overhead",
+    "path": "docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_reduce_overhead.json",
+    "stage_wall_p50_ms": 58.43767599435523,
+    "stage_wall_p90_ms": 65.8067935204599
   },
-  "recommended_backend_now": "hf_batch_vision_seq_session",
-  "next_step": "create or locate real 100-frame RGB triplet replay and implement HF reference stepping before batched runtime correctness/profile claims"
+  "correctness": [
+    {
+      "_path": "docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session.json",
+      "backend": "hf_batch_vision_seq_session",
+      "compile_mode": "none",
+      "graph_output_policy": "ring_buffer",
+      "metrics": {
+        "blockers": [],
+        "camera_count": 3,
+        "camera_order_check": "pass",
+        "camera_order_matrix": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "candidate_partial": false,
+        "correctness_pass": true,
+        "empty_mismatch_count": 0,
+        "fallback_backend": null,
+        "frame_count": 100,
+        "global_mask_iou": {
+          "avg": 1.0,
+          "count": 42,
+          "max": 1.0,
+          "min": 1.0,
+          "p50": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "mask_correctness_pass": true,
+        "object_count": 2,
+        "per_camera_object": {
+          "cam0_obj0": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "mask_iou": {
+              "avg": 1.0,
+              "count": 100,
+              "max": 1.0,
+              "min": 1.0,
+              "p50": 1.0,
+              "p90": 1.0,
+              "p95": 1.0,
+              "p99": 1.0
+            },
+            "object_score_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam0_obj1": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "mask_iou": {
+              "avg": 1.0,
+              "count": 100,
+              "max": 1.0,
+              "min": 1.0,
+              "p50": 1.0,
+              "p90": 1.0,
+              "p95": 1.0,
+              "p99": 1.0
+            },
+            "object_score_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam1_obj0": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "mask_iou": {
+              "avg": 1.0,
+              "count": 100,
+              "max": 1.0,
+              "min": 1.0,
+              "p50": 1.0,
+              "p90": 1.0,
+              "p95": 1.0,
+              "p99": 1.0
+            },
+            "object_score_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam1_obj1": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "mask_iou": {
+              "avg": 1.0,
+              "count": 100,
+              "max": 1.0,
+              "min": 1.0,
+              "p50": 1.0,
+              "p90": 1.0,
+              "p95": 1.0,
+              "p99": 1.0
+            },
+            "object_score_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam2_obj0": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "mask_iou": {
+              "avg": 1.0,
+              "count": 100,
+              "max": 1.0,
+              "min": 1.0,
+              "p50": 1.0,
+              "p90": 1.0,
+              "p95": 1.0,
+              "p99": 1.0
+            },
+            "object_score_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam2_obj1": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "mask_iou": {
+              "avg": 1.0,
+              "count": 100,
+              "max": 1.0,
+              "min": 1.0,
+              "p50": 1.0,
+              "p90": 1.0,
+              "p95": 1.0,
+              "p99": 1.0
+            },
+            "object_score_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "reference_nonempty_count": 100
+          }
+        },
+        "state_leakage": {
+          "note": "no cross-camera tensor state is shared in implemented batch-vision fallback",
+          "pass": true
+        },
+        "state_leakage_check": "pass"
+      },
+      "prompt_source": "deterministic_replay_boxes",
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_stuffed_animal"
+    },
+    {
+      "_path": "docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json",
+      "backend": "hf_batch_vision_seq_session",
+      "compile_mode": "max-autotune-no-cudagraphs",
+      "graph_output_policy": "ring_buffer",
+      "metrics": {
+        "blockers": [],
+        "camera_count": 3,
+        "camera_order_check": "pass",
+        "camera_order_matrix": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "candidate_partial": false,
+        "correctness_pass": false,
+        "empty_mismatch_count": 0,
+        "fallback_backend": null,
+        "frame_count": 100,
+        "global_mask_iou": {
+          "avg": 0.929697276983558,
+          "count": 42,
+          "max": 1.0,
+          "min": 0.1549553208773355,
+          "p50": 0.9765794791748557,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "mask_correctness_pass": false,
+        "object_count": 2,
+        "per_camera_object": {
+          "cam0_obj0": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 1.6394370619952678,
+              "count": 100,
+              "max": 6.717403411865234,
+              "min": 0.0,
+              "p50": 0.9762816429138184,
+              "p90": 3.870986294746399,
+              "p95": 4.306668138504028,
+              "p99": 6.297762584686282
+            },
+            "mask_iou": {
+              "avg": 0.7044512399706053,
+              "count": 100,
+              "max": 1.0,
+              "min": 0.1549553208773355,
+              "p50": 0.8903178829030252,
+              "p90": 0.9649808608811524,
+              "p95": 0.9724054504886008,
+              "p99": 0.9777480916030535
+            },
+            "object_score_abs_diff": {
+              "avg": 0.263125,
+              "count": 100,
+              "max": 0.75,
+              "min": 0.0,
+              "p50": 0.234375,
+              "p90": 0.5062500000000005,
+              "p95": 0.65625,
+              "p99": 0.7190625000000002
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam0_obj1": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.35758243381977084,
+              "count": 100,
+              "max": 1.8970091342926025,
+              "min": 0.0,
+              "p50": 0.17513809353113174,
+              "p90": 0.860424339771271,
+              "p95": 1.1922542214393612,
+              "p99": 1.3904965567588834
+            },
+            "mask_iou": {
+              "avg": 0.9511634320412559,
+              "count": 100,
+              "max": 1.0,
+              "min": 0.6999554168524298,
+              "p50": 0.9770590366434339,
+              "p90": 0.9871086399232998,
+              "p95": 0.98829800348091,
+              "p99": 0.9912259970457904
+            },
+            "object_score_abs_diff": {
+              "avg": 0.16109375,
+              "count": 100,
+              "max": 0.90625,
+              "min": 0.0,
+              "p50": 0.109375,
+              "p90": 0.34375,
+              "p95": 0.5359374999999997,
+              "p99": 0.8134375000000005
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam1_obj0": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.4516919954121113,
+              "count": 100,
+              "max": 1.3130040168762207,
+              "min": 0.0,
+              "p50": 0.4225383698940277,
+              "p90": 0.7014225840568543,
+              "p95": 0.7548429012298582,
+              "p99": 1.3055599641799926
+            },
+            "mask_iou": {
+              "avg": 0.9565806231060868,
+              "count": 100,
+              "max": 1.0,
+              "min": 0.9127218934911243,
+              "p50": 0.9563710116070467,
+              "p90": 0.9689889626841766,
+              "p95": 0.9739433534076746,
+              "p99": 0.97742671009772
+            },
+            "object_score_abs_diff": {
+              "avg": 0.1421875,
+              "count": 100,
+              "max": 0.71875,
+              "min": 0.0,
+              "p50": 0.125,
+              "p90": 0.3125,
+              "p95": 0.34375,
+              "p99": 0.37843750000000176
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam1_obj1": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.32926463276147844,
+              "count": 100,
+              "max": 2.119431257247925,
+              "min": 0.0,
+              "p50": 0.2875758111476898,
+              "p90": 0.4499824374914172,
+              "p95": 0.5507005184888839,
+              "p99": 0.6330847990512924
+            },
+            "mask_iou": {
+              "avg": 0.9730193909563201,
+              "count": 100,
+              "max": 1.0,
+              "min": 0.835529693650522,
+              "p50": 0.9748648117746637,
+              "p90": 0.9835381043839723,
+              "p95": 0.9852726224405467,
+              "p99": 0.9872268238292451
+            },
+            "object_score_abs_diff": {
+              "avg": 0.1578125,
+              "count": 100,
+              "max": 0.625,
+              "min": 0.0,
+              "p50": 0.09375,
+              "p90": 0.37812500000000027,
+              "p95": 0.4703124999999999,
+              "p99": 0.5940625000000002
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam2_obj0": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.3788165181875229,
+              "count": 100,
+              "max": 0.9580604434013367,
+              "min": 0.0,
+              "p50": 0.3101884722709656,
+              "p90": 0.6897702515125278,
+              "p95": 0.7717001914978027,
+              "p99": 0.8763334757089619
+            },
+            "mask_iou": {
+              "avg": 0.9216048121735908,
+              "count": 100,
+              "max": 1.0,
+              "min": 0.7600502512562815,
+              "p50": 0.9349777014411176,
+              "p90": 0.9673176835344923,
+              "p95": 0.9760999217062776,
+              "p99": 0.9908727719729564
+            },
+            "object_score_abs_diff": {
+              "avg": 0.308125,
+              "count": 100,
+              "max": 0.78125,
+              "min": 0.0,
+              "p50": 0.28125,
+              "p90": 0.5656250000000003,
+              "p95": 0.625,
+              "p99": 0.6884375000000005
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam2_obj1": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.43796207904815676,
+              "count": 100,
+              "max": 3.7243146896362305,
+              "min": 0.0,
+              "p50": 0.3614982068538666,
+              "p90": 0.5482273101806641,
+              "p95": 0.6530738651752471,
+              "p99": 2.296638002395637
+            },
+            "mask_iou": {
+              "avg": 0.977231214620709,
+              "count": 100,
+              "max": 1.0,
+              "min": 0.8332593578931795,
+              "p50": 0.9821293393941053,
+              "p90": 0.9848474527617961,
+              "p95": 0.9854855246569313,
+              "p99": 0.9882562277580073
+            },
+            "object_score_abs_diff": {
+              "avg": 0.4303125,
+              "count": 100,
+              "max": 1.75,
+              "min": 0.0,
+              "p50": 0.4375,
+              "p90": 0.8187500000000005,
+              "p95": 0.8781249999999998,
+              "p99": 1.4406250000000016
+            },
+            "reference_nonempty_count": 100
+          }
+        },
+        "state_leakage": {
+          "note": "no cross-camera tensor state is shared in implemented batch-vision fallback",
+          "pass": true
+        },
+        "state_leakage_check": "pass"
+      },
+      "prompt_source": "deterministic_replay_boxes",
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_stuffed_animal"
+    },
+    {
+      "_path": "docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session_reduce_overhead.json",
+      "backend": "hf_batch_vision_seq_session",
+      "compile_mode": "reduce-overhead",
+      "graph_output_policy": "ring_buffer",
+      "metrics": {
+        "blockers": [],
+        "camera_count": 3,
+        "camera_order_check": "pass",
+        "camera_order_matrix": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "candidate_partial": false,
+        "correctness_pass": false,
+        "empty_mismatch_count": 0,
+        "fallback_backend": null,
+        "frame_count": 100,
+        "global_mask_iou": {
+          "avg": 0.9161622205881291,
+          "count": 42,
+          "max": 1.0,
+          "min": 0.14622720428308517,
+          "p50": 0.9767956146597401,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "mask_correctness_pass": false,
+        "object_count": 2,
+        "per_camera_object": {
+          "cam0_obj0": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 1.6811601841449737,
+              "count": 100,
+              "max": 6.660536766052246,
+              "min": 0.0,
+              "p50": 1.2020916938781738,
+              "p90": 3.5818418502807616,
+              "p95": 3.6476481556892395,
+              "p99": 4.664608221054087
+            },
+            "mask_iou": {
+              "avg": 0.6213235304951561,
+              "count": 100,
+              "max": 1.0,
+              "min": 0.14622720428308517,
+              "p50": 0.6918678538954522,
+              "p90": 0.9674619113515746,
+              "p95": 0.9709573676966791,
+              "p99": 0.975750798722045
+            },
+            "object_score_abs_diff": {
+              "avg": 0.3340625,
+              "count": 100,
+              "max": 0.8125,
+              "min": 0.0,
+              "p50": 0.3125,
+              "p90": 0.59375,
+              "p95": 0.65625,
+              "p99": 0.6887500000000006
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam0_obj1": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.9001407600194216,
+              "count": 100,
+              "max": 3.315122127532959,
+              "min": 0.0,
+              "p50": 0.40942296385765076,
+              "p90": 2.244821500778199,
+              "p95": 3.030762469768524,
+              "p99": 3.2630850410461427
+            },
+            "mask_iou": {
+              "avg": 0.8480335089675325,
+              "count": 100,
+              "max": 1.0,
+              "min": 0.4762826718296225,
+              "p50": 0.9362974265997133,
+              "p90": 0.9848802801559369,
+              "p95": 0.9863786455302432,
+              "p99": 0.9897712177121772
+            },
+            "object_score_abs_diff": {
+              "avg": 0.48265625,
+              "count": 100,
+              "max": 1.71875,
+              "min": 0.0,
+              "p50": 0.234375,
+              "p90": 1.21875,
+              "p95": 1.4078125,
+              "p99": 1.6878125000000002
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam1_obj0": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.37061639554798603,
+              "count": 100,
+              "max": 2.9177913665771484,
+              "min": 0.0,
+              "p50": 0.3270621597766876,
+              "p90": 0.5162030398845674,
+              "p95": 0.5594127655029296,
+              "p99": 0.6800806957483407
+            },
+            "mask_iou": {
+              "avg": 0.9762894429143499,
+              "count": 100,
+              "max": 1.0,
+              "min": 0.882587064676617,
+              "p50": 0.9796241903727965,
+              "p90": 0.9883564390001549,
+              "p95": 0.9894163854448894,
+              "p99": 0.992471482889734
+            },
+            "object_score_abs_diff": {
+              "avg": 0.2490625,
+              "count": 100,
+              "max": 0.71875,
+              "min": 0.0,
+              "p50": 0.234375,
+              "p90": 0.5031250000000003,
+              "p95": 0.5328124999999999,
+              "p99": 0.6259375000000005
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam1_obj1": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.34472022250294687,
+              "count": 100,
+              "max": 2.3101561069488525,
+              "min": 0.0,
+              "p50": 0.3154519647359848,
+              "p90": 0.43908840119838716,
+              "p95": 0.44839504957199094,
+              "p99": 0.5796472930908293
+            },
+            "mask_iou": {
+              "avg": 0.9664198286651594,
+              "count": 100,
+              "max": 1.0,
+              "min": 0.823599931495119,
+              "p50": 0.9689816738600197,
+              "p90": 0.9833951041492068,
+              "p95": 0.9848113286980129,
+              "p99": 0.987996171027441
+            },
+            "object_score_abs_diff": {
+              "avg": 0.2703125,
+              "count": 100,
+              "max": 0.5625,
+              "min": 0.0,
+              "p50": 0.28125,
+              "p90": 0.46875,
+              "p95": 0.5,
+              "p99": 0.5315625000000002
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam2_obj0": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.3462720550596714,
+              "count": 100,
+              "max": 1.1400353908538818,
+              "min": 0.0,
+              "p50": 0.2778341770172119,
+              "p90": 0.6572494745254519,
+              "p95": 0.7876934170722961,
+              "p99": 0.9419336718320857
+            },
+            "mask_iou": {
+              "avg": 0.9351395332889267,
+              "count": 100,
+              "max": 1.0,
+              "min": 0.8064729194187582,
+              "p50": 0.9502452950755468,
+              "p90": 0.9713344373747058,
+              "p95": 0.976535155690949,
+              "p99": 0.9829834254143648
+            },
+            "object_score_abs_diff": {
+              "avg": 0.19625,
+              "count": 100,
+              "max": 0.625,
+              "min": 0.0,
+              "p50": 0.15625,
+              "p90": 0.44062500000000027,
+              "p95": 0.5640624999999999,
+              "p99": 0.5940625000000002
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam2_obj1": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.6210706397891045,
+              "count": 100,
+              "max": 3.9715726375579834,
+              "min": 0.0,
+              "p50": 0.5646406412124634,
+              "p90": 0.7324374854564667,
+              "p95": 0.8032480657100676,
+              "p99": 2.4944052028656083
+            },
+            "mask_iou": {
+              "avg": 0.9722986107935496,
+              "count": 100,
+              "max": 1.0,
+              "min": 0.8266152934202726,
+              "p50": 0.9770560736285311,
+              "p90": 0.9848498356772056,
+              "p95": 0.9857187108246916,
+              "p99": 0.9903825136612022
+            },
+            "object_score_abs_diff": {
+              "avg": 0.44,
+              "count": 100,
+              "max": 2.8125,
+              "min": 0.0,
+              "p50": 0.375,
+              "p90": 0.8125,
+              "p95": 0.875,
+              "p99": 2.070000000000004
+            },
+            "reference_nonempty_count": 100
+          }
+        },
+        "state_leakage": {
+          "note": "no cross-camera tensor state is shared in implemented batch-vision fallback",
+          "pass": true
+        },
+        "state_leakage_check": "pass"
+      },
+      "prompt_source": "deterministic_replay_boxes",
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_stuffed_animal"
+    },
+    {
+      "_path": "docs/generated/edgetam_batched_correctness_hf_batched_multisession.json",
+      "backend": "hf_batched_multisession",
+      "compile_mode": "none",
+      "graph_output_policy": "ring_buffer",
+      "metrics": {
+        "blockers": [
+          "hf_batched_multisession requires explicit HF session memory/object-pointer tensorization; current implementation falls back to batch vision + sequential session decode"
+        ],
+        "camera_count": 3,
+        "camera_order_check": "pass",
+        "camera_order_matrix": [
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ],
+          [
+            1.0,
+            1.0,
+            1.0
+          ]
+        ],
+        "candidate_partial": true,
+        "correctness_pass": false,
+        "empty_mismatch_count": 0,
+        "fallback_backend": "hf_batch_vision_seq_session",
+        "frame_count": 100,
+        "global_mask_iou": {
+          "avg": 1.0,
+          "count": 42,
+          "max": 1.0,
+          "min": 1.0,
+          "p50": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "mask_correctness_pass": true,
+        "object_count": 2,
+        "per_camera_object": {
+          "cam0_obj0": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "mask_iou": {
+              "avg": 1.0,
+              "count": 100,
+              "max": 1.0,
+              "min": 1.0,
+              "p50": 1.0,
+              "p90": 1.0,
+              "p95": 1.0,
+              "p99": 1.0
+            },
+            "object_score_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam0_obj1": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "mask_iou": {
+              "avg": 1.0,
+              "count": 100,
+              "max": 1.0,
+              "min": 1.0,
+              "p50": 1.0,
+              "p90": 1.0,
+              "p95": 1.0,
+              "p99": 1.0
+            },
+            "object_score_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam1_obj0": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "mask_iou": {
+              "avg": 1.0,
+              "count": 100,
+              "max": 1.0,
+              "min": 1.0,
+              "p50": 1.0,
+              "p90": 1.0,
+              "p95": 1.0,
+              "p99": 1.0
+            },
+            "object_score_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam1_obj1": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "mask_iou": {
+              "avg": 1.0,
+              "count": 100,
+              "max": 1.0,
+              "min": 1.0,
+              "p50": 1.0,
+              "p90": 1.0,
+              "p95": 1.0,
+              "p99": 1.0
+            },
+            "object_score_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam2_obj0": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "mask_iou": {
+              "avg": 1.0,
+              "count": 100,
+              "max": 1.0,
+              "min": 1.0,
+              "p50": 1.0,
+              "p90": 1.0,
+              "p95": 1.0,
+              "p99": 1.0
+            },
+            "object_score_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "reference_nonempty_count": 100
+          },
+          "cam2_obj1": {
+            "candidate_nonempty_count": 100,
+            "logit_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "mask_iou": {
+              "avg": 1.0,
+              "count": 100,
+              "max": 1.0,
+              "min": 1.0,
+              "p50": 1.0,
+              "p90": 1.0,
+              "p95": 1.0,
+              "p99": 1.0
+            },
+            "object_score_abs_diff": {
+              "avg": 0.0,
+              "count": 100,
+              "max": 0.0,
+              "min": 0.0,
+              "p50": 0.0,
+              "p90": 0.0,
+              "p95": 0.0,
+              "p99": 0.0
+            },
+            "reference_nonempty_count": 100
+          }
+        },
+        "state_leakage": {
+          "note": "no cross-camera tensor state is shared in implemented batch-vision fallback",
+          "pass": true
+        },
+        "state_leakage_check": "pass"
+      },
+      "prompt_source": "deterministic_replay_boxes",
+      "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_stuffed_animal"
+    }
+  ],
+  "decision": {
+    "fallback_backend": "hf_batch_vision_seq_session",
+    "faster_than_77_92_ms_baseline": true,
+    "hf_batched_multisession_usable": false,
+    "recommended_backend": "hf_batch_vision_seq_session"
+  },
+  "goal": "original weights + custom batch=3 multi-session runtime",
+  "profiles": [
+    {
+      "_path": "docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json",
+      "backend": "hf_batch_vision_seq_session",
+      "compile_mode": "max-autotune-no-cudagraphs",
+      "correctness_pass": false,
+      "correctness_report_used": null,
+      "frames": 100,
+      "graph_output_policy": "ring_buffer",
+      "profile": {
+        "backend": "hf_batch_vision_seq_session",
+        "blockers": [],
+        "compiled_module_count": 1,
+        "complete_group_fps_from_p50": 16.669442131156316,
+        "correctness_pass": false,
+        "cuda_graph_enabled": false,
+        "fallback_backend": null,
+        "note": "profile-only run; use compare_multisession correctness JSON for acceptance",
+        "partial": false,
+        "ring_buffer_size": 8,
+        "timings_ms": {
+          "cam0_decode_ms": {
+            "avg": 17.166284692357294,
+            "count": 100,
+            "max": 25.74268396710977,
+            "min": 15.648255997803062,
+            "p50": 16.48967296932824,
+            "p90": 18.916869995882738,
+            "p95": 20.09206261136569,
+            "p99": 24.12081454764121
+          },
+          "cam1_decode_ms": {
+            "avg": 16.911849950556643,
+            "count": 100,
+            "max": 25.863296003080904,
+            "min": 15.34557796549052,
+            "p50": 16.346396470908076,
+            "p90": 18.32812353386544,
+            "p95": 20.034362128353674,
+            "p99": 25.76887775096111
+          },
+          "cam2_decode_ms": {
+            "avg": 16.868792328168638,
+            "count": 100,
+            "max": 27.404886030126363,
+            "min": 15.263880020938814,
+            "p50": 16.118730534799397,
+            "p90": 18.668777181301266,
+            "p95": 20.851407051668502,
+            "p99": 24.187074151705033
+          },
+          "feature_split_ms": {
+            "avg": 0.15188511984888464,
+            "count": 100,
+            "max": 0.33323600655421615,
+            "min": 0.12415496166795492,
+            "p50": 0.14393750461749732,
+            "p90": 0.17274122801609337,
+            "p95": 0.18931663944385943,
+            "p99": 0.3135260974522681
+          },
+          "mask_decoder_ms": {
+            "avg": 51.97393442969769,
+            "count": 100,
+            "max": 66.31649303017184,
+            "min": 48.469501023646444,
+            "p50": 50.78707748907618,
+            "p90": 57.17389968340285,
+            "p95": 59.63201125559863,
+            "p99": 63.00292535219344
+          },
+          "mask_postprocess_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "memory_attention_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "memory_encoder_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "preprocess_ms": {
+            "avg": 3.0740803020307794,
+            "count": 100,
+            "max": 4.078166966792196,
+            "min": 2.1078139543533325,
+            "p50": 3.0704425007570535,
+            "p90": 3.4719985618721694,
+            "p95": 3.6311353091150522,
+            "p99": 3.7107918807305413
+          },
+          "stage_wall_ms": {
+            "avg": 61.3267823215574,
+            "count": 100,
+            "max": 75.65164699917659,
+            "min": 56.92262499360368,
+            "p50": 59.9900099914521,
+            "p90": 66.65191479842179,
+            "p95": 68.09196455287747,
+            "p99": 72.11629763653038
+          },
+          "state_scatter_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "state_stack_ms": {
+            "avg": 0.009205591049976647,
+            "count": 100,
+            "max": 0.013015989679843187,
+            "min": 0.007733004167675972,
+            "p50": 0.008978997357189655,
+            "p90": 0.010461732745170595,
+            "p95": 0.011504595750011504,
+            "p99": 0.012968506198376417
+          },
+          "vision_encoder_ms": {
+            "avg": 6.061907502007671,
+            "count": 100,
+            "max": 9.74333705380559,
+            "min": 5.560751014854759,
+            "p50": 5.806434986880049,
+            "p90": 6.868346402188763,
+            "p95": 7.068836258258671,
+            "p99": 7.623226286959845
+          }
+        }
+      },
+      "status": "replay_profile",
+      "warmup": 20
+    },
+    {
+      "_path": "docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_none.json",
+      "backend": "hf_batch_vision_seq_session",
+      "compile_mode": "none",
+      "correctness_pass": false,
+      "correctness_report_used": null,
+      "frames": 100,
+      "graph_output_policy": "ring_buffer",
+      "profile": {
+        "backend": "hf_batch_vision_seq_session",
+        "blockers": [],
+        "compiled_module_count": 0,
+        "complete_group_fps_from_p50": 15.687378159655259,
+        "correctness_pass": false,
+        "cuda_graph_enabled": false,
+        "fallback_backend": null,
+        "note": "profile-only run; use compare_multisession correctness JSON for acceptance",
+        "partial": false,
+        "ring_buffer_size": 8,
+        "timings_ms": {
+          "cam0_decode_ms": {
+            "avg": 15.51519960805308,
+            "count": 100,
+            "max": 19.324993947520852,
+            "min": 14.14585200836882,
+            "p50": 15.362559002824128,
+            "p90": 16.318664769642055,
+            "p95": 17.300979018909857,
+            "p99": 18.17390613199678
+          },
+          "cam1_decode_ms": {
+            "avg": 15.173448871355504,
+            "count": 100,
+            "max": 18.17772100912407,
+            "min": 13.802143046632409,
+            "p50": 15.16257951152511,
+            "p90": 16.23234401922673,
+            "p95": 16.84415949275717,
+            "p99": 17.265723125892695
+          },
+          "cam2_decode_ms": {
+            "avg": 14.953538214904256,
+            "count": 100,
+            "max": 16.776047996245325,
+            "min": 13.731981976889074,
+            "p50": 14.801196492044255,
+            "p90": 15.914130187593402,
+            "p95": 16.107935275067575,
+            "p99": 16.366746379062533
+          },
+          "feature_split_ms": {
+            "avg": 0.1505119982175529,
+            "count": 100,
+            "max": 0.2548429765738547,
+            "min": 0.11726299999281764,
+            "p50": 0.14400348300114274,
+            "p90": 0.18525977502577012,
+            "p95": 0.20609010243788362,
+            "p99": 0.2525303466245532
+          },
+          "mask_decoder_ms": {
+            "avg": 46.65879089268856,
+            "count": 100,
+            "max": 53.39015001663938,
+            "min": 43.641759955789894,
+            "p50": 46.43629852216691,
+            "p90": 49.000986805185676,
+            "p95": 49.979343710583635,
+            "p99": 52.23939083982259
+          },
+          "mask_postprocess_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "memory_attention_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "memory_encoder_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "preprocess_ms": {
+            "avg": 2.9756435099989176,
+            "count": 100,
+            "max": 3.968962002545595,
+            "min": 1.766967005096376,
+            "p50": 2.998134499648586,
+            "p90": 3.611884888960049,
+            "p95": 3.7225059320917353,
+            "p99": 3.7816203059628615
+          },
+          "stage_wall_ms": {
+            "avg": 64.03940313903149,
+            "count": 100,
+            "max": 71.10917498357594,
+            "min": 60.3858670219779,
+            "p50": 63.74551501357928,
+            "p90": 66.34561588289216,
+            "p95": 67.18536303378642,
+            "p99": 69.67861011449715
+          },
+          "state_scatter_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "state_stack_ms": {
+            "avg": 0.009391659987159073,
+            "count": 100,
+            "max": 0.053821015171706676,
+            "min": 0.007518974598497152,
+            "p50": 0.008481991244480014,
+            "p90": 0.010011112317442896,
+            "p95": 0.011291459668427702,
+            "p99": 0.024822899140417725
+          },
+          "vision_encoder_ms": {
+            "avg": 14.191949242958799,
+            "count": 100,
+            "max": 14.617289998568594,
+            "min": 13.981068972498178,
+            "p50": 14.172959519783035,
+            "p90": 14.308957004686818,
+            "p95": 14.378237596247345,
+            "p99": 14.53748709289357
+          }
+        }
+      },
+      "status": "replay_profile",
+      "warmup": 20
+    },
+    {
+      "_path": "docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_none_scaffold.json",
+      "backend": "hf_batch_vision_seq_session",
+      "compile_mode": "none",
+      "correctness_pass": false,
+      "correctness_report_used": null,
+      "frames": 100,
+      "graph_output_policy": "ring_buffer",
+      "profile": {
+        "note": "scaffold-only timing; does not measure EdgeTAM model inference",
+        "stage_wall_ms": {
+          "avg": 4.626810550689697e-05,
+          "count": 100,
+          "max": 0.00123301288112998,
+          "min": 2.9976945370435715e-05,
+          "p50": 3.198510967195034e-05,
+          "p90": 4.117609933018686e-05,
+          "p95": 5.614710971713065e-05,
+          "p99": 0.00010343617759645568
+        }
+      },
+      "status": "scaffold_only",
+      "warmup": 20
+    },
+    {
+      "_path": "docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_reduce_overhead.json",
+      "backend": "hf_batch_vision_seq_session",
+      "compile_mode": "reduce-overhead",
+      "correctness_pass": false,
+      "correctness_report_used": null,
+      "frames": 100,
+      "graph_output_policy": "ring_buffer",
+      "profile": {
+        "backend": "hf_batch_vision_seq_session",
+        "blockers": [],
+        "compiled_module_count": 1,
+        "complete_group_fps_from_p50": 17.112247928829248,
+        "correctness_pass": false,
+        "cuda_graph_enabled": true,
+        "fallback_backend": null,
+        "note": "profile-only run; use compare_multisession correctness JSON for acceptance",
+        "partial": false,
+        "ring_buffer_size": 8,
+        "timings_ms": {
+          "cam0_decode_ms": {
+            "avg": 16.909665859420784,
+            "count": 100,
+            "max": 27.7182090212591,
+            "min": 14.336685999296606,
+            "p50": 16.326792509062216,
+            "p90": 19.305610744049773,
+            "p95": 22.534705509315245,
+            "p99": 24.138890703907254
+          },
+          "cam1_decode_ms": {
+            "avg": 16.69605393835809,
+            "count": 100,
+            "max": 39.77223497349769,
+            "min": 14.115658996161073,
+            "p50": 15.95753399305977,
+            "p90": 18.8738396158442,
+            "p95": 21.616219336283393,
+            "p99": 25.938913520076383
+          },
+          "cam2_decode_ms": {
+            "avg": 16.478695849655196,
+            "count": 100,
+            "max": 41.0563470213674,
+            "min": 13.942096033133566,
+            "p50": 15.705095516750589,
+            "p90": 19.090284581761807,
+            "p95": 20.672061084769666,
+            "p99": 26.53079673822511
+          },
+          "feature_split_ms": {
+            "avg": 0.1854513812577352,
+            "count": 100,
+            "max": 0.54605194600299,
+            "min": 0.12866203906014562,
+            "p50": 0.15565950889140368,
+            "p90": 0.28590033180080365,
+            "p95": 0.347965388209559,
+            "p99": 0.38478893809951925
+          },
+          "mask_decoder_ms": {
+            "avg": 51.19256573088933,
+            "count": 100,
+            "max": 78.99753499077633,
+            "min": 44.01043901452795,
+            "p50": 49.41633599810302,
+            "p90": 56.64495748933405,
+            "p95": 69.19640546257142,
+            "p99": 76.16267491248438
+          },
+          "mask_postprocess_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "memory_attention_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "memory_encoder_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "preprocess_ms": {
+            "avg": 3.275701542152092,
+            "count": 100,
+            "max": 4.630092007573694,
+            "min": 1.9284039735794067,
+            "p50": 3.3108224743045866,
+            "p90": 4.070501518435776,
+            "p95": 4.141864244593307,
+            "p99": 4.388255812809804
+          },
+          "stage_wall_ms": {
+            "avg": 60.482747281203046,
+            "count": 100,
+            "max": 89.32506199926138,
+            "min": 52.623918978497386,
+            "p50": 58.43767599435523,
+            "p90": 65.8067935204599,
+            "p95": 79.40968546899967,
+            "p99": 85.40439173346387
+          },
+          "state_scatter_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "state_stack_ms": {
+            "avg": 0.012004047748632729,
+            "count": 100,
+            "max": 0.11176703264936805,
+            "min": 0.008306000381708145,
+            "p50": 0.00973098212853074,
+            "p90": 0.011997425463050604,
+            "p95": 0.014366043615154922,
+            "p99": 0.09015426912810665
+          },
+          "vision_encoder_ms": {
+            "avg": 5.753912430955097,
+            "count": 100,
+            "max": 8.564016956370324,
+            "min": 5.5786140146665275,
+            "p50": 5.707790987798944,
+            "p90": 5.797662888653576,
+            "p95": 5.885255124303512,
+            "p99": 6.105874684872118
+          }
+        }
+      },
+      "status": "replay_profile",
+      "warmup": 20
+    },
+    {
+      "_path": "docs/generated/edgetam_batched_profile_hf_batched_multisession_none.json",
+      "backend": "hf_batched_multisession",
+      "compile_mode": "none",
+      "correctness_pass": false,
+      "correctness_report_used": null,
+      "frames": 100,
+      "graph_output_policy": "ring_buffer",
+      "profile": {
+        "backend": "hf_batched_multisession",
+        "blockers": [
+          "hf_batched_multisession requires explicit HF session memory/object-pointer tensorization; current implementation falls back to batch vision + sequential session decode"
+        ],
+        "compiled_module_count": 0,
+        "complete_group_fps_from_p50": 15.706419500229629,
+        "correctness_pass": false,
+        "cuda_graph_enabled": false,
+        "fallback_backend": "hf_batch_vision_seq_session",
+        "note": "profile-only run; use compare_multisession correctness JSON for acceptance",
+        "partial": true,
+        "ring_buffer_size": 8,
+        "timings_ms": {
+          "cam0_decode_ms": {
+            "avg": 15.212092263391241,
+            "count": 100,
+            "max": 16.699168016202748,
+            "min": 14.085526985581964,
+            "p50": 15.245889488141984,
+            "p90": 15.961998351849616,
+            "p95": 16.378701126086526,
+            "p99": 16.538859287975356
+          },
+          "cam1_decode_ms": {
+            "avg": 15.029359209584072,
+            "count": 100,
+            "max": 17.001211002934724,
+            "min": 13.627379026729614,
+            "p50": 15.025582513771951,
+            "p90": 15.955452807247639,
+            "p95": 16.181713124387898,
+            "p99": 16.979463626048528
+          },
+          "cam2_decode_ms": {
+            "avg": 14.965988456388004,
+            "count": 100,
+            "max": 19.267083960585296,
+            "min": 13.7221590266563,
+            "p50": 14.912722021108493,
+            "p90": 15.650262497365475,
+            "p95": 15.977896156255156,
+            "p99": 17.240938105387624
+          },
+          "feature_split_ms": {
+            "avg": 0.14821268792729825,
+            "count": 100,
+            "max": 0.21243694936856627,
+            "min": 0.11317204916849732,
+            "p50": 0.1437420432921499,
+            "p90": 0.18143756897188723,
+            "p95": 0.1998268737224862,
+            "p99": 0.20732066186610612
+          },
+          "mask_decoder_ms": {
+            "avg": 46.21671376633458,
+            "count": 100,
+            "max": 50.894493993837386,
+            "min": 43.4040620457381,
+            "p50": 46.2480139976833,
+            "p90": 47.98564019147307,
+            "p95": 48.64083148422651,
+            "p99": 50.8491965389112
+          },
+          "mask_postprocess_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "memory_attention_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "memory_encoder_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "preprocess_ms": {
+            "avg": 2.9772282153135166,
+            "count": 100,
+            "max": 3.8475170149467885,
+            "min": 1.8807919695973396,
+            "p50": 3.0174544954206795,
+            "p90": 3.5965220245998353,
+            "p95": 3.6521382338833064,
+            "p99": 3.7457845779135828
+          },
+          "stage_wall_ms": {
+            "avg": 63.607974633341655,
+            "count": 100,
+            "max": 68.82259499980137,
+            "min": 59.72971796290949,
+            "p50": 63.66823450662196,
+            "p90": 65.51955243339762,
+            "p95": 66.24816270486917,
+            "p99": 68.82188222894911
+          },
+          "state_scatter_ms": {
+            "avg": 0.0,
+            "count": 100,
+            "max": 0.0,
+            "min": 0.0,
+            "p50": 0.0,
+            "p90": 0.0,
+            "p95": 0.0,
+            "p99": 0.0
+          },
+          "state_stack_ms": {
+            "avg": 0.008484708378091455,
+            "count": 100,
+            "max": 0.01798802986741066,
+            "min": 0.0068740337155759335,
+            "p50": 0.008197501301765442,
+            "p90": 0.009317201329395175,
+            "p95": 0.010503450175747275,
+            "p99": 0.015820904518477633
+          },
+          "vision_encoder_ms": {
+            "avg": 14.204215550562367,
+            "count": 100,
+            "max": 15.049634035676718,
+            "min": 13.885884021874517,
+            "p50": 14.191504480550066,
+            "p90": 14.315079792868346,
+            "p95": 14.375571894925088,
+            "p99": 14.733460664283486
+          }
+        }
+      },
+      "status": "replay_profile",
+      "warmup": 20
+    },
+    {
+      "_path": "docs/generated/edgetam_batched_profile_hf_ref_seq_public_synthetic.json",
+      "backend": "hf_ref_seq_public",
+      "compile_mode": "none",
+      "correctness_pass": false,
+      "correctness_report_used": null,
+      "frames": 10,
+      "graph_output_policy": "ring_buffer",
+      "profile": {
+        "model_load_ms": 2106.8723159842193,
+        "note": "synthetic HF public API sequential three-session profile; not batched multi-session runtime",
+        "output_pred_masks_shape": [
+          2,
+          1,
+          256,
+          256
+        ],
+        "per_camera_model_ms": {
+          "cam0": {
+            "avg": 25.166526302928105,
+            "count": 10,
+            "max": 32.215480983722955,
+            "min": 21.794582018628716,
+            "p50": 24.08466750057414,
+            "p90": 28.018663061084226,
+            "p95": 30.117072022403583,
+            "p99": 31.795799191459082
+          },
+          "cam1": {
+            "avg": 24.30632350151427,
+            "count": 10,
+            "max": 26.989782985765487,
+            "min": 21.399158984422684,
+            "p50": 24.495790508808568,
+            "p90": 26.60612923791632,
+            "p95": 26.797956111840904,
+            "p99": 26.95141761098057
+          },
+          "cam2": {
+            "avg": 25.31965178786777,
+            "count": 10,
+            "max": 28.057974006514996,
+            "min": 21.603122004307806,
+            "p50": 25.59644845314324,
+            "p90": 27.986721019260585,
+            "p95": 28.02234751288779,
+            "p99": 28.050848707789555
+          }
+        },
+        "preprocess_ms": 76.96471898816526,
+        "prompt_ms": 35.84785497514531,
+        "stage_wall_ms": {
+          "avg": 74.80734839919023,
+          "count": 10,
+          "max": 81.91211498342454,
+          "min": 65.48103201203048,
+          "p50": 76.00097797694616,
+          "p90": 80.38774723536335,
+          "p95": 81.14993110939395,
+          "p99": 81.75967820861842
+        }
+      },
+      "status": "synthetic_hf_public",
+      "warmup": 3
+    }
+  ],
+  "source": {
+    "branch": "feat/edgetam-batched-multisession-runtime",
+    "commit": "80359782959f26fab60a18e28ed86020f8064402",
+    "fork_path": "/home/zhangxinjie/EdgeTAM-HF-batched",
+    "modeling_edgetam_video_touched": false
+  }
 }

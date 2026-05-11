@@ -168,6 +168,9 @@ def main() -> int:
     if args.synthetic_hf_public:
         profile = run_synthetic_hf_public_profile(args)
         status = "synthetic_hf_public"
+    elif args.rgb_replay:
+        profile = run_replay_profile(args)
+        status = "replay_profile"
     else:
         profile = run_scaffold_profile(args.frames, args.warmup)
         status = "scaffold_only"
@@ -200,6 +203,47 @@ def main() -> int:
     if args.debug:
         print(payload)
     return 0
+
+
+def run_replay_profile(args: argparse.Namespace) -> dict:
+    from .batched_multisession_runtime import run_candidate
+    from .reference_runtime import HfEdgeTamReferenceRuntime, ReferenceRuntimeConfig
+    from .rgb_replay import load_replay_frames
+
+    replay_frames = load_replay_frames(args.rgb_replay)
+    config = ReferenceRuntimeConfig(
+        model_id=args.model_id,
+        dtype=args.dtype,
+        device=args.device,
+    )
+    reference_runtime = HfEdgeTamReferenceRuntime(config)
+    reference_runtime.load()
+    reference_runtime.init_sessions(replay_frames[0])
+    result = run_candidate(
+        rgb_replay_frames=replay_frames,
+        reference_runtime=reference_runtime,
+        backend=args.backend,
+        compile_mode=args.compile_mode,
+        graph_output_policy=args.graph_output_policy,
+        warmup=args.warmup,
+        profile_frames=args.frames,
+    )
+    stage = result.timings_ms.get("stage_wall_ms", {})
+    p50 = stage.get("p50")
+    fps = None if not p50 else 1000.0 / float(p50)
+    return {
+        "backend": result.backend,
+        "partial": result.partial,
+        "fallback_backend": result.fallback_backend,
+        "blockers": result.blockers or [],
+        "timings_ms": result.timings_ms,
+        "complete_group_fps_from_p50": fps,
+        "compiled_module_count": 1 if args.compile_mode != "none" else 0,
+        "cuda_graph_enabled": args.compile_mode == "reduce-overhead",
+        "ring_buffer_size": 8 if args.graph_output_policy == "ring_buffer" else 0,
+        "correctness_pass": False,
+        "note": "profile-only run; use compare_multisession correctness JSON for acceptance",
+    }
 
 
 if __name__ == "__main__":

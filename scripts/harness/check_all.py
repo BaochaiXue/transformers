@@ -29,6 +29,10 @@ def main() -> int:
             "tests.test_profile_stats",
             "tests.test_ring_buffer",
             "tests.test_compile_config",
+            "tests.test_batched_runtime_shapes",
+            "tests.test_component_adapter",
+            "tests.test_compare_multisession",
+            "tests.test_profile_multisession",
         ],
     ]
 

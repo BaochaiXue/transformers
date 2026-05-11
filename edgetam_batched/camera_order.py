@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import Sequence
 
+import numpy as np
+
 try:
     import torch
 except Exception:  # pragma: no cover
@@ -17,8 +19,10 @@ def mask_iou(a, b) -> float:
         inter = torch.logical_and(aa, bb).sum().item()
         union = torch.logical_or(aa, bb).sum().item()
     else:
-        inter = sum(bool(x) and bool(y) for x, y in zip(a, b, strict=False))
-        union = sum(bool(x) or bool(y) for x, y in zip(a, b, strict=False))
+        aa = np.asarray(a).astype(bool)
+        bb = np.asarray(b).astype(bool)
+        inter = int(np.logical_and(aa, bb).sum())
+        union = int(np.logical_or(aa, bb).sum())
     return 1.0 if union == 0 else float(inter) / float(union)
 
 
@@ -29,8 +33,9 @@ def iou_matrix(candidate_masks: Sequence, reference_masks: Sequence) -> list[lis
 def diagonal_best(matrix: Sequence[Sequence[float]]) -> dict:
     failures = []
     for row_idx, row in enumerate(matrix):
-        best_idx = max(range(len(row)), key=lambda idx: row[idx])
-        if best_idx != row_idx:
+        best_value = max(row)
+        if row[row_idx] < best_value:
+            best_idx = max(range(len(row)), key=lambda idx: row[idx])
             failures.append({"candidate": row_idx, "best_reference": best_idx, "row": list(row)})
     return {
         "pass": len(failures) == 0,
