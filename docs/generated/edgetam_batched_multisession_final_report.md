@@ -11,17 +11,14 @@ Original weights + custom batch=3 multi-session runtime.
 | github_repo | https://github.com/BaochaiXue/transformers/tree/feat/edgetam-batched-multisession-runtime |
 | fork_path | /home/zhangxinjie/EdgeTAM-HF-batched |
 | branch | feat/edgetam-batched-multisession-runtime |
-| commit | 4a41c4a45fa6f0541f3d62aff95867de06d90c92 |
+| commit | 861309fb8ef93e0c3b165df160d7b1beca024e43 |
 | modeling_edgetam_video_touched | False |
 
 ## Correctness
 
 | backend | compile | pass | mask_pass | partial | fallback | contract_pass | path |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| hf_batch_vision_seq_session | none | True | True | False |  |  | docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session.json |
-| hf_batch_vision_seq_session | max-autotune-no-cudagraphs | False | False | False |  |  | docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json |
-| hf_batch_vision_seq_session | reduce-overhead | False | False | False |  |  | docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session_reduce_overhead.json |
-| hf_batched_multisession | none | False | True | True | hf_batch_vision_seq_session |  | docs/generated/edgetam_batched_correctness_hf_batched_multisession.json |
+| hf_batched_multisession | none | True | True | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_precision_memory_path_fp32.json |
 | hf_batched_multisession | default | True | True | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_memory_path_fp32_default.json |
 | hf_batched_multisession | max-autotune-no-cudagraphs | True | True | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_memory_path_fp32_max_autotune_no_cudagraphs.json |
 | hf_batched_multisession | reduce-overhead | True | True | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_memory_path_fp32_reduce_overhead.json |
@@ -30,37 +27,18 @@ Original weights + custom batch=3 multi-session runtime.
 
 | backend | compile | p50 | p90 | partial | path |
 | --- | --- | --- | --- | --- | --- |
-| hf_batch_vision_seq_session | max-autotune-no-cudagraphs | 59.9900099914521 | 66.65191479842179 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json |
-| hf_batch_vision_seq_session | none | 63.74551501357928 | 66.34561588289216 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_none.json |
-| hf_batch_vision_seq_session | reduce-overhead | 58.43767599435523 | 65.8067935204599 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_reduce_overhead.json |
-| hf_batched_multisession | none | 63.66823450662196 | 65.51955243339762 | True | docs/generated/edgetam_batched_profile_hf_batched_multisession_none.json |
 
 ## SAM3.1 replay reference correctness
 
-- reference_source: `sam31-replay`
-- sam31_mask_root: `/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_stuffed_animal/sam31_video_reference_masks`
-- backend: `hf_batch_vision_seq_session`
-
-| compile_mode | correctness_pass | global_iou_avg | global_iou_min | global_iou_p50 | empty_mismatch |
-| --- | --- | --- | --- | --- | --- |
-| max-autotune-no-cudagraphs | True | 0.98122 | 0.93887 | 0.99073 | 0 |
-| none | True | 0.98137 | 0.94032 | 0.99073 | 0 |
-| reduce-overhead | True | 0.98138 | 0.93835 | 0.99073 | 0 |
+No SAM3.1 replay IoU summary provided.
 
 ## Non-empty object quality: stuffed animal only
 
-| compile_mode | cam0 stuffed animal IoU | cam1 stuffed animal IoU | cam2 stuffed animal IoU |
-| --- | --- | --- | --- |
-| max-autotune-no-cudagraphs | 0.97582 | 0.96297 | 0.94242 |
-| none | 0.97578 | 0.96238 | 0.94318 |
-| reduce-overhead | 0.97472 | 0.96269 | 0.94373 |
+No stuffed animal IoU rows available.
 
 ## Controller/towel caveat
 
-SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras.
-Therefore obj0 IoU=1.0 is empty-vs-empty and does not validate controller tracking.
-The current replay validates stuffed animal quality, not successful towel tracking.
-A new replay with non-empty towel masks is required before claiming controller-object correctness.
+Controller/towel reference is not empty in all cameras for the provided summary.
 
 ## Different-types sloth_set_2 result
 
@@ -87,17 +65,7 @@ When SAM3.1 reference is empty, EdgeTAM candidate output is ignored for IoU and 
 
 ## Original vs compiled delta on evaluated samples
 
-- baseline_backend: `hf_ref_seq_public`
-- candidate_backend: `hf_batched_multisession`
-- candidate_compile_mode: `none`
-- empty_reference_policy: `ignore-candidate`
-- evaluated_subset_mismatch: `False`
-
-Compiled batch vision is compared against original HF public only on SAM3.1 reference-nonempty samples.
-
-| object | baseline_iou | candidate_iou | delta | not_worse | evaluated | ref_empty_ignored | cand_nonempty_ref_empty | reference_uncertain | reason |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| stuffed animal | 0.96344 | 0.96342 | -2e-05 | True | 279 | 0 | 0 | False |  |
+No original-vs-compiled delta report provided.
 
 ## Full batched first bad frame
 
@@ -116,9 +84,9 @@ No current-frame divergence probes provided.
 | component | onnx_export | onnx_validate | trt_build | trt_validate | failure_stage | blocker |
 | --- | --- | --- | --- | --- | --- | --- |
 | vision_encoder | False | False | False | False | onnx_export | onnx_export has not passed |
-| memory_attention | True | True | True | True |  |  |
-| mask_decoder | True | True | True | True |  |  |
-| memory_encoder | True | True | True | True |  |  |
+| memory_attention | False | False | False | True | onnx_export |  |
+| mask_decoder | False | False | False | True | onnx_export |  |
+| memory_encoder | False | False | False | True | onnx_export |  |
 
 | field | value |
 | --- | --- |
@@ -128,13 +96,13 @@ No current-frame divergence probes provided.
 | recommended_trt_scope | memory_path_all |
 | demo22_integration_allowed | False |
 | failure_stage | closed_loop_correctness |
-| exact_blocker | closed-loop strict correctness has not passed |
+| exact_blocker | RuntimeError: BatchTam memory_attention engine was built for the fixed single-object tracking shape (num_object_pointer_tokens=4, num_spatial_memory_tokens=1), got 8 and 2 |
 
 ## Decision
 
 | field | value |
 | --- | --- |
-| hf_batch_vision_seq_session_usable | True |
+| hf_batch_vision_seq_session_usable | False |
 | single_object_stuffed_animal_validated | True |
 | single_object_30fps_p50_gate | True |
 | single_object_30fps_p90_gate | True |
@@ -146,21 +114,21 @@ No current-frame divergence probes provided.
 | full_batched_bf16_strict_pass | False |
 | full_batched_memory_attention_fp32_strict_pass | False |
 | full_batched_decoder_fp32_strict_pass | False |
-| full_batched_memory_path_fp32_strict_pass | False |
+| full_batched_memory_path_fp32_strict_pass | True |
 | full_batched_all_fp32_strict_pass | False |
-| recommended_precision_mode |  |
-| recommended_precision_mode_reason |  |
-| full_batched_compile_max_autotune_no_cudagraphs_pass | False |
-| full_batched_compile_default_pass | False |
-| full_batched_compile_reduce_overhead_pass | False |
-| full_batched_vs_sam31_not_worse | True |
-| full_batched_vs_sam31_delta | -1.81535062957483e-05 |
+| recommended_precision_mode | memory_path_fp32 |
+| recommended_precision_mode_reason | memory_path_fp32 is the best non-all-fp32 eager strict pass by global IoU |
+| full_batched_compile_max_autotune_no_cudagraphs_pass | True |
+| full_batched_compile_default_pass | True |
+| full_batched_compile_reduce_overhead_pass | True |
+| full_batched_vs_sam31_not_worse |  |
+| full_batched_vs_sam31_delta |  |
 | recurrent_memory_slot_order_pass |  |
 | current_frame_inferred_issue |  |
 | batch_order_dependent |  |
 | storage_alias_found |  |
 | recurrent_drift_first_tensor |  |
-| faster_than_77_92_ms_baseline | True |
+| faster_than_77_92_ms_baseline | False |
 | recommended_backend | hf_batched_multisession |
 | recommended_compile_mode | reduce-overhead |
 | fallback_backend | hf_batch_vision_seq_session |

@@ -156,6 +156,9 @@ def main() -> int:
     parser.add_argument("--dtype", default="bfloat16")
     parser.add_argument("--precision-mode", choices=PRECISION_POLICY_NAMES, default="all_bf16")
     parser.add_argument("--compile-mode", default="none")
+    parser.add_argument("--component-runtime", choices=("torch", "trt"), default="torch")
+    parser.add_argument("--trt-engine-dir", default=None)
+    parser.add_argument("--trt-scope", default="memory_path_all")
     parser.add_argument("--graph-output-policy", default="ring_buffer")
     parser.add_argument(
         "--init-source",
@@ -339,6 +342,9 @@ def run_replay_profile(args: argparse.Namespace) -> dict:
         strict_full_batched=args.strict_full_batched,
         disallow_partial_backend_success=args.disallow_partial_backend_success,
         precision_mode=args.precision_mode,
+        component_runtime=args.component_runtime,
+        trt_engine_dir=args.trt_engine_dir,
+        trt_scope=args.trt_scope,
     )
     stage = result.timings_ms.get("stage_wall_ms", {})
     p50 = stage.get("p50")

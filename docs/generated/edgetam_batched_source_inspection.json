@@ -43,8 +43,8 @@
   },
   "repo": {
     "branch": "feat/edgetam-batched-multisession-runtime",
-    "commit": "867f2588b5af57d5deb434742ff5024ea935a6d9",
-    "status_short": "M edgetam_batched/compare_multisession.py\n M tests/test_compare_multisession.py\n?? docs/generated/different_types_sloth_set_2_iou_ref_sam31_replay_batchvision_reduce_overhead_speed_first.json\n?? docs/generated/different_types_sloth_set_2_iou_ref_sam31_replay_batchvision_reduce_overhead_speed_first.md"
+    "commit": "861309fb8ef93e0c3b165df160d7b1beca024e43",
+    "status_short": ""
   },
   "signatures": {
     "EdgeTamVideoInferenceSession": "class EdgeTamVideoInferenceSession(Sam2VideoInferenceSession):",

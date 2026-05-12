@@ -6,17 +6,18 @@
   "disallow_partial_backend_success": false,
   "frames": 100,
   "graph_output_policy": "ring_buffer",
+  "precision_mode": "all_bf16",
   "profile": {
     "note": "scaffold-only timing; does not measure EdgeTAM model inference",
     "stage_wall_ms": {
-      "avg": 4.976755008101463e-05,
+      "avg": 4.549918230623007e-05,
       "count": 100,
-      "max": 0.0013970420695841312,
-      "min": 3.1956005841493607e-05,
-      "p50": 3.3993273973464966e-05,
-      "p90": 3.711902536451817e-05,
-      "p95": 5.4467818699777106e-05,
-      "p99": 0.00011890660971403782
+      "max": 0.0010100193321704865,
+      "min": 2.9976945370435715e-05,
+      "p50": 3.102468326687813e-05,
+      "p90": 5.322508513927461e-05,
+      "p95": 6.22938387095928e-05,
+      "p99": 9.92469722405123e-05
     }
   },
   "status": "scaffold_only",

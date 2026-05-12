@@ -59,6 +59,8 @@ class TrtComponentRunner:
         ok = self.context.execute_async_v3(stream_handle=stream.cuda_stream)
         if not ok:
             raise RuntimeError(f"{self.name}: TensorRT execute_async_v3 failed")
+        for output in outputs:
+            output.record_stream(stream)
         return outputs[0] if len(outputs) == 1 else tuple(outputs)
 
 

@@ -18,6 +18,7 @@ from .config import (
     BACKEND_BATCHED_MEMORY_ATTENTION_DECODER,
     BACKEND_BATCHED_MEMORY_ATTENTION_SEQ_DECODER,
     BACKEND_BATCHED_MULTISESSION,
+    BACKEND_BATCHED_MULTISESSION_TRT,
     BACKEND_HF_REF_SEQ_PUBLIC,
     BACKENDS,
     COMPILE_NONE,
@@ -31,6 +32,9 @@ from .config import (
     COMPILE_SCOPE_VISION_MEMORY_PATH_ALL,
     COMPILE_SCOPES,
 )
+from .onnx_trt.trt_component_registry import TrtComponentRegistry
+from .onnx_trt.trt_io_adapter import TrtIoAdapter
+from .onnx_trt.trt_runtime_config import TrtRuntimeConfig
 from .precision_policy import policy_torch_dtype, resolve_precision_policy
 from .precision_wrappers import cast_nested_floating, detach_clone_to_dtype
 from .reference_runtime import RuntimeOutputs, autocast_context, summarize_timing_rows
@@ -54,6 +58,9 @@ class BatchedEdgeTamMultiSessionRuntime:
         disallow_partial_backend_success: bool = False,
         precision_mode: str = "all_bf16",
         compile_scope: str | None = None,
+        component_runtime: str = "torch",
+        trt_engine_dir: str | None = None,
+        trt_scope: str = "memory_path_all",
     ):
         if backend not in BACKENDS:
             raise ValueError(f"unsupported backend: {backend}")
@@ -76,6 +83,11 @@ class BatchedEdgeTamMultiSessionRuntime:
         self.disallow_partial_backend_success = bool(disallow_partial_backend_success)
         self.precision_policy = resolve_precision_policy(precision_mode)
         self.precision_mode = self.precision_policy.name
+        self.component_runtime = component_runtime
+        self.trt_engine_dir = trt_engine_dir
+        self.trt_scope = trt_scope
+        self.trt_registry: TrtComponentRegistry | None = None
+        self.trt_io_adapter: TrtIoAdapter | None = None
         self.sessions: list[Any] = []
         self.adapter = EdgeTamComponentAdapter(hf_model)
         patch_edgetam_spatial_perceiver_batch_view(hf_model)
@@ -106,7 +118,7 @@ class BatchedEdgeTamMultiSessionRuntime:
                 f"{backend} requires explicit HF session memory/object-pointer tensorization; "
                 "current implementation falls back to batch vision + sequential session decode"
             )
-        if backend == BACKEND_BATCHED_MULTISESSION:
+        if backend in {BACKEND_BATCHED_MULTISESSION, BACKEND_BATCHED_MULTISESSION_TRT}:
             if self.object_count != 1:
                 self.partial = True
                 self.fallback_backend = BACKEND_BATCH_VISION_SEQ_SESSION
@@ -116,6 +128,23 @@ class BatchedEdgeTamMultiSessionRuntime:
                     batch_vision=True,
                     partial_fallback_used=True,
                     blockers=self.blockers,
+                )
+            elif backend == BACKEND_BATCHED_MULTISESSION_TRT and self.component_runtime != "trt":
+                self.partial = True
+                self.blockers.append("BatchTam backend requires component_runtime=trt")
+                self.contract = BackendContractResult(
+                    backend=backend,
+                    batch_vision=True,
+                    batch_memory_attention=True,
+                    batch_mask_decoder=True,
+                    batch_memory_encoder=True,
+                    batched_state_scatter=True,
+                    used_public_session_step_in_hot_path=False,
+                    partial_fallback_used=True,
+                    blockers=self.blockers,
+                    component_runtime=self.component_runtime,
+                    trt_scope=self.trt_scope,
+                    torch_fallback_used=True,
                 )
             else:
                 self.contract = BackendContractResult(
@@ -128,6 +157,12 @@ class BatchedEdgeTamMultiSessionRuntime:
                     used_public_session_step_in_hot_path=False,
                     partial_fallback_used=False,
                     blockers=[],
+                    component_runtime="trt" if backend == BACKEND_BATCHED_MULTISESSION_TRT else "torch",
+                    trt_scope=self.trt_scope if backend == BACKEND_BATCHED_MULTISESSION_TRT else None,
+                    trt_memory_attention=backend == BACKEND_BATCHED_MULTISESSION_TRT,
+                    trt_mask_decoder=backend == BACKEND_BATCHED_MULTISESSION_TRT,
+                    trt_memory_encoder=backend == BACKEND_BATCHED_MULTISESSION_TRT,
+                    torch_fallback_used=False,
                 )
         else:
             self.contract = contract_for_current_runtime(
@@ -151,6 +186,8 @@ class BatchedEdgeTamMultiSessionRuntime:
         self.torch = torch_module
         self._apply_precision_policy_modules()
         self.compile_order["precision_policy_applied_before_compile"] = True
+        if self.backend == BACKEND_BATCHED_MULTISESSION_TRT:
+            self._prepare_trt_registry()
         if self.compile_mode == COMPILE_NONE:
             return
         if self.compile_mode == "reduce-overhead" and self.graph_output_policy != "ring_buffer":
@@ -188,7 +225,7 @@ class BatchedEdgeTamMultiSessionRuntime:
             import torch
 
             self.prepare_compile(torch)
-        if self.backend == BACKEND_BATCHED_MULTISESSION and not self.partial:
+        if self.backend in {BACKEND_BATCHED_MULTISESSION, BACKEND_BATCHED_MULTISESSION_TRT} and not self.partial:
             return self._step_full_batched_single_object(frame_images, frame_idx)
 
         started = time.perf_counter()
@@ -331,16 +368,23 @@ class BatchedEdgeTamMultiSessionRuntime:
                     "mask_decoder_dtype",
                     disable=self.precision_policy.disable_autocast_for_mask_decoder,
                 ):
-                    use_mask_as_output = (
-                        self._compiled_use_mask_as_output
-                        if self._compiled_use_mask_as_output is not None
-                        else self.model._use_mask_as_output
-                    )
-                    sam_outputs = use_mask_as_output(
-                        pix_feat,
-                        high_res_features_for_decoder,
-                        mask_inputs_b3,
-                    )
+                    if self._trt_uses("mask_decoder"):
+                        sam_outputs = self._use_mask_as_output_trt(
+                            pix_feat,
+                            high_res_features_for_decoder,
+                            mask_inputs_b3,
+                        )
+                    else:
+                        use_mask_as_output = (
+                            self._compiled_use_mask_as_output
+                            if self._compiled_use_mask_as_output is not None
+                            else self.model._use_mask_as_output
+                        )
+                        sam_outputs = use_mask_as_output(
+                            pix_feat,
+                            high_res_features_for_decoder,
+                            mask_inputs_b3,
+                        )
                 if self._compiled_use_mask_as_output is not None:
                     _clone_sam_output_tensors(sam_outputs)
                 is_mask_from_pts = True
@@ -361,19 +405,29 @@ class BatchedEdgeTamMultiSessionRuntime:
                     "mask_decoder_dtype",
                     disable=self.precision_policy.disable_autocast_for_mask_decoder,
                 ):
-                    single_frame_forward = (
-                        self._compiled_single_frame_forward
-                        if self._compiled_single_frame_forward is not None
-                        else self.model._single_frame_forward
-                    )
-                    sam_outputs = single_frame_forward(
-                        pixel_values=None,
-                        input_points=None,
-                        input_labels=None,
-                        input_masks=None,
-                        image_embeddings=decoder_embeddings,
-                        multimask_output=self.model._use_multimask(False, None),
-                    )
+                    if self._trt_uses("mask_decoder"):
+                        sam_outputs = self._single_frame_forward_trt(
+                            pixel_values=None,
+                            input_points=None,
+                            input_labels=None,
+                            input_masks=None,
+                            image_embeddings=decoder_embeddings,
+                            multimask_output=self.model._use_multimask(False, None),
+                        )
+                    else:
+                        single_frame_forward = (
+                            self._compiled_single_frame_forward
+                            if self._compiled_single_frame_forward is not None
+                            else self.model._single_frame_forward
+                        )
+                        sam_outputs = single_frame_forward(
+                            pixel_values=None,
+                            input_points=None,
+                            input_labels=None,
+                            input_masks=None,
+                            image_embeddings=decoder_embeddings,
+                            multimask_output=self.model._use_multimask(False, None),
+                        )
                 if self._compiled_single_frame_forward is not None:
                     _clone_sam_output_tensors(sam_outputs)
                 is_mask_from_pts = False
@@ -464,6 +518,8 @@ class BatchedEdgeTamMultiSessionRuntime:
             "blockers": [],
             "backend_contract": self.contract.to_json() if self.contract is not None else None,
             "precision_mode": self.precision_mode,
+            "component_runtime": self.component_runtime,
+            "trt_scope": self.trt_scope if self.backend == BACKEND_BATCHED_MULTISESSION_TRT else None,
             "component_dtype_table": dict(self.component_dtype_table),
             "compile_order": dict(self.compile_order),
             "compile_scope": self.compile_scope,
@@ -490,6 +546,176 @@ class BatchedEdgeTamMultiSessionRuntime:
             "is_init_cond_frame": is_init_cond_frame,
             "mask_inputs": mask_inputs,
         }
+
+    def _single_frame_forward_trt(
+        self,
+        *,
+        pixel_values: Any | None = None,
+        input_points: Any | None = None,
+        input_labels: Any | None = None,
+        input_boxes: Any | None = None,
+        input_masks: Any | None = None,
+        image_embeddings: list[Any] | None = None,
+        multimask_output: bool = True,
+    ) -> Any:
+        from transformers.models.edgetam_video.modeling_edgetam_video import (
+            EdgeTamVideoImageSegmentationOutput,
+            NO_OBJ_SCORE,
+        )
+
+        if pixel_values is not None:
+            raise NotImplementedError("BatchTam TRT mask decoder path expects precomputed image_embeddings")
+        if image_embeddings is None:
+            raise ValueError("BatchTam TRT mask decoder path requires image_embeddings")
+        if input_points is not None and input_boxes is not None and input_points.shape[1] != input_boxes.shape[1]:
+            raise ValueError("input_points and input_boxes object batch dimensions differ")
+        if input_points is not None:
+            num_objects = input_points.shape[1]
+        elif input_boxes is not None:
+            num_objects = input_boxes.shape[1]
+        elif input_masks is not None:
+            num_objects = input_masks.shape[1]
+        else:
+            num_objects = 1
+        if num_objects != 1:
+            raise NotImplementedError("BatchTam TRT mask decoder path currently supports object_count=1")
+
+        batch_size = image_embeddings[-1].shape[0]
+        decoder_dtype = self._policy_torch_dtype("mask_decoder_dtype")
+        image_embeddings = cast_nested_floating(image_embeddings, decoder_dtype)
+        image_positional_embeddings = self.model.get_image_wide_positional_embeddings()
+        image_positional_embeddings = image_positional_embeddings.repeat(batch_size, 1, 1, 1).to(
+            device=image_embeddings[-1].device,
+            dtype=decoder_dtype,
+        )
+
+        if input_points is not None and input_labels is None:
+            input_labels = self.torch.ones_like(input_points[:, :, :, 0], dtype=self.torch.int, device=input_points.device)
+        if input_points is None and input_boxes is None:
+            input_points = self.torch.zeros(
+                batch_size,
+                1,
+                1,
+                2,
+                dtype=image_embeddings[-1].dtype,
+                device=image_embeddings[-1].device,
+            )
+            input_labels = -self.torch.ones(
+                batch_size,
+                1,
+                1,
+                dtype=self.torch.int32,
+                device=image_embeddings[-1].device,
+            )
+        if input_masks is not None and input_masks.shape[-2:] != self.model.prompt_encoder.mask_input_size:
+            input_masks = self.torch.nn.functional.interpolate(
+                input_masks.float(),
+                size=self.model.prompt_encoder.mask_input_size,
+                align_corners=False,
+                mode="bilinear",
+                antialias=True,
+            ).to(input_masks.dtype)
+
+        sparse_embeddings, dense_embeddings = self.model.prompt_encoder(
+            input_points=input_points,
+            input_labels=input_labels,
+            input_boxes=input_boxes,
+            input_masks=input_masks,
+        )
+        assert self.trt_registry is not None and self.trt_io_adapter is not None
+        low_res_multimasks, iou_scores, sam_output_tokens, object_score_logits = self.trt_registry.runner(
+            "mask_decoder"
+        )(
+            *self.trt_io_adapter.mask_decoder_inputs(
+                io_spec=self.trt_registry.io_spec("mask_decoder"),
+                dense_prompt_embeddings=dense_embeddings,
+                high_resolution_features=image_embeddings[:-1],
+                image_embeddings=image_embeddings[-1],
+                image_positional_embeddings=image_positional_embeddings,
+                sparse_prompt_embeddings=sparse_embeddings,
+            )
+        )
+        low_res_multimasks = low_res_multimasks.clone().contiguous()
+        iou_scores = iou_scores.clone().contiguous()
+        sam_output_tokens = sam_output_tokens.clone().contiguous()
+        object_score_logits = object_score_logits.clone().contiguous()
+
+        is_obj_appearing = object_score_logits > 0
+        low_res_multimasks = self.torch.where(
+            is_obj_appearing[:, None, None],
+            low_res_multimasks,
+            self.torch.as_tensor(NO_OBJ_SCORE, dtype=low_res_multimasks.dtype, device=low_res_multimasks.device),
+        )
+        high_res_multimasks = (
+            self.torch.nn.functional.interpolate(
+                low_res_multimasks.squeeze(1).float(),
+                size=(self.model.image_size, self.model.image_size),
+                mode="bilinear",
+                align_corners=False,
+            )
+            .unsqueeze(1)
+            .to(low_res_multimasks.dtype)
+        )
+        sam_output_token = sam_output_tokens[:, :, 0]
+        if multimask_output:
+            best_iou_inds = self.torch.argmax(iou_scores, dim=-1)
+            batch_inds = self.torch.arange(batch_size, device=high_res_multimasks.device)
+            object_batch_inds = self.torch.arange(num_objects, device=high_res_multimasks.device)
+            low_res_masks = low_res_multimasks[batch_inds, object_batch_inds, best_iou_inds]
+            high_res_masks = high_res_multimasks[batch_inds, object_batch_inds, best_iou_inds]
+            if sam_output_tokens.size(2) > 1:
+                sam_output_token = sam_output_tokens[batch_inds, object_batch_inds, best_iou_inds]
+        else:
+            low_res_masks, high_res_masks = low_res_multimasks[:, :, 0], high_res_multimasks[:, :, 0]
+
+        object_pointer = self.model.object_pointer_proj(sam_output_token.to(dtype=decoder_dtype))
+        lambda_is_obj_appearing = is_obj_appearing.to(object_pointer.dtype)
+        object_pointer = lambda_is_obj_appearing * object_pointer
+        object_pointer = object_pointer + (1 - lambda_is_obj_appearing) * self.model.no_object_pointer.to(
+            dtype=object_pointer.dtype
+        )
+        return EdgeTamVideoImageSegmentationOutput(
+            iou_scores=iou_scores,
+            pred_masks=low_res_masks,
+            high_res_masks=high_res_masks,
+            object_pointer=object_pointer,
+            object_score_logits=object_score_logits,
+            image_embeddings=image_embeddings,
+        )
+
+    def _use_mask_as_output_trt(self, backbone_features: Any, high_res_features: list[Any], mask_inputs: Any) -> Any:
+        from transformers.models.edgetam_video.modeling_edgetam_video import EdgeTamVideoImageSegmentationOutput
+
+        out_scale, out_bias = 20.0, -10.0
+        mask_inputs_float = mask_inputs.to(backbone_features.dtype)
+        high_res_masks = mask_inputs_float * out_scale + out_bias
+        low_res_masks = self.torch.nn.functional.interpolate(
+            high_res_masks.float(),
+            size=(high_res_masks.size(-2) // 4, high_res_masks.size(-1) // 4),
+            align_corners=False,
+            mode="bilinear",
+            antialias=True,
+        ).to(backbone_features.dtype)
+        iou_scores = mask_inputs.new_ones(mask_inputs.size(0), 1).to(backbone_features.dtype)
+        object_pointer = self._single_frame_forward_trt(
+            input_masks=self.model.mask_downsample(mask_inputs_float.to(backbone_features.dtype)),
+            image_embeddings=high_res_features + [backbone_features],
+        ).object_pointer
+        is_obj_appearing = self.torch.any(mask_inputs.flatten(1).float() > 0.0, dim=1)[..., None]
+        lambda_is_obj_appearing = is_obj_appearing.to(backbone_features.dtype)
+        object_score_logits = out_scale * lambda_is_obj_appearing + out_bias
+        object_pointer = lambda_is_obj_appearing * object_pointer
+        object_pointer = object_pointer + (1 - lambda_is_obj_appearing) * self.model.no_object_pointer.to(
+            dtype=object_pointer.dtype
+        )
+        return EdgeTamVideoImageSegmentationOutput(
+            iou_scores=iou_scores,
+            pred_masks=low_res_masks,
+            high_res_masks=high_res_masks,
+            object_pointer=object_pointer,
+            object_score_logits=object_score_logits,
+            image_embeddings=high_res_features + [backbone_features],
+        )
 
     def _batch_memory_conditioned_features(
         self,
@@ -538,24 +764,42 @@ class BatchedEdgeTamMultiSessionRuntime:
         combined_memory = self.torch.cat(memories, dim=1)
         combined_memory_pos = self.torch.cat(memory_pos, dim=1)
         memory_dtype = self._policy_torch_dtype("memory_attention_dtype")
-        with self._policy_autocast(
-            "memory_attention_dtype",
-            disable=self.precision_policy.disable_autocast_for_memory_attention,
-        ):
-            memory_attention = (
-                self._compiled_memory_attention
-                if self._compiled_memory_attention is not None
-                else self.model.memory_attention
+        if self._trt_uses("memory_attention"):
+            if pointer_counts[0] != 4 or spatial_counts[0] != 1:
+                raise RuntimeError(
+                    "BatchTam memory_attention engine was built for the fixed single-object tracking shape "
+                    f"(num_object_pointer_tokens=4, num_spatial_memory_tokens=1), got "
+                    f"{pointer_counts[0]} and {spatial_counts[0]}"
+                )
+            assert self.trt_registry is not None and self.trt_io_adapter is not None
+            conditioned_flat = self.trt_registry.runner("memory_attention")(
+                *self.trt_io_adapter.memory_attention_inputs(
+                    io_spec=self.trt_registry.io_spec("memory_attention"),
+                    current_vision_features=current_vision_features.to(dtype=memory_dtype),
+                    current_vision_position_embeddings=current_vision_positional_embeddings.to(dtype=memory_dtype),
+                    memory=combined_memory.to(dtype=memory_dtype),
+                    memory_posision_embeddings=combined_memory_pos.to(dtype=memory_dtype),
+                )
             )
-            conditioned_flat = memory_attention(
-                current_vision_features=current_vision_features.to(dtype=memory_dtype),
-                current_vision_position_embeddings=current_vision_positional_embeddings.to(dtype=memory_dtype),
-                memory=combined_memory.to(dtype=memory_dtype),
-                memory_posision_embeddings=combined_memory_pos.to(dtype=memory_dtype),
-                num_object_pointer_tokens=pointer_counts[0],
-                num_spatial_memory_tokens=spatial_counts[0],
-            )
-        if self._compiled_memory_attention is not None:
+        else:
+            with self._policy_autocast(
+                "memory_attention_dtype",
+                disable=self.precision_policy.disable_autocast_for_memory_attention,
+            ):
+                memory_attention = (
+                    self._compiled_memory_attention
+                    if self._compiled_memory_attention is not None
+                    else self.model.memory_attention
+                )
+                conditioned_flat = memory_attention(
+                    current_vision_features=current_vision_features.to(dtype=memory_dtype),
+                    current_vision_position_embeddings=current_vision_positional_embeddings.to(dtype=memory_dtype),
+                    memory=combined_memory.to(dtype=memory_dtype),
+                    memory_posision_embeddings=combined_memory_pos.to(dtype=memory_dtype),
+                    num_object_pointer_tokens=pointer_counts[0],
+                    num_spatial_memory_tokens=spatial_counts[0],
+                )
+        if self._compiled_memory_attention is not None or self._trt_uses("memory_attention"):
             conditioned_flat = conditioned_flat.clone().contiguous()
         batch_size = len(self.sessions)
         height, width = self.model.backbone_feature_sizes[-1]
@@ -615,7 +859,19 @@ class BatchedEdgeTamMultiSessionRuntime:
             "memory_encoder_dtype",
             disable=self.precision_policy.disable_autocast_for_memory_encoder,
         ):
-            maskmem_features, maskmem_pos_enc = self.model.memory_encoder(pix_feat, mask_for_mem)
+            if self._trt_uses("memory_encoder"):
+                assert self.trt_registry is not None and self.trt_io_adapter is not None
+                maskmem_features, maskmem_pos_enc = self.trt_registry.runner("memory_encoder")(
+                    *self.trt_io_adapter.memory_encoder_inputs(
+                        io_spec=self.trt_registry.io_spec("memory_encoder"),
+                        pix_feat=pix_feat,
+                        mask_for_mem=mask_for_mem,
+                    )
+                )
+                maskmem_features = maskmem_features.clone().contiguous()
+                maskmem_pos_enc = maskmem_pos_enc.clone().contiguous()
+            else:
+                maskmem_features, maskmem_pos_enc = self.model.memory_encoder(pix_feat, mask_for_mem)
             if self.model.occlusion_spatial_embedding_parameter is not None:
                 is_obj_appearing = (object_score_logits > 0).float()
                 occlusion = self.model.occlusion_spatial_embedding_parameter.to(dtype=maskmem_features.dtype)
@@ -626,6 +882,30 @@ class BatchedEdgeTamMultiSessionRuntime:
             maskmem_features, maskmem_pos_enc = self.model.spatial_perceiver(maskmem_features, maskmem_pos_enc)
         store_dtype = self._policy_torch_dtype("store_maskmem_features_dtype")
         return maskmem_features.to(store_dtype), maskmem_pos_enc.to(store_dtype)
+
+    def _prepare_trt_registry(self) -> None:
+        if self.trt_registry is not None:
+            return
+        if self.component_runtime != "trt":
+            raise RuntimeError("hf_batched_multisession_trt_components requires --component-runtime trt")
+        if not self.trt_engine_dir:
+            raise RuntimeError("hf_batched_multisession_trt_components requires --trt-engine-dir")
+        config = TrtRuntimeConfig(
+            engine_dir=self.trt_engine_dir,
+            trt_scope=self.trt_scope,
+            precision_mode=self.precision_mode,
+            allow_torch_fallback=False,
+            require_all_scope_engines=True,
+            use_cuda_graph_safe_outputs=True,
+        )
+        self.trt_registry = TrtComponentRegistry(config)
+        self.trt_io_adapter = TrtIoAdapter(self.torch)
+        if self.contract is not None:
+            for key, value in self.trt_registry.contract_fields().items():
+                setattr(self.contract, key, value)
+
+    def _trt_uses(self, component: str) -> bool:
+        return self.trt_registry is not None and self.trt_registry.uses(component)
 
     def _policy_torch_dtype(self, field_name: str):
         return policy_torch_dtype(self.torch, getattr(self.precision_policy, field_name))
@@ -697,6 +977,9 @@ def run_candidate(
     disallow_partial_backend_success: bool = False,
     precision_mode: str = "all_bf16",
     compile_scope: str | None = None,
+    component_runtime: str = "torch",
+    trt_engine_dir: str | None = None,
+    trt_scope: str = "memory_path_all",
 ) -> RuntimeOutputs:
     import torch
     from transformers import EdgeTamVideoInferenceSession
@@ -778,6 +1061,9 @@ def run_candidate(
         disallow_partial_backend_success=disallow_partial_backend_success,
         precision_mode=precision_mode,
         compile_scope=compile_scope,
+        component_runtime=component_runtime,
+        trt_engine_dir=trt_engine_dir,
+        trt_scope=trt_scope,
     )
     runtime.init_from_reference_sessions(sessions)
     runtime.prepare_compile(torch)

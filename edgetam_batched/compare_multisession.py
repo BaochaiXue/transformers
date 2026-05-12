@@ -590,6 +590,9 @@ def main() -> int:
     parser.add_argument("--model-id", default="yonigozlan/EdgeTAM-hf")
     parser.add_argument("--compile-mode", default="none")
     parser.add_argument("--compile-scope", choices=COMPILE_SCOPES, default=None)
+    parser.add_argument("--component-runtime", choices=("torch", "trt"), default="torch")
+    parser.add_argument("--trt-engine-dir", default=None)
+    parser.add_argument("--trt-scope", default="memory_path_all")
     parser.add_argument("--graph-output-policy", default="ring_buffer")
     parser.add_argument(
         "--reference-source",
@@ -782,6 +785,9 @@ def main() -> int:
             disallow_partial_backend_success=args.disallow_partial_backend_success,
             precision_mode=args.precision_mode,
             compile_scope=args.compile_scope,
+            component_runtime=args.component_runtime,
+            trt_engine_dir=args.trt_engine_dir,
+            trt_scope=args.trt_scope,
         )
     except FullBatchedContractError as exc:
         contract = contract_for_current_runtime(
@@ -843,6 +849,40 @@ def main() -> int:
         if args.debug:
             print(payload)
         return 3
+    except Exception as exc:  # noqa: BLE001 - correctness harness must persist precise blockers
+        blocker = f"{type(exc).__name__}: {exc}"
+        payload = {
+            "backend": args.backend,
+            "compile_mode": args.compile_mode,
+            "compile_scope": args.compile_scope,
+            "graph_output_policy": args.graph_output_policy,
+            "dtype": args.dtype,
+            "precision_mode": args.precision_mode,
+            "component_runtime": args.component_runtime,
+            "trt_engine_dir": args.trt_engine_dir,
+            "trt_scope": args.trt_scope,
+            "rgb_replay": str(args.rgb_replay),
+            "object_count": args.object_count,
+            "object_prompt": args.object_prompt,
+            "reference_source": args.reference_source,
+            "strict_full_batched": args.strict_full_batched,
+            "disallow_partial_backend_success": args.disallow_partial_backend_success,
+            "failure_stage": "runtime_execution",
+            "exact_blocker": blocker,
+            "metrics": {
+                "correctness_pass": False,
+                "strict_correctness_pass": False,
+                "candidate_partial": True,
+                "fallback_backend": None,
+                "blockers": [blocker],
+                "backend_contract": None,
+            },
+        }
+        write_json(args.output_json, payload)
+        write_markdown(args.output_md, render_contract_failure_report(payload))
+        if args.debug:
+            print(payload)
+        return 4
     candidate = select_object_outputs(candidate, object_count=args.object_count, object_index=0)
     metrics = compare_outputs(
         reference,
@@ -864,6 +904,9 @@ def main() -> int:
         "dtype": args.dtype,
         "effective_reference_dtype": reference_dtype,
         "precision_mode": args.precision_mode,
+        "component_runtime": args.component_runtime,
+        "trt_engine_dir": args.trt_engine_dir,
+        "trt_scope": args.trt_scope,
         "rgb_replay": str(args.rgb_replay),
         "object_count": args.object_count,
         "object_prompt": args.object_prompt,

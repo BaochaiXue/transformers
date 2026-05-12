@@ -1,0 +1,29 @@
+{
+  "backend": "hf_batched_multisession_trt_components",
+  "compile_mode": "none",
+  "compile_scope": null,
+  "component_runtime": "trt",
+  "disallow_partial_backend_success": true,
+  "dtype": "bfloat16",
+  "exact_blocker": "RuntimeError: BatchTam memory_attention engine was built for the fixed single-object tracking shape (num_object_pointer_tokens=4, num_spatial_memory_tokens=1), got 8 and 2",
+  "failure_stage": "runtime_execution",
+  "graph_output_policy": "ring_buffer",
+  "metrics": {
+    "backend_contract": null,
+    "blockers": [
+      "RuntimeError: BatchTam memory_attention engine was built for the fixed single-object tracking shape (num_object_pointer_tokens=4, num_spatial_memory_tokens=1), got 8 and 2"
+    ],
+    "candidate_partial": true,
+    "correctness_pass": false,
+    "fallback_backend": null,
+    "strict_correctness_pass": false
+  },
+  "object_count": 1,
+  "object_prompt": "stuffed animal",
+  "precision_mode": "memory_path_fp32",
+  "reference_source": "hf-public-seq",
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+  "strict_full_batched": true,
+  "trt_engine_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/engines",
+  "trt_scope": "memory_attention"
+}

@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 from typing import Any
 
-from .config import BACKEND_BATCHED_MULTISESSION
+from .config import BACKEND_BATCHED_MULTISESSION, BACKEND_BATCHED_MULTISESSION_TRT
 
 
 class FullBatchedContractError(RuntimeError):
@@ -23,6 +23,12 @@ class BackendContractResult:
     used_public_session_step_in_hot_path: bool = False
     partial_fallback_used: bool = False
     blockers: list[str] = field(default_factory=list)
+    component_runtime: str | None = None
+    trt_scope: str | None = None
+    trt_memory_attention: bool = False
+    trt_mask_decoder: bool = False
+    trt_memory_encoder: bool = False
+    torch_fallback_used: bool = False
 
     def to_json(self) -> dict[str, Any]:
         payload = asdict(self)
@@ -36,8 +42,8 @@ class BackendContractResult:
 
     def missing_requirements(self) -> list[str]:
         missing: list[str] = []
-        if self.backend != BACKEND_BATCHED_MULTISESSION:
-            missing.append("backend is not hf_batched_multisession")
+        if self.backend not in {BACKEND_BATCHED_MULTISESSION, BACKEND_BATCHED_MULTISESSION_TRT}:
+            missing.append("backend is not a full batched multisession backend")
         for field_name in (
             "batch_vision",
             "batch_memory_attention",
@@ -51,6 +57,8 @@ class BackendContractResult:
             missing.append("used_public_session_step_in_hot_path")
         if self.partial_fallback_used:
             missing.append("partial_fallback_used")
+        if self.torch_fallback_used:
+            missing.append("torch_fallback_used")
         return missing
 
     def assert_full_batched(self) -> None:

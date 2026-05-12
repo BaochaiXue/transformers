@@ -60,6 +60,8 @@ def render(payload: dict[str, Any]) -> str:
             "# BatchTam ONNX/TRT Component Export Report",
             "",
             f"- trt_components_usable: `{payload['decision']['trt_components_usable']}`",
+            f"- batchtam_component_engines_usable: `{payload['decision']['batchtam_component_engines_usable']}`",
+            f"- batchtam_closed_loop_usable: `{payload['decision']['batchtam_closed_loop_usable']}`",
             f"- recommended_trt_scope: `{payload['decision']['recommended_trt_scope']}`",
             f"- demo22_integration_allowed: `{payload['decision']['demo22_integration_allowed']}`",
             f"- failure_stage: `{payload['decision'].get('failure_stage')}`",
@@ -89,7 +91,9 @@ def main() -> int:
     usable = trt_components_usable({"components": components}, scope=args.recommended_scope)
     missing = [name for name in required if not components[name].get("trt_validation_pass")]
     closed_loop = load_reports(args.closed_loop_json)
-    closed_loop_pass = any(item.get("strict_correctness_pass") or item.get("correctness_pass") for item in closed_loop)
+    closed_loop_for_scope = [item for item in closed_loop if item.get("trt_scope") == args.recommended_scope]
+    closed_loop_pass = any(_closed_loop_pass(item) for item in closed_loop_for_scope)
+    scope_blocker = _first_scope_blocker(closed_loop_for_scope)
     decision_usable = usable and closed_loop_pass
     payload = {
         "name": "BatchTam ONNX/TRT",
@@ -98,19 +102,48 @@ def main() -> int:
         "profiles": load_reports(args.profile_json),
         "decision": {
             "trt_components_usable": decision_usable,
+            "batchtam_component_engines_usable": usable,
+            "batchtam_closed_loop_usable": closed_loop_pass,
             "component_validation_usable": usable,
             "closed_loop_strict_pass": closed_loop_pass,
             "recommended_trt_scope": args.recommended_scope,
             "demo22_integration_allowed": decision_usable,
             "failure_stage": None if decision_usable else ("closed_loop_correctness" if usable else "trt_component_validation"),
             "exact_blocker": None if decision_usable else (
-                "closed-loop strict correctness has not passed" if usable else f"components missing TRT validation: {missing}"
+                scope_blocker or "closed-loop strict correctness has not passed"
+                if usable
+                else f"components missing TRT validation: {missing}"
             ),
         },
     }
     write_json(args.output_json, payload)
     write_markdown(args.output_md, render(payload))
     return 0 if decision_usable else 2
+
+
+def _closed_loop_pass(payload: dict[str, Any]) -> bool:
+    if payload.get("strict_correctness_pass") is True:
+        return True
+    if payload.get("correctness_pass") is True:
+        return True
+    metrics = payload.get("metrics") or {}
+    correctness = metrics.get("correctness_pass")
+    if isinstance(correctness, dict):
+        return bool(correctness.get("strict"))
+    if correctness is True:
+        return True
+    return bool(metrics.get("strict_correctness_pass"))
+
+
+def _first_scope_blocker(reports: list[dict[str, Any]]) -> str | None:
+    for payload in reports:
+        if payload.get("exact_blocker"):
+            return str(payload["exact_blocker"])
+        metrics = payload.get("metrics") or {}
+        blockers = metrics.get("blockers") or []
+        if blockers:
+            return str(blockers[0])
+    return None
 
 
 if __name__ == "__main__":
