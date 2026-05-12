@@ -218,13 +218,13 @@ def main() -> int:
             "demo22_final_fps_pending": True,
             "demo22_final_fps_source": "pending full Demo 2.2 profile; replay/component FPS is not final FPS",
             "batchtam_trt_component_validation_usable": (
-                None if not trt_report else (trt_report.get("decision") or {}).get("component_validation_usable")
+                None if not trt_report else _trt_decision_value(trt_report, "component_validation_usable")
             ),
             "batchtam_trt_components_usable": (
-                None if not trt_report else (trt_report.get("decision") or {}).get("trt_components_usable")
+                None if not trt_report else _trt_decision_value(trt_report, "trt_components_usable")
             ),
             "batchtam_trt_demo22_integration_allowed": (
-                None if not trt_report else (trt_report.get("decision") or {}).get("demo22_integration_allowed")
+                None if not trt_report else _trt_decision_value(trt_report, "demo22_trt_integration_allowed")
             ),
             "controller_towel_caveat": (
                 "SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras; "
@@ -671,10 +671,18 @@ def render_batchtam_trt_section(summary: dict[str, Any] | None) -> list[str]:
     if not summary:
         return ["No BatchTam ONNX/TRT report provided."]
     components = summary.get("components") or {}
-    rows = []
+    decision = summary.get("decision") or {}
+    runtime_rows = [
+        ["memory_attention", "bucketed static TRT engines", f"{_trt_decision_value(summary, 'memory_attention_buckets_validated')}/{_trt_decision_value(summary, 'memory_attention_bucket_count')} validated", _trt_decision_value(summary, "memory_attention_bucketed_closed_loop_pass")],
+        ["mask_decoder", "single TRT component", "validated", _trt_decision_value(summary, "mask_decoder_trt_closed_loop_pass")],
+        ["memory_encoder", "single TRT component", "validated", _trt_decision_value(summary, "memory_encoder_trt_closed_loop_pass")],
+        ["memory_path_all", "closed-loop scheduler", "strict correctness", _trt_decision_value(summary, "memory_path_all_trt_closed_loop_pass")],
+        ["vision_encoder", "PyTorch/compiled vision path", "not exported to TRT in this phase", "not in recommended TRT scope"],
+    ]
+    diagnostic_rows = []
     for name in ("vision_encoder", "memory_attention", "mask_decoder", "memory_encoder"):
         item = components.get(name) or {}
-        rows.append(
+        diagnostic_rows.append(
             [
                 name,
                 item.get("onnx_export_pass"),
@@ -685,26 +693,47 @@ def render_batchtam_trt_section(summary: dict[str, Any] | None) -> list[str]:
                 item.get("exact_blocker"),
             ]
         )
-    decision = summary.get("decision") or {}
     return [
+        "BatchTam ONNX/TRT component runtime:",
+        "",
+        markdown_table(["component", "runtime", "status", "closed_loop"], runtime_rows),
+        "",
+        "Legacy single-static component diagnostics are shown below only for debugging; they do not define the `memory_path_all` Demo 2.2 gate.",
+        "",
         markdown_table(
             ["component", "onnx_export", "onnx_validate", "trt_build", "trt_validate", "failure_stage", "blocker"],
-            rows,
+            diagnostic_rows,
         ),
         "",
         markdown_table(
             ["field", "value"],
             [
+                ["memory_attention_shape_strategy", _trt_decision_value(summary, "memory_attention_shape_strategy")],
+                ["memory_attention_bucket_count", _trt_decision_value(summary, "memory_attention_bucket_count")],
+                ["memory_attention_buckets_exported", _trt_decision_value(summary, "memory_attention_buckets_exported")],
+                ["memory_attention_buckets_built", _trt_decision_value(summary, "memory_attention_buckets_built")],
+                ["memory_attention_buckets_validated", _trt_decision_value(summary, "memory_attention_buckets_validated")],
                 ["component_validation_usable", decision.get("component_validation_usable")],
                 ["closed_loop_strict_pass", decision.get("closed_loop_strict_pass")],
                 ["trt_components_usable", decision.get("trt_components_usable")],
                 ["recommended_trt_scope", decision.get("recommended_trt_scope")],
-                ["demo22_integration_allowed", decision.get("demo22_integration_allowed")],
+                ["demo22_trt_integration_allowed", _trt_decision_value(summary, "demo22_trt_integration_allowed")],
                 ["failure_stage", decision.get("failure_stage")],
                 ["exact_blocker", decision.get("exact_blocker")],
             ],
         ),
     ]
+
+
+def _trt_decision_value(summary: dict[str, Any], key: str) -> Any:
+    decision = summary.get("decision") or {}
+    if key in summary:
+        return summary.get(key)
+    if key in decision:
+        return decision.get(key)
+    if key == "demo22_trt_integration_allowed":
+        return decision.get("demo22_integration_allowed")
+    return None
 
 
 def full_failure_stage_for(full: dict[str, Any] | None, contract: dict[str, Any]) -> str:

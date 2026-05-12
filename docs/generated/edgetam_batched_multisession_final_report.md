@@ -11,7 +11,7 @@ Original weights + custom batch=3 multi-session runtime.
 | github_repo | https://github.com/BaochaiXue/transformers/tree/feat/edgetam-batched-multisession-runtime |
 | fork_path | /home/zhangxinjie/EdgeTAM-HF-batched |
 | branch | feat/edgetam-batched-multisession-runtime |
-| commit | 12e1e94acf171308c34c48dc85866bd12db4ccf2 |
+| commit | 57b37fefbace53720cff482103cedc538f1b6419 |
 | modeling_edgetam_video_touched | False |
 
 ## Correctness
@@ -81,6 +81,18 @@ No current-frame divergence probes provided.
 
 ## BatchTam ONNX/TRT component runtime
 
+BatchTam ONNX/TRT component runtime:
+
+| component | runtime | status | closed_loop |
+| --- | --- | --- | --- |
+| memory_attention | bucketed static TRT engines | 16/16 validated | True |
+| mask_decoder | single TRT component | validated | True |
+| memory_encoder | single TRT component | validated | True |
+| memory_path_all | closed-loop scheduler | strict correctness | True |
+| vision_encoder | PyTorch/compiled vision path | not exported to TRT in this phase | not in recommended TRT scope |
+
+Legacy single-static component diagnostics are shown below only for debugging; they do not define the `memory_path_all` Demo 2.2 gate.
+
 | component | onnx_export | onnx_validate | trt_build | trt_validate | failure_stage | blocker |
 | --- | --- | --- | --- | --- | --- | --- |
 | vision_encoder | False | False | False | False | onnx_export | onnx_export has not passed |
@@ -90,11 +102,16 @@ No current-frame divergence probes provided.
 
 | field | value |
 | --- | --- |
+| memory_attention_shape_strategy | bucketed_static_engines |
+| memory_attention_bucket_count | 16 |
+| memory_attention_buckets_exported | 16 |
+| memory_attention_buckets_built | 16 |
+| memory_attention_buckets_validated | 16 |
 | component_validation_usable | True |
 | closed_loop_strict_pass | True |
 | trt_components_usable | True |
 | recommended_trt_scope | memory_path_all |
-| demo22_integration_allowed | True |
+| demo22_trt_integration_allowed | True |
 | failure_stage |  |
 | exact_blocker |  |
 
