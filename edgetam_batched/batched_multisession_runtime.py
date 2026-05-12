@@ -61,6 +61,7 @@ class BatchedEdgeTamMultiSessionRuntime:
         component_runtime: str = "torch",
         trt_engine_dir: str | None = None,
         trt_scope: str = "memory_path_all",
+        trt_memory_attention_bucket_dir: str | None = None,
     ):
         if backend not in BACKENDS:
             raise ValueError(f"unsupported backend: {backend}")
@@ -86,6 +87,7 @@ class BatchedEdgeTamMultiSessionRuntime:
         self.component_runtime = component_runtime
         self.trt_engine_dir = trt_engine_dir
         self.trt_scope = trt_scope
+        self.trt_memory_attention_bucket_dir = trt_memory_attention_bucket_dir
         self.trt_registry: TrtComponentRegistry | None = None
         self.trt_io_adapter: TrtIoAdapter | None = None
         self.sessions: list[Any] = []
@@ -765,20 +767,26 @@ class BatchedEdgeTamMultiSessionRuntime:
         combined_memory_pos = self.torch.cat(memory_pos, dim=1)
         memory_dtype = self._policy_torch_dtype("memory_attention_dtype")
         if self._trt_uses("memory_attention"):
-            if pointer_counts[0] != 4 or spatial_counts[0] != 1:
-                raise RuntimeError(
-                    "BatchTam memory_attention engine was built for the fixed single-object tracking shape "
-                    f"(num_object_pointer_tokens=4, num_spatial_memory_tokens=1), got "
-                    f"{pointer_counts[0]} and {spatial_counts[0]}"
-                )
             assert self.trt_registry is not None and self.trt_io_adapter is not None
-            conditioned_flat = self.trt_registry.runner("memory_attention")(
+            current_for_trt = current_vision_features.to(dtype=memory_dtype)
+            current_pos_for_trt = current_vision_positional_embeddings.to(dtype=memory_dtype)
+            memory_for_trt = combined_memory.to(dtype=memory_dtype)
+            memory_pos_for_trt = combined_memory_pos.to(dtype=memory_dtype)
+            runner, io_spec, _shape_key = self.trt_registry.memory_attention_runner_for(
+                current_vision_features=current_for_trt,
+                current_vision_position_embeddings=current_pos_for_trt,
+                memory=memory_for_trt,
+                memory_posision_embeddings=memory_pos_for_trt,
+                num_object_pointer_tokens=pointer_counts[0],
+                num_spatial_memory_tokens=spatial_counts[0],
+            )
+            conditioned_flat = runner(
                 *self.trt_io_adapter.memory_attention_inputs(
-                    io_spec=self.trt_registry.io_spec("memory_attention"),
-                    current_vision_features=current_vision_features.to(dtype=memory_dtype),
-                    current_vision_position_embeddings=current_vision_positional_embeddings.to(dtype=memory_dtype),
-                    memory=combined_memory.to(dtype=memory_dtype),
-                    memory_posision_embeddings=combined_memory_pos.to(dtype=memory_dtype),
+                    io_spec=io_spec,
+                    current_vision_features=current_for_trt,
+                    current_vision_position_embeddings=current_pos_for_trt,
+                    memory=memory_for_trt,
+                    memory_posision_embeddings=memory_pos_for_trt,
                 )
             )
         else:
@@ -894,6 +902,7 @@ class BatchedEdgeTamMultiSessionRuntime:
             engine_dir=self.trt_engine_dir,
             trt_scope=self.trt_scope,
             precision_mode=self.precision_mode,
+            memory_attention_bucket_dir=self.trt_memory_attention_bucket_dir,
             allow_torch_fallback=False,
             require_all_scope_engines=True,
             use_cuda_graph_safe_outputs=True,
@@ -980,6 +989,7 @@ def run_candidate(
     component_runtime: str = "torch",
     trt_engine_dir: str | None = None,
     trt_scope: str = "memory_path_all",
+    trt_memory_attention_bucket_dir: str | None = None,
 ) -> RuntimeOutputs:
     import torch
     from transformers import EdgeTamVideoInferenceSession
@@ -1064,6 +1074,7 @@ def run_candidate(
         component_runtime=component_runtime,
         trt_engine_dir=trt_engine_dir,
         trt_scope=trt_scope,
+        trt_memory_attention_bucket_dir=trt_memory_attention_bucket_dir,
     )
     runtime.init_from_reference_sessions(sessions)
     runtime.prepare_compile(torch)

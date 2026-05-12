@@ -54,6 +54,9 @@ class ComponentIOSpec:
     outputs: list[TensorSpec]
     trt_scope: str = "component"
     fixed_shape: bool = True
+    shape_key: str | None = None
+    num_object_pointer_tokens: int | None = None
+    num_spatial_memory_tokens: int | None = None
 
     def to_json(self) -> dict[str, Any]:
         payload = asdict(self)
@@ -71,6 +74,9 @@ class ComponentIOSpec:
             outputs=[TensorSpec(**item) for item in payload.get("outputs", [])],
             trt_scope=payload.get("trt_scope", "component"),
             fixed_shape=bool(payload.get("fixed_shape", True)),
+            shape_key=payload.get("shape_key"),
+            num_object_pointer_tokens=payload.get("num_object_pointer_tokens"),
+            num_spatial_memory_tokens=payload.get("num_spatial_memory_tokens"),
         )
 
 

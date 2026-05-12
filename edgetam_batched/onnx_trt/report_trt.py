@@ -80,12 +80,16 @@ def main() -> int:
     parser.add_argument("--component-json", nargs="*", default=[])
     parser.add_argument("--closed-loop-json", nargs="*", default=[])
     parser.add_argument("--profile-json", nargs="*", default=[])
+    parser.add_argument("--memory-attention-shape-json", default=None)
+    parser.add_argument("--memory-attention-bucket-validation-json", default=None)
     parser.add_argument("--recommended-scope", default="memory_path_all")
     parser.add_argument("--output-md", required=True)
     parser.add_argument("--output-json", required=True)
     args = parser.parse_args()
 
     component_reports = load_reports(args.component_json)
+    shape_report = load_optional_report(args.memory_attention_shape_json)
+    bucket_validation = load_optional_report(args.memory_attention_bucket_validation_json)
     components = merge_component_reports(component_reports)
     required = MEMORY_PATH_COMPONENTS if args.recommended_scope == "memory_path_all" else COMPONENTS
     usable = trt_components_usable({"components": components}, scope=args.recommended_scope)
@@ -104,6 +108,10 @@ def main() -> int:
             "trt_components_usable": decision_usable,
             "batchtam_component_engines_usable": usable,
             "batchtam_closed_loop_usable": closed_loop_pass,
+            "memory_attention_shape_strategy": "bucketed_static_engines"
+            if bucket_validation
+            else "single_static_engine",
+            "memory_attention_observed_shape_keys": (shape_report or {}).get("observed_shape_keys"),
             "component_validation_usable": usable,
             "closed_loop_strict_pass": closed_loop_pass,
             "recommended_trt_scope": args.recommended_scope,
@@ -119,6 +127,15 @@ def main() -> int:
     write_json(args.output_json, payload)
     write_markdown(args.output_md, render(payload))
     return 0 if decision_usable else 2
+
+
+def load_optional_report(path: str | None) -> dict[str, Any] | None:
+    if not path:
+        return None
+    try:
+        return json.loads(Path(path).read_text(encoding="utf-8"))
+    except Exception:
+        return None
 
 
 def _closed_loop_pass(payload: dict[str, Any]) -> bool:

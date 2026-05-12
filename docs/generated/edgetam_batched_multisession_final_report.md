@@ -11,7 +11,7 @@ Original weights + custom batch=3 multi-session runtime.
 | github_repo | https://github.com/BaochaiXue/transformers/tree/feat/edgetam-batched-multisession-runtime |
 | fork_path | /home/zhangxinjie/EdgeTAM-HF-batched |
 | branch | feat/edgetam-batched-multisession-runtime |
-| commit | 861309fb8ef93e0c3b165df160d7b1beca024e43 |
+| commit | 12e1e94acf171308c34c48dc85866bd12db4ccf2 |
 | modeling_edgetam_video_touched | False |
 
 ## Correctness
@@ -91,12 +91,12 @@ No current-frame divergence probes provided.
 | field | value |
 | --- | --- |
 | component_validation_usable | True |
-| closed_loop_strict_pass | False |
-| trt_components_usable | False |
+| closed_loop_strict_pass | True |
+| trt_components_usable | True |
 | recommended_trt_scope | memory_path_all |
-| demo22_integration_allowed | False |
-| failure_stage | closed_loop_correctness |
-| exact_blocker | RuntimeError: BatchTam memory_attention engine was built for the fixed single-object tracking shape (num_object_pointer_tokens=4, num_spatial_memory_tokens=1), got 8 and 2 |
+| demo22_integration_allowed | True |
+| failure_stage |  |
+| exact_blocker |  |
 
 ## Decision
 
@@ -142,6 +142,6 @@ No current-frame divergence probes provided.
 | demo22_final_fps_pending | True |
 | demo22_final_fps_source | pending full Demo 2.2 profile; replay/component FPS is not final FPS |
 | batchtam_trt_component_validation_usable | True |
-| batchtam_trt_components_usable | False |
-| batchtam_trt_demo22_integration_allowed | False |
+| batchtam_trt_components_usable | True |
+| batchtam_trt_demo22_integration_allowed | True |
 | controller_towel_caveat | SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras; current quality claim is for stuffed animal only. |

@@ -592,6 +592,7 @@ def main() -> int:
     parser.add_argument("--compile-scope", choices=COMPILE_SCOPES, default=None)
     parser.add_argument("--component-runtime", choices=("torch", "trt"), default="torch")
     parser.add_argument("--trt-engine-dir", default=None)
+    parser.add_argument("--trt-memory-attention-bucket-dir", default=None)
     parser.add_argument("--trt-scope", default="memory_path_all")
     parser.add_argument("--graph-output-policy", default="ring_buffer")
     parser.add_argument(
@@ -788,6 +789,7 @@ def main() -> int:
             component_runtime=args.component_runtime,
             trt_engine_dir=args.trt_engine_dir,
             trt_scope=args.trt_scope,
+            trt_memory_attention_bucket_dir=args.trt_memory_attention_bucket_dir,
         )
     except FullBatchedContractError as exc:
         contract = contract_for_current_runtime(
@@ -860,6 +862,7 @@ def main() -> int:
             "precision_mode": args.precision_mode,
             "component_runtime": args.component_runtime,
             "trt_engine_dir": args.trt_engine_dir,
+            "trt_memory_attention_bucket_dir": args.trt_memory_attention_bucket_dir,
             "trt_scope": args.trt_scope,
             "rgb_replay": str(args.rgb_replay),
             "object_count": args.object_count,
@@ -906,6 +909,7 @@ def main() -> int:
         "precision_mode": args.precision_mode,
         "component_runtime": args.component_runtime,
         "trt_engine_dir": args.trt_engine_dir,
+        "trt_memory_attention_bucket_dir": args.trt_memory_attention_bucket_dir,
         "trt_scope": args.trt_scope,
         "rgb_replay": str(args.rgb_replay),
         "object_count": args.object_count,

@@ -16,7 +16,7 @@ from .validate_onnx_component import diff_stats, tensor_to_numpy
 def validate(args: argparse.Namespace) -> dict:
     import torch
 
-    fixture_dir = Path(args.fixtures_dir) / args.component
+    fixture_dir = _resolve_fixture_dir(args.fixtures_dir, args.component)
     engine_path = Path(args.engine_path)
     if not engine_path.exists():
         return failure(args, "trt_component_validation", f"missing engine file: {engine_path}")
@@ -52,6 +52,13 @@ def validate(args: argparse.Namespace) -> dict:
         "exact_blocker": None if pass_all else "one or more TRT outputs exceed tolerance",
         "hot_path_zero_copy": True,
     }
+
+
+def _resolve_fixture_dir(fixtures_dir: str | Path, component: str) -> Path:
+    root = Path(fixtures_dir)
+    if (root / "sample_inputs.pt").exists() and (root / "io_spec.json").exists():
+        return root
+    return root / component
 
 
 def failure(args: argparse.Namespace, stage: str, blocker: str) -> dict:

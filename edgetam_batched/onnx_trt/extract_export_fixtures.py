@@ -17,6 +17,7 @@ from edgetam_batched.precision_policy import policy_torch_dtype, resolve_precisi
 from edgetam_batched.report_utils import markdown_table, write_json, write_markdown
 
 from . import COMPONENTS
+from .memory_attention_shape_key import MemoryAttentionShapeKey
 from .trt_engine_utils import ComponentIOSpec, TensorSpec, flatten_tensors, write_io_spec
 
 
@@ -103,6 +104,111 @@ def extract_component(args: argparse.Namespace, component: str) -> dict[str, Any
     }
 
 
+def extract_memory_attention_shape_buckets(args: argparse.Namespace) -> dict[str, Any]:
+    import json
+    import torch
+
+    sequence = json.loads(Path(args.shape_sequence_json).read_text(encoding="utf-8"))
+    out_root = Path(args.out_dir) / "memory_attention"
+    out_root.mkdir(parents=True, exist_ok=True)
+    components: dict[str, Any] = {}
+    for shape_key, bucket in sequence.get("shape_buckets", {}).items():
+        bucket_dir = out_root / bucket["bucket_dir_name"]
+        bucket_dir.mkdir(parents=True, exist_ok=True)
+        fixtures = [torch.load(path, map_location="cpu", weights_only=False) for path in bucket["representative_fixture_paths"]]
+        if len(fixtures) != args.batch_size:
+            components[shape_key] = {
+                "component": "memory_attention",
+                "shape_key": shape_key,
+                "export_fixture_pass": False,
+                "failure_stage": "fixture_extract",
+                "exact_blocker": f"expected {args.batch_size} representative fixtures, got {len(fixtures)}",
+            }
+            continue
+        target_dtype = component_torch_dtype(torch, "memory_attention", args.precision_mode)
+        args_list = [cast_floating_nested(fixture["args"], target_dtype) for fixture in fixtures]
+        kwargs_list = [cast_floating_nested(fixture["kwargs"], target_dtype) for fixture in fixtures]
+        args_batched, kwargs_batched = stack_component_inputs(
+            args_list,
+            kwargs_list,
+            "memory_attention",
+            default_strategy("memory_attention"),
+        )
+        expected_outputs = [cast_floating_nested(fixture["output"], target_dtype) for fixture in fixtures]
+        output_batched = stack_seq_first(expected_outputs)
+        input_items = flatten_tensors((args_batched, kwargs_batched), prefix="input")
+        output_items = flatten_tensors(output_batched, prefix="output")
+        input_specs = [TensorSpec.from_tensor(name, tensor, path=path) for name, path, tensor in input_items]
+        output_specs = [TensorSpec.from_tensor(name, tensor, path=path) for name, path, tensor in output_items]
+        key = MemoryAttentionShapeKey.from_inputs(
+            current_vision_features=kwargs_batched["current_vision_features"],
+            current_vision_position_embeddings=kwargs_batched["current_vision_position_embeddings"],
+            memory=kwargs_batched["memory"],
+            memory_posision_embeddings=kwargs_batched["memory_posision_embeddings"],
+            num_object_pointer_tokens=kwargs_batched["num_object_pointer_tokens"],
+            num_spatial_memory_tokens=kwargs_batched["num_spatial_memory_tokens"],
+        )
+        io_spec = ComponentIOSpec(
+            component="memory_attention",
+            batch_size=args.batch_size,
+            object_count=args.object_count,
+            precision_mode=args.precision_mode,
+            inputs=input_specs,
+            outputs=output_specs,
+            trt_scope="memory_path",
+            shape_key=key.slug,
+            num_object_pointer_tokens=key.num_object_pointer_tokens,
+            num_spatial_memory_tokens=key.num_spatial_memory_tokens,
+        )
+        torch.save(
+            {
+                "component": "memory_attention",
+                "strategy": default_strategy("memory_attention"),
+                "shape_key": key.slug,
+                "args": args_batched,
+                "kwargs": kwargs_batched,
+                "flat_input_names": [item.name for item in input_specs],
+                "flat_input_paths": [item.path for item in input_specs],
+                "flat_inputs": [tensor.clone() for _name, _path, tensor in input_items],
+            },
+            bucket_dir / "sample_inputs.pt",
+        )
+        torch.save(
+            {
+                "component": "memory_attention",
+                "strategy": default_strategy("memory_attention"),
+                "shape_key": key.slug,
+                "output": output_batched,
+                "flat_output_names": [item.name for item in output_specs],
+                "flat_output_paths": [item.path for item in output_specs],
+                "flat_outputs": [tensor.clone() for _name, _path, tensor in output_items],
+            },
+            bucket_dir / "sample_outputs_eager.pt",
+        )
+        write_io_spec(bucket_dir / "io_spec.json", io_spec)
+        components[shape_key] = {
+            "component": "memory_attention",
+            "shape_key": key.slug,
+            "bucket_dir_name": bucket["bucket_dir_name"],
+            "fixture_dir": str(bucket_dir),
+            "export_fixture_pass": True,
+            "input_count": len(input_specs),
+            "output_count": len(output_specs),
+            "inputs": [spec.__dict__ for spec in input_specs],
+            "outputs": [spec.__dict__ for spec in output_specs],
+        }
+    return {
+        "name": "BatchTam memory_attention bucket export fixtures",
+        "out_dir": args.out_dir,
+        "shape_sequence_json": args.shape_sequence_json,
+        "batch_size": args.batch_size,
+        "object_count": args.object_count,
+        "precision_mode": args.precision_mode,
+        "components": components,
+        "all_components_pass": all(item.get("export_fixture_pass") for item in components.values()),
+    }
+
+
 def component_torch_dtype(torch_module: Any, component: str, precision_mode: str):
     policy = resolve_precision_policy(precision_mode)
     field = {
@@ -132,6 +238,8 @@ def render(payload: dict[str, Any]) -> str:
     rows = [
         [
             item.get("component"),
+            item.get("bucket_dir_name") or "",
+            item.get("shape_key") or "",
             item.get("export_fixture_pass"),
             item.get("input_count"),
             item.get("output_count"),
@@ -144,14 +252,18 @@ def render(payload: dict[str, Any]) -> str:
         [
             "# BatchTam Export Fixtures",
             "",
-            f"- fixtures_dir: `{payload['fixtures_dir']}`",
+            f"- fixtures_dir: `{payload.get('fixtures_dir', '')}`",
             f"- out_dir: `{payload['out_dir']}`",
+            f"- shape_sequence_json: `{payload.get('shape_sequence_json', '')}`",
             f"- batch_size: `{payload['batch_size']}`",
             f"- object_count: `{payload['object_count']}`",
             f"- precision_mode: `{payload['precision_mode']}`",
             f"- all_components_pass: `{payload['all_components_pass']}`",
             "",
-            markdown_table(["component", "pass", "inputs", "outputs", "failure_stage", "blocker"], rows),
+            markdown_table(
+                ["component", "bucket", "shape_key", "pass", "inputs", "outputs", "failure_stage", "blocker"],
+                rows,
+            ),
         ]
     )
 
@@ -160,7 +272,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--fixtures-dir", required=True)
     parser.add_argument("--out-dir", required=True)
+    parser.add_argument("--component", choices=COMPONENTS, default=None)
     parser.add_argument("--components", nargs="+", choices=COMPONENTS, default=list(COMPONENTS))
+    parser.add_argument("--shape-sequence-json", default=None)
+    parser.add_argument("--one-fixture-per-shape-key", action="store_true")
     parser.add_argument("--frames", type=int, default=30)
     parser.add_argument("--batch-size", type=int, default=3)
     parser.add_argument("--object-count", type=int, default=1)
@@ -170,17 +285,25 @@ def main() -> int:
     parser.add_argument("--debug", action="store_true")
     args = parser.parse_args()
 
-    components = {component: extract_component(args, component) for component in args.components}
-    payload = {
-        "name": "BatchTam ONNX/TRT",
-        "fixtures_dir": args.fixtures_dir,
-        "out_dir": args.out_dir,
-        "batch_size": args.batch_size,
-        "object_count": args.object_count,
-        "precision_mode": args.precision_mode,
-        "components": components,
-        "all_components_pass": all(item.get("export_fixture_pass") for item in components.values()),
-    }
+    if args.one_fixture_per_shape_key:
+        if args.component not in {None, "memory_attention"}:
+            raise ValueError("--one-fixture-per-shape-key currently supports memory_attention only")
+        if not args.shape_sequence_json:
+            raise ValueError("--shape-sequence-json is required for bucket fixture extraction")
+        payload = extract_memory_attention_shape_buckets(args)
+    else:
+        selected = [args.component] if args.component else args.components
+        components = {component: extract_component(args, component) for component in selected}
+        payload = {
+            "name": "BatchTam ONNX/TRT",
+            "fixtures_dir": args.fixtures_dir,
+            "out_dir": args.out_dir,
+            "batch_size": args.batch_size,
+            "object_count": args.object_count,
+            "precision_mode": args.precision_mode,
+            "components": components,
+            "all_components_pass": all(item.get("export_fixture_pass") for item in components.values()),
+        }
     if args.output_json:
         write_json(args.output_json, payload)
     if args.output_md:

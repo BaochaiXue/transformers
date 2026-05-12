@@ -52,7 +52,7 @@ def export_component(args: argparse.Namespace) -> dict[str, Any]:
     import torch
     from transformers import EdgeTamVideoModel
 
-    fixture_dir = Path(args.fixtures_dir) / args.component
+    fixture_dir = _resolve_fixture_dir(args.fixtures_dir, args.component)
     sample_inputs_path = fixture_dir / "sample_inputs.pt"
     io_spec_path = fixture_dir / "io_spec.json"
     if not sample_inputs_path.exists() or not io_spec_path.exists():
@@ -147,6 +147,13 @@ def export_component(args: argparse.Namespace) -> dict[str, Any]:
         "failure_stage": None if checker_error is None else "onnx_check",
         "exact_blocker": checker_error,
     }
+
+
+def _resolve_fixture_dir(fixtures_dir: str | Path, component: str) -> Path:
+    root = Path(fixtures_dir)
+    if (root / "sample_inputs.pt").exists() and (root / "io_spec.json").exists():
+        return root
+    return root / component
 
 
 def failure(args: argparse.Namespace, stage: str, blocker: str, **extra) -> dict[str, Any]:

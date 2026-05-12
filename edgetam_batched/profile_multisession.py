@@ -158,6 +158,7 @@ def main() -> int:
     parser.add_argument("--compile-mode", default="none")
     parser.add_argument("--component-runtime", choices=("torch", "trt"), default="torch")
     parser.add_argument("--trt-engine-dir", default=None)
+    parser.add_argument("--trt-memory-attention-bucket-dir", default=None)
     parser.add_argument("--trt-scope", default="memory_path_all")
     parser.add_argument("--graph-output-policy", default="ring_buffer")
     parser.add_argument(
@@ -345,6 +346,7 @@ def run_replay_profile(args: argparse.Namespace) -> dict:
         component_runtime=args.component_runtime,
         trt_engine_dir=args.trt_engine_dir,
         trt_scope=args.trt_scope,
+        trt_memory_attention_bucket_dir=args.trt_memory_attention_bucket_dir,
     )
     stage = result.timings_ms.get("stage_wall_ms", {})
     p50 = stage.get("p50")

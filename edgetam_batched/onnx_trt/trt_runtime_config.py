@@ -26,12 +26,15 @@ class TrtRuntimeConfig:
     engine_dir: Path
     trt_scope: str
     precision_mode: str = "memory_path_fp32"
+    memory_attention_bucket_dir: Path | None = None
     allow_torch_fallback: bool = False
     require_all_scope_engines: bool = True
     use_cuda_graph_safe_outputs: bool = True
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "engine_dir", Path(self.engine_dir))
+        if self.memory_attention_bucket_dir is not None:
+            object.__setattr__(self, "memory_attention_bucket_dir", Path(self.memory_attention_bucket_dir))
         if self.trt_scope not in TRT_SCOPES:
             raise ValueError(f"unsupported TRT scope: {self.trt_scope}")
 
