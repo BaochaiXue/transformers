@@ -43,6 +43,7 @@ def main() -> int:
     parser.add_argument("--precision-json", nargs="*", default=[])
     parser.add_argument("--batch-order-json", default=None)
     parser.add_argument("--storage-alias-json", default=None)
+    parser.add_argument("--trt-report", default=None)
     parser.add_argument("--output-md", required=True)
     parser.add_argument("--output-json", required=True)
     args = parser.parse_args()
@@ -63,6 +64,7 @@ def main() -> int:
     precision = [compact_diagnostic_payload(item) for item in load_jsons(args.precision_json)]
     batch_order = compact_diagnostic_payload(load_optional_json(args.batch_order_json))
     storage_alias = compact_diagnostic_payload(load_optional_json(args.storage_alias_json))
+    trt_report = load_optional_json(args.trt_report)
     repo = {
         "branch": _git("branch", "--show-current"),
         "commit": _git("rev-parse", "HEAD"),
@@ -123,6 +125,7 @@ def main() -> int:
         "precision": precision,
         "batch_order": batch_order,
         "storage_alias": storage_alias,
+        "batchtam_trt": trt_report,
         "best_profile": best_profile,
         "decision": {
             "hf_batch_vision_seq_session_usable": bool(sam31_best),
@@ -214,6 +217,15 @@ def main() -> int:
             "empty_reference_policy": first_empty_reference_policy(correctness),
             "demo22_final_fps_pending": True,
             "demo22_final_fps_source": "pending full Demo 2.2 profile; replay/component FPS is not final FPS",
+            "batchtam_trt_component_validation_usable": (
+                None if not trt_report else (trt_report.get("decision") or {}).get("component_validation_usable")
+            ),
+            "batchtam_trt_components_usable": (
+                None if not trt_report else (trt_report.get("decision") or {}).get("trt_components_usable")
+            ),
+            "batchtam_trt_demo22_integration_allowed": (
+                None if not trt_report else (trt_report.get("decision") or {}).get("demo22_integration_allowed")
+            ),
             "controller_towel_caveat": (
                 "SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras; "
                 "current quality claim is for stuffed animal only."
@@ -644,11 +656,55 @@ def render(payload: dict[str, Any]) -> str:
             "",
             *render_current_frame_probe_section(payload),
             "",
+            "## BatchTam ONNX/TRT component runtime",
+            "",
+            *render_batchtam_trt_section(payload.get("batchtam_trt")),
+            "",
             "## Decision",
             "",
             markdown_table(["field", "value"], payload["decision"].items()),
         ]
     )
+
+
+def render_batchtam_trt_section(summary: dict[str, Any] | None) -> list[str]:
+    if not summary:
+        return ["No BatchTam ONNX/TRT report provided."]
+    components = summary.get("components") or {}
+    rows = []
+    for name in ("vision_encoder", "memory_attention", "mask_decoder", "memory_encoder"):
+        item = components.get(name) or {}
+        rows.append(
+            [
+                name,
+                item.get("onnx_export_pass"),
+                item.get("onnx_validation_pass"),
+                item.get("trt_build_pass"),
+                item.get("trt_validation_pass"),
+                item.get("failure_stage"),
+                item.get("exact_blocker"),
+            ]
+        )
+    decision = summary.get("decision") or {}
+    return [
+        markdown_table(
+            ["component", "onnx_export", "onnx_validate", "trt_build", "trt_validate", "failure_stage", "blocker"],
+            rows,
+        ),
+        "",
+        markdown_table(
+            ["field", "value"],
+            [
+                ["component_validation_usable", decision.get("component_validation_usable")],
+                ["closed_loop_strict_pass", decision.get("closed_loop_strict_pass")],
+                ["trt_components_usable", decision.get("trt_components_usable")],
+                ["recommended_trt_scope", decision.get("recommended_trt_scope")],
+                ["demo22_integration_allowed", decision.get("demo22_integration_allowed")],
+                ["failure_stage", decision.get("failure_stage")],
+                ["exact_blocker", decision.get("exact_blocker")],
+            ],
+        ),
+    ]
 
 
 def full_failure_stage_for(full: dict[str, Any] | None, contract: dict[str, Any]) -> str:

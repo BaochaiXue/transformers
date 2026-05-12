@@ -1,0 +1,38 @@
+{
+  "component": "memory_encoder",
+  "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_encoder_b3.engine",
+  "exact_blocker": null,
+  "failure_stage": null,
+  "hot_path_zero_copy": true,
+  "rows": [
+    {
+      "index": 0,
+      "max_abs_diff": 0.027082443237304688,
+      "mean_abs_diff": 0.0014051365433260798,
+      "name": "output_0",
+      "p95_abs_diff": 0.0039536296389997005,
+      "pass": true,
+      "shape": [
+        3,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 1,
+      "max_abs_diff": 2.384185791015625e-07,
+      "mean_abs_diff": 3.6462939334569455e-09,
+      "name": "output_1",
+      "p95_abs_diff": 1.4901161193847656e-08,
+      "pass": true,
+      "shape": [
+        3,
+        64,
+        64,
+        64
+      ]
+    }
+  ],
+  "trt_validation_pass": true
+}

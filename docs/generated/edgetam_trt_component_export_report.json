@@ -1,0 +1,307 @@
+{
+  "closed_loop": [],
+  "components": {
+    "mask_decoder": {
+      "_path": "docs/generated/batchtam_validate_trt_mask_decoder_b3_memory_path_fp32.json",
+      "builderOptimizationLevel": 5,
+      "checker_error": null,
+      "command": [
+        "/home/zhangxinjie/miniconda3/envs/demo_2_max/bin/trtexec",
+        "--onnx=artifacts/edgetam_trt_b3_memory_path_fp32/onnx/mask_decoder_b3.onnx",
+        "--saveEngine=artifacts/edgetam_trt_b3_memory_path_fp32/engines/mask_decoder_b3.engine",
+        "--builderOptimizationLevel=5",
+        "--profilingVerbosity=detailed",
+        "--timingCacheFile=artifacts/edgetam_trt_b3_memory_path_fp32/timing_cache.bin",
+        "--noTF32",
+        "--dumpLayerInfo",
+        "--exportLayerInfo=docs/generated/batchtam_trt_layer_info_mask_decoder_b3.json",
+        "--dumpProfile",
+        "--exportProfile=docs/generated/batchtam_trt_profile_mask_decoder_b3.json",
+        "--skipInference"
+      ],
+      "component": "mask_decoder",
+      "component_dtype": "torch.float32",
+      "dynamo_export_error_before_legacy_retry": null,
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/mask_decoder_b3.engine",
+      "exact_blocker": null,
+      "exporter_mode": "dynamo",
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "noTF32": true,
+      "node_count": 306,
+      "onnx_export_pass": true,
+      "onnx_path": "artifacts/edgetam_trt_b3_memory_path_fp32/onnx/mask_decoder_b3.onnx",
+      "onnx_validation_pass": true,
+      "op_types": {
+        "Add": 70,
+        "Concat": 2,
+        "ConvTranspose": 2,
+        "Div": 2,
+        "Erf": 2,
+        "Expand": 4,
+        "Gather": 6,
+        "LayerNormalization": 10,
+        "MatMul": 65,
+        "Mul": 18,
+        "Relu": 14,
+        "Reshape": 49,
+        "Sigmoid": 1,
+        "Slice": 4,
+        "Softmax": 7,
+        "Transpose": 40,
+        "Unsqueeze": 10
+      },
+      "precision_policy": "memory_path_fp32",
+      "providers": [
+        "CUDAExecutionProvider",
+        "CPUExecutionProvider"
+      ],
+      "returncode": 0,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.22446060180664062,
+          "mean_abs_diff": 0.023358644917607307,
+          "name": "output_0",
+          "p95_abs_diff": 0.06436538696289062,
+          "pass": true,
+          "shape": [
+            3,
+            1,
+            3,
+            256,
+            256
+          ]
+        },
+        {
+          "index": 1,
+          "max_abs_diff": 0.003715008497238159,
+          "mean_abs_diff": 0.001647838274948299,
+          "name": "output_1",
+          "p95_abs_diff": 0.0035106479190289974,
+          "pass": true,
+          "shape": [
+            3,
+            1,
+            3
+          ]
+        },
+        {
+          "index": 2,
+          "max_abs_diff": 0.06268654018640518,
+          "mean_abs_diff": 0.01023373194038868,
+          "name": "output_2",
+          "p95_abs_diff": 0.02815091423690319,
+          "pass": true,
+          "shape": [
+            3,
+            1,
+            3,
+            256
+          ]
+        },
+        {
+          "index": 3,
+          "max_abs_diff": 0.01501607894897461,
+          "mean_abs_diff": 0.013461749069392681,
+          "name": "output_3",
+          "p95_abs_diff": 0.014836644753813744,
+          "pass": true,
+          "shape": [
+            3,
+            1,
+            1
+          ]
+        }
+      ],
+      "stdout_tail": "Datatype: UInt8 }, { Name: l2_cache_policy_inputs_18_myl0, Dimensions: [3145728], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_19_myl0, Dimensions: [6144], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_20_myl0, Dimensions: [24576], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_21_myl0, Dimensions: [48], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_22_myl0, Dimensions: [12288], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_23_myl0, Dimensions: [6144], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_24_myl0, Dimensions: [3121152], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_25_myl0, Dimensions: [12288], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_26_myl0, Dimensions: [12288], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_27_myl0, Dimensions: [12288], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_28_myl0, Dimensions: [6144], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_29_myl0, Dimensions: [12288], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_30_myl0, Dimensions: [3024], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_31_myl0, Dimensions: [17664], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_32_myl0, Dimensions: [768], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_33_myl0, Dimensions: [12288], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_34_myl0, Dimensions: [24576], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_35_myl0, Dimensions: [6144], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_36_myl0, Dimensions: [3145728], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_37_myl0, Dimensions: [49152], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_38_myl0, Dimensions: [18432], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_39_myl0, Dimensions: [2998272], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_40_myl0, Dimensions: [110592], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_41_myl0, Dimensions: [6144], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_42_myl0, Dimensions: [49152], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_43_myl0, Dimensions: [24576], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_44_myl0, Dimensions: [18432], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_45_myl0, Dimensions: [24576], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_46_myl0, Dimensions: [2998272], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_47_myl0, Dimensions: [24576], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_48_myl0, Dimensions: [12288], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_49_myl0, Dimensions: [24576], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_50_myl0, Dimensions: [6144], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_51_myl0, Dimensions: [96], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_52_myl0, Dimensions: [17664], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_53_myl0, Dimensions: [49152], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_54_myl0, Dimensions: [3145728], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_55_myl0, Dimensions: [24576], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_56_myl0, Dimensions: [12429312], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_57_myl0, Dimensions: [3072], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_58_myl0, Dimensions: [31488], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_59_myl0, Dimensions: [3010560], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_60_myl0, Dimensions: [3072], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_61_myl0, Dimensions: [6242208], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_62_myl0, Dimensions: [6291456], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_63_myl0, Dimensions: [122880], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_64_myl0, Dimensions: [3145728], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_65_myl0, Dimensions: [3072], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_66_myl0, Dimensions: [3072], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_67_myl0, Dimensions: [3072], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_68_myl0, Dimensions: [3072], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_69_myl0, Dimensions: [3072], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_70_myl0, Dimensions: [384], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_71_myl0, Dimensions: [3072], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_72_myl0, Dimensions: [3072], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_73_myl0, Dimensions: [384], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_74_myl0, Dimensions: [3145728], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_75_myl0, Dimensions: [79104], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_76_myl0, Dimensions: [3022848], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_77_myl0, Dimensions: [30720], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_78_myl0, Dimensions: [12453888], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_79_myl0, Dimensions: [24576], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_80_myl0, Dimensions: [384], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_81_myl0, Dimensions: [3072], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_82_myl0, Dimensions: [3072], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_83_myl0, Dimensions: [384], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_84_myl0, Dimensions: [3072], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_85_myl0, Dimensions: [3072], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_86_myl0, Dimensions: [1536], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_87_myl0, Dimensions: [3072], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_88_myl0, Dimensions: [111360], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_89_myl0, Dimensions: [92928], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_90_myl0, Dimensions: [6063360], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_91_myl0, Dimensions: [3145728], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_92_myl0, Dimensions: [19102464], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_93_myl0, Dimensions: [22020096], Format/Datatype: UInt8 }, { Name: l2_cache_management_device_0_myl0, Dimensions: [256], Format/Datatype: UInt64 }, { Name: l2_cache_management_host_0_myl0, Dimensions: [1], Format/Datatype: UInt64 }], Outputs: [], TacticName: , StreamId: 0, Metadata: \n\nBindings:\ninput_1_dense_prompt_embeddings\ninput_1_high_resolution_features_0\ninput_1_high_resolution_features_1\ninput_1_image_embeddings\ninput_1_image_positional_embeddings\ninput_1_sparse_prompt_embeddings\noutput_0\noutput_1\noutput_2\noutput_3\n[05/11/2026-21:43:26] [I] [TRT] The following layers are used for L2 cache management and do not correspond to any layers in the INetworkDefinition: __mye69561_myl0_0, __mye69563_myl0_203\n[05/11/2026-21:43:26] [I] Skipped inference phase since --skipInference is added.\n&&&& PASSED TensorRT.trtexec [TensorRT v101601] [b11] # /home/zhangxinjie/.local/tensorrt/TensorRT-10.16.1.11/bin/trtexec --onnx=artifacts/edgetam_trt_b3_memory_path_fp32/onnx/mask_decoder_b3.onnx --saveEngine=artifacts/edgetam_trt_b3_memory_path_fp32/engines/mask_decoder_b3.engine --builderOptimizationLevel=5 --profilingVerbosity=detailed --timingCacheFile=artifacts/edgetam_trt_b3_memory_path_fp32/timing_cache.bin --noTF32 --dumpLayerInfo --exportLayerInfo=docs/generated/batchtam_trt_layer_info_mask_decoder_b3.json --dumpProfile --exportProfile=docs/generated/batchtam_trt_profile_mask_decoder_b3.json --skipInference\n",
+      "timing_cache": "artifacts/edgetam_trt_b3_memory_path_fp32/timing_cache.bin",
+      "trt_build_pass": true,
+      "trt_validation_pass": true
+    },
+    "memory_attention": {
+      "_path": "docs/generated/batchtam_validate_trt_memory_attention_b3_memory_path_fp32.json",
+      "builderOptimizationLevel": 5,
+      "checker_error": null,
+      "command": [
+        "/home/zhangxinjie/miniconda3/envs/demo_2_max/bin/trtexec",
+        "--onnx=artifacts/edgetam_trt_b3_memory_path_fp32/onnx/memory_attention_b3.onnx",
+        "--saveEngine=artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_b3.engine",
+        "--builderOptimizationLevel=5",
+        "--profilingVerbosity=detailed",
+        "--timingCacheFile=artifacts/edgetam_trt_b3_memory_path_fp32/timing_cache.bin",
+        "--noTF32",
+        "--dumpLayerInfo",
+        "--exportLayerInfo=docs/generated/batchtam_trt_layer_info_memory_attention_b3.json",
+        "--dumpProfile",
+        "--exportProfile=docs/generated/batchtam_trt_profile_memory_attention_b3.json",
+        "--skipInference"
+      ],
+      "component": "memory_attention",
+      "component_dtype": "torch.float32",
+      "dynamo_export_error_before_legacy_retry": null,
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_b3.engine",
+      "exact_blocker": null,
+      "exporter_mode": "dynamo",
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "noTF32": true,
+      "node_count": 253,
+      "onnx_export_pass": true,
+      "onnx_path": "artifacts/edgetam_trt_b3_memory_path_fp32/onnx/memory_attention_b3.onnx",
+      "onnx_validation_pass": true,
+      "op_types": {
+        "Add": 36,
+        "Concat": 12,
+        "LayerNormalization": 7,
+        "MatMul": 28,
+        "Mul": 25,
+        "Neg": 8,
+        "Relu": 2,
+        "Reshape": 48,
+        "Slice": 24,
+        "Softmax": 4,
+        "Squeeze": 16,
+        "Transpose": 24,
+        "Unsqueeze": 19
+      },
+      "precision_policy": "memory_path_fp32",
+      "providers": [
+        "CUDAExecutionProvider",
+        "CPUExecutionProvider"
+      ],
+      "returncode": 0,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.04130136966705322,
+          "mean_abs_diff": 0.0018949030200019479,
+          "name": "output",
+          "p95_abs_diff": 0.005366136319935322,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "stdout_tail": "de_MatMul_580_myl0_69, LayerType: gemm, Inputs: [ { Name: __mye81933_myl0, Dimensions: [12288,256], Format/Datatype: Float }], Outputs: [ { Name: __mye81954_myl0, Dimensions: [12288,256], Format/Datatype: Float }], TacticName: sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize64x128x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4, StreamId: 0, Metadata: [ONNX Layer: node_MatMul_580]\nName: __myl_AddAddMeanSubMulMeanAddSqrtDivMulMulAdd_myl0_70, LayerType: kgen, Inputs: [ { Name: __myln_k_arg__bb1_55_myl0, Dimensions: [3,1,4096,256], Format/Datatype: Float }, { Name: __mye81954_myl0, Dimensions: [3,1,4096,256], Format/Datatype: Float }], Outputs: [ { Name: node_layer_norm_5_normalizationBiased.1_myl0, Dimensions: [3,1,4096,256], Format/Datatype: Float }, { Name: __myln_k_arg__bb1_67_myl0, Dimensions: [3,1,4096,256], Format/Datatype: Float }], TacticName: __myl_AddAddMeanSubMulMeanAddSqrtDivMulMulAdd_0x0ab1de6514082af917fe237531c24d4c, StreamId: 0, Metadata: [ONNX Layer: node_linear_17]\u001f[ONNX Layer: node_layer_norm_5]\u001f[ONNX Layer: node_add_15]\nName: node_MatMul_582_myl0_71, LayerType: gemm, Inputs: [ { Name: node_layer_norm_5_normalizationBiased.1_myl0, Dimensions: [12288,256], Format/Datatype: Float }], Outputs: [ { Name: __mye81975_myl0, Dimensions: [12288,2048], Format/Datatype: Float }], TacticName: sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize128x256x8_stage3_warpsize2x4x1_ffma_aligna4_alignc4, StreamId: 0, Metadata: [ONNX Layer: node_MatMul_582]\nName: __myl_AddRelu_myl0_72, LayerType: kgen, Inputs: [ { Name: __mye81975_myl0, Dimensions: [3,1,4096,2048], Format/Datatype: Float }], Outputs: [ { Name: relu_1.1_myl0, Dimensions: [3,1,4096,2048], Format/Datatype: Float }], TacticName: __myl_AddRelu_0x0564ee8353b833ff3db5eb949acad379, StreamId: 0, Metadata: [ONNX Layer: node_linear_18]\u001f[ONNX Layer: node_relu_1]\nName: node_MatMul_584_myl0_73, LayerType: gemm, Inputs: [ { Name: relu_1.1_myl0, Dimensions: [12288,2048], Format/Datatype: Float }], Outputs: [ { Name: __mye81996_myl0, Dimensions: [12288,256], Format/Datatype: Float }], TacticName: sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize64x128x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4, StreamId: 0, Metadata: [ONNX Layer: node_MatMul_584]\nName: __myl_AddAddMeanSubMulMeanAddSqrtDivMulMulAdd_myl0_74, LayerType: kgen, Inputs: [ { Name: __myln_k_arg__bb1_67_myl0, Dimensions: [3,1,4096,256], Format/Datatype: Float }, { Name: __mye81996_myl0, Dimensions: [3,1,4096,256], Format/Datatype: Float }], Outputs: [ { Name: output, Dimensions: [3,1,4096,256], Format/Datatype: Float }], TacticName: __myl_AddAddMeanSubMulMeanAddSqrtDivMulMulAdd_0x9d22e85ef73859c1740ee573be58ec12, StreamId: 0, Metadata: [ONNX Layer: node_linear_19]\u001f[ONNX Layer: node_layer_norm_6]\u001f[ONNX Layer: node_add_16]\nName: __mye83590_myl0_75, LayerType: custom_layer, Inputs: [ { Name: l2_cache_policy_inputs_0_myl0, Dimensions: [5744640], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_1_myl0, Dimensions: [3864576], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_2_myl0, Dimensions: [3864576], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_3_myl0, Dimensions: [2973696], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_4_myl0, Dimensions: [8718336], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_5_myl0, Dimensions: [1585152], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_6_myl0, Dimensions: [4159488], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_7_myl0, Dimensions: [1585152], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_8_myl0, Dimensions: [786432], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_9_myl0, Dimensions: [786432], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_10_myl0, Dimensions: [12288], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_11_myl0, Dimensions: [2973696], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_12_myl0, Dimensions: [8914944], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_13_myl0, Dimensions: [694272], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_14_myl0, Dimensions: [3864576], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_15_myl0, Dimensions: [12582912], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_16_myl0, Dimensions: [3667968], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_17_myl0, Dimensions: [196608], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_18_myl0, Dimensions: [1572864], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_19_myl0, Dimensions: [1597440], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_20_myl0, Dimensions: [12288], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_21_myl0, Dimensions: [786432], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_22_myl0, Dimensions: [786432], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_23_myl0, Dimensions: [12386304], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_24_myl0, Dimensions: [6291456], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_25_myl0, Dimensions: [2426880], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_26_myl0, Dimensions: [29030400], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_27_myl0, Dimensions: [12582912], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_28_myl0, Dimensions: [88080384], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_29_myl0, Dimensions: [12288], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_30_myl0, Dimensions: [3170304], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_31_myl0, Dimensions: [3864576], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_32_myl0, Dimensions: [393216], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_33_myl0, Dimensions: [8718336], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_34_myl0, Dimensions: [396288], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_35_myl0, Dimensions: [384000], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_36_myl0, Dimensions: [12582912], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_37_myl0, Dimensions: [2033664], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_38_myl0, Dimensions: [6291456], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_39_myl0, Dimensions: [3864576], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_40_myl0, Dimensions: [50331648], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_41_myl0, Dimensions: [8718336], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_42_myl0, Dimensions: [192608256], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_43_myl0, Dimensions: [8718336], Format/Datatype: UInt8 }, { Name: l2_cache_management_device_0_myl0, Dimensions: [256], Format/Datatype: UInt64 }, { Name: l2_cache_management_host_0_myl0, Dimensions: [1], Format/Datatype: UInt64 }], Outputs: [], TacticName: , StreamId: 0, Metadata: \n\nBindings:\ninput_1_current_vision_features\ninput_1_current_vision_position_embeddings\ninput_1_memory\ninput_1_memory_posision_embeddings\noutput\n[05/11/2026-21:43:17] [I] [TRT] The following layers are used for L2 cache management and do not correspond to any layers in the INetworkDefinition: __mye83588_myl0_0, __mye83590_myl0_75\n[05/11/2026-21:43:17] [I] Skipped inference phase since --skipInference is added.\n&&&& PASSED TensorRT.trtexec [TensorRT v101601] [b11] # /home/zhangxinjie/.local/tensorrt/TensorRT-10.16.1.11/bin/trtexec --onnx=artifacts/edgetam_trt_b3_memory_path_fp32/onnx/memory_attention_b3.onnx --saveEngine=artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_b3.engine --builderOptimizationLevel=5 --profilingVerbosity=detailed --timingCacheFile=artifacts/edgetam_trt_b3_memory_path_fp32/timing_cache.bin --noTF32 --dumpLayerInfo --exportLayerInfo=docs/generated/batchtam_trt_layer_info_memory_attention_b3.json --dumpProfile --exportProfile=docs/generated/batchtam_trt_profile_memory_attention_b3.json --skipInference\n",
+      "timing_cache": "artifacts/edgetam_trt_b3_memory_path_fp32/timing_cache.bin",
+      "trt_build_pass": true,
+      "trt_validation_pass": true
+    },
+    "memory_encoder": {
+      "_path": "docs/generated/batchtam_validate_trt_memory_encoder_b3_memory_path_fp32.json",
+      "builderOptimizationLevel": 5,
+      "checker_error": null,
+      "command": [
+        "/home/zhangxinjie/miniconda3/envs/demo_2_max/bin/trtexec",
+        "--onnx=artifacts/edgetam_trt_b3_memory_path_fp32/onnx/memory_encoder_b3.onnx",
+        "--saveEngine=artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_encoder_b3.engine",
+        "--builderOptimizationLevel=5",
+        "--profilingVerbosity=detailed",
+        "--timingCacheFile=artifacts/edgetam_trt_b3_memory_path_fp32/timing_cache.bin",
+        "--noTF32",
+        "--dumpLayerInfo",
+        "--exportLayerInfo=docs/generated/batchtam_trt_layer_info_memory_encoder_b3.json",
+        "--dumpProfile",
+        "--exportProfile=docs/generated/batchtam_trt_profile_memory_encoder_b3.json",
+        "--skipInference"
+      ],
+      "component": "memory_encoder",
+      "component_dtype": "torch.float32",
+      "dynamo_export_error_before_legacy_retry": null,
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_encoder_b3.engine",
+      "exact_blocker": null,
+      "exporter_mode": "dynamo",
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "noTF32": true,
+      "node_count": 104,
+      "onnx_export_pass": true,
+      "onnx_path": "artifacts/edgetam_trt_b3_memory_path_fp32/onnx/memory_encoder_b3.onnx",
+      "onnx_validation_pass": true,
+      "op_types": {
+        "Add": 15,
+        "Cast": 1,
+        "Concat": 3,
+        "Conv": 9,
+        "Cos": 2,
+        "CumSum": 2,
+        "Div": 10,
+        "Erf": 6,
+        "LayerNormalization": 6,
+        "MatMul": 4,
+        "Mul": 16,
+        "Not": 1,
+        "Reshape": 2,
+        "Sin": 2,
+        "Slice": 6,
+        "Transpose": 13,
+        "Unsqueeze": 6
+      },
+      "precision_policy": "memory_path_fp32",
+      "providers": [
+        "CUDAExecutionProvider",
+        "CPUExecutionProvider"
+      ],
+      "returncode": 0,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.027082443237304688,
+          "mean_abs_diff": 0.0014051365433260798,
+          "name": "output_0",
+          "p95_abs_diff": 0.0039536296389997005,
+          "pass": true,
+          "shape": [
+            3,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "index": 1,
+          "max_abs_diff": 2.384185791015625e-07,
+          "mean_abs_diff": 3.6462939334569455e-09,
+          "name": "output_1",
+          "p95_abs_diff": 1.4901161193847656e-08,
+          "pass": true,
+          "shape": [
+            3,
+            64,
+            64,
+            64
+          ]
+        }
+      ],
+      "stdout_tail": "yer: node_MatMul_29]\nName: __myl_AddMulErfAddMulMul_myl0_30, LayerType: kgen, Inputs: [ { Name: __mye25479_myl0, Dimensions: [3,64,64,1024], Format/Datatype: Float }], Outputs: [ { Name: gelu_4.1_myl0, Dimensions: [3,64,64,1024], Format/Datatype: Float }], TacticName: __myl_AddMulErfAddMulMul_0xb5a1a7bbc7e92a0bcd1467757a5abdaf, StreamId: 0, Metadata: [ONNX Layer: node_Div_31]\u001f[ONNX Layer: node_Erf_32]\u001f[ONNX Layer: node_Mul_36]\u001f[ONNX Layer: node_Add_34]\u001f[ONNX Layer: node_gelu_4]\u001f[ONNX Layer: node_linear]\nName: node_MatMul_38_myl0_31, LayerType: gemm, Inputs: [ { Name: gelu_4.1_myl0, Dimensions: [12288,1024], Format/Datatype: Float }], Outputs: [ { Name: __myln_k_arg__bb1_33_myl0, Dimensions: [12288,256], Format/Datatype: Float }], TacticName: sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize128x256x8_stage3_warpsize2x4x1_ffma_aligna4_alignc4, StreamId: 0, Metadata: [ONNX Layer: node_MatMul_38]\nName: __myl_ReshAddMulTranAddMove_myl0_32, LayerType: kgen, Inputs: [ { Name: __myln_k_arg__bb1_26_myl0, Dimensions: [3,256,64,64], Format/Datatype: Float }, { Name: __myln_k_arg__bb1_33_myl0, Dimensions: [12288,256], Format/Datatype: Float }], Outputs: [ { Name: conv2d_7.1_34_myl0, Dimensions: [3,256,64,64], Format/Datatype: Float }], TacticName: __myl_ReshAddMulTranAddMove_0x37fbac9560b0647b4b5935431634b29b, StreamId: 0, Metadata: [ONNX Layer: node_linear_1]\u001f[ONNX Layer: node_permute_11]\u001f[ONNX Layer: node_mul]\u001f[ONNX Layer: node_add_1]\nName: node_conv2d_7_myl0_33, LayerType: correlation, Inputs: [ { Name: conv2d_7.1_34_myl0, Dimensions: [3,256,64,64], Format/Datatype: Float }], Outputs: [ { Name: __myln_k_arg__bb1_35_myl0, Dimensions: [3,256,64,64], Format/Datatype: Float }], TacticName: sm50_xmma_fprop_conv2d_c1_k1_f32f32_f32_f32_nchwkcrs_nchw_tilesize10x40x8_threadsize4x4_r7s7_u1v1_xcorr_zerobeta, StreamId: 0, Metadata: [ONNX Layer: node_conv2d_7]\nName: __myl_Tran_myl0_34, LayerType: kgen, Inputs: [ { Name: __myln_k_arg__bb1_35_myl0, Dimensions: [3,256,64,64], Format/Datatype: Float }], Outputs: [ { Name: __myln_k_arg__bb1_36_myl0, Dimensions: [3,64,64,256], Format/Datatype: Float }], TacticName: __myl_Tran_0x7e1d12a7d0c794e36b533e8e0441890e, StreamId: 0, Metadata: [ONNX Layer: node_permute_12]\nName: __myl_MeanSubMulMeanAddSqrtDivMulMulAdd_myl0_35, LayerType: kgen, Inputs: [ { Name: __myln_k_arg__bb1_36_myl0, Dimensions: [3,64,64,256], Format/Datatype: Float }, { Name: __myln_k_arg__bb1_36_myl0, Dimensions: [3,64,64,256], Format/Datatype: Float }], Outputs: [ { Name: node_layer_norm_5_normalizationBiased.1_myl0, Dimensions: [3,64,64,256], Format/Datatype: Float }], TacticName: __myl_MeanSubMulMeanAddSqrtDivMulMulAdd_0x89d34eb911ae4afc5ce9911e4dd970e3, StreamId: 0, Metadata: [ONNX Layer: node_layer_norm_5]\nName: node_MatMul_40_myl0_36, LayerType: gemm, Inputs: [ { Name: node_layer_norm_5_normalizationBiased.1_myl0, Dimensions: [12288,256], Format/Datatype: Float }], Outputs: [ { Name: __mye25521_myl0, Dimensions: [12288,1024], Format/Datatype: Float }], TacticName: sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize128x256x8_stage3_warpsize2x4x1_ffma_aligna4_alignc4, StreamId: 0, Metadata: [ONNX Layer: node_MatMul_40]\nName: __myl_AddMulErfAddMulMul_myl0_37, LayerType: kgen, Inputs: [ { Name: __mye25521_myl0, Dimensions: [3,64,64,1024], Format/Datatype: Float }], Outputs: [ { Name: gelu_5.1_myl0, Dimensions: [3,64,64,1024], Format/Datatype: Float }], TacticName: __myl_AddMulErfAddMulMul_0xb5a1a7bbc7e92a0bcd1467757a5abdaf, StreamId: 0, Metadata: [ONNX Layer: node_Div_42]\u001f[ONNX Layer: node_Erf_43]\u001f[ONNX Layer: node_Mul_47]\u001f[ONNX Layer: node_Add_45]\u001f[ONNX Layer: node_gelu_5]\u001f[ONNX Layer: node_linear_2]\nName: node_MatMul_49_myl0_38, LayerType: gemm, Inputs: [ { Name: gelu_5.1_myl0, Dimensions: [12288,1024], Format/Datatype: Float }], Outputs: [ { Name: __mye25542_myl0, Dimensions: [12288,256], Format/Datatype: Float }], TacticName: sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize128x256x8_stage3_warpsize2x4x1_ffma_aligna4_alignc4, StreamId: 0, Metadata: [ONNX Layer: node_MatMul_49]\nName: __myl_AddMulTranAddMove_myl0_39, LayerType: kgen, Inputs: [ { Name: conv2d_7.1_34_myl0, Dimensions: [3,256,64,64], Format/Datatype: Float }, { Name: __mye25542_myl0, Dimensions: [3,64,64,256], Format/Datatype: Float }], Outputs: [ { Name: __mye26239_41_myl0, Dimensions: [3,256,64,64], Format/Datatype: Float }], TacticName: __myl_AddMulTranAddMove_0xd5242c24495f480168a061a70e575dd4, StreamId: 0, Metadata: [ONNX Layer: node_linear_3]\u001f[ONNX Layer: node_mul_1]\u001f[ONNX Layer: node_add_2]\u001f[ONNX Layer: node_permute_15]\nName: node_conv2d_8_myl0_40, LayerType: correlation, Inputs: [ { Name: __mye26239_41_myl0, Dimensions: [3,256,64,64], Format/Datatype: Float }], Outputs: [ { Name: __myln_k_arg__bb1_42_myl0, Dimensions: [3,64,64,64], Format/Datatype: Float }], TacticName: sm80_xmma_gemm_f32f32_f32f32_f32_nn_n_tilesize64x64x8_stage3_warpsize1x4x1_ffma_aligna4_alignc4, StreamId: 0, Metadata: [ONNX Layer: node_conv2d_8]\nName: __myl_Tran_myl0_41, LayerType: kgen, Inputs: [ { Name: __myln_k_arg__bb1_42_myl0, Dimensions: [3,64,64,64], Format/Datatype: Float }], Outputs: [ { Name: output_0, Dimensions: [3,64,64,64], Format/Datatype: Float }], TacticName: __myl_Tran_0xcb9b24ac372c5b76979950d25ca68b6a, StreamId: 0, Metadata: \nName: __mye26674_myl0_42, LayerType: custom_layer, Inputs: [ { Name: l2_cache_policy_inputs_0_myl0, Dimensions: [49152], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_1_myl0, Dimensions: [49152], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_2_myl0, Dimensions: [12484608], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_3_myl0, Dimensions: [196608], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_4_myl0, Dimensions: [589824], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_5_myl0, Dimensions: [2359296], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_6_myl0, Dimensions: [9437184], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_7_myl0, Dimensions: [3145728], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_8_myl0, Dimensions: [9437184], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_9_myl0, Dimensions: [49152], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_10_myl0, Dimensions: [147456], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_11_myl0, Dimensions: [589824], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_12_myl0, Dimensions: [2359296], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_13_myl0, Dimensions: [34603008], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_14_myl0, Dimensions: [12582912], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_15_myl0, Dimensions: [37748736], Format/Datatype: UInt8 }, { Name: l2_cache_policy_inputs_16_myl0, Dimensions: [12582912], Format/Datatype: UInt8 }, { Name: l2_cache_management_device_0_myl0, Dimensions: [256], Format/Datatype: UInt64 }, { Name: l2_cache_management_host_0_myl0, Dimensions: [1], Format/Datatype: UInt64 }], Outputs: [], TacticName: , StreamId: 0, Metadata: \n\nBindings:\ninput_0_0\ninput_0_1\noutput_0\noutput_1\n[05/11/2026-21:43:37] [I] [TRT] The following layers are used for L2 cache management and do not correspond to any layers in the INetworkDefinition: __mye26672_myl0_0, __mye26674_myl0_42\n[05/11/2026-21:43:37] [I] Skipped inference phase since --skipInference is added.\n&&&& PASSED TensorRT.trtexec [TensorRT v101601] [b11] # /home/zhangxinjie/.local/tensorrt/TensorRT-10.16.1.11/bin/trtexec --onnx=artifacts/edgetam_trt_b3_memory_path_fp32/onnx/memory_encoder_b3.onnx --saveEngine=artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_encoder_b3.engine --builderOptimizationLevel=5 --profilingVerbosity=detailed --timingCacheFile=artifacts/edgetam_trt_b3_memory_path_fp32/timing_cache.bin --noTF32 --dumpLayerInfo --exportLayerInfo=docs/generated/batchtam_trt_layer_info_memory_encoder_b3.json --dumpProfile --exportProfile=docs/generated/batchtam_trt_profile_memory_encoder_b3.json --skipInference\n",
+      "timing_cache": "artifacts/edgetam_trt_b3_memory_path_fp32/timing_cache.bin",
+      "trt_build_pass": true,
+      "trt_validation_pass": true
+    },
+    "vision_encoder": {
+      "component": "vision_encoder",
+      "exact_blocker": "onnx_export has not passed",
+      "failure_stage": "onnx_export",
+      "onnx_export_pass": false,
+      "onnx_validation_pass": false,
+      "trt_build_pass": false,
+      "trt_validation_pass": false
+    }
+  },
+  "decision": {
+    "closed_loop_strict_pass": false,
+    "component_validation_usable": true,
+    "demo22_integration_allowed": false,
+    "exact_blocker": "closed-loop strict correctness has not passed",
+    "failure_stage": "closed_loop_correctness",
+    "recommended_trt_scope": "memory_path_all",
+    "trt_components_usable": false
+  },
+  "name": "BatchTam ONNX/TRT",
+  "profiles": []
+}

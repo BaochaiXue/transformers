@@ -1,0 +1,254 @@
+{
+  "all_components_pass": true,
+  "batch_size": 3,
+  "components": {
+    "mask_decoder": {
+      "component": "mask_decoder",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/mask_decoder",
+      "frame_idx": 0,
+      "input_count": 6,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_dense_prompt_embeddings",
+          "path": "root[1].dense_prompt_embeddings",
+          "shape": [
+            3,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_high_resolution_features_0",
+          "path": "root[1].high_resolution_features[0]",
+          "shape": [
+            3,
+            32,
+            256,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_high_resolution_features_1",
+          "path": "root[1].high_resolution_features[1]",
+          "shape": [
+            3,
+            64,
+            128,
+            128
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_image_embeddings",
+          "path": "root[1].image_embeddings",
+          "shape": [
+            3,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_image_positional_embeddings",
+          "path": "root[1].image_positional_embeddings",
+          "shape": [
+            3,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_sparse_prompt_embeddings",
+          "path": "root[1].sparse_prompt_embeddings",
+          "shape": [
+            3,
+            1,
+            2,
+            256
+          ]
+        }
+      ],
+      "output_count": 4,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output_0",
+          "path": "root[0]",
+          "shape": [
+            3,
+            1,
+            3,
+            256,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "output_1",
+          "path": "root[1]",
+          "shape": [
+            3,
+            1,
+            3
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "output_2",
+          "path": "root[2]",
+          "shape": [
+            3,
+            1,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "output_3",
+          "path": "root[3]",
+          "shape": [
+            3,
+            1,
+            1
+          ]
+        }
+      ],
+      "strategy": "batch_dim0"
+    },
+    "memory_attention": {
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention",
+      "frame_idx": 1,
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            516,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            516,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "strategy": "seq_first_dim1"
+    },
+    "memory_encoder": {
+      "component": "memory_encoder",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_encoder",
+      "frame_idx": 0,
+      "input_count": 2,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_0_0",
+          "path": "root[0][0]",
+          "shape": [
+            3,
+            256,
+            64,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_0_1",
+          "path": "root[0][1]",
+          "shape": [
+            3,
+            1,
+            1024,
+            1024
+          ]
+        }
+      ],
+      "output_count": 2,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output_0",
+          "path": "root[0]",
+          "shape": [
+            3,
+            64,
+            64,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "output_1",
+          "path": "root[1]",
+          "shape": [
+            3,
+            64,
+            64,
+            64
+          ]
+        }
+      ],
+      "strategy": "batch_dim0"
+    }
+  },
+  "fixtures_dir": "docs/generated/fixtures/single_object",
+  "name": "BatchTam ONNX/TRT",
+  "object_count": 1,
+  "out_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures",
+  "precision_mode": "memory_path_fp32"
+}

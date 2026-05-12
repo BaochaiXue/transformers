@@ -1,0 +1,68 @@
+{
+  "component": "mask_decoder",
+  "exact_blocker": null,
+  "failure_stage": null,
+  "onnx_path": "artifacts/edgetam_trt_b3_memory_path_fp32/onnx/mask_decoder_b3.onnx",
+  "onnx_validation_pass": true,
+  "providers": [
+    "CUDAExecutionProvider",
+    "CPUExecutionProvider"
+  ],
+  "rows": [
+    {
+      "index": 0,
+      "max_abs_diff": 0.22699928283691406,
+      "mean_abs_diff": 0.023206960409879684,
+      "name": "output_0",
+      "p95_abs_diff": 0.06476783752441406,
+      "pass": true,
+      "shape": [
+        3,
+        1,
+        3,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 1,
+      "max_abs_diff": 0.0037103891372680664,
+      "mean_abs_diff": 0.0016356640262529254,
+      "name": "output_1",
+      "p95_abs_diff": 0.003464651061221957,
+      "pass": true,
+      "shape": [
+        3,
+        1,
+        3
+      ]
+    },
+    {
+      "index": 2,
+      "max_abs_diff": 0.061015091836452484,
+      "mean_abs_diff": 0.010279567912220955,
+      "name": "output_2",
+      "p95_abs_diff": 0.027835078537464142,
+      "pass": true,
+      "shape": [
+        3,
+        1,
+        3,
+        256
+      ]
+    },
+    {
+      "index": 3,
+      "max_abs_diff": 0.016143798828125,
+      "mean_abs_diff": 0.013365745544433594,
+      "name": "output_3",
+      "p95_abs_diff": 0.015863800421357155,
+      "pass": true,
+      "shape": [
+        3,
+        1,
+        1
+      ]
+    }
+  ]
+}

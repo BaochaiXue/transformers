@@ -1,0 +1,24 @@
+{
+  "component": "memory_attention",
+  "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_b3.engine",
+  "exact_blocker": null,
+  "failure_stage": null,
+  "hot_path_zero_copy": true,
+  "rows": [
+    {
+      "index": 0,
+      "max_abs_diff": 0.04130136966705322,
+      "mean_abs_diff": 0.0018949030200019479,
+      "name": "output",
+      "p95_abs_diff": 0.005366136319935322,
+      "pass": true,
+      "shape": [
+        1,
+        3,
+        4096,
+        256
+      ]
+    }
+  ],
+  "trt_validation_pass": true
+}

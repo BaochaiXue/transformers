@@ -197,3 +197,18 @@ docs/generated/**/*.qdrep
 docs/generated/**/*.nsys-rep
 docs/generated/**/*.sqlite
 docs/generated/nsys_*/
+
+# BatchTam ONNX/TensorRT generated artifacts
+artifacts/**/*.onnx
+artifacts/**/*.engine
+artifacts/**/*.plan
+artifacts/**/*.pt
+artifacts/**/*.pth
+artifacts/**/*.npz
+artifacts/**/*.qdrep
+artifacts/**/*.nsys-rep
+artifacts/**/*.sqlite
+artifacts/**/timing_cache*.bin
+artifacts/
+docs/generated/batchtam_trt_layer_info_*.json
+docs/generated/batchtam_trt_profile_*.json
