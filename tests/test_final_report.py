@@ -197,6 +197,65 @@ class FinalReportTests(unittest.TestCase):
             self.assertTrue(payload["decision"]["demo22_final_fps_pending"])
             self.assertGreater(out_json.stat().st_size, 100)
 
+    def test_full_compiled_memory_path_can_be_recommended(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            correctness_files = []
+            for mode in ("none", "default", "max-autotune-no-cudagraphs", "reduce-overhead"):
+                path = root / f"full_{mode}.json"
+                path.write_text(
+                    json.dumps(
+                        {
+                            "backend": "hf_batched_multisession",
+                            "compile_mode": mode,
+                            "precision_mode": "memory_path_fp32",
+                            "reference_source": "hf-public-seq",
+                            "strict_full_batched": True,
+                            "dtype": "bfloat16",
+                            "metrics": {
+                                "strict_correctness_pass": True,
+                                "correctness_pass": True,
+                                "global_iou_on_evaluated": {"avg": 0.987, "p50": 0.99},
+                                "backend_contract": {
+                                    "backend": "hf_batched_multisession",
+                                    "batch_vision": True,
+                                    "batch_memory_attention": True,
+                                    "batch_mask_decoder": True,
+                                    "batch_memory_encoder": True,
+                                    "batched_state_scatter": True,
+                                    "used_public_session_step_in_hot_path": False,
+                                    "partial_fallback_used": False,
+                                    "contract_pass": True,
+                                },
+                            },
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+                correctness_files.append(str(path))
+            out_md = root / "final.md"
+            out_json = root / "final.json"
+            argv = [
+                "final_report",
+                "--correctness-json",
+                *correctness_files,
+                "--output-md",
+                str(out_md),
+                "--output-json",
+                str(out_json),
+            ]
+            with patch.object(sys, "argv", argv):
+                self.assertEqual(main(), 0)
+
+            payload = json.loads(out_json.read_text(encoding="utf-8"))
+            self.assertTrue(payload["decision"]["hf_batched_multisession_usable"])
+            self.assertTrue(payload["decision"]["full_batched_memory_path_fp32_strict_pass"])
+            self.assertTrue(payload["decision"]["full_batched_compile_default_pass"])
+            self.assertTrue(payload["decision"]["full_batched_compile_max_autotune_no_cudagraphs_pass"])
+            self.assertTrue(payload["decision"]["full_batched_compile_reduce_overhead_pass"])
+            self.assertEqual(payload["decision"]["recommended_backend"], "hf_batched_multisession")
+            self.assertEqual(payload["decision"]["recommended_compile_mode"], "reduce-overhead")
+
 
 if __name__ == "__main__":
     unittest.main()

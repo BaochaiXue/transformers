@@ -21,6 +21,15 @@ from .config import (
     BACKEND_HF_REF_SEQ_PUBLIC,
     BACKENDS,
     COMPILE_NONE,
+    COMPILE_SCOPE_MEMORY_ATTENTION,
+    COMPILE_SCOPE_MEMORY_ATTENTION_MASK_DECODER,
+    COMPILE_SCOPE_MEMORY_ENCODER,
+    COMPILE_SCOPE_MEMORY_PATH_ALL,
+    COMPILE_SCOPE_MASK_DECODER,
+    COMPILE_SCOPE_NONE,
+    COMPILE_SCOPE_VISION_ENCODER,
+    COMPILE_SCOPE_VISION_MEMORY_PATH_ALL,
+    COMPILE_SCOPES,
 )
 from .precision_policy import policy_torch_dtype, resolve_precision_policy
 from .precision_wrappers import cast_nested_floating, detach_clone_to_dtype
@@ -44,6 +53,7 @@ class BatchedEdgeTamMultiSessionRuntime:
         strict_full_batched: bool = False,
         disallow_partial_backend_success: bool = False,
         precision_mode: str = "all_bf16",
+        compile_scope: str | None = None,
     ):
         if backend not in BACKENDS:
             raise ValueError(f"unsupported backend: {backend}")
@@ -55,6 +65,11 @@ class BatchedEdgeTamMultiSessionRuntime:
         self.dtype = dtype
         self.device = device
         self.compile_mode = compile_mode
+        self.compile_scope = compile_scope or (
+            COMPILE_SCOPE_NONE if compile_mode == COMPILE_NONE else COMPILE_SCOPE_VISION_ENCODER
+        )
+        if self.compile_scope not in COMPILE_SCOPES:
+            raise ValueError(f"unsupported compile_scope: {self.compile_scope}")
         self.graph_output_policy = graph_output_policy
         self.ring_size = int(ring_size)
         self.strict_full_batched = bool(strict_full_batched)
@@ -70,7 +85,16 @@ class BatchedEdgeTamMultiSessionRuntime:
         self.contract: BackendContractResult | None = None
         self.torch = None
         self._compiled_get_image_features = None
+        self._compiled_memory_attention = None
+        self._compiled_single_frame_forward = None
+        self._compiled_use_mask_as_output = None
+        self._compiled_memory_encoder_fn = None
         self.component_dtype_table: dict[str, str | None] = {}
+        self.compile_order = {
+            "precision_policy_applied_before_compile": False,
+            "compiled_after_component_dtype_conversion": False,
+            "compile_scope": self.compile_scope,
+        }
 
         if backend in {
             BACKEND_BATCHED_MEMORY_ATTENTION_SEQ_DECODER,
@@ -126,15 +150,34 @@ class BatchedEdgeTamMultiSessionRuntime:
     def prepare_compile(self, torch_module) -> None:
         self.torch = torch_module
         self._apply_precision_policy_modules()
+        self.compile_order["precision_policy_applied_before_compile"] = True
         if self.compile_mode == COMPILE_NONE:
             return
         if self.compile_mode == "reduce-overhead" and self.graph_output_policy != "ring_buffer":
             raise ValueError("reduce-overhead requires graph_output_policy=ring_buffer")
 
-        def get_image_features(pixel_values):
-            return self.model.get_image_features(pixel_values, return_dict=True)
+        self.compile_order["compiled_after_component_dtype_conversion"] = True
+        if self._scope_compiles(COMPILE_SCOPE_VISION_ENCODER):
+            def get_image_features(pixel_values):
+                return self.model.get_image_features(pixel_values, return_dict=True)
 
-        self._compiled_get_image_features = torch_module.compile(get_image_features, mode=self.compile_mode)
+            self._compiled_get_image_features = torch_module.compile(get_image_features, mode=self.compile_mode)
+        if self._scope_compiles(COMPILE_SCOPE_MEMORY_ATTENTION):
+            self._compiled_memory_attention = torch_module.compile(self.model.memory_attention, mode=self.compile_mode)
+        if self._scope_compiles(COMPILE_SCOPE_MASK_DECODER):
+            self._compiled_single_frame_forward = torch_module.compile(
+                self.model._single_frame_forward,
+                mode=self.compile_mode,
+            )
+            self._compiled_use_mask_as_output = torch_module.compile(
+                self.model._use_mask_as_output,
+                mode=self.compile_mode,
+            )
+        if self._scope_compiles(COMPILE_SCOPE_MEMORY_ENCODER):
+            self._compiled_memory_encoder_fn = torch_module.compile(
+                self._batch_encode_new_memory_v1_eager,
+                mode=self.compile_mode,
+            )
 
     def step(self, frame_images: list[Any], frame_idx: int) -> dict[str, Any]:
         if self.backend == BACKEND_HF_REF_SEQ_PUBLIC:
@@ -288,11 +331,18 @@ class BatchedEdgeTamMultiSessionRuntime:
                     "mask_decoder_dtype",
                     disable=self.precision_policy.disable_autocast_for_mask_decoder,
                 ):
-                    sam_outputs = self.model._use_mask_as_output(
+                    use_mask_as_output = (
+                        self._compiled_use_mask_as_output
+                        if self._compiled_use_mask_as_output is not None
+                        else self.model._use_mask_as_output
+                    )
+                    sam_outputs = use_mask_as_output(
                         pix_feat,
                         high_res_features_for_decoder,
                         mask_inputs_b3,
                     )
+                if self._compiled_use_mask_as_output is not None:
+                    _clone_sam_output_tensors(sam_outputs)
                 is_mask_from_pts = True
             else:
                 mem_started = time.perf_counter()
@@ -311,7 +361,12 @@ class BatchedEdgeTamMultiSessionRuntime:
                     "mask_decoder_dtype",
                     disable=self.precision_policy.disable_autocast_for_mask_decoder,
                 ):
-                    sam_outputs = self.model._single_frame_forward(
+                    single_frame_forward = (
+                        self._compiled_single_frame_forward
+                        if self._compiled_single_frame_forward is not None
+                        else self.model._single_frame_forward
+                    )
+                    sam_outputs = single_frame_forward(
                         pixel_values=None,
                         input_points=None,
                         input_labels=None,
@@ -319,6 +374,8 @@ class BatchedEdgeTamMultiSessionRuntime:
                         image_embeddings=decoder_embeddings,
                         multimask_output=self.model._use_multimask(False, None),
                     )
+                if self._compiled_single_frame_forward is not None:
+                    _clone_sam_output_tensors(sam_outputs)
                 is_mask_from_pts = False
             _normalize_single_object_batch_outputs(sam_outputs, len(self.sessions), self.torch)
             if str(self.device).startswith("cuda"):
@@ -408,6 +465,8 @@ class BatchedEdgeTamMultiSessionRuntime:
             "backend_contract": self.contract.to_json() if self.contract is not None else None,
             "precision_mode": self.precision_mode,
             "component_dtype_table": dict(self.component_dtype_table),
+            "compile_order": dict(self.compile_order),
+            "compile_scope": self.compile_scope,
         }
 
     def _single_object_context(self, session: Any, frame_idx: int) -> dict[str, Any]:
@@ -483,7 +542,12 @@ class BatchedEdgeTamMultiSessionRuntime:
             "memory_attention_dtype",
             disable=self.precision_policy.disable_autocast_for_memory_attention,
         ):
-            conditioned_flat = self.model.memory_attention(
+            memory_attention = (
+                self._compiled_memory_attention
+                if self._compiled_memory_attention is not None
+                else self.model.memory_attention
+            )
+            conditioned_flat = memory_attention(
                 current_vision_features=current_vision_features.to(dtype=memory_dtype),
                 current_vision_position_embeddings=current_vision_positional_embeddings.to(dtype=memory_dtype),
                 memory=combined_memory.to(dtype=memory_dtype),
@@ -491,6 +555,8 @@ class BatchedEdgeTamMultiSessionRuntime:
                 num_object_pointer_tokens=pointer_counts[0],
                 num_spatial_memory_tokens=spatial_counts[0],
             )
+        if self._compiled_memory_attention is not None:
+            conditioned_flat = conditioned_flat.clone().contiguous()
         batch_size = len(self.sessions)
         height, width = self.model.backbone_feature_sizes[-1]
         if conditioned_flat.shape[0] == 1 and conditioned_flat.shape[1] == batch_size:
@@ -504,6 +570,28 @@ class BatchedEdgeTamMultiSessionRuntime:
     def _batch_encode_new_memory_v1(
         self,
         *,
+        current_vision_feats: Any,
+        pred_masks_high_res: Any,
+        object_score_logits: Any,
+        is_mask_from_pts: bool,
+    ) -> tuple[Any, Any]:
+        if self._compiled_memory_encoder_fn is not None:
+            return self._compiled_memory_encoder_fn(
+                current_vision_feats.clone().contiguous(),
+                pred_masks_high_res.clone().contiguous(),
+                object_score_logits.clone().contiguous(),
+                is_mask_from_pts,
+            )
+
+        return self._batch_encode_new_memory_v1_eager(
+            current_vision_feats,
+            pred_masks_high_res,
+            object_score_logits,
+            is_mask_from_pts,
+        )
+
+    def _batch_encode_new_memory_v1_eager(
+        self,
         current_vision_feats: Any,
         pred_masks_high_res: Any,
         object_score_logits: Any,
@@ -574,6 +662,27 @@ class BatchedEdgeTamMultiSessionRuntime:
             module.to(dtype=dtype)
             self.component_dtype_table[attr] = str(_first_parameter_dtype(module))
 
+    def _scope_compiles(self, component: str) -> bool:
+        scope = self.compile_scope
+        if scope == COMPILE_SCOPE_NONE:
+            return False
+        if scope == COMPILE_SCOPE_VISION_MEMORY_PATH_ALL:
+            return component in {
+                COMPILE_SCOPE_VISION_ENCODER,
+                COMPILE_SCOPE_MEMORY_ATTENTION,
+                COMPILE_SCOPE_MASK_DECODER,
+                COMPILE_SCOPE_MEMORY_ENCODER,
+            }
+        if scope == COMPILE_SCOPE_MEMORY_PATH_ALL:
+            return component in {
+                COMPILE_SCOPE_MEMORY_ATTENTION,
+                COMPILE_SCOPE_MASK_DECODER,
+                COMPILE_SCOPE_MEMORY_ENCODER,
+            }
+        if scope == COMPILE_SCOPE_MEMORY_ATTENTION_MASK_DECODER:
+            return component in {COMPILE_SCOPE_MEMORY_ATTENTION, COMPILE_SCOPE_MASK_DECODER}
+        return scope == component
+
 
 def run_candidate(
     *,
@@ -587,6 +696,7 @@ def run_candidate(
     strict_full_batched: bool = False,
     disallow_partial_backend_success: bool = False,
     precision_mode: str = "all_bf16",
+    compile_scope: str | None = None,
 ) -> RuntimeOutputs:
     import torch
     from transformers import EdgeTamVideoInferenceSession
@@ -667,6 +777,7 @@ def run_candidate(
         strict_full_batched=strict_full_batched,
         disallow_partial_backend_success=disallow_partial_backend_success,
         precision_mode=precision_mode,
+        compile_scope=compile_scope,
     )
     runtime.init_from_reference_sessions(sessions)
     runtime.prepare_compile(torch)
@@ -733,6 +844,23 @@ def _slice_object_pointer_batch(value: Any, batch_idx: int, *, batch_size: int, 
         sliced = value[batch_idx : batch_idx + 1, batch_idx : batch_idx + 1, :]
         return detach_clone_to_dtype(sliced, dtype, contiguous=True) if dtype is not None else sliced.clone().contiguous()
     return _slice_batch(value, batch_idx, dtype=dtype)
+
+
+def _clone_sam_output_tensors(outputs: Any) -> Any:
+    """Break CUDA graph/compiled output aliases before downstream reuse."""
+
+    for attr in (
+        "pred_masks",
+        "high_res_masks",
+        "low_res_masks",
+        "iou_scores",
+        "object_score_logits",
+        "object_pointer",
+    ):
+        value = getattr(outputs, attr, None)
+        if hasattr(value, "clone"):
+            setattr(outputs, attr, value.clone().contiguous())
+    return outputs
 
 
 def _normalize_single_object_batch_outputs(outputs: Any, batch_size: int, torch_module: Any) -> None:

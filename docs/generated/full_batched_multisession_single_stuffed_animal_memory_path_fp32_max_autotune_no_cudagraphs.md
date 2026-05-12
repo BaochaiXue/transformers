@@ -2,13 +2,13 @@
 
 - backend: `hf_batched_multisession`
 - compile_mode: `max-autotune-no-cudagraphs`
-- correctness_pass: `False`
-- mask_correctness_pass: `False`
-- strict_correctness_pass: `False`
-- speed_first_acceptance_pass: `False`
+- correctness_pass: `True`
+- mask_correctness_pass: `True`
+- strict_correctness_pass: `True`
+- speed_first_acceptance_pass: `True`
 - candidate_partial: `False`
 - fallback_backend: `None`
-- reference_source: `hf-public`
+- reference_source: `hf-public-seq`
 - init_source: `deterministic`
 - prompt_source: `deterministic_replay_boxes`
 - sam31_mask_root: `None`
@@ -24,15 +24,15 @@
 
 ## Blockers
 
-- mask correctness gate failed: gate=strict, evaluated=279/1, empty_mismatch=0/0, global_iou_avg=0.9296243356994457/0.98, global_iou_p50=0.9718191964285714/0.98
+- none
 
 ## Metrics
 
 | key | iou_avg | iou_min | iou_p50 | evaluated | ref_empty_ignored | cand_nonempty_ref_empty | ref_nonempty | cand_nonempty_eval |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| cam0_obj0 | 0.9566273240604154 | 0.7687389770723104 | 0.9712280701754386 | 93 | 0 | 0 | 93 | 93 |
-| cam1_obj0 | 0.8685225856103136 | 0.5999406880189798 | 0.947436133063775 | 93 | 0 | 0 | 93 | 93 |
-| cam2_obj0 | 0.9637230974276078 | 0.7273298758447273 | 0.9822289156626506 | 93 | 0 | 0 | 93 | 93 |
+| cam0_obj0 | 0.9912161675379256 | 0.9796252927400468 | 0.9921046695240243 | 93 | 0 | 0 | 93 | 93 |
+| cam1_obj0 | 0.9893232343234263 | 0.9338103756708408 | 0.9922007460155985 | 93 | 0 | 0 | 93 | 93 |
+| cam2_obj0 | 0.9810564159595206 | 0.7628715283417249 | 0.9884223525779562 | 93 | 0 | 0 | 93 | 93 |
 
 ## Empty SAM3.1 Reference Policy
 

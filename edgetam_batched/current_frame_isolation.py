@@ -19,6 +19,7 @@ import numpy as np
 from .batched_multisession_runtime import BatchedEdgeTamMultiSessionRuntime
 from .camera_order import mask_iou
 from .compare_multisession import _resize_mask_like
+from .config import COMPILE_SCOPES
 from .find_first_bad_frame import _clone_output_fields, _compare_output_fields, _session_output
 from .precision_policy import PRECISION_POLICY_NAMES, reference_dtype_for_precision_mode, resolve_precision_policy
 from .reference_runtime import HfEdgeTamReferenceRuntime, ReferenceRuntimeConfig
@@ -136,6 +137,7 @@ def run_current_frame_isolation(
     replace: str,
     precision_mode: str,
     compile_mode: str = "none",
+    compile_scope: str | None = None,
     graph_output_policy: str = "ring_buffer",
     include_batch1: bool = True,
     only_normal_variant: bool = False,
@@ -186,6 +188,7 @@ def run_current_frame_isolation(
             dtype=effective_dtype,
             device=device,
             compile_mode=compile_mode,
+            compile_scope=compile_scope,
             graph_output_policy=graph_output_policy,
             force_reference_state_before_frame=force_reference_state_before_frame,
             spec=spec,
@@ -210,6 +213,7 @@ def run_current_frame_isolation(
         "effective_dtype": effective_dtype,
         "precision_mode": precision_mode,
         "compile_mode": compile_mode,
+        "compile_scope": compile_scope,
         "force_reference_state_before_frame": force_reference_state_before_frame,
         "replace": replace,
         "replacement": replacement,
@@ -230,6 +234,7 @@ def run_variant(
     dtype: str,
     device: str,
     compile_mode: str,
+    compile_scope: str | None,
     graph_output_policy: str,
     force_reference_state_before_frame: bool,
     spec: VariantSpec,
@@ -263,6 +268,7 @@ def run_variant(
         dtype=reference_runtime.dtype if dtype != "float32" else reference_runtime.torch.float32,
         device=device,
         compile_mode=compile_mode,
+        compile_scope=compile_scope,
         graph_output_policy=graph_output_policy,
         strict_full_batched=True,
         disallow_partial_backend_success=True,
@@ -493,6 +499,7 @@ def main() -> int:
     parser.add_argument("--dtype", default="bfloat16")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--compile-mode", default="none")
+    parser.add_argument("--compile-scope", choices=COMPILE_SCOPES, default=None)
     parser.add_argument("--graph-output-policy", default="ring_buffer")
     parser.add_argument("--force-reference-state-before-frame", action="store_true")
     parser.add_argument("--dump-all-component-diffs", action="store_true")
@@ -518,6 +525,7 @@ def main() -> int:
         replace=args.replace,
         precision_mode=args.precision_mode,
         compile_mode=args.compile_mode,
+        compile_scope=args.compile_scope,
         graph_output_policy=args.graph_output_policy,
         only_normal_variant=args.replace != "none",
     )

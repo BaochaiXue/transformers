@@ -1,7 +1,7 @@
 # EdgeTAM Batched Correctness
 
 - backend: `hf_batched_multisession`
-- compile_mode: `reduce-overhead`
+- compile_mode: `default`
 - correctness_pass: `True`
 - mask_correctness_pass: `True`
 - strict_correctness_pass: `True`

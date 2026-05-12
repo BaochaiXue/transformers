@@ -32,6 +32,7 @@ def tensor_storage_ids(value: Any, path: str = "") -> list[dict[str, Any]]:
                 "dtype": str(value.dtype),
                 "device": str(value.device),
                 "storage_offset": int(value.storage_offset()) if hasattr(value, "storage_offset") else None,
+                "is_view": getattr(value, "_base", None) is not None,
             }
         )
     elif isinstance(value, (list, tuple)):
@@ -53,6 +54,10 @@ def run_storage_alias_audit(
     frames: int,
     dtype: str,
     device: str,
+    compile_mode: str = "none",
+    precision_mode: str = "all_bf16",
+    compile_scope: str | None = None,
+    graph_output_policy: str = "ring_buffer",
 ) -> dict[str, Any]:
     replay_frames = load_replay_frames(rgb_replay, frames)
     config = ReferenceRuntimeConfig(
@@ -73,6 +78,10 @@ def run_storage_alias_audit(
         object_count=object_count,
         dtype=reference_runtime.dtype,
         device=device,
+        compile_mode=compile_mode,
+        precision_mode=precision_mode,
+        compile_scope=compile_scope,
+        graph_output_policy=graph_output_policy,
         strict_full_batched=True,
         disallow_partial_backend_success=True,
     )
@@ -80,6 +89,7 @@ def run_storage_alias_audit(
     runtime.prepare_compile(reference_runtime.torch)
 
     alias_records = []
+    view_records = []
     previous_by_cam_field: dict[tuple[int, str], set[int]] = {}
     for step_idx, frame in enumerate(replay_frames):
         runtime.step(frame.images, step_idx)
@@ -87,11 +97,24 @@ def run_storage_alias_audit(
         for cam_idx, session in enumerate(runtime.sessions):
             output, _bucket = _session_output(session, step_idx)
             for field in AUDIT_FIELDS:
+                ids = tensor_storage_ids(output.get(field), field)
                 ptrs = {
                     item["storage_ptr"]
-                    for item in tensor_storage_ids(output.get(field), field)
+                    for item in ids
                     if item.get("storage_ptr") is not None
                 }
+                for item in ids:
+                    if item.get("is_view"):
+                        view_records.append(
+                            {
+                                "kind": "stored_state_is_view",
+                                "frame_idx": step_idx,
+                                "camera": f"cam{cam_idx}",
+                                "field": field,
+                                "path": item.get("path"),
+                                "storage_ptr": item.get("storage_ptr"),
+                            }
+                        )
                 current_by_cam_field[(cam_idx, field)] = ptrs
         for field in AUDIT_FIELDS:
             seen: dict[int, int] = {}
@@ -127,11 +150,20 @@ def run_storage_alias_audit(
         "backend": backend,
         "rgb_replay": str(rgb_replay),
         "dtype": dtype,
+        "compile_mode": compile_mode,
+        "compile_scope": compile_scope,
+        "precision_mode": precision_mode,
+        "graph_output_policy": graph_output_policy,
         "frames": len(replay_frames),
         "alias_found": bool(alias_records),
+        "view_found": bool(view_records),
         "alias_records": alias_records[:100],
+        "view_records": view_records[:100],
         "alias_record_count": len(alias_records),
+        "view_record_count": len(view_records),
         "backend_contract": runtime.contract.to_json() if runtime.contract is not None else None,
+        "component_dtype_table": dict(runtime.component_dtype_table),
+        "compile_order": dict(runtime.compile_order),
     }
 
 
@@ -155,7 +187,9 @@ def render_storage_alias_audit(payload: dict[str, Any]) -> str:
                 ["field", "value"],
                 [
                     ["alias_found", payload.get("alias_found")],
+                    ["view_found", payload.get("view_found")],
                     ["alias_record_count", payload.get("alias_record_count")],
+                    ["view_record_count", payload.get("view_record_count")],
                     ["frames", payload.get("frames")],
                 ],
             ),
@@ -175,6 +209,10 @@ def main() -> int:
     parser.add_argument("--controller-prompt", default="hand")
     parser.add_argument("--frames", type=int, default=60)
     parser.add_argument("--dtype", default="bfloat16")
+    parser.add_argument("--precision-mode", default="all_bf16")
+    parser.add_argument("--compile-mode", default="none")
+    parser.add_argument("--compile-scope", default=None)
+    parser.add_argument("--graph-output-policy", default="ring_buffer")
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--output-md", required=True)
     parser.add_argument("--output-json", required=True)
@@ -191,12 +229,16 @@ def main() -> int:
         frames=args.frames,
         dtype=args.dtype,
         device=args.device,
+        compile_mode=args.compile_mode,
+        precision_mode=args.precision_mode,
+        compile_scope=args.compile_scope,
+        graph_output_policy=args.graph_output_policy,
     )
     write_json(args.output_json, payload)
     write_markdown(args.output_md, render_storage_alias_audit(payload))
     if args.debug:
         print(payload)
-    return 2 if payload.get("alias_found") else 0
+    return 2 if payload.get("alias_found") or payload.get("view_found") else 0
 
 
 if __name__ == "__main__":

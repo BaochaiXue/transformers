@@ -90,6 +90,15 @@ def main() -> int:
             f"{full_blocker}; bf16 closed-loop strict fails, while diagnostic all-fp32 eager strict passes; "
             "next patch must implement selective mixed memory/decoder path and compiled correctness"
         )
+    recommended_compile_mode = (sam31_best or {}).get("compile_mode") or (best_profile or {}).get("compile_mode")
+    if full_usable:
+        recommended_compile_mode = (
+            "reduce-overhead"
+            if precision_decision["reduce_overhead_pass"]
+            else "max-autotune-no-cudagraphs"
+            if precision_decision["max_autotune_no_cudagraphs_pass"]
+            else (full or {}).get("compile_mode")
+        )
     payload = {
         "goal": "original weights + custom batch=3 multi-session runtime",
         "source": {
@@ -143,8 +152,10 @@ def main() -> int:
             else None,
             "hf_batched_multisession_usable": full_usable,
             "hf_batched_multisession_failure_stage": None if full_usable else full_failure_stage,
-            "hf_batched_multisession_reason": "contract pass + correctness pass" if full_usable else full_blocker,
-            "hf_batched_multisession_blockers": full_blocker,
+            "hf_batched_multisession_reason": (
+                "contract pass + strict compiled closed-loop correctness pass" if full_usable else full_blocker
+            ),
+            "hf_batched_multisession_blockers": None if full_usable else full_blocker,
             "full_batched_bf16_strict_pass": full_bf16_pass,
             "full_batched_memory_attention_fp32_strict_pass": precision_decision[
                 "memory_attention_fp32_strict_pass"
@@ -157,6 +168,7 @@ def main() -> int:
             "full_batched_compile_max_autotune_no_cudagraphs_pass": precision_decision[
                 "max_autotune_no_cudagraphs_pass"
             ],
+            "full_batched_compile_default_pass": precision_decision["default_compile_pass"],
             "full_batched_compile_reduce_overhead_pass": precision_decision["reduce_overhead_pass"],
             "full_batched_vs_sam31_not_worse": (
                 (candidate_delta or {})
@@ -182,8 +194,8 @@ def main() -> int:
             "faster_than_77_92_ms_baseline": bool(
                 best_profile and (best_profile.get("stage_wall_p50_ms") or 1e9) < 77.92
             ),
-            "recommended_backend": "hf_batch_vision_seq_session",
-            "recommended_compile_mode": (sam31_best or {}).get("compile_mode") or (best_profile or {}).get("compile_mode"),
+            "recommended_backend": "hf_batched_multisession" if full_usable else "hf_batch_vision_seq_session",
+            "recommended_compile_mode": recommended_compile_mode,
             "fallback_backend": "hf_batch_vision_seq_session",
             "controller_hand_validated": bool(
                 (different_types_summary or {}).get("decision", {}).get("controller_hand_validated")
@@ -312,7 +324,7 @@ def choose_full_batched_report(candidates: list[dict[str, Any]]) -> dict[str, An
     if not candidates:
         return None
 
-    def score(item: dict[str, Any]) -> tuple[int, int, int, int, int, str]:
+    def score(item: dict[str, Any]) -> tuple[int, int, int, int, int, int, int, str]:
         metrics = item.get("metrics") or {}
         contract = item.get("backend_contract") or metrics.get("backend_contract") or {}
         strict = bool(item.get("strict_full_batched"))
@@ -320,6 +332,19 @@ def choose_full_batched_report(candidates: list[dict[str, Any]]) -> dict[str, An
         contract_pass = bool(contract.get("contract_pass"))
         strict_pass = bool(metrics.get("strict_correctness_pass"))
         correctness_pass = bool(metrics.get("correctness_pass"))
+        compile_rank = {
+            "reduce-overhead": 4,
+            "max-autotune-no-cudagraphs": 3,
+            "default": 2,
+            "none": 1,
+        }.get(str(item.get("compile_mode") or "none"), 0)
+        precision_rank = {
+            "memory_path_fp32": 4,
+            "memory_attention_fp32": 3,
+            "decoder_fp32": 2,
+            "all_fp32": 1,
+            "all_bf16": 0,
+        }.get(str(item.get("precision_mode") or "all_bf16"), 0)
         path = str(item.get("_path") or "")
         return (
             int(closed_loop_reference),
@@ -327,6 +352,8 @@ def choose_full_batched_report(candidates: list[dict[str, Any]]) -> dict[str, An
             int(contract_pass),
             int(strict_pass),
             int(correctness_pass),
+            compile_rank,
+            precision_rank,
             path,
         )
 
@@ -454,6 +481,11 @@ def summarize_full_precision_decision(candidates: list[dict[str, Any]]) -> dict[
             f"{recommended_precision} is the best non-all-fp32 eager strict pass by global IoU"
             if recommended_precision
             else None
+        ),
+        "default_compile_pass": (
+            full_strict_pass_for_precision(candidates, {recommended_precision}, {"default"})
+            if recommended_precision
+            else False
         ),
         "max_autotune_no_cudagraphs_pass": max_compile_pass,
         "reduce_overhead_pass": reduce_compile_pass,

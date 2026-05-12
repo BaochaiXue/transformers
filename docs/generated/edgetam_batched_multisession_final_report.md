@@ -11,41 +11,91 @@ Original weights + custom batch=3 multi-session runtime.
 | github_repo | https://github.com/BaochaiXue/transformers/tree/feat/edgetam-batched-multisession-runtime |
 | fork_path | /home/zhangxinjie/EdgeTAM-HF-batched |
 | branch | feat/edgetam-batched-multisession-runtime |
-| commit | 9521446b1c8b555ff020a3024280cb64af1ae58a |
+| commit | 5a2a86567e6a42ddf1178b6660dc51c1f9509972 |
 | modeling_edgetam_video_touched | False |
 
 ## Correctness
 
 | backend | compile | pass | mask_pass | partial | fallback | contract_pass | path |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| hf_batch_vision_seq_session | none | True | True | False |  |  | docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session.json |
+| hf_batch_vision_seq_session | max-autotune-no-cudagraphs | False | False | False |  |  | docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json |
+| hf_batch_vision_seq_session | reduce-overhead | False | False | False |  |  | docs/generated/edgetam_batched_correctness_hf_batch_vision_seq_session_reduce_overhead.json |
+| hf_batched_multisession | none | False | True | True | hf_batch_vision_seq_session |  | docs/generated/edgetam_batched_correctness_hf_batched_multisession.json |
+| hf_batch_vision_seq_session | none | False | False | False |  | False | docs/generated/different_types_sam31ref_batchvision_none_hand_stuffed_animal_ignore_ref_empty.json |
+| hf_batch_vision_seq_session | reduce-overhead | True | True | False |  | False | docs/generated/different_types_sam31ref_batchvision_reduce_hand_stuffed_animal_ignore_ref_empty_speed_first.json |
+| hf_batch_vision_seq_session | reduce-overhead | False | False | False |  | False | docs/generated/different_types_sam31ref_batchvision_reduce_hand_stuffed_animal_ignore_ref_empty_strict.json |
+| hf_batched_multisession | none | True | True | False |  | True | docs/generated/different_types_sam31ref_full_batched_single_stuffed_animal_ignore_ref_empty.json |
+| hf_ref_seq_public | none | False | False | False |  | False | docs/generated/different_types_sam31ref_original_hf_seq_hand_stuffed_animal_ignore_ref_empty.json |
+| hf_ref_seq_public | none | True | True | False |  | False | docs/generated/different_types_sam31ref_original_hf_seq_single_stuffed_animal_ignore_ref_empty.json |
+|  |  |  |  |  |  |  | docs/generated/different_types_sam31ref_original_vs_batchvision_delta_ignore_ref_empty.json |
+|  |  |  |  |  |  |  | docs/generated/different_types_sam31ref_original_vs_full_batched_delta_ignore_ref_empty.json |
+| hf_batched_multisession | default | True | True | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_memory_path_fp32_default.json |
+| hf_batched_multisession | max-autotune-no-cudagraphs | True | True | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_memory_path_fp32_max_autotune_no_cudagraphs.json |
+| hf_batched_multisession | reduce-overhead | True | True | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_memory_path_fp32_reduce_overhead.json |
 | hf_batched_multisession | none | False | False | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_precision_all_bf16.json |
 | hf_batched_multisession | none | True | True | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_precision_all_fp32.json |
 | hf_batched_multisession | none | False | False | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_precision_decoder_fp32.json |
 | hf_batched_multisession | none | True | True | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_precision_memory_attention_fp32.json |
 | hf_batched_multisession | none | True | True | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_precision_memory_path_fp32.json |
-| hf_batched_multisession | max-autotune-no-cudagraphs | False | False | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_memory_path_fp32_max_autotune_no_cudagraphs.json |
-| hf_batched_multisession | reduce-overhead | False | False | False |  | True | docs/generated/full_batched_multisession_single_stuffed_animal_memory_path_fp32_reduce_overhead.json |
 
 ## Profiles
 
 | backend | compile | p50 | p90 | partial | path |
 | --- | --- | --- | --- | --- | --- |
+| hf_batch_vision_seq_session | max-autotune-no-cudagraphs | 59.9900099914521 | 66.65191479842179 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json |
+| hf_batch_vision_seq_session | none | 63.74551501357928 | 66.34561588289216 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_none.json |
+| hf_batch_vision_seq_session | reduce-overhead | 58.43767599435523 | 65.8067935204599 | False | docs/generated/edgetam_batched_profile_hf_batch_vision_seq_session_reduce_overhead.json |
+| hf_batched_multisession | none | 63.66823450662196 | 65.51955243339762 | True | docs/generated/edgetam_batched_profile_hf_batched_multisession_none.json |
+| hf_batch_vision_seq_session | reduce-overhead | 31.305484008044004 | 32.98849139828235 | False | docs/generated/different_types_sloth_set_2_edgetam_stuffed_animal_single_batchvision_profile_reduce_overhead.json |
+| hf_batch_vision_seq_session | reduce-overhead | 63.068919494980946 | 72.24762782570906 | False | docs/generated/different_types_sloth_set_2_profile_batchvision_reduce_overhead_sam31_frame0.json |
+| hf_ref_seq_public | none | 92.35824146890081 | 108.51287908153608 | False | docs/generated/different_types_sloth_set_2_profile_hf_public_none_sam31_frame0.json |
 
 ## SAM3.1 replay reference correctness
 
-No SAM3.1 replay IoU summary provided.
+- reference_source: `sam31-replay`
+- sam31_mask_root: `/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_stuffed_animal/sam31_video_reference_masks`
+- backend: `hf_batch_vision_seq_session`
+
+| compile_mode | correctness_pass | global_iou_avg | global_iou_min | global_iou_p50 | empty_mismatch |
+| --- | --- | --- | --- | --- | --- |
+| max-autotune-no-cudagraphs | True | 0.98122 | 0.93887 | 0.99073 | 0 |
+| none | True | 0.98137 | 0.94032 | 0.99073 | 0 |
+| reduce-overhead | True | 0.98138 | 0.93835 | 0.99073 | 0 |
 
 ## Non-empty object quality: stuffed animal only
 
-No stuffed animal IoU rows available.
+| compile_mode | cam0 stuffed animal IoU | cam1 stuffed animal IoU | cam2 stuffed animal IoU |
+| --- | --- | --- | --- |
+| max-autotune-no-cudagraphs | 0.97582 | 0.96297 | 0.94242 |
+| none | 0.97578 | 0.96238 | 0.94318 |
+| reduce-overhead | 0.97472 | 0.96269 | 0.94373 |
 
 ## Controller/towel caveat
 
-Controller/towel reference is not empty in all cameras for the provided summary.
+SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras.
+Therefore obj0 IoU=1.0 is empty-vs-empty and does not validate controller tracking.
+The current replay validates stuffed animal quality, not successful towel tracking.
+A new replay with non-empty towel masks is required before claiming controller-object correctness.
 
 ## Different-types sloth_set_2 result
 
-No different-types summary provided.
+- replay: `/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal`
+
+| field | value |
+| --- | --- |
+| single_object_stuffed_animal_validated | True |
+| controller_hand_validated | False |
+| controller_hand_reason | low IoU outliers on cam0/cam2 |
+| backend | hf_batch_vision_seq_session |
+| compile | reduce-overhead |
+| stage_wall_p50_ms | 31.30548 |
+| stage_wall_p90_ms | 32.98849 |
+| stage_wall_p95_ms | 33.75403 |
+| complete_group_fps_from_p50 | 31.94329 |
+| p50_30fps_gate | True |
+| p90_30fps_gate | True |
+| p95_30fps_gate | False |
 
 ## Empty SAM3.1 reference policy
 
@@ -53,7 +103,18 @@ When SAM3.1 reference is empty, EdgeTAM candidate output is ignored for IoU and 
 
 ## Original vs compiled delta on evaluated samples
 
-No original-vs-compiled delta report provided.
+- baseline_backend: `hf_ref_seq_public`
+- candidate_backend: `hf_batch_vision_seq_session`
+- candidate_compile_mode: `reduce-overhead`
+- empty_reference_policy: `ignore-candidate`
+- evaluated_subset_mismatch: `False`
+
+Compiled batch vision is compared against original HF public only on SAM3.1 reference-nonempty samples.
+
+| object | baseline_iou | candidate_iou | delta | not_worse | evaluated | ref_empty_ignored | cand_nonempty_ref_empty | reference_uncertain | reason |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| hand |  |  |  |  | 0 | 279 | 3 | True | no evaluated SAM3.1 reference samples |
+| stuffed animal | 0.96344 | 0.96348 | 4e-05 | True | 279 | 0 | 0 | False |  |
 
 ## Full batched first bad frame
 
@@ -83,6 +144,23 @@ No original-vs-compiled delta report provided.
 | memory_attention | 29 | 29 | True | 0.0625 | 0.00781 | docs/generated/component_equivalence_memory_attention_single_object.json |
 | memory_encoder | 30 | 30 | True | 0.11719 | 0.00391 | docs/generated/component_equivalence_memory_encoder_single_object.json |
 |  |  |  | True |  |  | docs/generated/component_equivalence_vision_encoder_single_object.json |
+| mask_decoder | 30 |  | True |  |  | docs/generated/compiled_component_equivalence_mask_decoder_memory_path_fp32_max_autotune_no_cudagraphs.json |
+| mask_decoder | 30 |  | True |  |  | docs/generated/compiled_component_equivalence_mask_decoder_memory_path_fp32_reduce_overhead.json |
+| memory_attention | 29 |  | True |  |  | docs/generated/compiled_component_equivalence_memory_attention_memory_path_fp32_max_autotune_no_cudagraphs.json |
+| memory_attention | 29 |  | True |  |  | docs/generated/compiled_component_equivalence_memory_attention_memory_path_fp32_reduce_overhead.json |
+| memory_encoder | 30 |  | True |  |  | docs/generated/compiled_component_equivalence_memory_encoder_memory_path_fp32_max_autotune_no_cudagraphs.json |
+| memory_encoder | 30 |  | True |  |  | docs/generated/compiled_component_equivalence_memory_encoder_memory_path_fp32_reduce_overhead.json |
+
+### Teacher forcing
+
+| mode | status | first_bad_frame | camera | iou | avg | p50 | hypothesis |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| after_mask_decoder | ok | 47 | cam1 | 0.73297 | 0.99802 | 0.99913 | drift_not_eliminated_by_after_mask_decoder |
+| after_memory_attention | unsupported |  |  |  |  |  | not_evaluated |
+| after_memory_encoder | ok | 47 | cam1 | 0.73515 | 0.9953 | 0.99773 | drift_not_eliminated_by_after_memory_encoder |
+| after_state_scatter | ok | 47 | cam1 | 0.73297 | 0.99802 | 0.99913 | drift_not_eliminated_by_after_state_scatter |
+| before_step_state | ok | 47 | cam1 | 0.73297 | 0.99802 | 0.99913 | drift_not_eliminated_by_before_step_state |
+| none | ok | 43 | cam1 | 0.59205 | 0.97984 | 0.98993 | baseline_full_batched_closed_loop_drift |
 
 ### State drift curve
 
@@ -104,6 +182,7 @@ No original-vs-compiled delta report provided.
 
 | frame | camera | replace | precision | raw_iou | inferred_issue | path |
 | --- | --- | --- | --- | --- | --- | --- |
+| 47 | cam1 | none | all_bf16 | 0.73297 | batch3_dimension_handling_or_diagonal_slicing_suspect | docs/generated/full_batched_current_frame_isolation_frame47_cam1.json |
 | 47 | cam1 | none | all_bf16 | 0.73472 | batch3_dimension_handling_or_diagonal_slicing_suspect | docs/generated/current_frame47_cam1_precision_all_bf16.json |
 | 47 | cam1 | none | all_fp32 | 0.99908 | precision_sensitive_current_frame_path | docs/generated/current_frame47_cam1_precision_all_fp32.json |
 | 47 | cam1 | none | decoder_fp32 | 1.0 | no_current_frame_divergence_under_probe | docs/generated/current_frame47_cam1_precision_decoder_fp32.json |
@@ -129,21 +208,21 @@ No original-vs-compiled delta report provided.
 | --- | --- |
 | alias_found | False |
 | alias_record_count | 0 |
-| path | docs/generated/full_batched_storage_alias_audit.json |
+| path | docs/generated/compiled_storage_audit_memory_path_fp32_reduce_overhead.json |
 
 ## Decision
 
 | field | value |
 | --- | --- |
-| hf_batch_vision_seq_session_usable | False |
-| single_object_stuffed_animal_validated | False |
-| single_object_30fps_p50_gate | False |
-| single_object_30fps_p90_gate | False |
-| single_object_30fps_p95_gate |  |
-| hf_batched_multisession_usable | False |
-| hf_batched_multisession_failure_stage | compile_correctness |
-| hf_batched_multisession_reason | memory_path_fp32 eager strict correctness passes, but compiled strict correctness fails for max-autotune-no-cudagraphs and reduce-overhead; keep ring_buffer and debug compiled numeric/state lifetime path before profiling. |
-| hf_batched_multisession_blockers | memory_path_fp32 eager strict correctness passes, but compiled strict correctness fails for max-autotune-no-cudagraphs and reduce-overhead; keep ring_buffer and debug compiled numeric/state lifetime path before profiling. |
+| hf_batch_vision_seq_session_usable | True |
+| single_object_stuffed_animal_validated | True |
+| single_object_30fps_p50_gate | True |
+| single_object_30fps_p90_gate | True |
+| single_object_30fps_p95_gate | borderline/fail |
+| hf_batched_multisession_usable | True |
+| hf_batched_multisession_failure_stage |  |
+| hf_batched_multisession_reason | contract pass + strict compiled closed-loop correctness pass |
+| hf_batched_multisession_blockers |  |
 | full_batched_bf16_strict_pass | False |
 | full_batched_memory_attention_fp32_strict_pass | True |
 | full_batched_decoder_fp32_strict_pass | False |
@@ -151,26 +230,27 @@ No original-vs-compiled delta report provided.
 | full_batched_all_fp32_strict_pass | True |
 | recommended_precision_mode | memory_path_fp32 |
 | recommended_precision_mode_reason | memory_path_fp32 is the best non-all-fp32 eager strict pass by global IoU |
-| full_batched_compile_max_autotune_no_cudagraphs_pass | False |
-| full_batched_compile_reduce_overhead_pass | False |
-| full_batched_vs_sam31_not_worse |  |
-| full_batched_vs_sam31_delta |  |
+| full_batched_compile_max_autotune_no_cudagraphs_pass | True |
+| full_batched_compile_default_pass | True |
+| full_batched_compile_reduce_overhead_pass | True |
+| full_batched_vs_sam31_not_worse | True |
+| full_batched_vs_sam31_delta | 4.1379448494360815e-05 |
 | recurrent_memory_slot_order_pass |  |
 | current_frame_inferred_issue | batch3_dimension_handling_or_diagonal_slicing_suspect |
 | batch_order_dependent | False |
 | storage_alias_found | False |
 | recurrent_drift_first_tensor | {'camera': 'cam0', 'field': 'maskmem_features', 'frame_idx': 0, 'p95_abs_diff': 0.02552780508995056, 'threshold': 0.001} |
-| faster_than_77_92_ms_baseline | False |
-| recommended_backend | hf_batch_vision_seq_session |
-| recommended_compile_mode |  |
+| faster_than_77_92_ms_baseline | True |
+| recommended_backend | hf_batched_multisession |
+| recommended_compile_mode | reduce-overhead |
 | fallback_backend | hf_batch_vision_seq_session |
 | controller_hand_validated | False |
-| controller_hand_status |  |
+| controller_hand_status | low IoU outliers on cam0/cam2 |
 | controller_towel_validated | False |
-| speed_first_usable | False |
+| speed_first_usable | True |
 | strict_validated_objects | ['stuffed animal'] |
-| reference_uncertain_objects | [] |
-| empty_reference_policy | strict-empty-mismatch |
+| reference_uncertain_objects | ['hand'] |
+| empty_reference_policy | ignore-candidate |
 | demo22_final_fps_pending | True |
 | demo22_final_fps_source | pending full Demo 2.2 profile; replay/component FPS is not final FPS |
 | controller_towel_caveat | SAM3.1 replay reference marks obj0/controller/towel as empty for all three cameras; current quality claim is for stuffed animal only. |

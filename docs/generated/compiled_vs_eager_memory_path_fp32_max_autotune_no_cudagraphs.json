@@ -1,0 +1,82 @@
+{
+  "backend": "hf_batched_multisession",
+  "compile_mode": "max-autotune-no-cudagraphs",
+  "compile_scope": "memory_path_all",
+  "compiled_backend_contract": {
+    "backend": "hf_batched_multisession",
+    "batch_mask_decoder": true,
+    "batch_memory_attention": true,
+    "batch_memory_encoder": true,
+    "batch_vision": true,
+    "batched_state_scatter": true,
+    "blockers": [],
+    "contract_pass": true,
+    "missing_requirements": [],
+    "partial_fallback_used": false,
+    "used_public_session_step_in_hot_path": false
+  },
+  "compiled_strict_regression_found": true,
+  "dtype": "bfloat16",
+  "eager_backend_contract": {
+    "backend": "hf_batched_multisession",
+    "batch_mask_decoder": true,
+    "batch_memory_attention": true,
+    "batch_memory_encoder": true,
+    "batch_vision": true,
+    "batched_state_scatter": true,
+    "blockers": [],
+    "contract_pass": true,
+    "missing_requirements": [],
+    "partial_fallback_used": false,
+    "used_public_session_step_in_hot_path": false
+  },
+  "effective_reference_dtype": "bfloat16",
+  "first_compiled_regression": {
+    "camera": "cam1",
+    "frame_idx": 82,
+    "iou_eager_compiled": 0.9918072289156626,
+    "iou_hf_public_compiled": 0.9792313201241346,
+    "iou_hf_public_eager": 0.9849606111243734,
+    "object_index": 0
+  },
+  "first_diverging_component": "memory_path_component_or_state_scatter",
+  "frames": 100,
+  "graph_output_policy": "ring_buffer",
+  "iou_threshold": 0.98,
+  "object_count": 1,
+  "object_prompt": "stuffed animal",
+  "precision_mode": "memory_path_fp32",
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+  "summary": {
+    "eager_vs_compiled": {
+      "avg": 0.9992119151173718,
+      "count": 279,
+      "max": 1.0,
+      "min": 0.9858235823582359,
+      "p50": 0.9997775800711743,
+      "p90": 1.0,
+      "p95": 1.0,
+      "p99": 1.0
+    },
+    "hf_public_vs_compiled": {
+      "avg": 0.9873322825422921,
+      "count": 279,
+      "max": 1.0,
+      "min": 0.7627476453393959,
+      "p50": 0.9907087868330237,
+      "p90": 0.9966655919916345,
+      "p95": 0.997703603691666,
+      "p99": 0.9992670894996476
+    },
+    "hf_public_vs_eager": {
+      "avg": 0.9872420184405927,
+      "count": 279,
+      "max": 1.0,
+      "min": 0.7631578947368421,
+      "p50": 0.9905990380411018,
+      "p90": 0.9967725930635021,
+      "p95": 0.997723203149007,
+      "p99": 0.9992670894996476
+    }
+  }
+}

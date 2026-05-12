@@ -11,7 +11,7 @@ import numpy as np
 from .batched_multisession_runtime import run_candidate
 from .backend_contract import FullBatchedContractError, contract_for_current_runtime
 from .camera_order import diagonal_best, iou_matrix, mask_iou
-from .config import BACKENDS
+from .config import BACKENDS, COMPILE_SCOPES
 from .leakage_test import compare_cam0_stability
 from .precision_policy import PRECISION_POLICY_NAMES, reference_dtype_for_precision_mode
 from .reference_runtime import HfEdgeTamReferenceRuntime, ReferenceRuntimeConfig
@@ -589,10 +589,11 @@ def main() -> int:
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--model-id", default="yonigozlan/EdgeTAM-hf")
     parser.add_argument("--compile-mode", default="none")
+    parser.add_argument("--compile-scope", choices=COMPILE_SCOPES, default=None)
     parser.add_argument("--graph-output-policy", default="ring_buffer")
     parser.add_argument(
         "--reference-source",
-        choices=("hf-public", "sam31-replay"),
+        choices=("hf-public", "hf-public-seq", "sam31-replay"),
         default="hf-public",
         help="Reference masks used for IoU_ref.",
     )
@@ -780,6 +781,7 @@ def main() -> int:
             strict_full_batched=args.strict_full_batched,
             disallow_partial_backend_success=args.disallow_partial_backend_success,
             precision_mode=args.precision_mode,
+            compile_scope=args.compile_scope,
         )
     except FullBatchedContractError as exc:
         contract = contract_for_current_runtime(
@@ -793,6 +795,7 @@ def main() -> int:
         payload = {
             "backend": args.backend,
             "compile_mode": args.compile_mode,
+            "compile_scope": args.compile_scope,
             "graph_output_policy": args.graph_output_policy,
             "dtype": args.dtype,
             "effective_reference_dtype": reference_dtype,
@@ -856,6 +859,7 @@ def main() -> int:
     payload = {
         "backend": args.backend,
         "compile_mode": args.compile_mode,
+        "compile_scope": args.compile_scope,
         "graph_output_policy": args.graph_output_policy,
         "dtype": args.dtype,
         "effective_reference_dtype": reference_dtype,
