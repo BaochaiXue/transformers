@@ -1,0 +1,6029 @@
+{
+  "backend": "hf_batched_multisession",
+  "component": "memory_attention",
+  "dtype": "bfloat16",
+  "fixtures_dir": "docs/generated/fixtures/single_object",
+  "max_num_object_pointer_tokens": 64,
+  "max_num_spatial_memory_tokens": 7,
+  "object_count": 1,
+  "object_prompt": "stuffed animal",
+  "observed_shape_keys": [
+    "objptr4_spmem1_cur4096_mem516",
+    "objptr8_spmem2_cur4096_mem1032",
+    "objptr12_spmem3_cur4096_mem1548",
+    "objptr16_spmem4_cur4096_mem2064",
+    "objptr20_spmem5_cur4096_mem2580",
+    "objptr24_spmem6_cur4096_mem3096",
+    "objptr28_spmem7_cur4096_mem3612",
+    "objptr32_spmem7_cur4096_mem3616",
+    "objptr36_spmem7_cur4096_mem3620",
+    "objptr40_spmem7_cur4096_mem3624",
+    "objptr44_spmem7_cur4096_mem3628",
+    "objptr48_spmem7_cur4096_mem3632",
+    "objptr52_spmem7_cur4096_mem3636",
+    "objptr56_spmem7_cur4096_mem3640",
+    "objptr60_spmem7_cur4096_mem3644",
+    "objptr64_spmem7_cur4096_mem3648"
+  ],
+  "precision_mode": "memory_path_fp32",
+  "records": [
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_001/cam0_memory_attention.pt",
+      "frame_idx": 1,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            516,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            516,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        516,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        516,
+        1,
+        64
+      ],
+      "memory_seq_len": 516,
+      "num_object_pointer_tokens": 4,
+      "num_spatial_memory_tokens": 1,
+      "shape_key": "objptr4_spmem1_cur4096_mem516"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_001/cam1_memory_attention.pt",
+      "frame_idx": 1,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            516,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            516,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        516,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        516,
+        1,
+        64
+      ],
+      "memory_seq_len": 516,
+      "num_object_pointer_tokens": 4,
+      "num_spatial_memory_tokens": 1,
+      "shape_key": "objptr4_spmem1_cur4096_mem516"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_001/cam2_memory_attention.pt",
+      "frame_idx": 1,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            516,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            516,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        516,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        516,
+        1,
+        64
+      ],
+      "memory_seq_len": 516,
+      "num_object_pointer_tokens": 4,
+      "num_spatial_memory_tokens": 1,
+      "shape_key": "objptr4_spmem1_cur4096_mem516"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_002/cam0_memory_attention.pt",
+      "frame_idx": 2,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            1032,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            1032,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        1032,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        1032,
+        1,
+        64
+      ],
+      "memory_seq_len": 1032,
+      "num_object_pointer_tokens": 8,
+      "num_spatial_memory_tokens": 2,
+      "shape_key": "objptr8_spmem2_cur4096_mem1032"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_002/cam1_memory_attention.pt",
+      "frame_idx": 2,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            1032,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            1032,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        1032,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        1032,
+        1,
+        64
+      ],
+      "memory_seq_len": 1032,
+      "num_object_pointer_tokens": 8,
+      "num_spatial_memory_tokens": 2,
+      "shape_key": "objptr8_spmem2_cur4096_mem1032"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_002/cam2_memory_attention.pt",
+      "frame_idx": 2,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            1032,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            1032,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        1032,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        1032,
+        1,
+        64
+      ],
+      "memory_seq_len": 1032,
+      "num_object_pointer_tokens": 8,
+      "num_spatial_memory_tokens": 2,
+      "shape_key": "objptr8_spmem2_cur4096_mem1032"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_003/cam0_memory_attention.pt",
+      "frame_idx": 3,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            1548,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            1548,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        1548,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        1548,
+        1,
+        64
+      ],
+      "memory_seq_len": 1548,
+      "num_object_pointer_tokens": 12,
+      "num_spatial_memory_tokens": 3,
+      "shape_key": "objptr12_spmem3_cur4096_mem1548"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_003/cam1_memory_attention.pt",
+      "frame_idx": 3,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            1548,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            1548,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        1548,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        1548,
+        1,
+        64
+      ],
+      "memory_seq_len": 1548,
+      "num_object_pointer_tokens": 12,
+      "num_spatial_memory_tokens": 3,
+      "shape_key": "objptr12_spmem3_cur4096_mem1548"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_003/cam2_memory_attention.pt",
+      "frame_idx": 3,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            1548,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            1548,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        1548,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        1548,
+        1,
+        64
+      ],
+      "memory_seq_len": 1548,
+      "num_object_pointer_tokens": 12,
+      "num_spatial_memory_tokens": 3,
+      "shape_key": "objptr12_spmem3_cur4096_mem1548"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_004/cam0_memory_attention.pt",
+      "frame_idx": 4,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            2064,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            2064,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        2064,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        2064,
+        1,
+        64
+      ],
+      "memory_seq_len": 2064,
+      "num_object_pointer_tokens": 16,
+      "num_spatial_memory_tokens": 4,
+      "shape_key": "objptr16_spmem4_cur4096_mem2064"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_004/cam1_memory_attention.pt",
+      "frame_idx": 4,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            2064,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            2064,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        2064,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        2064,
+        1,
+        64
+      ],
+      "memory_seq_len": 2064,
+      "num_object_pointer_tokens": 16,
+      "num_spatial_memory_tokens": 4,
+      "shape_key": "objptr16_spmem4_cur4096_mem2064"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_004/cam2_memory_attention.pt",
+      "frame_idx": 4,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            2064,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            2064,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        2064,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        2064,
+        1,
+        64
+      ],
+      "memory_seq_len": 2064,
+      "num_object_pointer_tokens": 16,
+      "num_spatial_memory_tokens": 4,
+      "shape_key": "objptr16_spmem4_cur4096_mem2064"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_005/cam0_memory_attention.pt",
+      "frame_idx": 5,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            2580,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            2580,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        2580,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        2580,
+        1,
+        64
+      ],
+      "memory_seq_len": 2580,
+      "num_object_pointer_tokens": 20,
+      "num_spatial_memory_tokens": 5,
+      "shape_key": "objptr20_spmem5_cur4096_mem2580"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_005/cam1_memory_attention.pt",
+      "frame_idx": 5,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            2580,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            2580,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        2580,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        2580,
+        1,
+        64
+      ],
+      "memory_seq_len": 2580,
+      "num_object_pointer_tokens": 20,
+      "num_spatial_memory_tokens": 5,
+      "shape_key": "objptr20_spmem5_cur4096_mem2580"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_005/cam2_memory_attention.pt",
+      "frame_idx": 5,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            2580,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            2580,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        2580,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        2580,
+        1,
+        64
+      ],
+      "memory_seq_len": 2580,
+      "num_object_pointer_tokens": 20,
+      "num_spatial_memory_tokens": 5,
+      "shape_key": "objptr20_spmem5_cur4096_mem2580"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_006/cam0_memory_attention.pt",
+      "frame_idx": 6,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3096,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3096,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3096,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3096,
+        1,
+        64
+      ],
+      "memory_seq_len": 3096,
+      "num_object_pointer_tokens": 24,
+      "num_spatial_memory_tokens": 6,
+      "shape_key": "objptr24_spmem6_cur4096_mem3096"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_006/cam1_memory_attention.pt",
+      "frame_idx": 6,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3096,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3096,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3096,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3096,
+        1,
+        64
+      ],
+      "memory_seq_len": 3096,
+      "num_object_pointer_tokens": 24,
+      "num_spatial_memory_tokens": 6,
+      "shape_key": "objptr24_spmem6_cur4096_mem3096"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_006/cam2_memory_attention.pt",
+      "frame_idx": 6,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3096,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3096,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3096,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3096,
+        1,
+        64
+      ],
+      "memory_seq_len": 3096,
+      "num_object_pointer_tokens": 24,
+      "num_spatial_memory_tokens": 6,
+      "shape_key": "objptr24_spmem6_cur4096_mem3096"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_007/cam0_memory_attention.pt",
+      "frame_idx": 7,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3612,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3612,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3612,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3612,
+        1,
+        64
+      ],
+      "memory_seq_len": 3612,
+      "num_object_pointer_tokens": 28,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr28_spmem7_cur4096_mem3612"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_007/cam1_memory_attention.pt",
+      "frame_idx": 7,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3612,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3612,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3612,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3612,
+        1,
+        64
+      ],
+      "memory_seq_len": 3612,
+      "num_object_pointer_tokens": 28,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr28_spmem7_cur4096_mem3612"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_007/cam2_memory_attention.pt",
+      "frame_idx": 7,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3612,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3612,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3612,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3612,
+        1,
+        64
+      ],
+      "memory_seq_len": 3612,
+      "num_object_pointer_tokens": 28,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr28_spmem7_cur4096_mem3612"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_008/cam0_memory_attention.pt",
+      "frame_idx": 8,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3616,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3616,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3616,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3616,
+        1,
+        64
+      ],
+      "memory_seq_len": 3616,
+      "num_object_pointer_tokens": 32,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr32_spmem7_cur4096_mem3616"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_008/cam1_memory_attention.pt",
+      "frame_idx": 8,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3616,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3616,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3616,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3616,
+        1,
+        64
+      ],
+      "memory_seq_len": 3616,
+      "num_object_pointer_tokens": 32,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr32_spmem7_cur4096_mem3616"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_008/cam2_memory_attention.pt",
+      "frame_idx": 8,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3616,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3616,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3616,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3616,
+        1,
+        64
+      ],
+      "memory_seq_len": 3616,
+      "num_object_pointer_tokens": 32,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr32_spmem7_cur4096_mem3616"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_009/cam0_memory_attention.pt",
+      "frame_idx": 9,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3620,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3620,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3620,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3620,
+        1,
+        64
+      ],
+      "memory_seq_len": 3620,
+      "num_object_pointer_tokens": 36,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr36_spmem7_cur4096_mem3620"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_009/cam1_memory_attention.pt",
+      "frame_idx": 9,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3620,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3620,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3620,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3620,
+        1,
+        64
+      ],
+      "memory_seq_len": 3620,
+      "num_object_pointer_tokens": 36,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr36_spmem7_cur4096_mem3620"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_009/cam2_memory_attention.pt",
+      "frame_idx": 9,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3620,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3620,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3620,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3620,
+        1,
+        64
+      ],
+      "memory_seq_len": 3620,
+      "num_object_pointer_tokens": 36,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr36_spmem7_cur4096_mem3620"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_010/cam0_memory_attention.pt",
+      "frame_idx": 10,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3624,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3624,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3624,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3624,
+        1,
+        64
+      ],
+      "memory_seq_len": 3624,
+      "num_object_pointer_tokens": 40,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr40_spmem7_cur4096_mem3624"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_010/cam1_memory_attention.pt",
+      "frame_idx": 10,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3624,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3624,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3624,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3624,
+        1,
+        64
+      ],
+      "memory_seq_len": 3624,
+      "num_object_pointer_tokens": 40,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr40_spmem7_cur4096_mem3624"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_010/cam2_memory_attention.pt",
+      "frame_idx": 10,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3624,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3624,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3624,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3624,
+        1,
+        64
+      ],
+      "memory_seq_len": 3624,
+      "num_object_pointer_tokens": 40,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr40_spmem7_cur4096_mem3624"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_011/cam0_memory_attention.pt",
+      "frame_idx": 11,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3628,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3628,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3628,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3628,
+        1,
+        64
+      ],
+      "memory_seq_len": 3628,
+      "num_object_pointer_tokens": 44,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr44_spmem7_cur4096_mem3628"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_011/cam1_memory_attention.pt",
+      "frame_idx": 11,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3628,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3628,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3628,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3628,
+        1,
+        64
+      ],
+      "memory_seq_len": 3628,
+      "num_object_pointer_tokens": 44,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr44_spmem7_cur4096_mem3628"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_011/cam2_memory_attention.pt",
+      "frame_idx": 11,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3628,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3628,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3628,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3628,
+        1,
+        64
+      ],
+      "memory_seq_len": 3628,
+      "num_object_pointer_tokens": 44,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr44_spmem7_cur4096_mem3628"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_012/cam0_memory_attention.pt",
+      "frame_idx": 12,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3632,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3632,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3632,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3632,
+        1,
+        64
+      ],
+      "memory_seq_len": 3632,
+      "num_object_pointer_tokens": 48,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr48_spmem7_cur4096_mem3632"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_012/cam1_memory_attention.pt",
+      "frame_idx": 12,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3632,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3632,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3632,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3632,
+        1,
+        64
+      ],
+      "memory_seq_len": 3632,
+      "num_object_pointer_tokens": 48,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr48_spmem7_cur4096_mem3632"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_012/cam2_memory_attention.pt",
+      "frame_idx": 12,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3632,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3632,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3632,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3632,
+        1,
+        64
+      ],
+      "memory_seq_len": 3632,
+      "num_object_pointer_tokens": 48,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr48_spmem7_cur4096_mem3632"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_013/cam0_memory_attention.pt",
+      "frame_idx": 13,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3636,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3636,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3636,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3636,
+        1,
+        64
+      ],
+      "memory_seq_len": 3636,
+      "num_object_pointer_tokens": 52,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr52_spmem7_cur4096_mem3636"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_013/cam1_memory_attention.pt",
+      "frame_idx": 13,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3636,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3636,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3636,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3636,
+        1,
+        64
+      ],
+      "memory_seq_len": 3636,
+      "num_object_pointer_tokens": 52,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr52_spmem7_cur4096_mem3636"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_013/cam2_memory_attention.pt",
+      "frame_idx": 13,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3636,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3636,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3636,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3636,
+        1,
+        64
+      ],
+      "memory_seq_len": 3636,
+      "num_object_pointer_tokens": 52,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr52_spmem7_cur4096_mem3636"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_014/cam0_memory_attention.pt",
+      "frame_idx": 14,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3640,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3640,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3640,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3640,
+        1,
+        64
+      ],
+      "memory_seq_len": 3640,
+      "num_object_pointer_tokens": 56,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr56_spmem7_cur4096_mem3640"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_014/cam1_memory_attention.pt",
+      "frame_idx": 14,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3640,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3640,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3640,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3640,
+        1,
+        64
+      ],
+      "memory_seq_len": 3640,
+      "num_object_pointer_tokens": 56,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr56_spmem7_cur4096_mem3640"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_014/cam2_memory_attention.pt",
+      "frame_idx": 14,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3640,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3640,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3640,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3640,
+        1,
+        64
+      ],
+      "memory_seq_len": 3640,
+      "num_object_pointer_tokens": 56,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr56_spmem7_cur4096_mem3640"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_015/cam0_memory_attention.pt",
+      "frame_idx": 15,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3644,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3644,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3644,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3644,
+        1,
+        64
+      ],
+      "memory_seq_len": 3644,
+      "num_object_pointer_tokens": 60,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr60_spmem7_cur4096_mem3644"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_015/cam1_memory_attention.pt",
+      "frame_idx": 15,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3644,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3644,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3644,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3644,
+        1,
+        64
+      ],
+      "memory_seq_len": 3644,
+      "num_object_pointer_tokens": 60,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr60_spmem7_cur4096_mem3644"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_015/cam2_memory_attention.pt",
+      "frame_idx": 15,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3644,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3644,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3644,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3644,
+        1,
+        64
+      ],
+      "memory_seq_len": 3644,
+      "num_object_pointer_tokens": 60,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr60_spmem7_cur4096_mem3644"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_016/cam0_memory_attention.pt",
+      "frame_idx": 16,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_016/cam1_memory_attention.pt",
+      "frame_idx": 16,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_016/cam2_memory_attention.pt",
+      "frame_idx": 16,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_017/cam0_memory_attention.pt",
+      "frame_idx": 17,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_017/cam1_memory_attention.pt",
+      "frame_idx": 17,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_017/cam2_memory_attention.pt",
+      "frame_idx": 17,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_018/cam0_memory_attention.pt",
+      "frame_idx": 18,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_018/cam1_memory_attention.pt",
+      "frame_idx": 18,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_018/cam2_memory_attention.pt",
+      "frame_idx": 18,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_019/cam0_memory_attention.pt",
+      "frame_idx": 19,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_019/cam1_memory_attention.pt",
+      "frame_idx": 19,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_019/cam2_memory_attention.pt",
+      "frame_idx": 19,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_020/cam0_memory_attention.pt",
+      "frame_idx": 20,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_020/cam1_memory_attention.pt",
+      "frame_idx": 20,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_020/cam2_memory_attention.pt",
+      "frame_idx": 20,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_021/cam0_memory_attention.pt",
+      "frame_idx": 21,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_021/cam1_memory_attention.pt",
+      "frame_idx": 21,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_021/cam2_memory_attention.pt",
+      "frame_idx": 21,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_022/cam0_memory_attention.pt",
+      "frame_idx": 22,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_022/cam1_memory_attention.pt",
+      "frame_idx": 22,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_022/cam2_memory_attention.pt",
+      "frame_idx": 22,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_023/cam0_memory_attention.pt",
+      "frame_idx": 23,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_023/cam1_memory_attention.pt",
+      "frame_idx": 23,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_023/cam2_memory_attention.pt",
+      "frame_idx": 23,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_024/cam0_memory_attention.pt",
+      "frame_idx": 24,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_024/cam1_memory_attention.pt",
+      "frame_idx": 24,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_024/cam2_memory_attention.pt",
+      "frame_idx": 24,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_025/cam0_memory_attention.pt",
+      "frame_idx": 25,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_025/cam1_memory_attention.pt",
+      "frame_idx": 25,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_025/cam2_memory_attention.pt",
+      "frame_idx": 25,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_026/cam0_memory_attention.pt",
+      "frame_idx": 26,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_026/cam1_memory_attention.pt",
+      "frame_idx": 26,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_026/cam2_memory_attention.pt",
+      "frame_idx": 26,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_027/cam0_memory_attention.pt",
+      "frame_idx": 27,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_027/cam1_memory_attention.pt",
+      "frame_idx": 27,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_027/cam2_memory_attention.pt",
+      "frame_idx": 27,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_028/cam0_memory_attention.pt",
+      "frame_idx": 28,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_028/cam1_memory_attention.pt",
+      "frame_idx": 28,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_028/cam2_memory_attention.pt",
+      "frame_idx": 28,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 0,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_029/cam0_memory_attention.pt",
+      "frame_idx": 29,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 1,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_029/cam1_memory_attention.pt",
+      "frame_idx": 29,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    {
+      "batch_size": 3,
+      "camera_idx": 2,
+      "current_vision_features_shape": [
+        4096,
+        1,
+        256
+      ],
+      "fixture_path": "docs/generated/fixtures/single_object/frame_029/cam2_memory_attention.pt",
+      "frame_idx": 29,
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "memory_features_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_pos_enc_shape": [
+        3648,
+        1,
+        64
+      ],
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    }
+  ],
+  "reference_source": "hf-public-seq",
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+  "shape_buckets": {
+    "objptr12_spmem3_cur4096_mem1548": {
+      "bucket_dir_name": "shape_002_objptr12_spmem3",
+      "bucket_index": 2,
+      "first_frame": 3,
+      "frames": [
+        3
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            1548,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            1548,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 3,
+      "memory_seq_len": 1548,
+      "num_object_pointer_tokens": 12,
+      "num_spatial_memory_tokens": 3,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_003/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_003/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_003/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr12_spmem3_cur4096_mem1548"
+    },
+    "objptr16_spmem4_cur4096_mem2064": {
+      "bucket_dir_name": "shape_003_objptr16_spmem4",
+      "bucket_index": 3,
+      "first_frame": 4,
+      "frames": [
+        4
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            2064,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            2064,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 4,
+      "memory_seq_len": 2064,
+      "num_object_pointer_tokens": 16,
+      "num_spatial_memory_tokens": 4,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_004/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_004/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_004/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr16_spmem4_cur4096_mem2064"
+    },
+    "objptr20_spmem5_cur4096_mem2580": {
+      "bucket_dir_name": "shape_004_objptr20_spmem5",
+      "bucket_index": 4,
+      "first_frame": 5,
+      "frames": [
+        5
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            2580,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            2580,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 5,
+      "memory_seq_len": 2580,
+      "num_object_pointer_tokens": 20,
+      "num_spatial_memory_tokens": 5,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_005/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_005/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_005/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr20_spmem5_cur4096_mem2580"
+    },
+    "objptr24_spmem6_cur4096_mem3096": {
+      "bucket_dir_name": "shape_005_objptr24_spmem6",
+      "bucket_index": 5,
+      "first_frame": 6,
+      "frames": [
+        6
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3096,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3096,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 6,
+      "memory_seq_len": 3096,
+      "num_object_pointer_tokens": 24,
+      "num_spatial_memory_tokens": 6,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_006/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_006/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_006/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr24_spmem6_cur4096_mem3096"
+    },
+    "objptr28_spmem7_cur4096_mem3612": {
+      "bucket_dir_name": "shape_006_objptr28_spmem7",
+      "bucket_index": 6,
+      "first_frame": 7,
+      "frames": [
+        7
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3612,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3612,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 7,
+      "memory_seq_len": 3612,
+      "num_object_pointer_tokens": 28,
+      "num_spatial_memory_tokens": 7,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_007/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_007/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_007/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr28_spmem7_cur4096_mem3612"
+    },
+    "objptr32_spmem7_cur4096_mem3616": {
+      "bucket_dir_name": "shape_007_objptr32_spmem7",
+      "bucket_index": 7,
+      "first_frame": 8,
+      "frames": [
+        8
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3616,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3616,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 8,
+      "memory_seq_len": 3616,
+      "num_object_pointer_tokens": 32,
+      "num_spatial_memory_tokens": 7,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_008/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_008/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_008/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr32_spmem7_cur4096_mem3616"
+    },
+    "objptr36_spmem7_cur4096_mem3620": {
+      "bucket_dir_name": "shape_008_objptr36_spmem7",
+      "bucket_index": 8,
+      "first_frame": 9,
+      "frames": [
+        9
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3620,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3620,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 9,
+      "memory_seq_len": 3620,
+      "num_object_pointer_tokens": 36,
+      "num_spatial_memory_tokens": 7,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_009/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_009/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_009/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr36_spmem7_cur4096_mem3620"
+    },
+    "objptr40_spmem7_cur4096_mem3624": {
+      "bucket_dir_name": "shape_009_objptr40_spmem7",
+      "bucket_index": 9,
+      "first_frame": 10,
+      "frames": [
+        10
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3624,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3624,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 10,
+      "memory_seq_len": 3624,
+      "num_object_pointer_tokens": 40,
+      "num_spatial_memory_tokens": 7,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_010/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_010/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_010/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr40_spmem7_cur4096_mem3624"
+    },
+    "objptr44_spmem7_cur4096_mem3628": {
+      "bucket_dir_name": "shape_010_objptr44_spmem7",
+      "bucket_index": 10,
+      "first_frame": 11,
+      "frames": [
+        11
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3628,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3628,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 11,
+      "memory_seq_len": 3628,
+      "num_object_pointer_tokens": 44,
+      "num_spatial_memory_tokens": 7,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_011/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_011/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_011/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr44_spmem7_cur4096_mem3628"
+    },
+    "objptr48_spmem7_cur4096_mem3632": {
+      "bucket_dir_name": "shape_011_objptr48_spmem7",
+      "bucket_index": 11,
+      "first_frame": 12,
+      "frames": [
+        12
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3632,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3632,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 12,
+      "memory_seq_len": 3632,
+      "num_object_pointer_tokens": 48,
+      "num_spatial_memory_tokens": 7,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_012/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_012/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_012/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr48_spmem7_cur4096_mem3632"
+    },
+    "objptr4_spmem1_cur4096_mem516": {
+      "bucket_dir_name": "shape_000_objptr4_spmem1",
+      "bucket_index": 0,
+      "first_frame": 1,
+      "frames": [
+        1
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            516,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            516,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 1,
+      "memory_seq_len": 516,
+      "num_object_pointer_tokens": 4,
+      "num_spatial_memory_tokens": 1,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_001/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_001/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_001/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr4_spmem1_cur4096_mem516"
+    },
+    "objptr52_spmem7_cur4096_mem3636": {
+      "bucket_dir_name": "shape_012_objptr52_spmem7",
+      "bucket_index": 12,
+      "first_frame": 13,
+      "frames": [
+        13
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3636,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3636,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 13,
+      "memory_seq_len": 3636,
+      "num_object_pointer_tokens": 52,
+      "num_spatial_memory_tokens": 7,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_013/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_013/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_013/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr52_spmem7_cur4096_mem3636"
+    },
+    "objptr56_spmem7_cur4096_mem3640": {
+      "bucket_dir_name": "shape_013_objptr56_spmem7",
+      "bucket_index": 13,
+      "first_frame": 14,
+      "frames": [
+        14
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3640,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3640,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 14,
+      "memory_seq_len": 3640,
+      "num_object_pointer_tokens": 56,
+      "num_spatial_memory_tokens": 7,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_014/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_014/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_014/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr56_spmem7_cur4096_mem3640"
+    },
+    "objptr60_spmem7_cur4096_mem3644": {
+      "bucket_dir_name": "shape_014_objptr60_spmem7",
+      "bucket_index": 14,
+      "first_frame": 15,
+      "frames": [
+        15
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3644,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3644,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 15,
+      "memory_seq_len": 3644,
+      "num_object_pointer_tokens": 60,
+      "num_spatial_memory_tokens": 7,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_015/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_015/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_015/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr60_spmem7_cur4096_mem3644"
+    },
+    "objptr64_spmem7_cur4096_mem3648": {
+      "bucket_dir_name": "shape_015_objptr64_spmem7",
+      "bucket_index": 15,
+      "first_frame": 16,
+      "frames": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            3648,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            3648,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 29,
+      "memory_seq_len": 3648,
+      "num_object_pointer_tokens": 64,
+      "num_spatial_memory_tokens": 7,
+      "records": 42,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_016/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_016/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_016/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    "objptr8_spmem2_cur4096_mem1032": {
+      "bucket_dir_name": "shape_001_objptr8_spmem2",
+      "bucket_index": 1,
+      "first_frame": 2,
+      "frames": [
+        2
+      ],
+      "input_shape_signature": [
+        [
+          "current_vision_features",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "current_vision_position_embeddings",
+          [
+            4096,
+            1,
+            256
+          ]
+        ],
+        [
+          "memory",
+          [
+            1032,
+            1,
+            64
+          ]
+        ],
+        [
+          "memory_posision_embeddings",
+          [
+            1032,
+            1,
+            64
+          ]
+        ]
+      ],
+      "last_frame": 2,
+      "memory_seq_len": 1032,
+      "num_object_pointer_tokens": 8,
+      "num_spatial_memory_tokens": 2,
+      "records": 3,
+      "representative_fixture_paths": [
+        "docs/generated/fixtures/single_object/frame_002/cam0_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_002/cam1_memory_attention.pt",
+        "docs/generated/fixtures/single_object/frame_002/cam2_memory_attention.pt"
+      ],
+      "shape_key": "objptr8_spmem2_cur4096_mem1032"
+    }
+  }
+}

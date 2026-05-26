@@ -1,0 +1,41 @@
+{
+  "component": "memory_encoder",
+  "exact_blocker": null,
+  "failure_stage": null,
+  "onnx_path": "artifacts/edgetam_trt_b3_memory_path_fp32/onnx/memory_encoder_b3.onnx",
+  "onnx_validation_pass": true,
+  "providers": [
+    "CUDAExecutionProvider",
+    "CPUExecutionProvider"
+  ],
+  "rows": [
+    {
+      "index": 0,
+      "max_abs_diff": 0.026784896850585938,
+      "mean_abs_diff": 0.001406442723236978,
+      "name": "output_0",
+      "p95_abs_diff": 0.003963372204452753,
+      "pass": true,
+      "shape": [
+        3,
+        64,
+        64,
+        64
+      ]
+    },
+    {
+      "index": 1,
+      "max_abs_diff": 5.960464477539063e-08,
+      "mean_abs_diff": 2.153683453798294e-09,
+      "name": "output_1",
+      "p95_abs_diff": 0.0,
+      "pass": true,
+      "shape": [
+        3,
+        64,
+        64,
+        64
+      ]
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "camera": "cam1",
+  "frame_idx": 47,
+  "passing_modes": [
+    "decoder_fp32",
+    "memory_attention_fp32",
+    "memory_path_fp32",
+    "all_fp32"
+  ],
+  "recommended_current_frame_modes": [
+    "memory_path_fp32",
+    "memory_attention_fp32",
+    "decoder_fp32",
+    "all_fp32"
+  ],
+  "rows": [
+    {
+      "cam1_iou": 0.7347217480368726,
+      "fixes_current_frame": false,
+      "inferred_issue": "batch3_dimension_handling_or_diagonal_slicing_suspect",
+      "maskmem_features_p95": 1.062158226966858,
+      "object_pointer_p95": 0.84912109375,
+      "path": "docs/generated/current_frame47_cam1_precision_all_bf16.json",
+      "precision_mode": "all_bf16",
+      "pred_masks_p95": 6.8125
+    },
+    {
+      "cam1_iou": 0.7347217480368726,
+      "fixes_current_frame": false,
+      "inferred_issue": "batch3_dimension_handling_or_diagonal_slicing_suspect",
+      "maskmem_features_p95": 1.062158226966858,
+      "object_pointer_p95": 0.84912109375,
+      "path": "docs/generated/current_frame47_cam1_precision_object_pointer_fp32.json",
+      "precision_mode": "object_pointer_fp32",
+      "pred_masks_p95": 6.8125
+    },
+    {
+      "cam1_iou": 0.7347217480368726,
+      "fixes_current_frame": false,
+      "inferred_issue": "batch3_dimension_handling_or_diagonal_slicing_suspect",
+      "maskmem_features_p95": 1.0617024898529053,
+      "object_pointer_p95": 0.84912109375,
+      "path": "docs/generated/current_frame47_cam1_precision_maskmem_features_fp32.json",
+      "precision_mode": "maskmem_features_fp32",
+      "pred_masks_p95": 6.8125
+    },
+    {
+      "cam1_iou": 0.7347217480368726,
+      "fixes_current_frame": false,
+      "inferred_issue": "batch3_dimension_handling_or_diagonal_slicing_suspect",
+      "maskmem_features_p95": 1.062158226966858,
+      "object_pointer_p95": 0.84912109375,
+      "path": "docs/generated/current_frame47_cam1_precision_mask_logits_fp32.json",
+      "precision_mode": "mask_logits_fp32",
+      "pred_masks_p95": 6.8125
+    },
+    {
+      "cam1_iou": 1.0,
+      "fixes_current_frame": true,
+      "inferred_issue": "no_current_frame_divergence_under_probe",
+      "maskmem_features_p95": 0.14321288466453552,
+      "object_pointer_p95": 0.005925528705120087,
+      "path": "docs/generated/current_frame47_cam1_precision_decoder_fp32.json",
+      "precision_mode": "decoder_fp32",
+      "pred_masks_p95": 0.05754971504211426
+    },
+    {
+      "cam1_iou": 0.9995481247175779,
+      "fixes_current_frame": true,
+      "inferred_issue": "no_current_frame_divergence_under_probe",
+      "maskmem_features_p95": 0.1484375,
+      "object_pointer_p95": 0.010986328125,
+      "path": "docs/generated/current_frame47_cam1_precision_memory_attention_fp32.json",
+      "precision_mode": "memory_attention_fp32",
+      "pred_masks_p95": 0.0625
+    },
+    {
+      "cam1_iou": 0.7347217480368726,
+      "fixes_current_frame": false,
+      "inferred_issue": "batch3_dimension_handling_or_diagonal_slicing_suspect",
+      "maskmem_features_p95": 1.0406582355499268,
+      "object_pointer_p95": 0.84912109375,
+      "path": "docs/generated/current_frame47_cam1_precision_memory_encoder_fp32.json",
+      "precision_mode": "memory_encoder_fp32",
+      "pred_masks_p95": 6.8125
+    },
+    {
+      "cam1_iou": 0.9995481247175779,
+      "fixes_current_frame": true,
+      "inferred_issue": "no_current_frame_divergence_under_probe",
+      "maskmem_features_p95": 0.38802942633628845,
+      "object_pointer_p95": 0.007379360496997833,
+      "path": "docs/generated/current_frame47_cam1_precision_memory_path_fp32.json",
+      "precision_mode": "memory_path_fp32",
+      "pred_masks_p95": 0.05850982666015625
+    },
+    {
+      "cam1_iou": 0.9990796134376438,
+      "fixes_current_frame": true,
+      "inferred_issue": "precision_sensitive_current_frame_path",
+      "maskmem_features_p95": 0.010450213216245174,
+      "object_pointer_p95": 0.002194322645664215,
+      "path": "docs/generated/current_frame47_cam1_precision_all_fp32.json",
+      "precision_mode": "all_fp32",
+      "pred_masks_p95": 0.010089993476867676
+    }
+  ]
+}

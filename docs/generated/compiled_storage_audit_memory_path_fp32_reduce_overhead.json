@@ -1,0 +1,47 @@
+{
+  "alias_found": false,
+  "alias_record_count": 0,
+  "alias_records": [],
+  "backend": "hf_batched_multisession",
+  "backend_contract": {
+    "backend": "hf_batched_multisession",
+    "batch_mask_decoder": true,
+    "batch_memory_attention": true,
+    "batch_memory_encoder": true,
+    "batch_vision": true,
+    "batched_state_scatter": true,
+    "blockers": [],
+    "contract_pass": true,
+    "missing_requirements": [],
+    "partial_fallback_used": false,
+    "used_public_session_step_in_hot_path": false
+  },
+  "compile_mode": "reduce-overhead",
+  "compile_order": {
+    "compile_scope": "memory_path_all",
+    "compiled_after_component_dtype_conversion": true,
+    "precision_policy_applied_before_compile": true
+  },
+  "compile_scope": "memory_path_all",
+  "component_dtype_table": {
+    "mask_decoder": "torch.float32",
+    "mask_downsample": "torch.float32",
+    "memory_attention": "torch.float32",
+    "memory_encoder": "torch.float32",
+    "object_pointer_proj": "torch.float32",
+    "prompt_encoder": "torch.float32",
+    "shared_image_embedding": "torch.float32",
+    "spatial_perceiver": "torch.float32"
+  },
+  "dtype": "bfloat16",
+  "frames": 20,
+  "graph_output_policy": "ring_buffer",
+  "precision_mode": "memory_path_fp32",
+  "raw_graph_output_stored": false,
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+  "ring_buffer_pass": true,
+  "session_alias": false,
+  "view_found": false,
+  "view_record_count": 0,
+  "view_records": []
+}

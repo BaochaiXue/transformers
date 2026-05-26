@@ -1,0 +1,27 @@
+{
+  "checker_error": null,
+  "component": "memory_attention",
+  "component_dtype": "torch.float32",
+  "dynamo_export_error_before_legacy_retry": null,
+  "exact_blocker": null,
+  "exporter_mode": "dynamo",
+  "failure_stage": null,
+  "node_count": 253,
+  "onnx_export_pass": true,
+  "onnx_path": "artifacts/edgetam_trt_b3_memory_path_fp32/onnx/memory_attention_b3.onnx",
+  "op_types": {
+    "Add": 36,
+    "Concat": 12,
+    "LayerNormalization": 7,
+    "MatMul": 28,
+    "Mul": 25,
+    "Neg": 8,
+    "Relu": 2,
+    "Reshape": 48,
+    "Slice": 24,
+    "Softmax": 4,
+    "Squeeze": 16,
+    "Transpose": 24,
+    "Unsqueeze": 19
+  }
+}

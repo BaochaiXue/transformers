@@ -1,0 +1,1064 @@
+{
+  "backend": "hf_batched_multisession",
+  "backend_contract": {
+    "backend": "hf_batched_multisession",
+    "batch_mask_decoder": true,
+    "batch_memory_attention": true,
+    "batch_memory_encoder": true,
+    "batch_vision": true,
+    "batched_state_scatter": true,
+    "blockers": [],
+    "contract_pass": true,
+    "missing_requirements": [],
+    "partial_fallback_used": false,
+    "used_public_session_step_in_hot_path": false
+  },
+  "compile_mode": "reduce-overhead",
+  "compile_order": {
+    "compile_scope": "memory_path_all",
+    "compiled_after_component_dtype_conversion": true,
+    "precision_policy_applied_before_compile": true
+  },
+  "compile_scope": "memory_path_all",
+  "component_dtype_table": {
+    "mask_decoder": "torch.float32",
+    "mask_downsample": "torch.float32",
+    "memory_attention": "torch.float32",
+    "memory_encoder": "torch.float32",
+    "object_pointer_proj": "torch.float32",
+    "prompt_encoder": "torch.float32",
+    "shared_image_embedding": "torch.float32",
+    "spatial_perceiver": "torch.float32"
+  },
+  "dtype": "bfloat16",
+  "dtype_gate": {
+    "pass": true,
+    "stored_mask_logits_fp32": true,
+    "stored_maskmem_features_fp32": true,
+    "stored_object_pointer_fp32": true,
+    "stored_object_score_logits_fp32": true
+  },
+  "frames": 5,
+  "graph_output_policy": "ring_buffer",
+  "last_step_backend_contract": {
+    "backend": "hf_batched_multisession",
+    "batch_mask_decoder": true,
+    "batch_memory_attention": true,
+    "batch_memory_encoder": true,
+    "batch_vision": true,
+    "batched_state_scatter": true,
+    "blockers": [],
+    "contract_pass": true,
+    "missing_requirements": [],
+    "partial_fallback_used": false,
+    "used_public_session_step_in_hot_path": false
+  },
+  "precision_mode": "memory_path_fp32",
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+  "stored_state_dtype_rows": [
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 0,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 1,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 2,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 3,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam0",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam1",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "pred_masks",
+      "shape": [
+        1,
+        1,
+        256,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "object_pointer",
+      "shape": [
+        1,
+        1,
+        256
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "maskmem_features",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "maskmem_pos_enc",
+      "shape": [
+        1,
+        512,
+        64
+      ]
+    },
+    {
+      "bucket": "non_cond_frame_outputs",
+      "camera": "cam2",
+      "device": "cuda:0",
+      "dtype": "torch.float32",
+      "frame_idx": 4,
+      "path": "object_score_logits",
+      "shape": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "stored_state_dtype_summary": {
+    "maskmem_features": [
+      "torch.float32"
+    ],
+    "maskmem_pos_enc": [
+      "torch.float32"
+    ],
+    "object_pointer": [
+      "torch.float32"
+    ],
+    "object_score_logits": [
+      "torch.float32"
+    ],
+    "pred_masks": [
+      "torch.float32"
+    ]
+  }
+}

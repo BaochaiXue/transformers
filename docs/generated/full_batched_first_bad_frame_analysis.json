@@ -1,0 +1,128 @@
+{
+  "backend": "hf_batched_multisession",
+  "backend_contract": {
+    "backend": "hf_batched_multisession",
+    "batch_mask_decoder": true,
+    "batch_memory_attention": true,
+    "batch_memory_encoder": true,
+    "batch_vision": true,
+    "batched_state_scatter": true,
+    "blockers": [],
+    "contract_pass": true,
+    "missing_requirements": [],
+    "partial_fallback_used": false,
+    "used_public_session_step_in_hot_path": false
+  },
+  "checked_samples": 131,
+  "compile_mode": "none",
+  "dtype": "bfloat16",
+  "elapsed_ms": 1425.3946639946662,
+  "first_bad_frame": {
+    "camera": "cam1",
+    "candidate_bucket": "non_cond_frame_outputs",
+    "field_diffs": {
+      "maskmem_features": {
+        "candidate_shape": [
+          1,
+          512,
+          64
+        ],
+        "max_abs_diff": 5.46875,
+        "mean_abs_diff": 0.21897810697555542,
+        "p95_abs_diff": 1.042626976966858,
+        "present_in_candidate": true,
+        "present_in_reference": true,
+        "reference_shape": [
+          1,
+          512,
+          64
+        ],
+        "shape_match": true
+      },
+      "maskmem_pos_enc": {
+        "candidate_shape": [
+          1,
+          512,
+          64
+        ],
+        "max_abs_diff": 0.0,
+        "mean_abs_diff": 0.0,
+        "p95_abs_diff": 0.0,
+        "present_in_candidate": true,
+        "present_in_reference": true,
+        "reference_shape": [
+          1,
+          512,
+          64
+        ],
+        "shape_match": true
+      },
+      "object_pointer": {
+        "candidate_shape": [
+          1,
+          1,
+          256
+        ],
+        "max_abs_diff": 0.955078125,
+        "mean_abs_diff": 0.20125684142112732,
+        "p95_abs_diff": 0.4917144775390625,
+        "present_in_candidate": true,
+        "present_in_reference": true,
+        "reference_shape": [
+          1,
+          1,
+          256
+        ],
+        "shape_match": true
+      },
+      "object_score_logits": {
+        "candidate_shape": [
+          1,
+          1,
+          1
+        ],
+        "max_abs_diff": 0.21875,
+        "mean_abs_diff": 0.21875,
+        "p95_abs_diff": 0.21875,
+        "present_in_candidate": true,
+        "present_in_reference": true,
+        "reference_shape": [
+          1,
+          1,
+          1
+        ],
+        "shape_match": true
+      },
+      "pred_masks": {
+        "candidate_shape": [
+          1,
+          1,
+          256,
+          256
+        ],
+        "max_abs_diff": 7.984375,
+        "mean_abs_diff": 1.9315388202667236,
+        "p95_abs_diff": 3.25,
+        "present_in_candidate": true,
+        "present_in_reference": true,
+        "reference_shape": [
+          1,
+          1,
+          256,
+          256
+        ],
+        "shape_match": true
+      }
+    },
+    "first_diverging_component": "mask_decoder_or_accumulated_state",
+    "frame_idx": 43,
+    "iou": 0.5920526014865638,
+    "object_index": 0,
+    "reference_bucket": "non_cond_frame_outputs"
+  },
+  "interpretation": "The strict full backend contract can be true while current masks still drift. Component fixture equivalence should be read together with this report: if isolated component equivalence passes but this report fails after many frames, the blocker is the recurrent session memory/state update path rather than a single isolated call.",
+  "iou_threshold": 0.9,
+  "object_count": 1,
+  "object_prompt": "stuffed animal",
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal"
+}

@@ -1,0 +1,31 @@
+{
+  "checker_error": null,
+  "component": "memory_encoder",
+  "component_dtype": "torch.float32",
+  "dynamo_export_error_before_legacy_retry": null,
+  "exact_blocker": null,
+  "exporter_mode": "dynamo",
+  "failure_stage": null,
+  "node_count": 104,
+  "onnx_export_pass": true,
+  "onnx_path": "artifacts/edgetam_trt_b3_memory_path_fp32/onnx/memory_encoder_b3.onnx",
+  "op_types": {
+    "Add": 15,
+    "Cast": 1,
+    "Concat": 3,
+    "Conv": 9,
+    "Cos": 2,
+    "CumSum": 2,
+    "Div": 10,
+    "Erf": 6,
+    "LayerNormalization": 6,
+    "MatMul": 4,
+    "Mul": 16,
+    "Not": 1,
+    "Reshape": 2,
+    "Sin": 2,
+    "Slice": 6,
+    "Transpose": 13,
+    "Unsqueeze": 6
+  }
+}

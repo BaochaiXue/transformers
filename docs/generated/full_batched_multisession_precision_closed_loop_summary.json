@@ -1,0 +1,88 @@
+{
+  "rows": [
+    {
+      "compile_mode": "none",
+      "contract_pass": true,
+      "empty_mismatch_count": 0,
+      "global_iou_avg": 0.9522526462013451,
+      "global_iou_min": 0.5786945464820571,
+      "global_iou_p50": 0.9877730681447668,
+      "path": "docs/generated/full_batched_multisession_single_stuffed_animal_precision_all_bf16.json",
+      "precision_mode": "all_bf16",
+      "speed_first_acceptance_pass": true,
+      "strict_correctness_pass": false
+    },
+    {
+      "compile_mode": "none",
+      "contract_pass": true,
+      "empty_mismatch_count": 0,
+      "global_iou_avg": 0.9866561614683718,
+      "global_iou_min": 0.587012987012987,
+      "global_iou_p50": 0.998422712933754,
+      "path": "docs/generated/full_batched_multisession_single_stuffed_animal_precision_all_fp32.json",
+      "precision_mode": "all_fp32",
+      "speed_first_acceptance_pass": true,
+      "strict_correctness_pass": true
+    },
+    {
+      "compile_mode": "none",
+      "contract_pass": true,
+      "empty_mismatch_count": 0,
+      "global_iou_avg": 0.9490332435244935,
+      "global_iou_min": 0.5635206199833933,
+      "global_iou_p50": 0.9864885380294519,
+      "path": "docs/generated/full_batched_multisession_single_stuffed_animal_precision_decoder_fp32.json",
+      "precision_mode": "decoder_fp32",
+      "speed_first_acceptance_pass": true,
+      "strict_correctness_pass": false
+    },
+    {
+      "compile_mode": "none",
+      "contract_pass": true,
+      "empty_mismatch_count": 0,
+      "global_iou_avg": 0.9828288004976227,
+      "global_iou_min": 0.7249211356466877,
+      "global_iou_p50": 0.988694440142481,
+      "path": "docs/generated/full_batched_multisession_single_stuffed_animal_precision_memory_attention_fp32.json",
+      "precision_mode": "memory_attention_fp32",
+      "speed_first_acceptance_pass": true,
+      "strict_correctness_pass": true
+    },
+    {
+      "compile_mode": "none",
+      "contract_pass": true,
+      "empty_mismatch_count": 0,
+      "global_iou_avg": 0.9872420184405927,
+      "global_iou_min": 0.7631578947368421,
+      "global_iou_p50": 0.9905990380411018,
+      "path": "docs/generated/full_batched_multisession_single_stuffed_animal_precision_memory_path_fp32.json",
+      "precision_mode": "memory_path_fp32",
+      "speed_first_acceptance_pass": true,
+      "strict_correctness_pass": true
+    },
+    {
+      "compile_mode": "max-autotune-no-cudagraphs",
+      "contract_pass": true,
+      "empty_mismatch_count": 0,
+      "global_iou_avg": 0.9296243356994457,
+      "global_iou_min": 0.5999406880189798,
+      "global_iou_p50": 0.9718191964285714,
+      "path": "docs/generated/full_batched_multisession_single_stuffed_animal_memory_path_fp32_max_autotune_no_cudagraphs.json",
+      "precision_mode": "memory_path_fp32",
+      "speed_first_acceptance_pass": false,
+      "strict_correctness_pass": false
+    },
+    {
+      "compile_mode": "reduce-overhead",
+      "contract_pass": true,
+      "empty_mismatch_count": 0,
+      "global_iou_avg": 0.9434346992365232,
+      "global_iou_min": 0.5992886781268524,
+      "global_iou_p50": 0.9767501277465508,
+      "path": "docs/generated/full_batched_multisession_single_stuffed_animal_memory_path_fp32_reduce_overhead.json",
+      "precision_mode": "memory_path_fp32",
+      "speed_first_acceptance_pass": true,
+      "strict_correctness_pass": false
+    }
+  ]
+}

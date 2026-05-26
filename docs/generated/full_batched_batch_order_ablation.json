@@ -1,0 +1,203 @@
+{
+  "backend": "hf_batched_multisession",
+  "diagonal_slicing_bug": false,
+  "dtype": "bfloat16",
+  "object_count": 1,
+  "object_prompt": "stuffed animal",
+  "order_dependent": false,
+  "orders": [
+    {
+      "backend_contract": {
+        "backend": "hf_batched_multisession",
+        "batch_mask_decoder": true,
+        "batch_memory_attention": true,
+        "batch_memory_encoder": true,
+        "batch_vision": true,
+        "batched_state_scatter": true,
+        "blockers": [],
+        "contract_pass": true,
+        "missing_requirements": [],
+        "partial_fallback_used": false,
+        "used_public_session_step_in_hot_path": false
+      },
+      "cam1_iou_summary": {
+        "avg": 0.9629598516525126,
+        "count": 93,
+        "max": 1.0,
+        "min": 0.5920526014865638,
+        "p50": 0.9840588595953402,
+        "p90": 0.9958867169031596,
+        "p95": 0.9970761798875908,
+        "p99": 0.9983098591549295
+      },
+      "first_bad_frame": {
+        "frame_idx": 43,
+        "iou": 0.5920526014865638,
+        "output_index": 1,
+        "reference_camera": "cam1"
+      },
+      "global_iou_summary": {
+        "avg": 0.97983960550254,
+        "count": 279,
+        "max": 1.0,
+        "min": 0.5920526014865638,
+        "p50": 0.9899300221880867,
+        "p90": 0.9972351878808702,
+        "p95": 0.9981957077413655,
+        "p99": 0.9992782233189389
+      },
+      "maskmem_features_order_check": "not_checked",
+      "object_pointer_order_check": "not_checked",
+      "order": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "backend_contract": {
+        "backend": "hf_batched_multisession",
+        "batch_mask_decoder": true,
+        "batch_memory_attention": true,
+        "batch_memory_encoder": true,
+        "batch_vision": true,
+        "batched_state_scatter": true,
+        "blockers": [],
+        "contract_pass": true,
+        "missing_requirements": [],
+        "partial_fallback_used": false,
+        "used_public_session_step_in_hot_path": false
+      },
+      "cam1_iou_summary": {
+        "avg": 0.9629598516525126,
+        "count": 93,
+        "max": 1.0,
+        "min": 0.5920526014865638,
+        "p50": 0.9840588595953402,
+        "p90": 0.9958867169031596,
+        "p95": 0.9970761798875908,
+        "p99": 0.9983098591549295
+      },
+      "first_bad_frame": {
+        "frame_idx": 43,
+        "iou": 0.5920526014865638,
+        "output_index": 0,
+        "reference_camera": "cam1"
+      },
+      "global_iou_summary": {
+        "avg": 0.97983960550254,
+        "count": 279,
+        "max": 1.0,
+        "min": 0.5920526014865638,
+        "p50": 0.9899300221880867,
+        "p90": 0.9972351878808702,
+        "p95": 0.9981957077413655,
+        "p99": 0.9992782233189389
+      },
+      "maskmem_features_order_check": "not_checked",
+      "object_pointer_order_check": "not_checked",
+      "order": [
+        1,
+        0,
+        2
+      ]
+    },
+    {
+      "backend_contract": {
+        "backend": "hf_batched_multisession",
+        "batch_mask_decoder": true,
+        "batch_memory_attention": true,
+        "batch_memory_encoder": true,
+        "batch_vision": true,
+        "batched_state_scatter": true,
+        "blockers": [],
+        "contract_pass": true,
+        "missing_requirements": [],
+        "partial_fallback_used": false,
+        "used_public_session_step_in_hot_path": false
+      },
+      "cam1_iou_summary": {
+        "avg": 0.9629598516525126,
+        "count": 93,
+        "max": 1.0,
+        "min": 0.5920526014865638,
+        "p50": 0.9840588595953402,
+        "p90": 0.9958867169031596,
+        "p95": 0.9970761798875908,
+        "p99": 0.9983098591549295
+      },
+      "first_bad_frame": {
+        "frame_idx": 43,
+        "iou": 0.5920526014865638,
+        "output_index": 1,
+        "reference_camera": "cam1"
+      },
+      "global_iou_summary": {
+        "avg": 0.97983960550254,
+        "count": 279,
+        "max": 1.0,
+        "min": 0.5920526014865638,
+        "p50": 0.9899300221880867,
+        "p90": 0.9972351878808702,
+        "p95": 0.9981957077413655,
+        "p99": 0.9992782233189389
+      },
+      "maskmem_features_order_check": "not_checked",
+      "object_pointer_order_check": "not_checked",
+      "order": [
+        2,
+        1,
+        0
+      ]
+    },
+    {
+      "backend_contract": {
+        "backend": "hf_batched_multisession",
+        "batch_mask_decoder": true,
+        "batch_memory_attention": true,
+        "batch_memory_encoder": true,
+        "batch_vision": true,
+        "batched_state_scatter": true,
+        "blockers": [],
+        "contract_pass": true,
+        "missing_requirements": [],
+        "partial_fallback_used": false,
+        "used_public_session_step_in_hot_path": false
+      },
+      "cam1_iou_summary": {
+        "avg": 0.9629598516525127,
+        "count": 279,
+        "max": 1.0,
+        "min": 0.5920526014865638,
+        "p50": 0.9840588595953402,
+        "p90": 0.9960629921259843,
+        "p95": 0.9972333230863818,
+        "p99": 0.9985670545009184
+      },
+      "first_bad_frame": {
+        "frame_idx": 43,
+        "iou": 0.5920526014865638,
+        "output_index": 0,
+        "reference_camera": "cam1"
+      },
+      "global_iou_summary": {
+        "avg": 0.9629598516525127,
+        "count": 279,
+        "max": 1.0,
+        "min": 0.5920526014865638,
+        "p50": 0.9840588595953402,
+        "p90": 0.9960629921259843,
+        "p95": 0.9972333230863818,
+        "p99": 0.9985670545009184
+      },
+      "maskmem_features_order_check": "not_checked",
+      "object_pointer_order_check": "not_checked",
+      "order": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal"
+}

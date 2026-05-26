@@ -1,0 +1,259 @@
+{
+  "backend": "hf_batch_vision_seq_session",
+  "compile_mode": "reduce-overhead",
+  "graph_output_policy": "ring_buffer",
+  "metrics": {
+    "blockers": [],
+    "camera_count": 3,
+    "camera_order_check": "pass",
+    "camera_order_matrix": [
+      [
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0
+      ]
+    ],
+    "candidate_partial": false,
+    "correctness_pass": true,
+    "empty_mismatch_count": 0,
+    "fallback_backend": null,
+    "frame_count": 100,
+    "global_mask_iou": {
+      "avg": 0.9834269795755091,
+      "count": 42,
+      "max": 1.0,
+      "min": 0.951823695225079,
+      "p50": 0.9906134138925398,
+      "p90": 1.0,
+      "p95": 1.0,
+      "p99": 1.0
+    },
+    "mask_correctness_pass": true,
+    "object_count": 2,
+    "per_camera_object": {
+      "cam0_obj0": {
+        "candidate_nonempty_count": 0,
+        "logit_abs_diff": {
+          "avg": 1013.86,
+          "count": 100,
+          "max": 1024.0,
+          "min": 10.0,
+          "p50": 1024.0,
+          "p90": 1024.0,
+          "p95": 1024.0,
+          "p99": 1024.0
+        },
+        "mask_iou": {
+          "avg": 1.0,
+          "count": 100,
+          "max": 1.0,
+          "min": 1.0,
+          "p50": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "object_score_abs_diff": {
+          "avg": 1.6659375,
+          "count": 100,
+          "max": 11.0,
+          "min": 1.50390625,
+          "p50": 1.5703125,
+          "p90": 1.62109375,
+          "p95": 1.6408203125,
+          "p99": 1.7574218750000479
+        },
+        "reference_nonempty_count": 0
+      },
+      "cam0_obj1": {
+        "candidate_nonempty_count": 100,
+        "logit_abs_diff": {
+          "avg": 14.30469352722168,
+          "count": 100,
+          "max": 17.35772705078125,
+          "min": 9.14450454711914,
+          "p50": 14.57369613647461,
+          "p90": 16.91254711151123,
+          "p95": 17.190706634521483,
+          "p99": 17.269635238647464
+        },
+        "mask_iou": {
+          "avg": 0.976010181280046,
+          "count": 100,
+          "max": 0.9812268277850795,
+          "min": 0.9725846022041357,
+          "p50": 0.9762884345856812,
+          "p90": 0.9771905390961322,
+          "p95": 0.9773641078950108,
+          "p99": 0.9777688689927085
+        },
+        "object_score_abs_diff": {
+          "avg": 8.7875,
+          "count": 100,
+          "max": 9.0,
+          "min": 7.25,
+          "p50": 8.8125,
+          "p90": 8.9375,
+          "p95": 8.9375,
+          "p99": 9.0
+        },
+        "reference_nonempty_count": 100
+      },
+      "cam1_obj0": {
+        "candidate_nonempty_count": 0,
+        "logit_abs_diff": {
+          "avg": 1013.86,
+          "count": 100,
+          "max": 1024.0,
+          "min": 10.0,
+          "p50": 1024.0,
+          "p90": 1024.0,
+          "p95": 1024.0,
+          "p99": 1024.0
+        },
+        "mask_iou": {
+          "avg": 1.0,
+          "count": 100,
+          "max": 1.0,
+          "min": 1.0,
+          "p50": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "object_score_abs_diff": {
+          "avg": 1.9543359375,
+          "count": 100,
+          "max": 11.0,
+          "min": 1.40625,
+          "p50": 1.87109375,
+          "p90": 1.898828125,
+          "p95": 1.91796875,
+          "p99": 2.0203906250000463
+        },
+        "reference_nonempty_count": 0
+      },
+      "cam1_obj1": {
+        "candidate_nonempty_count": 100,
+        "logit_abs_diff": {
+          "avg": 15.425020809173583,
+          "count": 100,
+          "max": 16.271337509155273,
+          "min": 9.924911499023438,
+          "p50": 15.612265586853027,
+          "p90": 16.022959327697755,
+          "p95": 16.108447360992432,
+          "p99": 16.235705757141112
+        },
+        "mask_iou": {
+          "avg": 0.9623791850271133,
+          "count": 100,
+          "max": 0.9722860707952978,
+          "min": 0.9591876208897485,
+          "p50": 0.9623375689322131,
+          "p90": 0.963622426727493,
+          "p95": 0.9639000798680062,
+          "p99": 0.9646707170231326
+        },
+        "object_score_abs_diff": {
+          "avg": 7.6765625,
+          "count": 100,
+          "max": 9.0,
+          "min": 6.34375,
+          "p50": 7.6875,
+          "p90": 7.8125,
+          "p95": 7.8125,
+          "p99": 7.824375000000006
+        },
+        "reference_nonempty_count": 100
+      },
+      "cam2_obj0": {
+        "candidate_nonempty_count": 0,
+        "logit_abs_diff": {
+          "avg": 1013.86,
+          "count": 100,
+          "max": 1024.0,
+          "min": 10.0,
+          "p50": 1024.0,
+          "p90": 1024.0,
+          "p95": 1024.0,
+          "p99": 1024.0
+        },
+        "mask_iou": {
+          "avg": 1.0,
+          "count": 100,
+          "max": 1.0,
+          "min": 1.0,
+          "p50": 1.0,
+          "p90": 1.0,
+          "p95": 1.0,
+          "p99": 1.0
+        },
+        "object_score_abs_diff": {
+          "avg": 1.847421875,
+          "count": 100,
+          "max": 11.0,
+          "min": 1.166015625,
+          "p50": 1.77734375,
+          "p90": 1.828515625,
+          "p95": 1.8519531249999999,
+          "p99": 1.9585156250000466
+        },
+        "reference_nonempty_count": 0
+      },
+      "cam2_obj1": {
+        "candidate_nonempty_count": 100,
+        "logit_abs_diff": {
+          "avg": 17.926341123580933,
+          "count": 100,
+          "max": 19.19554328918457,
+          "min": 9.935547828674316,
+          "p50": 18.07670307159424,
+          "p90": 18.513904762268066,
+          "p95": 18.63142366409302,
+          "p99": 18.91336322784424
+        },
+        "mask_iou": {
+          "avg": 0.958190413602625,
+          "count": 100,
+          "max": 0.9655202287100407,
+          "min": 0.951823695225079,
+          "p50": 0.9582234078177219,
+          "p90": 0.9605561292605427,
+          "p95": 0.9607813805529387,
+          "p99": 0.962020655900632
+        },
+        "object_score_abs_diff": {
+          "avg": 7.646875,
+          "count": 100,
+          "max": 9.0,
+          "min": 6.40625,
+          "p50": 7.6875,
+          "p90": 7.875,
+          "p95": 7.9375,
+          "p99": 8.010000000000005
+        },
+        "reference_nonempty_count": 100
+      }
+    },
+    "state_leakage": {
+      "note": "no cross-camera tensor state is shared in implemented batch-vision fallback",
+      "pass": true
+    },
+    "state_leakage_check": "pass"
+  },
+  "prompt_source": "sam31_frame0_video_reference_masks",
+  "reference_source": "sam31-replay",
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal",
+  "sam31_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/sam31_video_reference_masks_green_towel"
+}

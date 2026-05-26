@@ -1,0 +1,54 @@
+{
+  "components": {
+    "mask_decoder": 33,
+    "memory_attention": 116,
+    "memory_encoder": 15,
+    "object_pointer": 189,
+    "prompt_encoder": 31,
+    "vision_encoder": 6
+  },
+  "files": {
+    "edgetam_modeling": {
+      "exists": true,
+      "generated_file": true,
+      "path": "/home/zhangxinjie/EdgeTAM-HF-batched/src/transformers/models/edgetam_video/modeling_edgetam_video.py",
+      "size_bytes": 146530
+    },
+    "edgetam_modular": {
+      "exists": true,
+      "generated_file": false,
+      "path": "/home/zhangxinjie/EdgeTAM-HF-batched/src/transformers/models/edgetam_video/modular_edgetam_video.py",
+      "size_bytes": 66587
+    },
+    "sam2_video_modeling": {
+      "exists": true,
+      "generated_file": true,
+      "path": "/home/zhangxinjie/EdgeTAM-HF-batched/src/transformers/models/sam2_video/modeling_sam2_video.py",
+      "size_bytes": 133217
+    },
+    "sam2_video_processing": {
+      "exists": true,
+      "generated_file": true,
+      "path": "/home/zhangxinjie/EdgeTAM-HF-batched/src/transformers/models/sam2_video/processing_sam2_video.py",
+      "size_bytes": 37447
+    }
+  },
+  "findings": {
+    "edgetam_subclasses_sam2_video": true,
+    "get_image_features_defined": true,
+    "processor_add_inputs": true,
+    "processor_init_video_session": true,
+    "public_forward_has_inference_session": true,
+    "session_class_defined": true
+  },
+  "repo": {
+    "branch": "feat/edgetam-batched-multisession-runtime",
+    "commit": "861309fb8ef93e0c3b165df160d7b1beca024e43",
+    "status_short": ""
+  },
+  "signatures": {
+    "EdgeTamVideoInferenceSession": "class EdgeTamVideoInferenceSession(Sam2VideoInferenceSession):",
+    "EdgeTamVideoModel.forward": "def forward(self, inference_session: EdgeTamVideoInferenceSession, frame_idx: int | None = None, frame: torch.Tensor | None = None, reverse: bool = False, **kwargs, ) -> EdgeTamVideoSegmentationOutput: r\"\"\" inference_session (`EdgeTamVideoInferenceSession`)",
+    "Sam2VideoModel.get_image_features": "def get_image_features(self, pixel_values: torch.FloatTensor, **kwargs: Unpack[TransformersKwargs], ) -> tuple | Sam2VideoVisionEncoderOutput: r\"\"\" pixel_values (`torch.FloatTensor`)"
+  }
+}

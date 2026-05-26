@@ -1,0 +1,15 @@
+{
+  "all_components_pass": true,
+  "batch_size": 3,
+  "components": [
+    {
+      "blockers": [],
+      "component": "vision_encoder",
+      "equivalence_pass": true,
+      "records": 90,
+      "requirement": "batch path exists through model.get_image_features(pixel_values[B,...])"
+    }
+  ],
+  "dtype": "bfloat16",
+  "trace_json": "docs/generated/hf_edgetam_component_trace_single_object_30f.json"
+}

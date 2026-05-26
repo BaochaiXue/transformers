@@ -1,0 +1,26 @@
+{
+  "backend": "hf_batch_vision_seq_session",
+  "compile_mode": "none",
+  "correctness_pass": false,
+  "correctness_report_used": null,
+  "disallow_partial_backend_success": false,
+  "frames": 100,
+  "graph_output_policy": "ring_buffer",
+  "precision_mode": "all_bf16",
+  "profile": {
+    "note": "scaffold-only timing; does not measure EdgeTAM model inference",
+    "stage_wall_ms": {
+      "avg": 4.549918230623007e-05,
+      "count": 100,
+      "max": 0.0010100193321704865,
+      "min": 2.9976945370435715e-05,
+      "p50": 3.102468326687813e-05,
+      "p90": 5.322508513927461e-05,
+      "p95": 6.22938387095928e-05,
+      "p99": 9.92469722405123e-05
+    }
+  },
+  "status": "scaffold_only",
+  "strict_full_batched": false,
+  "warmup": 20
+}

@@ -1,0 +1,1035 @@
+{
+  "all_components_pass": true,
+  "batch_size": 3,
+  "components": {
+    "objptr12_spmem3_cur4096_mem1548": {
+      "bucket_dir_name": "shape_002_objptr12_spmem3",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_002_objptr12_spmem3",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            1548,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            1548,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr12_spmem3_cur4096_mem1548"
+    },
+    "objptr16_spmem4_cur4096_mem2064": {
+      "bucket_dir_name": "shape_003_objptr16_spmem4",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_003_objptr16_spmem4",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            2064,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            2064,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr16_spmem4_cur4096_mem2064"
+    },
+    "objptr20_spmem5_cur4096_mem2580": {
+      "bucket_dir_name": "shape_004_objptr20_spmem5",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_004_objptr20_spmem5",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            2580,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            2580,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr20_spmem5_cur4096_mem2580"
+    },
+    "objptr24_spmem6_cur4096_mem3096": {
+      "bucket_dir_name": "shape_005_objptr24_spmem6",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_005_objptr24_spmem6",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            3096,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            3096,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr24_spmem6_cur4096_mem3096"
+    },
+    "objptr28_spmem7_cur4096_mem3612": {
+      "bucket_dir_name": "shape_006_objptr28_spmem7",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_006_objptr28_spmem7",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            3612,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            3612,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr28_spmem7_cur4096_mem3612"
+    },
+    "objptr32_spmem7_cur4096_mem3616": {
+      "bucket_dir_name": "shape_007_objptr32_spmem7",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_007_objptr32_spmem7",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            3616,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            3616,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr32_spmem7_cur4096_mem3616"
+    },
+    "objptr36_spmem7_cur4096_mem3620": {
+      "bucket_dir_name": "shape_008_objptr36_spmem7",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_008_objptr36_spmem7",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            3620,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            3620,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr36_spmem7_cur4096_mem3620"
+    },
+    "objptr40_spmem7_cur4096_mem3624": {
+      "bucket_dir_name": "shape_009_objptr40_spmem7",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_009_objptr40_spmem7",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            3624,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            3624,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr40_spmem7_cur4096_mem3624"
+    },
+    "objptr44_spmem7_cur4096_mem3628": {
+      "bucket_dir_name": "shape_010_objptr44_spmem7",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_010_objptr44_spmem7",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            3628,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            3628,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr44_spmem7_cur4096_mem3628"
+    },
+    "objptr48_spmem7_cur4096_mem3632": {
+      "bucket_dir_name": "shape_011_objptr48_spmem7",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_011_objptr48_spmem7",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            3632,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            3632,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr48_spmem7_cur4096_mem3632"
+    },
+    "objptr4_spmem1_cur4096_mem516": {
+      "bucket_dir_name": "shape_000_objptr4_spmem1",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_000_objptr4_spmem1",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            516,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            516,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr4_spmem1_cur4096_mem516"
+    },
+    "objptr52_spmem7_cur4096_mem3636": {
+      "bucket_dir_name": "shape_012_objptr52_spmem7",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_012_objptr52_spmem7",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            3636,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            3636,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr52_spmem7_cur4096_mem3636"
+    },
+    "objptr56_spmem7_cur4096_mem3640": {
+      "bucket_dir_name": "shape_013_objptr56_spmem7",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_013_objptr56_spmem7",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            3640,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            3640,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr56_spmem7_cur4096_mem3640"
+    },
+    "objptr60_spmem7_cur4096_mem3644": {
+      "bucket_dir_name": "shape_014_objptr60_spmem7",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_014_objptr60_spmem7",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            3644,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            3644,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr60_spmem7_cur4096_mem3644"
+    },
+    "objptr64_spmem7_cur4096_mem3648": {
+      "bucket_dir_name": "shape_015_objptr64_spmem7",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_015_objptr64_spmem7",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            3648,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            3648,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr64_spmem7_cur4096_mem3648"
+    },
+    "objptr8_spmem2_cur4096_mem1032": {
+      "bucket_dir_name": "shape_001_objptr8_spmem2",
+      "component": "memory_attention",
+      "export_fixture_pass": true,
+      "fixture_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention/shape_001_objptr8_spmem2",
+      "input_count": 4,
+      "inputs": [
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_features",
+          "path": "root[1].current_vision_features",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_current_vision_position_embeddings",
+          "path": "root[1].current_vision_position_embeddings",
+          "shape": [
+            4096,
+            3,
+            256
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory",
+          "path": "root[1].memory",
+          "shape": [
+            1032,
+            3,
+            64
+          ]
+        },
+        {
+          "dtype": "float32",
+          "name": "input_1_memory_posision_embeddings",
+          "path": "root[1].memory_posision_embeddings",
+          "shape": [
+            1032,
+            3,
+            64
+          ]
+        }
+      ],
+      "output_count": 1,
+      "outputs": [
+        {
+          "dtype": "float32",
+          "name": "output",
+          "path": "root",
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "shape_key": "objptr8_spmem2_cur4096_mem1032"
+    }
+  },
+  "name": "BatchTam memory_attention bucket export fixtures",
+  "object_count": 1,
+  "out_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures",
+  "precision_mode": "memory_path_fp32",
+  "shape_sequence_json": "docs/generated/batchtam_memory_attention_shape_sequence.json"
+}

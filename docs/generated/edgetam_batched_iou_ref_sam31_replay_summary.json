@@ -1,0 +1,202 @@
+{
+  "backend": "hf_batch_vision_seq_session",
+  "reference_source": "sam31-replay",
+  "results": {
+    "max-autotune-no-cudagraphs": {
+      "correctness_pass": true,
+      "empty_mismatch_count": 0,
+      "global_mask_iou": {
+        "avg": 0.9812234233519859,
+        "count": 42,
+        "max": 1.0,
+        "min": 0.9388694688379231,
+        "p50": 0.9907300229542289,
+        "p90": 1.0,
+        "p95": 1.0,
+        "p99": 1.0
+      },
+      "path": "docs/generated/edgetam_batched_iou_ref_sam31_replay_hf_batch_vision_seq_session_max_autotune_no_cudagraphs.json",
+      "per_camera_object": [
+        {
+          "avg": 1.0,
+          "candidate_nonempty_count": 0,
+          "key": "cam0_obj0",
+          "min": 1.0,
+          "p50": 1.0,
+          "reference_nonempty_count": 0
+        },
+        {
+          "avg": 0.9758185395112144,
+          "candidate_nonempty_count": 100,
+          "key": "cam0_obj1",
+          "min": 0.9733034758056665,
+          "p50": 0.976110742365584,
+          "reference_nonempty_count": 100
+        },
+        {
+          "avg": 1.0,
+          "candidate_nonempty_count": 0,
+          "key": "cam1_obj0",
+          "min": 1.0,
+          "p50": 1.0,
+          "reference_nonempty_count": 0
+        },
+        {
+          "avg": 0.9629748377147347,
+          "candidate_nonempty_count": 100,
+          "key": "cam1_obj1",
+          "min": 0.9581514762516046,
+          "p50": 0.9629796259399704,
+          "reference_nonempty_count": 100
+        },
+        {
+          "avg": 1.0,
+          "candidate_nonempty_count": 0,
+          "key": "cam2_obj0",
+          "min": 1.0,
+          "p50": 1.0,
+          "reference_nonempty_count": 0
+        },
+        {
+          "avg": 0.9424180894747494,
+          "candidate_nonempty_count": 100,
+          "key": "cam2_obj1",
+          "min": 0.9388694688379231,
+          "p50": 0.9419574400819849,
+          "reference_nonempty_count": 100
+        }
+      ]
+    },
+    "none": {
+      "correctness_pass": true,
+      "empty_mismatch_count": 0,
+      "global_mask_iou": {
+        "avg": 0.9813712332600867,
+        "count": 42,
+        "max": 1.0,
+        "min": 0.9403201089732675,
+        "p50": 0.9907300229542289,
+        "p90": 1.0,
+        "p95": 1.0,
+        "p99": 1.0
+      },
+      "path": "docs/generated/edgetam_batched_iou_ref_sam31_replay_hf_batch_vision_seq_session.json",
+      "per_camera_object": [
+        {
+          "avg": 1.0,
+          "candidate_nonempty_count": 0,
+          "key": "cam0_obj0",
+          "min": 1.0,
+          "p50": 1.0,
+          "reference_nonempty_count": 0
+        },
+        {
+          "avg": 0.9757815294145089,
+          "candidate_nonempty_count": 100,
+          "key": "cam0_obj1",
+          "min": 0.9729482513671837,
+          "p50": 0.9760671377988359,
+          "reference_nonempty_count": 100
+        },
+        {
+          "avg": 1.0,
+          "candidate_nonempty_count": 0,
+          "key": "cam1_obj0",
+          "min": 1.0,
+          "p50": 1.0,
+          "reference_nonempty_count": 0
+        },
+        {
+          "avg": 0.962383071897625,
+          "candidate_nonempty_count": 100,
+          "key": "cam1_obj1",
+          "min": 0.9579934485194939,
+          "p50": 0.9624091632778202,
+          "reference_nonempty_count": 100
+        },
+        {
+          "avg": 1.0,
+          "candidate_nonempty_count": 0,
+          "key": "cam2_obj0",
+          "min": 1.0,
+          "p50": 1.0,
+          "reference_nonempty_count": 0
+        },
+        {
+          "avg": 0.9431770907480069,
+          "candidate_nonempty_count": 100,
+          "key": "cam2_obj1",
+          "min": 0.9403201089732675,
+          "p50": 0.9426344355191447,
+          "reference_nonempty_count": 100
+        }
+      ]
+    },
+    "reduce-overhead": {
+      "correctness_pass": true,
+      "empty_mismatch_count": 0,
+      "global_mask_iou": {
+        "avg": 0.9813799883990333,
+        "count": 42,
+        "max": 1.0,
+        "min": 0.9383450973722255,
+        "p50": 0.9907300229542289,
+        "p90": 1.0,
+        "p95": 1.0,
+        "p99": 1.0
+      },
+      "path": "docs/generated/edgetam_batched_iou_ref_sam31_replay_hf_batch_vision_seq_session_reduce_overhead.json",
+      "per_camera_object": [
+        {
+          "avg": 1.0,
+          "candidate_nonempty_count": 0,
+          "key": "cam0_obj0",
+          "min": 1.0,
+          "p50": 1.0,
+          "reference_nonempty_count": 0
+        },
+        {
+          "avg": 0.9747222236286013,
+          "candidate_nonempty_count": 100,
+          "key": "cam0_obj1",
+          "min": 0.970013037809648,
+          "p50": 0.9746943366418392,
+          "reference_nonempty_count": 100
+        },
+        {
+          "avg": 1.0,
+          "candidate_nonempty_count": 0,
+          "key": "cam1_obj0",
+          "min": 1.0,
+          "p50": 1.0,
+          "reference_nonempty_count": 0
+        },
+        {
+          "avg": 0.9626904310869283,
+          "candidate_nonempty_count": 100,
+          "key": "cam1_obj1",
+          "min": 0.9590158668979251,
+          "p50": 0.962640259434445,
+          "reference_nonempty_count": 100
+        },
+        {
+          "avg": 1.0,
+          "candidate_nonempty_count": 0,
+          "key": "cam2_obj0",
+          "min": 1.0,
+          "p50": 1.0,
+          "reference_nonempty_count": 0
+        },
+        {
+          "avg": 0.9437309635169875,
+          "candidate_nonempty_count": 100,
+          "key": "cam2_obj1",
+          "min": 0.9383450973722255,
+          "p50": 0.942975178851374,
+          "reference_nonempty_count": 100
+        }
+      ]
+    }
+  },
+  "sam31_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_stuffed_animal/sam31_video_reference_masks"
+}

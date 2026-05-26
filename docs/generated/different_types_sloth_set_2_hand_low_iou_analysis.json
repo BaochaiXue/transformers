@@ -1,0 +1,711 @@
+{
+  "correctness_json": "docs/generated/different_types_sloth_set_2_edgetam_hand_stuffed_animal_batchvision_reduce_overhead.json",
+  "iou_threshold": 0.85,
+  "low_iou_count": 21,
+  "low_iou_frames": [
+    {
+      "bbox_area_ratio": 1.5151515151515151,
+      "bbox_center_distance_px": 18.0,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1340,
+      "candidate_bbox": [
+        118,
+        10,
+        147,
+        110
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000037_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 37,
+      "intersection_area": 766,
+      "iou": 0.5674074074074074,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000037_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 776,
+      "ref_bbox": [
+        118,
+        9,
+        147,
+        75
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000037_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000037_rgb.png",
+      "union_area": 1350
+    },
+    {
+      "bbox_area_ratio": 1.2363636363636363,
+      "bbox_center_distance_px": 7.5,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1165,
+      "candidate_bbox": [
+        91,
+        42,
+        121,
+        110
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000075_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 75,
+      "intersection_area": 722,
+      "iou": 0.6160409556313993,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000075_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 729,
+      "ref_bbox": [
+        91,
+        41,
+        121,
+        96
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000075_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000075_rgb.png",
+      "union_area": 1172
+    },
+    {
+      "bbox_area_ratio": 1.1,
+      "bbox_center_distance_px": 5.0,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1127,
+      "candidate_bbox": [
+        91,
+        54,
+        117,
+        120
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000082_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 82,
+      "intersection_area": 709,
+      "iou": 0.6230228471001757,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000082_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 720,
+      "ref_bbox": [
+        91,
+        52,
+        117,
+        112
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000082_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000082_rgb.png",
+      "union_area": 1138
+    },
+    {
+      "bbox_area_ratio": 1.2545454545454546,
+      "bbox_center_distance_px": 7.0,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1191,
+      "candidate_bbox": [
+        91,
+        40,
+        122,
+        109
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000074_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 74,
+      "intersection_area": 748,
+      "iou": 0.62751677852349,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000074_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 749,
+      "ref_bbox": [
+        91,
+        40,
+        122,
+        95
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000074_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000074_rgb.png",
+      "union_area": 1192
+    },
+    {
+      "bbox_area_ratio": 1.1694915254237288,
+      "bbox_center_distance_px": 6.0,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1165,
+      "candidate_bbox": [
+        91,
+        44,
+        120,
+        113
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000077_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 77,
+      "intersection_area": 745,
+      "iou": 0.6356655290102389,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000077_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 752,
+      "ref_bbox": [
+        91,
+        43,
+        120,
+        102
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000077_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000077_rgb.png",
+      "union_area": 1172
+    },
+    {
+      "bbox_area_ratio": 1.15,
+      "bbox_center_distance_px": 5.5,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1160,
+      "candidate_bbox": [
+        91,
+        46,
+        119,
+        115
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000078_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 78,
+      "intersection_area": 767,
+      "iou": 0.6572407883461868,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000078_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 774,
+      "ref_bbox": [
+        91,
+        45,
+        119,
+        105
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000078_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000078_rgb.png",
+      "union_area": 1167
+    },
+    {
+      "bbox_area_ratio": 1.1311475409836065,
+      "bbox_center_distance_px": 3.0,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1149,
+      "candidate_bbox": [
+        91,
+        48,
+        118,
+        117
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000079_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 79,
+      "intersection_area": 780,
+      "iou": 0.6735751295336787,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000079_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 789,
+      "ref_bbox": [
+        91,
+        49,
+        118,
+        110
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000079_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000079_rgb.png",
+      "union_area": 1158
+    },
+    {
+      "bbox_area_ratio": 0.8573232323232324,
+      "bbox_center_distance_px": 17.507141400011598,
+      "camera": "cam2",
+      "camera_idx": 2,
+      "candidate_area": 2710,
+      "candidate_bbox": [
+        144,
+        0,
+        241,
+        196
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000045_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 45,
+      "intersection_area": 2686,
+      "iou": 0.6899563318777293,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000045_overlay_ref_candidate.png",
+      "possible_reason": [
+        "boundary/detail mismatch"
+      ],
+      "ref_area": 3869,
+      "ref_bbox": [
+        144,
+        0,
+        240,
+        231
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000045_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000045_rgb.png",
+      "union_area": 3893
+    },
+    {
+      "bbox_area_ratio": 1.0819672131147542,
+      "bbox_center_distance_px": 4.5,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1135,
+      "candidate_bbox": [
+        91,
+        51,
+        118,
+        117
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000080_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 80,
+      "intersection_area": 803,
+      "iou": 0.7037686240140227,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000080_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 809,
+      "ref_bbox": [
+        91,
+        49,
+        118,
+        110
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000080_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000080_rgb.png",
+      "union_area": 1141
+    },
+    {
+      "bbox_area_ratio": 0.987012987012987,
+      "bbox_center_distance_px": 1.5,
+      "camera": "cam2",
+      "camera_idx": 2,
+      "candidate_area": 3090,
+      "candidate_bbox": [
+        144,
+        0,
+        251,
+        228
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000044_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 44,
+      "intersection_area": 3063,
+      "iou": 0.7173302107728338,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000044_overlay_ref_candidate.png",
+      "possible_reason": [
+        "boundary/detail mismatch"
+      ],
+      "ref_area": 4243,
+      "ref_bbox": [
+        144,
+        0,
+        251,
+        231
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000044_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000044_rgb.png",
+      "union_area": 4270
+    },
+    {
+      "bbox_area_ratio": 1.1676682692307692,
+      "bbox_center_distance_px": 2.1213203435596424,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1159,
+      "candidate_bbox": [
+        91,
+        51,
+        120,
+        118
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000081_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 81,
+      "intersection_area": 839,
+      "iou": 0.7201716738197425,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000081_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 845,
+      "ref_bbox": [
+        91,
+        51,
+        117,
+        115
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000081_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000081_rgb.png",
+      "union_area": 1165
+    },
+    {
+      "bbox_area_ratio": 1.1222084367245657,
+      "bbox_center_distance_px": 3.5355339059327378,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1130,
+      "candidate_bbox": [
+        89,
+        53,
+        116,
+        120
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000090_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 90,
+      "intersection_area": 828,
+      "iou": 0.7244094488188977,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000090_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 841,
+      "ref_bbox": [
+        89,
+        52,
+        115,
+        114
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000090_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000090_rgb.png",
+      "union_area": 1143
+    },
+    {
+      "bbox_area_ratio": 0.7471264367816092,
+      "bbox_center_distance_px": 14.0,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1089,
+      "candidate_bbox": [
+        91,
+        55,
+        117,
+        120
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000083_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 83,
+      "intersection_area": 816,
+      "iou": 0.7259786476868327,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000083_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 851,
+      "ref_bbox": [
+        91,
+        30,
+        117,
+        117
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000083_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000083_rgb.png",
+      "union_area": 1124
+    },
+    {
+      "bbox_area_ratio": 0.7222222222222222,
+      "bbox_center_distance_px": 12.5,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1076,
+      "candidate_bbox": [
+        91,
+        56,
+        117,
+        121
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000084_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 84,
+      "intersection_area": 805,
+      "iou": 0.7285067873303167,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000084_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 834,
+      "ref_bbox": [
+        91,
+        31,
+        117,
+        121
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000084_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000084_rgb.png",
+      "union_area": 1105
+    },
+    {
+      "bbox_area_ratio": 0.9775533108866442,
+      "bbox_center_distance_px": 1.5811388300841898,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1116,
+      "candidate_bbox": [
+        90,
+        52,
+        116,
+        119
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000089_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 89,
+      "intersection_area": 830,
+      "iou": 0.7306338028169014,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000089_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 850,
+      "ref_bbox": [
+        89,
+        51,
+        116,
+        117
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000089_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000089_rgb.png",
+      "union_area": 1136
+    },
+    {
+      "bbox_area_ratio": 0.7558139534883721,
+      "bbox_center_distance_px": 14.5,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1069,
+      "candidate_bbox": [
+        91,
+        56,
+        117,
+        121
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000086_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 86,
+      "intersection_area": 797,
+      "iou": 0.7318640955004592,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000086_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 817,
+      "ref_bbox": [
+        91,
+        31,
+        117,
+        117
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000086_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000086_rgb.png",
+      "union_area": 1089
+    },
+    {
+      "bbox_area_ratio": 0.7831325301204819,
+      "bbox_center_distance_px": 16.0,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1074,
+      "candidate_bbox": [
+        91,
+        56,
+        117,
+        121
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000085_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 85,
+      "intersection_area": 798,
+      "iou": 0.7354838709677419,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000085_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 809,
+      "ref_bbox": [
+        91,
+        31,
+        117,
+        114
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000085_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000085_rgb.png",
+      "union_area": 1085
+    },
+    {
+      "bbox_area_ratio": 0.9956896551724138,
+      "bbox_center_distance_px": 0.5,
+      "camera": "cam2",
+      "camera_idx": 2,
+      "candidate_area": 3691,
+      "candidate_bbox": [
+        143,
+        0,
+        256,
+        231
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000043_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 43,
+      "intersection_area": 3671,
+      "iou": 0.7528712059064807,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000043_overlay_ref_candidate.png",
+      "possible_reason": [
+        "boundary/detail mismatch"
+      ],
+      "ref_area": 4856,
+      "ref_bbox": [
+        143,
+        0,
+        256,
+        232
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000043_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000043_rgb.png",
+      "union_area": 4876
+    },
+    {
+      "bbox_area_ratio": 1.0625,
+      "bbox_center_distance_px": 2.0,
+      "camera": "cam0",
+      "camera_idx": 0,
+      "candidate_area": 1137,
+      "candidate_bbox": [
+        88,
+        53,
+        115,
+        121
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000091_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 91,
+      "intersection_area": 865,
+      "iou": 0.7541412380122058,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000091_overlay_ref_candidate.png",
+      "possible_reason": [
+        "small mask IoU sensitivity"
+      ],
+      "ref_area": 875,
+      "ref_bbox": [
+        88,
+        53,
+        115,
+        117
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000091_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam0_frame000091_rgb.png",
+      "union_area": 1147
+    },
+    {
+      "bbox_area_ratio": 1.0,
+      "bbox_center_distance_px": 0.0,
+      "camera": "cam2",
+      "camera_idx": 2,
+      "candidate_area": 4164,
+      "candidate_bbox": [
+        142,
+        0,
+        256,
+        231
+      ],
+      "candidate_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000042_candidate_mask.png",
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 42,
+      "intersection_area": 4128,
+      "iou": 0.7720216944080793,
+      "overlay_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000042_overlay_ref_candidate.png",
+      "possible_reason": [
+        "boundary/detail mismatch"
+      ],
+      "ref_area": 5311,
+      "ref_bbox": [
+        142,
+        0,
+        256,
+        231
+      ],
+      "ref_mask_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000042_ref_mask.png",
+      "rgb_path": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames/cam2_frame000042_rgb.png",
+      "union_area": 5347
+    },
+    {
+      "bbox_area_ratio": 0.9956709956709957,
+      "bbox_center_distance_px": 0.5,
+      "camera": "cam2",
+      "camera_idx": 2,
+      "candidate_area": 4334,
+      "candidate_bbox": [
+        142,
+        0,
+        256,
+        230
+      ],
+      "empty_candidate": false,
+      "empty_ref": false,
+      "frame_idx": 40,
+      "intersection_area": 4309,
+      "iou": 0.7804745517116465,
+      "possible_reason": [
+        "boundary/detail mismatch"
+      ],
+      "ref_area": 5496,
+      "ref_bbox": [
+        142,
+        0,
+        256,
+        231
+      ],
+      "union_area": 5521
+    }
+  ],
+  "low_iou_iou_stats": {
+    "avg": 0.6984800771045937,
+    "count": 21,
+    "max": 0.7804745517116465,
+    "min": 0.5674074074074074,
+    "p50": 0.7201716738197425,
+    "p90": 0.7541412380122058,
+    "p95": 0.7720216944080793,
+    "p99": 0.7787839802509331
+  },
+  "object_index": 0,
+  "object_name": "hand",
+  "output_dir": "docs/generated/different_types_sloth_set_2_hand_low_iou_frames",
+  "replay": "/home/zhangxinjie/proj-QQTT-v2/result/different_types_sloth_set_2_motion_ffs_replay_hand_stuffed_animal",
+  "top_k": 20
+}

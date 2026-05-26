@@ -1,0 +1,185 @@
+{
+  "all_components_pass": true,
+  "batch_size": 3,
+  "blockers": [],
+  "component": "memory_attention",
+  "components": [
+    {
+      "blockers": [],
+      "component": "memory_attention",
+      "equivalence_pass": true,
+      "records": 87,
+      "requirement": "requires tensorized memory/object-pointer inputs across camera sessions"
+    }
+  ],
+  "dtype": "bfloat16",
+  "fixtures_dir": "docs/generated/fixtures/single_object",
+  "groups": 29,
+  "groups_passed": 29,
+  "max_abs_diff": 0.0625,
+  "mean_abs_diff": 0.0016310502742898875,
+  "p95_abs_diff": 0.0078125,
+  "stack_strategy": "seq_first_dim1",
+  "strategy_results": [
+    {
+      "frame_idx": 1,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0017129572806879878,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 2,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0017917314544320107,
+      "p95_abs_diff": 0.00634765625,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 3,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0018871333450078964,
+      "p95_abs_diff": 0.0078125,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 4,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.001743422239087522,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 5,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0017171303043141961,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 6,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0016994677716866136,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 7,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0016754824900999665,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 8,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0016760015860199928,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 9,
+      "max_abs_diff": 0.0625,
+      "mean_abs_diff": 0.0016656782245263457,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 10,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0016501337522640824,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 11,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0016435389406979084,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 12,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0016372413374483585,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 13,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0016193846240639687,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 14,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0016154834302142262,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 15,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.001614570734091103,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 16,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0016154046170413494,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 17,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0016083804657682776,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 18,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0015709995059296489,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 19,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0015867603942751884,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    },
+    {
+      "frame_idx": 20,
+      "max_abs_diff": 0.046875,
+      "mean_abs_diff": 0.0015635997988283634,
+      "p95_abs_diff": 0.005859375,
+      "pass": true,
+      "strategy": "seq_first_dim1"
+    }
+  ]
+}

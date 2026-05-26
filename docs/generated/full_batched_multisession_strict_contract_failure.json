@@ -1,0 +1,26 @@
+{
+  "backend": "hf_batched_multisession",
+  "batch_mask_decoder": false,
+  "batch_memory_attention": false,
+  "batch_memory_encoder": false,
+  "batch_vision": true,
+  "batched_state_scatter": false,
+  "blockers": [
+    "memory attention is not batched across camera sessions",
+    "mask decoder is not batched across camera sessions",
+    "memory encoder/state update is not batched across camera sessions",
+    "session state scatter is not implemented",
+    "current code still calls model(inference_session=..., frame=...) per camera"
+  ],
+  "contract_pass": false,
+  "missing_requirements": [
+    "batch_memory_attention",
+    "batch_mask_decoder",
+    "batch_memory_encoder",
+    "batched_state_scatter",
+    "used_public_session_step_in_hot_path",
+    "partial_fallback_used"
+  ],
+  "partial_fallback_used": true,
+  "used_public_session_step_in_hot_path": true
+}

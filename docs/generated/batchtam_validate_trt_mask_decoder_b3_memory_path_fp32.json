@@ -1,0 +1,65 @@
+{
+  "component": "mask_decoder",
+  "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/mask_decoder_b3.engine",
+  "exact_blocker": null,
+  "failure_stage": null,
+  "hot_path_zero_copy": true,
+  "rows": [
+    {
+      "index": 0,
+      "max_abs_diff": 0.22446060180664062,
+      "mean_abs_diff": 0.023358644917607307,
+      "name": "output_0",
+      "p95_abs_diff": 0.06436538696289062,
+      "pass": true,
+      "shape": [
+        3,
+        1,
+        3,
+        256,
+        256
+      ]
+    },
+    {
+      "index": 1,
+      "max_abs_diff": 0.003715008497238159,
+      "mean_abs_diff": 0.001647838274948299,
+      "name": "output_1",
+      "p95_abs_diff": 0.0035106479190289974,
+      "pass": true,
+      "shape": [
+        3,
+        1,
+        3
+      ]
+    },
+    {
+      "index": 2,
+      "max_abs_diff": 0.06268654018640518,
+      "mean_abs_diff": 0.01023373194038868,
+      "name": "output_2",
+      "p95_abs_diff": 0.02815091423690319,
+      "pass": true,
+      "shape": [
+        3,
+        1,
+        3,
+        256
+      ]
+    },
+    {
+      "index": 3,
+      "max_abs_diff": 0.01501607894897461,
+      "mean_abs_diff": 0.013461749069392681,
+      "name": "output_3",
+      "p95_abs_diff": 0.014836644753813744,
+      "pass": true,
+      "shape": [
+        3,
+        1,
+        1
+      ]
+    }
+  ],
+  "trt_validation_pass": true
+}

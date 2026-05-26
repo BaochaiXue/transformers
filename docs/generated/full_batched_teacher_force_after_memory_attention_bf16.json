@@ -1,0 +1,6 @@
+{
+  "drift_source_hypothesis": "not_evaluated",
+  "reason": "reference memory-attention output is not stored by HF public session; use component fixtures for isolated memory_attention equivalence",
+  "status": "unsupported",
+  "teacher_force_mode": "after_memory_attention"
+}

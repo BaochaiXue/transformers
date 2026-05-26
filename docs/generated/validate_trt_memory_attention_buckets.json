@@ -1,0 +1,408 @@
+{
+  "all_buckets_pass": true,
+  "buckets": {
+    "shape_000_objptr4_spmem1": {
+      "bucket_dir_name": "shape_000_objptr4_spmem1",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_000_objptr4_spmem1.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.04130136966705322,
+          "mean_abs_diff": 0.0018949030200019479,
+          "name": "output",
+          "p95_abs_diff": 0.005366136319935322,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_001_objptr8_spmem2": {
+      "bucket_dir_name": "shape_001_objptr8_spmem2",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_001_objptr8_spmem2.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.046504974365234375,
+          "mean_abs_diff": 0.001941028400324285,
+          "name": "output",
+          "p95_abs_diff": 0.005472123622894287,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_002_objptr12_spmem3": {
+      "bucket_dir_name": "shape_002_objptr12_spmem3",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_002_objptr12_spmem3.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.038048505783081055,
+          "mean_abs_diff": 0.0019740776624530554,
+          "name": "output",
+          "p95_abs_diff": 0.005542099010199308,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_003_objptr16_spmem4": {
+      "bucket_dir_name": "shape_003_objptr16_spmem4",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_003_objptr16_spmem4.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.03895092010498047,
+          "mean_abs_diff": 0.001901091542094946,
+          "name": "output",
+          "p95_abs_diff": 0.005327343940734863,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_004_objptr20_spmem5": {
+      "bucket_dir_name": "shape_004_objptr20_spmem5",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_004_objptr20_spmem5.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.03828597068786621,
+          "mean_abs_diff": 0.0018918365240097046,
+          "name": "output",
+          "p95_abs_diff": 0.0053116679191589355,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_005_objptr24_spmem6": {
+      "bucket_dir_name": "shape_005_objptr24_spmem6",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_005_objptr24_spmem6.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.035765647888183594,
+          "mean_abs_diff": 0.0018721520900726318,
+          "name": "output",
+          "p95_abs_diff": 0.005259831435978413,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_006_objptr28_spmem7": {
+      "bucket_dir_name": "shape_006_objptr28_spmem7",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_006_objptr28_spmem7.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.04280063509941101,
+          "mean_abs_diff": 0.0018575675785541534,
+          "name": "output",
+          "p95_abs_diff": 0.005219221115112305,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_007_objptr32_spmem7": {
+      "bucket_dir_name": "shape_007_objptr32_spmem7",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_007_objptr32_spmem7.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.04460132122039795,
+          "mean_abs_diff": 0.00184666330460459,
+          "name": "output",
+          "p95_abs_diff": 0.0051958560943603516,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_008_objptr36_spmem7": {
+      "bucket_dir_name": "shape_008_objptr36_spmem7",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_008_objptr36_spmem7.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.049051761627197266,
+          "mean_abs_diff": 0.0018414095975458622,
+          "name": "output",
+          "p95_abs_diff": 0.005176067352294922,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_009_objptr40_spmem7": {
+      "bucket_dir_name": "shape_009_objptr40_spmem7",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_009_objptr40_spmem7.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.04204845428466797,
+          "mean_abs_diff": 0.0018369971076026559,
+          "name": "output",
+          "p95_abs_diff": 0.005175451282411814,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_010_objptr44_spmem7": {
+      "bucket_dir_name": "shape_010_objptr44_spmem7",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_010_objptr44_spmem7.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.044066667556762695,
+          "mean_abs_diff": 0.0018188449321314692,
+          "name": "output",
+          "p95_abs_diff": 0.005116879940032959,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_011_objptr48_spmem7": {
+      "bucket_dir_name": "shape_011_objptr48_spmem7",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_011_objptr48_spmem7.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.03724408149719238,
+          "mean_abs_diff": 0.001828784472309053,
+          "name": "output",
+          "p95_abs_diff": 0.005146165378391743,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_012_objptr52_spmem7": {
+      "bucket_dir_name": "shape_012_objptr52_spmem7",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_012_objptr52_spmem7.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.04335057735443115,
+          "mean_abs_diff": 0.0018026023171842098,
+          "name": "output",
+          "p95_abs_diff": 0.005070293787866831,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_013_objptr56_spmem7": {
+      "bucket_dir_name": "shape_013_objptr56_spmem7",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_013_objptr56_spmem7.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.037966251373291016,
+          "mean_abs_diff": 0.0017958738608285785,
+          "name": "output",
+          "p95_abs_diff": 0.00505983829498291,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_014_objptr60_spmem7": {
+      "bucket_dir_name": "shape_014_objptr60_spmem7",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_014_objptr60_spmem7.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.036364734172821045,
+          "mean_abs_diff": 0.0018034897511824965,
+          "name": "output",
+          "p95_abs_diff": 0.005085766315460205,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    },
+    "shape_015_objptr64_spmem7": {
+      "bucket_dir_name": "shape_015_objptr64_spmem7",
+      "component": "memory_attention",
+      "engine_path": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets/shape_015_objptr64_spmem7.engine",
+      "exact_blocker": null,
+      "failure_stage": null,
+      "hot_path_zero_copy": true,
+      "rows": [
+        {
+          "index": 0,
+          "max_abs_diff": 0.03766655921936035,
+          "mean_abs_diff": 0.0017973367357626557,
+          "name": "output",
+          "p95_abs_diff": 0.005059957504272461,
+          "pass": true,
+          "shape": [
+            1,
+            3,
+            4096,
+            256
+          ]
+        }
+      ],
+      "trt_validation_pass": true
+    }
+  },
+  "component": "memory_attention",
+  "engine_dir": "artifacts/edgetam_trt_b3_memory_path_fp32/engines/memory_attention_buckets",
+  "fixtures_root": "artifacts/edgetam_trt_b3_memory_path_fp32/export_fixtures/memory_attention"
+}

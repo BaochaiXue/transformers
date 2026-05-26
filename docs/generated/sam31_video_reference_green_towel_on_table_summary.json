@@ -1,0 +1,79 @@
+{
+  "ann_frame_index": 0,
+  "camera_ids": [
+    0,
+    1,
+    2
+  ],
+  "camera_summaries": [
+    {
+      "camera_idx": 0,
+      "checkpoint_path": "/home/zhangxinjie/.cache/huggingface/qqtt_sam31/sam3.1_multiplex.pt",
+      "frame_count": 100,
+      "output_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/sam31_video_reference_masks_green_towel_on_table/mask/0",
+      "per_object_frame_counts": {
+        "0": 100
+      },
+      "saved_frame_count": 100,
+      "session_frame_dir": null,
+      "source_mode": "frames",
+      "source_path": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/_sam31_case/color/0",
+      "tracked_object_count": 1,
+      "tracked_object_labels": {
+        "0": "stuffed animal"
+      }
+    },
+    {
+      "camera_idx": 1,
+      "checkpoint_path": "/home/zhangxinjie/.cache/huggingface/qqtt_sam31/sam3.1_multiplex.pt",
+      "frame_count": 100,
+      "output_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/sam31_video_reference_masks_green_towel_on_table/mask/1",
+      "per_object_frame_counts": {
+        "0": 100
+      },
+      "saved_frame_count": 100,
+      "session_frame_dir": null,
+      "source_mode": "frames",
+      "source_path": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/_sam31_case/color/1",
+      "tracked_object_count": 1,
+      "tracked_object_labels": {
+        "0": "stuffed animal"
+      }
+    },
+    {
+      "camera_idx": 2,
+      "checkpoint_path": "/home/zhangxinjie/.cache/huggingface/qqtt_sam31/sam3.1_multiplex.pt",
+      "frame_count": 100,
+      "output_mask_root": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/sam31_video_reference_masks_green_towel_on_table/mask/2",
+      "per_object_frame_counts": {
+        "0": 100
+      },
+      "saved_frame_count": 100,
+      "session_frame_dir": null,
+      "source_mode": "frames",
+      "source_path": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/_sam31_case/color/2",
+      "tracked_object_count": 1,
+      "tracked_object_labels": {
+        "0": "stuffed animal"
+      }
+    }
+  ],
+  "case_root": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/_sam31_case",
+  "checkpoint_path": "/home/zhangxinjie/.cache/huggingface/qqtt_sam31/sam3.1_multiplex.pt",
+  "controller_prompt": "green towel on wooden table",
+  "generation_wall_ms": 307358.72926400043,
+  "object_prompt": "stuffed animal",
+  "output_dir": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal/sam31_video_reference_masks_green_towel_on_table",
+  "parsed_prompts": [
+    "green towel on wooden table",
+    "stuffed animal"
+  ],
+  "reused_existing": false,
+  "rgb_replay": "/home/zhangxinjie/proj-QQTT-v2/result/demo22_rgb_triplet_100frames_towel_nonempty_stuffed_animal",
+  "sam31_reference_role_order": [
+    "green towel on wooden table",
+    "stuffed animal"
+  ],
+  "source_mode": "frames",
+  "text_prompt": "green towel on wooden table.stuffed animal"
+}

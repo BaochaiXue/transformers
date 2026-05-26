@@ -1,0 +1,27 @@
+{
+  "component": "memory_attention",
+  "exact_blocker": null,
+  "failure_stage": null,
+  "onnx_path": "artifacts/edgetam_trt_b3_memory_path_fp32/onnx/memory_attention_b3.onnx",
+  "onnx_validation_pass": true,
+  "providers": [
+    "CUDAExecutionProvider",
+    "CPUExecutionProvider"
+  ],
+  "rows": [
+    {
+      "index": 0,
+      "max_abs_diff": 0.04104495048522949,
+      "mean_abs_diff": 0.001895951689220965,
+      "name": "output",
+      "p95_abs_diff": 0.005366086959838867,
+      "pass": true,
+      "shape": [
+        1,
+        3,
+        4096,
+        256
+      ]
+    }
+  ]
+}

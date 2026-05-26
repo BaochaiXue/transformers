@@ -1,0 +1,296 @@
+{
+  "towel": [
+    {
+      "camera": 0,
+      "count": 2,
+      "areas": [
+        20025,
+        17847
+      ]
+    },
+    {
+      "camera": 1,
+      "count": 3,
+      "areas": [
+        11484,
+        7312,
+        489
+      ]
+    },
+    {
+      "camera": 2,
+      "count": 3,
+      "areas": [
+        841,
+        15572,
+        4495
+      ]
+    }
+  ],
+  "green towel": [
+    {
+      "camera": 0,
+      "count": 3,
+      "areas": [
+        5762,
+        20009,
+        17886
+      ]
+    },
+    {
+      "camera": 1,
+      "count": 2,
+      "areas": [
+        11499,
+        7317
+      ]
+    },
+    {
+      "camera": 2,
+      "count": 4,
+      "areas": [
+        4491,
+        15593,
+        829,
+        1735
+      ]
+    }
+  ],
+  "green cloth": [
+    {
+      "camera": 0,
+      "count": 3,
+      "areas": [
+        5636,
+        20029,
+        17934
+      ]
+    },
+    {
+      "camera": 1,
+      "count": 7,
+      "areas": [
+        1368,
+        1614,
+        7365,
+        1765,
+        1103
+      ]
+    },
+    {
+      "camera": 2,
+      "count": 6,
+      "areas": [
+        15656,
+        824,
+        429,
+        936,
+        1701
+      ]
+    }
+  ],
+  "green rag": [
+    {
+      "camera": 0,
+      "count": 2,
+      "areas": [
+        20033,
+        17919
+      ]
+    },
+    {
+      "camera": 1,
+      "count": 2,
+      "areas": [
+        11507,
+        7351
+      ]
+    },
+    {
+      "camera": 2,
+      "count": 3,
+      "areas": [
+        835,
+        15648,
+        4495
+      ]
+    }
+  ],
+  "green cleaning cloth": [
+    {
+      "camera": 0,
+      "count": 2,
+      "areas": [
+        20025,
+        17877
+      ]
+    },
+    {
+      "camera": 1,
+      "count": 2,
+      "areas": [
+        11506,
+        7320
+      ]
+    },
+    {
+      "camera": 2,
+      "count": 3,
+      "areas": [
+        4499,
+        15617,
+        832
+      ]
+    }
+  ],
+  "lime green cloth": [
+    {
+      "camera": 0,
+      "count": 2,
+      "areas": [
+        5576,
+        20009
+      ]
+    },
+    {
+      "camera": 1,
+      "count": 8,
+      "areas": [
+        1352,
+        1604,
+        216,
+        7393,
+        1993
+      ]
+    },
+    {
+      "camera": 2,
+      "count": 6,
+      "areas": [
+        925,
+        15684,
+        824,
+        429,
+        1703
+      ]
+    }
+  ],
+  "green fabric": [
+    {
+      "camera": 0,
+      "count": 3,
+      "areas": [
+        5138,
+        20033,
+        17919
+      ]
+    },
+    {
+      "camera": 1,
+      "count": 9,
+      "areas": [
+        1303,
+        1592,
+        383,
+        7344,
+        212
+      ]
+    },
+    {
+      "camera": 2,
+      "count": 6,
+      "areas": [
+        15651,
+        4497,
+        910,
+        430,
+        1690
+      ]
+    }
+  ],
+  "folded green cloth": [
+    {
+      "camera": 0,
+      "count": 2,
+      "areas": [
+        20001,
+        17787
+      ]
+    },
+    {
+      "camera": 1,
+      "count": 2,
+      "areas": [
+        11493,
+        7308
+      ]
+    },
+    {
+      "camera": 2,
+      "count": 3,
+      "areas": [
+        4484,
+        15589,
+        828
+      ]
+    }
+  ],
+  "green towel on wooden table": [
+    {
+      "camera": 0,
+      "count": 2,
+      "areas": [
+        19975,
+        17850
+      ]
+    },
+    {
+      "camera": 1,
+      "count": 2,
+      "areas": [
+        11484,
+        7333
+      ]
+    },
+    {
+      "camera": 2,
+      "count": 2,
+      "areas": [
+        4491,
+        15590
+      ]
+    }
+  ],
+  "green cloth on wooden table": [
+    {
+      "camera": 0,
+      "count": 3,
+      "areas": [
+        5624,
+        20031,
+        17879
+      ]
+    },
+    {
+      "camera": 1,
+      "count": 5,
+      "areas": [
+        7321,
+        1751,
+        1108,
+        11510,
+        2000
+      ]
+    },
+    {
+      "camera": 2,
+      "count": 4,
+      "areas": [
+        4492,
+        15624,
+        824,
+        1704
+      ]
+    }
+  ]
+}

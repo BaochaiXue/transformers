@@ -1,0 +1,31 @@
+{
+  "checker_error": null,
+  "component": "mask_decoder",
+  "component_dtype": "torch.float32",
+  "dynamo_export_error_before_legacy_retry": null,
+  "exact_blocker": null,
+  "exporter_mode": "dynamo",
+  "failure_stage": null,
+  "node_count": 306,
+  "onnx_export_pass": true,
+  "onnx_path": "artifacts/edgetam_trt_b3_memory_path_fp32/onnx/mask_decoder_b3.onnx",
+  "op_types": {
+    "Add": 70,
+    "Concat": 2,
+    "ConvTranspose": 2,
+    "Div": 2,
+    "Erf": 2,
+    "Expand": 4,
+    "Gather": 6,
+    "LayerNormalization": 10,
+    "MatMul": 65,
+    "Mul": 18,
+    "Relu": 14,
+    "Reshape": 49,
+    "Sigmoid": 1,
+    "Slice": 4,
+    "Softmax": 7,
+    "Transpose": 40,
+    "Unsqueeze": 10
+  }
+}

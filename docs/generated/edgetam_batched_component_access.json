@@ -1,0 +1,44 @@
+{
+  "components": [
+    {
+      "can_batch": true,
+      "found": true,
+      "name": "vision_encoder",
+      "notes": "batch path uses model.get_image_features",
+      "path": "vision_encoder",
+      "python_class": "EdgeTamVisionModel"
+    },
+    {
+      "can_batch": false,
+      "found": true,
+      "name": "memory_attention",
+      "notes": "requires explicit state tensorization",
+      "path": "memory_attention",
+      "python_class": "EdgeTamVideoMemoryAttention"
+    },
+    {
+      "can_batch": false,
+      "found": true,
+      "name": "mask_decoder",
+      "notes": "requires explicit state tensorization",
+      "path": "mask_decoder",
+      "python_class": "EdgeTamVideoMaskDecoder"
+    },
+    {
+      "can_batch": false,
+      "found": true,
+      "name": "memory_encoder",
+      "notes": "requires explicit state tensorization",
+      "path": "memory_encoder",
+      "python_class": "EdgeTamVideoMemoryEncoder"
+    },
+    {
+      "can_batch": false,
+      "found": true,
+      "name": "prompt_encoder",
+      "notes": "requires explicit state tensorization",
+      "path": "prompt_encoder",
+      "python_class": "EdgeTamVideoPromptEncoder"
+    }
+  ]
+}
